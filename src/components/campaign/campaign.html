@@ -1,0 +1,66 @@
+<div class="campaign-section">
+    <h2>Campanhas</h2>
+
+    <div class="campaign-tabs">
+      <button x-on:click="camp.activeTab = 'my'" :class="{ active: camp.activeTab === 'my' }">Minhas Campanhas</button>
+      <button x-on:click="camp.activeTab = 'join'" :class="{ active: camp.activeTab === 'join' }">Entrar em uma Campanha</button>
+    </div>
+
+    <div x-show="camp.activeTab === 'join'">
+      <form class="join-form" x-on:submit.prevent="camp.join()">
+        <div class="form-group">
+          <label>Código da Campanha</label>
+          <input type="text" x-model="camp.joinCode" placeholder="Cole aqui o código da campanha" />
+        </div>
+        <button type="submit" class="btn-primary">Entrar</button>
+      </form>
+    </div>
+
+    <div x-show="camp.activeTab === 'my'">
+      <button x-on:click="camp.showCreate = true" class="btn-primary">Criar Campanha</button>
+
+      <div x-show="camp.showCreate" class="campaign-form">
+        <h3>Nova Campanha</h3>
+        <div class="form-group">
+          <label>Nome da Campanha</label>
+          <input type="text" x-model="camp.newName" placeholder="Ex: A Lenda do Golem" />
+        </div>
+        <div class="form-actions">
+          <button x-on:click="camp.create()" class="btn-primary" :disabled="camp.creating">
+            <span x-text="camp.creating ? 'Criando...' : 'Criar'"></span>
+          </button>
+          <button x-on:click="camp.showCreate = false" class="btn-secondary">Cancelar</button>
+        </div>
+      </div>
+
+      <div class="campaigns-list">
+        <template x-for="c in camp.myCampaigns" :key="c.id">
+          <div class="campaign-card">
+            <button class="campaign-code" x-on:click="camp.copyCode(c)" :title="'Copiar código ' + (c.chaveLink || '')">
+              <code x-text="c.chaveLink"></code>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            </button>
+            <h3 x-text="c.nomeCampanha"></h3>
+            <div class="campaign-actions">
+              <button x-on:click="camp.viewDetail(c)" class="btn-sm">
+                <span x-text="camp.detailId === c.id ? 'Fechar' : 'Gerenciar'"></span>
+              </button>
+              <button x-on:click="camp.remove(c)" class="btn-sm btn-danger" :disabled="camp.deletingId === c.id">
+                <span x-text="camp.deletingId === c.id ? 'Deletando...' : 'Deletar'"></span>
+              </button>
+            </div>
+
+            <div x-show="camp.detailId === c.id" class="campaign-detail">
+              <h4>Membros</h4>
+              <div class="members-list">
+                <div x-show="!camp.members.length" class="empty">Nenhum jogador ainda.</div>
+              </div>
+            </div>
+          </div>
+        </template>
+        <div x-show="!camp.myCampaigns.length && !camp.showCreate" class="empty-state">
+          Nenhuma campanha criada.
+        </div>
+      </div>
+    </div>
+  </div>

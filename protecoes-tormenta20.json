@@ -1,0 +1,110 @@
+[
+  {
+    "nome": "Armadura acolchoada",
+    "preco": 5,
+    "bonusDefesa": 1,
+    "penalidadeArmadura": 0,
+    "peso": 5.0,
+    "tipo": "Leve",
+    "descricao": "Uma túnica almofadada feita em linho ou lã. É a armadura mais leve, mas também a que oferece menos proteção. Muito utilizada por soldados que não esperam enfrentar combate corpo a corpo, como arqueiros e besteiros."
+  },
+  {
+    "nome": "Armadura de couro",
+    "preco": 20,
+    "bonusDefesa": 2,
+    "penalidadeArmadura": 0,
+    "peso": 7.0,
+    "tipo": "Leve",
+    "descricao": "O peitoral desta armadura é feito de couro curtido em óleo fervente, para ficar mais rígido, enquanto as demais partes são feitas de couro flexível."
+  },
+  {
+    "nome": "Couro batido",
+    "preco": 35,
+    "bonusDefesa": 3,
+    "penalidadeArmadura": -1,
+    "peso": 10.0,
+    "tipo": "Leve",
+    "descricao": "Versão mais pesada da armadura de couro, reforçada com rebites de metal."
+  },
+  {
+    "nome": "Gibão de peles",
+    "preco": 25,
+    "bonusDefesa": 4,
+    "penalidadeArmadura": -3,
+    "peso": 12.0,
+    "tipo": "Leve",
+    "descricao": "Usada principalmente por bárbaros e selvagens, esta armadura é formada por várias camadas de peles e couro de animais."
+  },
+  {
+    "nome": "Couraça",
+    "preco": 500,
+    "bonusDefesa": 5,
+    "penalidadeArmadura": -4,
+    "peso": 15.0,
+    "tipo": "Leve",
+    "descricao": "A mais robusta das armaduras leves, formada por uma placa metálica que protege o peito e as costas, presa sob um casaco de couro."
+  },
+  {
+    "nome": "Brunea",
+    "preco": 50,
+    "bonusDefesa": 5,
+    "penalidadeArmadura": -2,
+    "peso": 15.0,
+    "tipo": "Pesada",
+    "descricao": "Colete de couro coberto com plaquetas de metal sobrepostas, como escamas de um peixe. Por ser barata de produzir, é uma armadura comum entre soldados de infantaria e guardas de castelo."
+  },
+  {
+    "nome": "Cota de malha",
+    "preco": 150,
+    "bonusDefesa": 6,
+    "penalidadeArmadura": -2,
+    "peso": 20.0,
+    "tipo": "Pesada",
+    "descricao": "Longa veste de anéis metálicos interligados, formando uma malha flexível e resistente, que vai até os joelhos."
+  },
+  {
+    "nome": "Loriga segmentada",
+    "preco": 250,
+    "bonusDefesa": 7,
+    "penalidadeArmadura": -3,
+    "peso": 17.0,
+    "tipo": "Pesada",
+    "descricao": "Composta por tiras horizontais de metal, esta armadura é pesada e resistente. Peça muito utilizada por legionários do Império de Tauron."
+  },
+  {
+    "nome": "Meia armadura",
+    "preco": 600,
+    "bonusDefesa": 8,
+    "penalidadeArmadura": -4,
+    "peso": 22.0,
+    "tipo": "Pesada",
+    "descricao": "Uma cota de malha reforçada com placas de metal."
+  },
+  {
+    "nome": "Armadura completa",
+    "preco": 3000,
+    "bonusDefesa": 10,
+    "penalidadeArmadura": -5,
+    "peso": 25.0,
+    "tipo": "Pesada",
+    "descricao": "A mais forte e pesada, formada por placas de metal forjadas e encaixadas de modo a cobrir o corpo inteiro. Inclui manoplas e grevas (luvas e botas metálicas, respectivamente), um elmo com viseira e uma túnica acolchoada para ser usada sob as placas. Correias e fivelas distribuem o peso da armadura pelo corpo inteiro. Esta armadura precisa ser feita sob medida para cada usuário; um ferreiro cobra T$ 200 para adaptar uma armadura completa a um novo usuário."
+  },
+  {
+    "nome": "Escudo leve",
+    "preco": 5,
+    "bonusDefesa": 1,
+    "penalidadeArmadura": -1,
+    "peso": 3.0,
+    "tipo": "Escudo",
+    "descricao": "Tipicamente feito de madeira, este escudo é amarrado no antebraço, deixando a mão livre. O usuário pode carregar um objeto na mão do escudo, mas não manusear uma arma."
+  },
+  {
+    "nome": "Escudo pesado",
+    "preco": 15,
+    "bonusDefesa": 2,
+    "penalidadeArmadura": -2,
+    "peso": 7.0,
+    "tipo": "Escudo",
+    "descricao": "Normalmente feito de aço, este escudo é preso ao antebraço e também deve ser empunhado com firmeza, impedindo o usuário de usar aquela mão."
+  }
+]

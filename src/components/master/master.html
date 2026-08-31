@@ -1,0 +1,80 @@
+<div class="master-section">
+    <h2>Painel do Mestre</h2>
+    <div x-show="!master.myCampaigns.length">
+      <p class="empty-state">Você não é mestre de nenhuma campanha ainda.</p>
+    </div>
+
+    <div x-show="master.myCampaigns.length">
+      <div class="form-group">
+        <label>Selecione a Campanha</label>
+        <select x-model="master.selectedCampaignId" x-on:change="master.loadCharacters()">
+          <option value="">-- Selecione --</option>
+          <template x-for="c in master.myCampaigns" :key="c.id">
+            <option :value="c.id" x-text="c.nome"></option>
+          </template>
+        </select>
+      </div>
+
+      <div x-show="master.selectedCampaignId" class="master-panel">
+        <h3>Personagens da Campanha</h3>
+        <div class="master-characters">
+          <template x-for="ch in master.campaignChars" :key="ch.id">
+            <div class="master-char-card">
+              <h4 x-text="ch.nome"></h4>
+              <p x-text="ch.raca + ' - ' + ch.classe + ' (Nv ' + ch.nivel + ')'"></p>
+              <div class="master-char-stats">
+                <span>PV: <strong x-text="ch.pv_max"></strong></span>
+                <span>PM: <strong x-text="ch.pm_max"></strong></span>
+                <span>Def: <strong x-text="ch.defesa"></strong></span>
+              </div>
+              <button x-on:click="master.viewChar = master.viewChar === ch.id ? null : ch.id" class="btn-sm">
+                <span x-text="master.viewChar === ch.id ? 'Fechar' : 'Detalhes'"></span>
+              </button>
+              <div x-show="master.viewChar === ch.id" class="master-char-detail">
+                <div><strong>Atributos:</strong>
+                  <template x-for="(v, k) in ch.atributos" :key="k">
+                    <span class="attr-badge" x-text="k + ' ' + v"></span>
+                  </template>
+                </div>
+                <div x-show="ch.ataques?.length"><strong>Ataques:</strong>
+                  <template x-for="at in ch.ataques" :key="at.arma">
+                    <div x-text="at.arma + ': ' + at.bonus + ' / ' + at.dano"></div>
+                  </template>
+                </div>
+                <div x-show="ch.inventario?.length"><strong>Inventário:</strong>
+                  <template x-for="item in ch.inventario" :key="item.nome">
+                    <div x-text="item.nome + ' (x' + item.quantidade + ')'"></div>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <h3>Tracker de Iniciativa</h3>
+        <div class="initiative-tracker">
+          <div class="init-form">
+            <input type="text" x-model="master.initName" placeholder="Nome" />
+            <input type="number" x-model="master.initValue" placeholder="Iniciativa" />
+            <button x-on:click="master.addInitiative()" class="btn-sm">Adicionar</button>
+          </div>
+          <div class="init-list">
+            <template x-for="(entry, i) in master.initiativeOrder" :key="i">
+              <div class="init-item" :class="{ active: i === master.currentTurn }">
+                <span class="init-pos" x-text="i + 1"></span>
+                <span class="init-name" x-text="entry.nome"></span>
+                <span class="init-val" x-text="entry.valor"></span>
+                <input type="number" x-model="entry.valor" x-on:input="master.reorderInitiative()" class="init-edit" />
+                <button x-on:click="master.initiativeOrder.splice(i, 1)" class="btn-remove">X</button>
+              </div>
+            </template>
+          </div>
+          <div class="init-controls">
+            <button x-on:click="master.currentTurn = Math.max(0, master.currentTurn - 1)" class="btn-sm">Anterior</button>
+            <button x-on:click="master.currentTurn = Math.min(master.initiativeOrder.length - 1, master.currentTurn + 1)" class="btn-sm">Próximo</button>
+            <button x-on:click="master.clearInitiative()" class="btn-sm btn-danger">Limpar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

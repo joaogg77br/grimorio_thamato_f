@@ -1,0 +1,908 @@
+[
+  {
+    "nome": "Acuidade com Arma",
+    "descricao": "Quando usa uma arma leve de corpo a corpo ou uma arma de arremesso, você pode usar seu modificador de Destreza em vez de Força nos testes de ataque e rolagens de dano.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Ataque Poderoso",
+    "descricao": "Declare que está usando este poder antes de fazer um ataque corpo a corpo. Você sofre –2 no teste de ataque, mas recebe +5 na rolagem de dano.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Ataque Preciso",
+    "descricao": "Se estiver usando uma arma corpo a corpo em uma das mãos e nada na outra, você recebe +2 na margem de ameaça e +1 no multiplicador de crítico.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Bloqueio com Escudo",
+    "descricao": "Quando é atingido por um ataque, habilidade ou magia, você pode gastar 1 PM para receber resistência a dano contra este ataque igual ao bônus na Defesa que seu escudo fornece. Você só pode usar este poder se estiver usando um escudo.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Combate Defensivo",
+    "descricao": "Quando usa a ação atacar, você pode sofrer –2 no teste de ataque para receber +2 na Defesa até o início do seu próximo turno.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Derrubar Aprimorado",
+    "descricao": "Você recebe +2 em testes de ataque para derrubar. Quando derruba uma criatura com sucesso, pode fazer um ataque corpo a corpo extra contra ela como ação livre.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Desarmar Aprimorado",
+    "descricao": "Você recebe +2 em testes de ataque para desarmar. Quando desarma uma criatura com sucesso, pode fazer com que a arma dela caia em seu espaço ou na mão livre dela, ou derrubá-la.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Empunhadura Poderosa",
+    "descricao": "Você pode usar armas feitas para uma categoria de tamanho maior que a sua sofrendo apenas -2 de penalidade em testes de ataque.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Esquiva",
+    "descricao": "Você recebe +2 na Defesa e Reflexos.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Estilo Desarmado",
+    "descricao": "Seus ataques desarmados causam 1d6 pontos de dano e podem causar dano letal ou não letal (a sua escolha).",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Estilo de Arma e Escudo",
+    "descricao": "Se estiver usando um escudo, o bônus na Defesa dele aumenta em +2.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Estilo de Uma Arma",
+    "descricao": "Se estiver usando uma arma corpo a corpo em uma das mãos e nada na outra, você recebe +2 na Defesa.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Estilo de Duas Armas",
+    "descricao": "Se estiver empunhando duas armas, quando usa a ação atacar pode fazer um ataque extra com a arma secundária, sofrendo -2 no teste de ataque de ambos.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Estilo de Duas Mãos",
+    "descricao": "Se estiver usando uma arma de duas mãos, recebe +2 nas rolagens de dano.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Estilo de Arremesso",
+    "descricao": "Você recebe +2 em testes de ataque e rolagens de dano com armas de arremesso, e pode sacá-las como ação livre.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Vitalidade",
+    "descricao": "Você recebe +1 PV por nível de personagem e +2 em Fortitude.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Trespassar",
+    "descricao": "Quando reduz um inimigo a 0 PV com um ataque corpo a corpo, pode fazer um ataque extra contra outro inimigo adjacente.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Quebrar Aprimorado",
+    "descricao": "Você recebe +2 em testes de ataque para quebrar.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Arma Secundária Grande",
+    "descricao": "Você pode usar como arma secundária uma arma de uma mão (em vez de uma arma leve).",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Ataque Pesado",
+    "descricao": "Quando faz um ataque com uma arma de duas mãos, pode gastar 1 PM para empurrar o alvo ou derrubá-lo como parte do ataque.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Arremesso Potente",
+    "descricao": "Você soma seu modificador de Força em vez de Destreza nas rolagens de dano com armas de arremesso.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Acrobático",
+    "descricao": "Você pode usar seu modificador de Destreza em vez de Força em testes de Atletismo. Além disso, terreno difícil não reduz seu deslocamento nem o impede de realizar investidas.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Ao Sabor do Destino",
+    "descricao": "Você recebe diversos benefícios, de acordo com seu nível de personagem. Perde o bônus temporariamente se utilizar voluntariamente qualquer item mágico (exceto poções) até o fim da aventura.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Aparência Inofensiva",
+    "descricao": "A primeira criatura inteligente (Int 3 ou mais) que atacar você em uma cena deve fazer um teste de Vontade (CD Car). Se falhar, perderá sua ação. Funciona apenas uma vez por cena.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Atlético",
+    "descricao": "Você recebe +2 em Atletismo e seu deslocamento aumenta em +3m.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Atraente",
+    "descricao": "Você recebe +2 em testes de perícias baseadas em Carisma contra criaturas que possam se sentir fisicamente atraídas por você.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Comandar",
+    "descricao": "Você pode gastar uma ação de movimento e 1 PM para gritar ordens para seus aliados em alcance médio. Eles recebem +1 em testes de perícia até o fim da cena.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Curandeiro",
+    "descricao": "Você pode gastar uma ação completa para fazer um teste de Cura (CD 15) em uma criatura. Se passar, ela recupera 1d6 PV, mais 1d6 para cada 5 pontos pelos quais o resultado do teste exceder a CD. Uma vez por dia por criatura.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Foco em Perícia",
+    "descricao": "Escolha uma perícia. Você recebe +2 em testes dessa perícia. Pode escolher este poder mais de uma vez para perícias diferentes.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Investigador",
+    "descricao": "Você recebe +2 em Investigação e pode realizar testes de obter informação na metade do tempo.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Lobo Solitário",
+    "descricao": "Você recebe +1 em testes de perícia e Defesa se não houver aliados em alcance curto.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Parceiro",
+    "descricao": "Você recebe os benefícios de um parceiro animal ou humanoide iniciante de um tipo à sua escolha.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Sentidos Aguçados",
+    "descricao": "Você recebe +2 em Percepção, ignora camuflagem por escuridão ou penumbra e recebe faro (bônus de +2 em testes de Percepção para rastrear e notar criaturas).",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Sortudo",
+    "descricao": "Você pode gastar 1 PM para rolar novamente um teste recém-realizado.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Surto Heroico",
+    "descricao": "Uma vez por rodada, você pode gastar 5 PM para realizar uma ação padrão ou de movimento adicional no seu turno.",
+    "gastoPe": 5,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Torcida",
+    "descricao": "Você recebe +2 em testes de ataque e Defesa quando tem a torcida a seu favor (criaturas em alcance médio que estejam apenas torcendo por você).",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Treinamento em Perícia",
+    "descricao": "Você se torna treinado em duas perícias a sua escolha. Você pode escolher este poder outras vezes para perícias diferentes.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Venefício",
+    "descricao": "Quando usa um veneno, você não corre risco de se envenenar acidentalmente. Além disso, a CD para resistir aos seus venenos aumenta em +2.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Vontade de Ferro",
+    "descricao": "Você recebe +1 PM para cada dois níveis de personagem e +2 em Vontade.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Celebrar Ritual",
+    "descricao": "Você pode lançar magias na forma de rituais. Fazer isso dobra seu limite de PM, mas aumenta o tempo de execução para uma hora e adiciona custo de T$ 10 por PM. Você paga apenas metade do custo da magia em PM.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Escrever Pergaminho",
+    "descricao": "Você pode fabricar pergaminhos de magias que conheça.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Foco em Magia",
+    "descricao": "Escolha uma magia. Seu custo diminui em –2 PM (mínimo 1 PM). Pode escolher este poder mais de uma vez para magias diferentes.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Magia Acelerada",
+    "descricao": "Muda a execução de uma magia com execução de movimento, padrão ou completa para ação livre. Limite de uma magia acelerada por rodada.",
+    "gastoPe": 4,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Magia Ampliada",
+    "descricao": "Aprimoramento que aumenta o alcance de uma magia em um passo ou dobra a área de efeito da magia.",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Magia Discreta",
+    "descricao": "Você lança a magia sem gesticular e falar, usando apenas concentração. Outros personagens só percebem a conjuração se passarem em Misticismo (CD 20).",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Magia Ilimitada",
+    "descricao": "Você soma seu modificador de atributo-chave no limite de PM que pode gastar numa magia.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Preparar Poção",
+    "descricao": "Você pode fabricar poções de magias de 1º e 2º círculos que conheça.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Anatomia Insana",
+    "descricao": "Você tem 25% de chance de ignorar o dano adicional de um acerto crítico ou ataque furtivo. A chance aumenta em +25% para cada dois outros poderes da Tormenta que possui.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Antenas",
+    "descricao": "Você recebe +1 em Iniciativa, Percepção e Vontade. O bônus aumenta em +1 para cada dois outros poderes da Tormenta que possui.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Armamento Aberrante",
+    "descricao": "Você pode gastar uma ação de movimento e 1 PM para produzir uma arma orgânica macabra de corpo a corpo ou arremesso. O dano aumenta em um passo para cada dois outros poderes da Tormenta.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Articulações Flexíveis",
+    "descricao": "Você recebe +2 em testes de Acrobacia, Reflexos e testes para escapar de agarrar. Aumenta em +1 para cada dois outros poderes da Tormenta.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Asas Insetoides",
+    "descricao": "Você recebe deslocamento de voo igual ao seu deslocamento terrestre.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Carapaça",
+    "descricao": "Você recebe +1 na Defesa. O bônus aumenta em +1 para cada dois outros poderes da Tormenta que possui.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Corpo Aberrante",
+    "descricao": "Seu dano desarmado aumenta em um passo, mais um passo para cada quatro outros poderes da Tormenta que possui.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Dentes Afiados",
+    "descricao": "Você recebe um ataque natural de mordida (dano 1d4, crítico x2, corte). Na ação atacar, pode gastar 1 PM para fazer um ataque extra com a mordida.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Empunhadura Rubra",
+    "descricao": "Pague 1 PM para cobrir as mãos com carapaça rubra até o fim da cena, recebendo +1 em Luta. O bônus aumenta em +1 para cada dois outros poderes da Tormenta.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Mãos Membranosas",
+    "descricao": "Você recebe +1 em Atletismo, Fortitude e testes de agarrar. O bônus aumenta em +1 para cada dois outros poderes da Tormenta.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Membros Extras",
+    "descricao": "Você possui um par de patas insetoides adicionais, recebendo bônus de +2 em testes de agarrar e escalar.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Olhos Vermelhos",
+    "descricao": "Você recebe visão no escuro e +1 em Intimidação. O bônus aumenta em +1 para cada dois outros poderes da Tormenta.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Pele Corrompida",
+    "descricao": "Você recebe resistência a fogo, frio e eletricidade 2. Aumenta em +1 para cada outro poder da Tormenta.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Sangue Ácido",
+    "descricao": "Sempre que sofrer dano por um ataque corpo a corpo de corte ou perfuração, o atacante sofre 1d4 de dano de ácido para cada poder da Tormenta.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Visco Rubro",
+    "descricao": "Você recebe +1 em testes de ataque corpo a corpo e testes de manobras de combate. O bônus aumenta em +1 para cada dois outros poderes da Tormenta.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Afinidade com a Tormenta",
+    "descricao": "Você recebe +2 em testes de resistência contra efeitos da Tormenta e lefeu, e não perde Carisma por adquirir poderes da Tormenta.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Anfíbio",
+    "descricao": "Você pode respirar embaixo d’água e adquire deslocamento de natação igual a seu deslocamento terrestre.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Armas da Ambição",
+    "descricao": "Você recebe +1 em testes de ataque com armas nas quais é proficiente.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Arsenal das Profundezas",
+    "descricao": "Você recebe +2 nas rolagens de dano com arpões e tridentes.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Astúcia da Serpente",
+    "descricao": "Você recebe +2 em Enganação e Intuição.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Ataque Piedoso",
+    "descricao": "Você pode usar armas de corpo a corpo para causar dano não letal sem sofrer a penalidade de –5 no teste de ataque.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Aura de Medo",
+    "descricao": "Você emana uma aura invisível de terror. Inimigos em alcance curto sofrem -2 em testes de Vontade contra medo.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Aura de Paz",
+    "descricao": "Você pode gastar 1 PM para que qualquer criatura que tente machucar você deva passar num teste de Vontade para conseguir agir.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Aura Restauradora",
+    "descricao": "Aliados repousando em alcance curto recuperam duas vezes mais pontos de vida com descanso. Você também recebe este benefício.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Bênção do Mana",
+    "descricao": "Você recebe +3 pontos de mana.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Carícia Sombria",
+    "descricao": "Você pode gastar 1 PM e uma ação padrão para cobrir sua mão com energia negativa e tocar uma criatura. Sofre 2d6 de dano de trevas e você recupera metade.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Centelha Mágica",
+    "descricao": "Escolha uma magia arcana ou divina de 1º círculo. Você aprende e pode lançar essa magia.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Conhecimento Enciclopédico",
+    "descricao": "Você se torna treinado em duas perícias baseadas em Inteligência a sua escolha.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Conjurar Arma",
+    "descricao": "Você pode gastar 1 PM para invocar uma arma corpo a corpo ou de arremesso proficiente. Recebe +1 no ataque/dano e dura pela cena.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Coragem Total",
+    "descricao": "Você é imune a efeitos de medo, mágicos ou não.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Cura Gentil",
+    "descricao": "Você adiciona seu bônus de Carisma aos PV restaurados por suas magias de cura.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Curandeira Perfeita",
+    "descricao": "Você sempre pode escolher 10 em testes de Cura, e pode usar a perícia mesmo sem kit de medicamentos.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Dedo Verde",
+    "descricao": "Você aprende e pode lançar a magia Controlar Plantas.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Descanso Natural",
+    "descricao": "Para você, dormir ao relento conta como uma estalagem confortável.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Dom da Imortalidade",
+    "descricao": "Você é imortal. Sempre que morre, volta à vida após 3d6 dias sem perder níveis. Restrito a Paladinos.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Dom da Profecia",
+    "descricao": "Você pode lançar a magia Augúrio. Também pode gastar 2 PM para receber +2 em um teste recém-realizado.",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Dom da Ressurreição",
+    "descricao": "Você pode gastar uma ação completa e todos os PM (mínimo 1 PM) para ressuscitar uma criatura morta há menos de um ano. Restrito a Clérigos.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Dom da Verdade",
+    "descricao": "Você pode pagar 1 PM para receber +5 em testes de Intuição até o fim da cena.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Escamas Dracônicas",
+    "descricao": "Você recebe +2 na Defesa.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Escudo Mágico",
+    "descricao": "Quando lança uma magia, recebe +2 na Defesa e testes de resistência até o início do próximo turno.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Espada Justiceira",
+    "descricao": "Você pode gastar 1 PM para que o dano de sua espada longa aumente em um passo até o fim da cena.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Espada Solar",
+    "descricao": "Você pode gastar 1 PM para imbuir sua cimitarra com luz solar, causando +1d6 de dano de fogo (ou +1d8 contra mortos-vivos) e iluminando como tocha.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Farsa do Fingidor",
+    "descricao": "Você aprende e pode lançar a magia Criar Ilusão.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Forma de Macaco",
+    "descricao": "Você pode gastar 2 PM para se transformar em um macaco pequeno até o fim da cena, recebendo bônus em Acrobacia e Furtividade.",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Fúria Divina",
+    "descricao": "Você pode gastar 2 PM para invocar uma fúria selvagem, recebendo bônus em testes de ataque e dano corpo a corpo.",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Golpista Divino",
+    "descricao": "Você recebe +2 em testes de Enganação, Ladinagem e testes de finta.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Habitante do Deserto",
+    "descricao": "Você recebe resistência a fogo 5 e pode pagar 1 PM para encher um odre com água pura.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Inimigo de Tenebra",
+    "descricao": "Seus ataques e habilidades causam +1d6 pontos de dano contra mortos-vivos.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Kiai Divino",
+    "descricao": "Quando faz um ataque corpo a corpo, você pode pagar 2 PM. Se acertar o ataque, causa dano máximo.",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Liberdade Divina",
+    "descricao": "Você pode gastar 2 PM e uma reação para lançar Libertação, mas apenas em si mesmo e com duração de uma rodada.",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Manto da Penumbra",
+    "descricao": "Você aprende e pode lançar a magia Escuridão.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Mente Analítica",
+    "descricao": "Você recebe +2 em Intuição e Vontade.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Mente Vazia",
+    "descricao": "Você recebe +2 em Iniciativa e Vontade.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Mestre dos Mares",
+    "descricao": "Você aprende e pode lançar Acalmar Animal, mas só contra criaturas aquáticas.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Olhar Amedrontador",
+    "descricao": "Você aprende e pode lançar a magia Amedrontar.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Palavras de Bondade",
+    "descricao": "Você aprende e pode lançar a magia Enfeitiçar.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Percepção Temporal",
+    "descricao": "Você pode gastar 3 PM para adicionar seu bônus de Sabedoria a seus ataques, Defesa e testes de Reflexos até o fim da cena.",
+    "gastoPe": 3,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Poder Oculto",
+    "descricao": "Você pode gastar uma ação de movimento e 2 PM para invocar força, rapidez ou vigor, rolando 1d6 para receber +4 em Força (1-2), Destreza (3-4) ou Constituição (5-6) até o fim da cena.",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Presas Venenosas",
+    "descricao": "Você pode gastar uma ação de movimento e 1 PM para envenenar uma arma corpo a corpo, causando +1d12 de dano de veneno.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Rejeição Divina",
+    "descricao": "Você recebe resistência a magia +5 contra magias divinas.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Sangue de Ferro",
+    "descricao": "Você pode gastar 1 PM para receber +2 em testes de ataque e dano corpo a corpo e resistência a dano 5 até o fim da cena.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Sangue Ofídico",
+    "descricao": "Você é imune a venenos e recebe +2 em testes de Fortitude.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Servos do Dragão",
+    "descricao": "Você pode gastar 2 PM para conjurar 1d4 kobolds esqueléticos que agem sob seu comando como aliados ajudantes.",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Sorte dos Loucos",
+    "descricao": "Você pode pagar 1 PM para rolar novamente um teste recém-realizado. Se falhar, perde 1d6 PM.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Talento Artístico",
+    "descricao": "Você recebe +2 em Atuação e Diplomacia.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Teurgista Místico",
+    "descricao": "Até uma magia de cada círculo que você aprender poderá ser escolhida da lista da outra categoria (arcanas se for divino, ou divinas se for arcano).",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Transmissão da Loucura",
+    "descricao": "Você aprende e pode lançar a magia Confusão.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Tropas Duyshidakk",
+    "descricao": "Você pode gastar 2 PM para conclamar goblins ou orcs aliados iniciantes de combate.",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Urro Divino",
+    "descricao": "Quando faz um ataque ou lança uma magia, pode pagar 1 PM para somar seu modificador de Constituição à rolagem de dano.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Visão nas Trevas",
+    "descricao": "Você enxerga perfeitamente no escuro, incluindo em magias de escuridão.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Voz da Civilização",
+    "descricao": "Você está sempre sob efeito da magia Compreensão.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Voz da Natureza",
+    "descricao": "Você pode falar com animais e aprende e pode lançar Acalmar Animal (apenas contra animais).",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Voz dos Monstros",
+    "descricao": "Você conhece os idiomas de todos os monstros inteligentes e se comunica com monstros não inteligentes como se estivesse sob Voz Divina.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Arremesso Múltiplo",
+    "descricao": "Uma vez por rodada, quando faz um ataque com uma arma de arremesso, você pode gastar 1 PM para fazer um ataque adicional contra o mesmo alvo, arremessando outra arma de arremesso.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Ataque com Escudo",
+    "descricao": "Uma vez por rodada, se estiver empunhando um escudo e fizer a ação agredir, você pode gastar 1 PM para fazer um ataque corpo a corpo extra com o escudo. Este ataque não faz você perder o bônus do escudo na Defesa.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Carga de Cavalaria",
+    "descricao": "Quando faz uma investida montada, você causa +2d8 pontos de dano. Além disso, pode continuar se movendo depois do ataque. Você deve se mover em linha reta e seu movimento máximo ainda é o dobro do seu deslocamento.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Combate Montado",
+    "descricao": "Enquanto estiver montado, você recebe +2 em testes de ataque e rolagens de dano com armas.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Disparo Preciso",
+    "descricao": "Você pode fazer ataques à distância contra oponentes envolvidos em combate corpo a corpo sem sofrer a penalidade padrão de –5 no teste de ataque.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Disparo Rápido",
+    "descricao": "Se estiver usando uma arma de ataque à distância e gastar uma ação completa para atacar, você pode fazer um ataque adicional com ela (se puder recarregá-la como ação livre). Se fizer isso, sofre –2 em todos os testes de ataque até o seu próximo turno.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Encouraçado",
+    "descricao": "Se estiver usando uma armadura pesada, você recebe +2 na Defesa. Esse bônus aumenta em +2 para cada outro poder que você possua que tenha Encouraçado como pré-requisito.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Estilo de Arma Longa",
+    "descricao": "Você recebe +2 em testes de ataque com armas alongadas e pode atacar alvos adjacentes com essas armas.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Estilo de Disparo",
+    "descricao": "Se estiver usando uma arma de disparo, você soma o bônus de Destreza nas rolagens de dano.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Fanático",
+    "descricao": "Seu deslocamento não é reduzido por usar armaduras pesadas.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Finta Aprimorada",
+    "descricao": "Você recebe +2 em testes de Enganação para fintar e pode fintar como uma ação de movimento.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Foco em Arma",
+    "descricao": "Escolha uma arma. Você recebe +2 em testes de ataque com essa arma. Você pode escolher este poder outras vezes para armas diferentes.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Ginete",
+    "descricao": "Você passa automaticamente em testes de Cavalgar para não cair da montaria quando sofre dano. Além disso, não sofre penalidades para atacar à distância ou lançar magias quando montado.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Inexpugnável",
+    "descricao": "Se estiver usando uma armadura pesada, você recebe +2 em todos os testes de resistência.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Mira Apurada",
+    "descricao": "Você pode gastar uma ação de movimento para mirar. Se fizer isso, recebe +2 em testes de ataque e na margem de ameaça com ataques à distância até o fim do turno.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Piqueiro",
+    "descricao": "Uma vez por rodada, se estiver empunhando uma arma alongada e um inimigo entrar voluntariamente em seu alcance corpo a corpo, você pode gastar 1 PM para fazer um ataque corpo a corpo contra este oponente com esta arma. Se o oponente tiver se aproximado fazendo uma investida, seu ataque causa dois dados de dano extra do mesmo tipo.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Presença Aterradora",
+    "descricao": "Você pode gastar uma ação padrão e 1 PM para assustar todas as criaturas a sua escolha em alcance curto. Veja a perícia Intimidação para as regras de assustar.",
+    "gastoPe": 1,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Proficiência",
+    "descricao": "Escolha uma proficiência: armas marciais, armas de fogo, armaduras pesadas ou escudos (se for proficiente em armas marciais, você também pode escolher armas exóticas). Você recebe essa proficiência. Você pode escolher este poder outras vezes para proficiências diferentes.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Reflexos de Combate",
+    "descricao": "Você ganha uma ação de movimento extra no seu primeiro turno de cada combate.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Resistência Montada",
+    "descricao": "Enquanto estiver montado, sempre que precisar fazer um teste de resistência, você pode gastar 2 PM para usar Cavalgar no lugar da perícia exigida. Se o teste for contra um efeito que permite um teste para reduzir o dano à metade, você não sofre dano algum se passar. Você ainda sofre dano normal se falhar no teste.",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Saque Rápido",
+    "descricao": "Você recebe +2 em Iniciativa e pode sacar ou guardar itens como uma ação livre (em vez de ação de movimento). Além disso, a ação que você gasta para recarregar uma arma de disparo diminui em uma categoria (ação completa para padrão, padrão para movimento, movimento para livre).",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Costas Largas",
+    "descricao": "Seu limite de carga aumenta em 5 espaços e você pode se beneficiar de um item vestido adicional.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Inventário Organizado",
+    "descricao": "Você soma sua Inteligência no limite de espaços que pode carregar. Para você, itens muito leves ou pequenos, que normalmente ocupam meio espaço, em vez disso ocupam 1/4 de espaço.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Medicina",
+    "descricao": "Você pode gastar uma ação completa para fazer um teste de Cura (CD 15) em uma criatura. Se passar, ela recupera 1d6 PV, mais 1d6 para cada 5 pontos pelos quais o resultado do teste exceder a CD. Você só pode usar este poder uma vez por dia numa mesma criatura.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Cuspir Enxame",
+    "descricao": "Você pode gastar uma ação completa e 2 PM para criar um enxame de insetos rubros em um ponto a sua escolha em alcance curto e com duração sustentada. O enxame tem tamanho Médio e pode passar pelo espaço de outras criaturas. Uma vez por rodada, você pode gastar uma ação de movimento para mover o enxame 9m. No final do seu turno, o enxame causa 2d6 pontos de dano de ácido a qualquer criatura no espaço que ele estiver ocupando. Para cada dois outros poderes da Tormenta que possui, você pode gastar +1 PM quando usa este poder para aumentar o dano do enxame em +1d6.",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Larva Explosiva",
+    "descricao": "Se uma criatura que tenha sofrido dano de sua mordida nesta cena for reduzida a 0 ou menos PV, ela explode em chuva cáustica, morrendo e causando 4d4 pontos de dano de ácido em criaturas adjacentes. Para cada dois outros poderes da Tormenta que você possui, o dano aumenta em +2d4. Você é imune a esse dano.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Legião Aberrante",
+    "descricao": "Seu corpo se transforma em uma massa de insetos rubros. Você pode atravessar qualquer espaço por onde seja possível passar uma moeda (mas considera esses espaços como terreno difícil) e recebe +1 em testes contra manobras de combate e de resistência contra efeitos que tenham você como alvo (mas não efeitos de área). Este bônus aumenta em +1 para cada dois outros poderes da Tormenta que você possui.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Desprezar a Realidade",
+    "descricao": "Você pode gastar 2 PM para ficar no limiar da realidade até o início de seu próximo turno. Nesse estado, você ignora terreno difícil e causa 20% de chance de falha em efeitos usados contra você (não apenas ataques). Para cada dois outros poderes de Tormenta que você possuir, essa chance aumenta em 5% (máximo de 50%).",
+    "gastoPe": 2,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Fome de Mana",
+    "descricao": "Quando passa em um teste de resistência para resistir a uma habilidade mágica, você recebe 1 PM temporário cumulativo. Você pode ganhar um máximo de PM temporários por cena desta forma igual ao número de poderes da Tormenta que possui.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Membros Estendidos",
+    "descricao": "Seus braços e armas naturais são grotescamente mais longos que o normal, o que aumenta seu alcance natural para ataques corpo a corpo em +1,5m. Para cada quatro outros poderes da Tormenta que você possui, esse alcance aumenta em +1,5m.",
+    "gastoPe": null,
+    "classe": "Geral"
+  },
+  {
+    "nome": "Mente Aberrante",
+    "descricao": "Você recebe resistência a efeitos mentais +1. Além disso, sempre que precisa fazer um teste de Vontade para resistir a uma habilidade, a criatura que usou essa habilidade sofre 1d6 pontos de dano psíquico. Para cada dois outros poderes da Tormenta que você possui o bônus em testes de resistência aumenta em +1 e o dano aumenta em +1d6.",
+    "gastoPe": null,
+    "classe": "Geral"
+  }
+]

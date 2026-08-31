@@ -1,0 +1,46 @@
+<div class="dice-section">
+  <h2>Rolador de Dados</h2>
+
+  <div class="dice-quick">
+    <template x-for="d in dice.DICE_TYPES" :key="d">
+      <button
+        x-on:click="dice.roll(d)"
+        class="dice-btn"
+        x-text="'D' + d"
+      ></button>
+    </template>
+    <button x-on:click="dice.roll('100')" class="dice-btn d100">D100</button>
+  </div>
+
+  <div class="dice-custom">
+    <input
+      type="text"
+      x-model="dice.customFormula"
+      placeholder="Ex: 2D6+3, D20+5"
+    />
+    <button x-on:click="dice.rollCustom()" class="btn-primary">Rolar</button>
+  </div>
+
+  <div
+    x-show="dice.showResult"
+    class="dice-result"
+    :class="{ rolling: dice.isRolling }"
+  >
+    <div class="result-label" x-text="dice.lastLabel || 'Rolagem'"></div>
+    <div class="result-value" x-text="dice.lastResult"></div>
+    <div class="result-detail" x-text="dice.lastDetail"></div>
+  </div>
+
+  <div class="dice-history" x-show="dice.history.length">
+    <h3>Histórico</h3>
+    <div class="history-list">
+      <template x-for="(h, i) in dice.history" :key="i">
+        <div class="history-item">
+          <span class="h-label" x-text="h.label"></span>
+          <span class="h-result" x-text="h.result"></span>
+          <span class="h-detail" x-text="h.detail"></span>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>

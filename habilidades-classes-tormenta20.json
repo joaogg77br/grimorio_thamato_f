@@ -1,0 +1,818 @@
+[
+  {
+    "nome": "Caminho do Arcanista",
+    "descricao": "A magia é um poder incrível, capaz de alterar a realidade. Esse poder tem fontes distintas e cada uma opera conforme suas próprias regras. Escolha entre Bruxo, Feiticeiro ou Mago.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Magias (Arcanista)",
+    "descricao": "Você pode lançar magias arcanas de 1º círculo. A cada quatro níveis, pode lançar magias de um círculo maior.",
+    "gastoPe": 1,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Alta Arcana",
+    "descricao": "Seu domínio das artes arcanas é total. O custo em PM de suas magias arcanas, incluindo aprimoramentos, é reduzido à metade.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Arcano de Batalha",
+    "descricao": "Você soma o bônus de seu atributo-chave nas rolagens de dano para magias.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Caldeirão do Bruxo",
+    "descricao": "Você pode criar poções, como se tivesse o poder Preparar Poções. Se tiver ambos, você pode criar poções de 3º círculo.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Conhecimento Mágico",
+    "descricao": "Você aprende duas magias de qualquer círculo que possa lançar.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Contramágica Aprimorada",
+    "descricao": "Quando faz uma contramágica, você precisa gastar apenas os PM necessários para lançar uma magia do círculo da magia que quer anular.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Envolto em Mistério",
+    "descricao": "Sua aparência e postura assombrosas o permitem manipular e assustar pessoas ignorantes ou supersticiosas. Recebe +5 em Enganação e Intimidação contra pessoas não treinadas em Conhecimento ou Misticismo.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Escriba Arcano",
+    "descricao": "Você pode aprender magias copiando os textos de pergaminhos e grimórios de outros magos.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Fluxo de Mana",
+    "descricao": "Você pode manter dois efeitos sustentados ativos simultaneamente com apenas uma ação livre, pagando o custo de cada efeito separadamente.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Foco Vital",
+    "descricao": "Se você estiver segurando seu foco e ele tiver pelo menos 1 PV, qualquer dano que você sofrer que fosse levá-lo a 0 ou menos PV é transferido para o foco.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Magia Pungente",
+    "descricao": "Quando lança uma magia, você pode pagar 1 PM para aumentar em +2 a CD para resistir a ela.",
+    "gastoPe": 1,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Mestre em Escola",
+    "descricao": "Escolha uma escola de magia com a qual possua Especialista em Escola. O custo para lançar magias dessa escola diminui em -2 PM.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Poder Mágico",
+    "descricao": "Você recebe +1 ponto de mana por nível de arcanista. Pode ser escolhido uma segunda vez.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Raio Arcano",
+    "descricao": "Gaste uma ação padrão para disparar um raio num alvo em alcance curto que causa 1d6 de dano de essência (Reflexos CD atributo-chave reduz à metade). Pode gastar PM adicionais para aumentar o dano em +1d6 por PM.",
+    "gastoPe": 0,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Raio Elemental",
+    "descricao": "Quando usa Raio Arcano, você pode pagar 1 PM para que ele cause dano de ácido, eletricidade, fogo, frio, trevas ou trovão, aplicando um efeito adicional se o alvo falhar.",
+    "gastoPe": 1,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Teórico Arcano",
+    "descricao": "O custo total de cada aprimoramento diferente de magias arcanas diminui em 1 PM.",
+    "gastoPe": null,
+    "classe": "Arcanista"
+  },
+  {
+    "nome": "Fúria",
+    "descricao": "Você pode gastar 2 PM para invocar uma fúria selvagem, recebendo +2 em testes de ataque e rolagens de dano corpo a corpo, mas não pode fazer ações que exijam calma ou concentração.",
+    "gastoPe": 2,
+    "classe": "Bárbaro"
+  },
+  {
+    "nome": "Alma de Bronze",
+    "descricao": "Quando entra em fúria, você recebe uma quantidade de pontos de vida temporários igual a metade do seu nível + mod. Força.",
+    "gastoPe": null,
+    "classe": "Bárbaro"
+  },
+  {
+    "nome": "Brado Assustador",
+    "descricao": "Você pode gastar uma ação de movimento e 1 PM para soltar um berro feroz. Todos os inimigos em alcance curto devem fazer um teste de Vontade (CD Car) ou ficam abalados até o fim da cena.",
+    "gastoPe": 1,
+    "classe": "Bárbaro"
+  },
+  {
+    "nome": "Crítico Brutal",
+    "descricao": "Seu multiplicador de crítico com ataques corpo a corpo aumenta em +1.",
+    "gastoPe": null,
+    "classe": "Bárbaro"
+  },
+  {
+    "nome": "Espírito Inquebrável",
+    "descricao": "Ativo em fúria: você não fica inconsciente por estar com 0 ou menos pontos de vida (ainda morre se chegar a um valor negativo igual a metade de seus PV máximos).",
+    "gastoPe": null,
+    "classe": "Bárbaro"
+  },
+  {
+    "nome": "Esquiva Sobrenatural",
+    "descricao": "Seus instintos ficam tão apurados que você consegue reagir ao perigo antes que seus sentidos percebam. Você nunca fica surpreendido.",
+    "gastoPe": null,
+    "classe": "Bárbaro"
+  },
+  {
+    "nome": "Força Indomável",
+    "descricao": "Você pode gastar 1 PM para somar seu nível em um teste de Força ou Atletismo, mesmo após rolar o dado.",
+    "gastoPe": 1,
+    "classe": "Bárbaro"
+  },
+  {
+    "nome": "Frenesi",
+    "descricao": "Se estiver em fúria e usar a ação ataque para fazer um ataque corpo a corpo, pode gastar 2 PM para fazer um ataque adicional.",
+    "gastoPe": 2,
+    "classe": "Bárbaro"
+  },
+  {
+    "nome": "Fúria Raivosa",
+    "descricao": "Se sua fúria for terminar por falta de combate, pague 1 PM para mantê-la ativa nesta rodada.",
+    "gastoPe": 1,
+    "classe": "Bárbaro"
+  },
+  {
+    "nome": "Golpe Poderoso",
+    "descricao": "Ao acertar um ataque corpo a corpo, pague 1 PM para aumentar o dano do ataque em mais um dado do mesmo tipo.",
+    "gastoPe": 1,
+    "classe": "Bárbaro"
+  },
+  {
+    "nome": "Ímpeto",
+    "descricao": "Você pode gastar 1 PM para aumentar seu deslocamento em +6m por uma rodada.",
+    "gastoPe": 1,
+    "classe": "Bárbaro"
+  },
+  {
+    "nome": "Vigor Primal",
+    "descricao": "Gaste uma ação de movimento e 1 PM para recuperar 1d12 pontos de vida. Pode gastar +2 PM para cada d12 adicional.",
+    "gastoPe": 1,
+    "classe": "Bárbaro"
+  },
+  {
+    "nome": "Inspiração",
+    "descricao": "Você pode gastar uma ação padrão e 2 PM para inspirar pessoas com sua arte. Você e todos os aliados em alcance curto recebem +1 em testes de perícia até o fim da cena.",
+    "gastoPe": 2,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Magias (Bardo)",
+    "descricao": "Você começa com duas magias de 1º círculo de três escolas de magia selecionadas. Aprende novas magias em níveis subsequentes.",
+    "gastoPe": 1,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Versatilidade",
+    "descricao": "A partir do 2º nível, você pode gastar 1 PM para receber todos os benefícios de ser treinado em uma perícia à sua escolha por um teste.",
+    "gastoPe": 1,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Artista Completo",
+    "descricao": "No 20º nível, você pode usar Inspiração como uma ação livre e as habilidades de bardo e magias têm seu custo em PM reduzido pela metade sob efeito de sua Inspiração.",
+    "gastoPe": null,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Canção Assustadora",
+    "descricao": "Gaste uma ação padrão e 1 PM para forçar todas as criaturas de sua escolha em alcance curto a realizar um teste de Vontade (CD Car) ou ficam abaladas.",
+    "gastoPe": 1,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Dança das Lâminas",
+    "descricao": "Quando lança uma magia de ação padrão, você pode pagar 1 PM para fazer um ataque corpo a corpo como ação livre.",
+    "gastoPe": 1,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Fascinar",
+    "descricao": "Gaste uma ação padrão e 1 PM para fascinar uma criatura em alcance curto (teste de Atuação oposto por Vontade do alvo).",
+    "gastoPe": 1,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Golpe Elemental",
+    "descricao": "Sob efeito de Inspiração, gaste 1 PM ao acertar um ataque corpo a corpo para causar +1d6 de dano de ácido, eletricidade, fogo ou frio.",
+    "gastoPe": 1,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Golpe Mágico",
+    "descricao": "Sob efeito de Inspiração, sempre que você acertar um ataque corpo a corpo, recebe 2 PM temporários (máximo por cena igual ao seu nível).",
+    "gastoPe": null,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Lendas e Histórias",
+    "descricao": "Você pode gastar 1 PM para rolar novamente um teste recém realizado de Conhecimento, Misticismo, Nobreza ou Religião.",
+    "gastoPe": 1,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Melodia Curativa",
+    "descricao": "Gaste uma ação padrão e 1 PM para fazer você e seus aliados em alcance curto recuperarem 1d6 PV. Pode gastar +2 PM para curar +1d6 PV.",
+    "gastoPe": 1,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Melodia Restauradora",
+    "descricao": "Ao usar Melodia Curativa, gaste +2 PM extras para remover uma condição prejudicial de todos os aliados curados.",
+    "gastoPe": 2,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Paródia",
+    "descricao": "Uma vez por rodada, quando vê alguém conjurando uma magia em alcance médio, pague 1 PM e faça um teste de Atuação (CD 15 + PM da magia) para copiá-la até o fim do seu próximo turno.",
+    "gastoPe": 1,
+    "classe": "Bardo"
+  },
+  {
+    "nome": "Audácia",
+    "descricao": "Ao fazer um teste de perícia (exceto ataque), você pode gastar 2 PM para receber um bônus igual ao seu modificador de Carisma.",
+    "gastoPe": 2,
+    "classe": "Bucaneiro"
+  },
+  {
+    "nome": "Insolência",
+    "descricao": "Soma seu bônus de Carisma na Defesa, limitado pelo seu nível. Exige liberdade de movimentos (sem armadura pesada).",
+    "gastoPe": null,
+    "classe": "Bucaneiro"
+  },
+  {
+    "nome": "Evasão",
+    "descricao": "Se passar em teste de Reflexos para reduzir dano à metade, não sofre dano algum. Exige liberdade de movimentos.",
+    "gastoPe": null,
+    "classe": "Bucaneiro"
+  },
+  {
+    "nome": "Aventureiro Ávido",
+    "descricao": "Uma vez por turno, você pode gastar 5 PM para realizar uma ação padrão ou de movimento adicional.",
+    "gastoPe": 5,
+    "classe": "Bucaneiro"
+  },
+  {
+    "nome": "Marca da Presa",
+    "descricao": "Gaste uma ação de movimento e 1 PM para analisar uma criatura em alcance curto, recebendo +1d4 de dano contra ela até o fim da cena.",
+    "gastoPe": 1,
+    "classe": "Caçador"
+  },
+  {
+    "nome": "Rastreador",
+    "descricao": "Você recebe +2 em Sobrevivência e se move com seu deslocamento normal enquanto rastreia sem sofrer penalidades.",
+    "gastoPe": null,
+    "classe": "Caçador"
+  },
+  {
+    "nome": "Bote (Caçador)",
+    "descricao": "Se estiver empunhando duas armas e fizer uma investida, você pode gastar 1 PM para fazer um ataque adicional com a arma secundária.",
+    "gastoPe": 1,
+    "classe": "Caçador"
+  },
+  {
+    "nome": "Camuflagem (Caçador)",
+    "descricao": "Você pode gastar 2 PM para usar a perícia Furtividade para se esconder mesmo sem cobertura disponível.",
+    "gastoPe": 2,
+    "classe": "Caçador"
+  },
+  {
+    "nome": "Chuva de Lâminas",
+    "descricao": "Quando usa Ambidestria, você pode gastar 2 PM para fazer um ataque adicional com sua arma primária.",
+    "gastoPe": 2,
+    "classe": "Caçador"
+  },
+  {
+    "nome": "Emboscar",
+    "descricao": "Gaste 2 PM na primeira rodada do combate para realizar uma ação padrão adicional.",
+    "gastoPe": 2,
+    "classe": "Caçador"
+  },
+  {
+    "nome": "Código de Honra",
+    "descricao": "Você segue um código estrito e não pode se beneficiar de bônus de flanquear, nem atacar oponentes caídos, desprevenidos ou incapazes. Se violar, perde todos os PM até o dia seguinte.",
+    "gastoPe": null,
+    "classe": "Cavaleiro"
+  },
+  {
+    "nome": "Duelo",
+    "descricao": "Gaste 2 PM para marcar um inimigo em alcance curto, recebendo +1 em testes de ataque e dano contra ele. Pode gastar +2 PM adicionais para aumentar o bônus em +1.",
+    "gastoPe": 2,
+    "classe": "Cavaleiro"
+  },
+  {
+    "nome": "Etiqueta",
+    "descricao": "Você pode gastar 1 PM para rolar novamente um teste recém realizado de Diplomacia ou Nobreza.",
+    "gastoPe": 1,
+    "classe": "Cavaleiro"
+  },
+  {
+    "nome": "Investida Destruidora",
+    "descricao": "Quando faz uma investida, você pode gastar 2 PM para causar +2d8 pontos de dano extra.",
+    "gastoPe": 2,
+    "classe": "Cavaleiro"
+  },
+  {
+    "nome": "Devoto (Clérigo)",
+    "descricao": "Você se torna devoto de um deus e recebe os Poderes Concedidos e Obrigações dele.",
+    "gastoPe": null,
+    "classe": "Clérigo"
+  },
+  {
+    "nome": "Magias (Clérigo)",
+    "descricao": "Você pode lançar magias divinas de 1º círculo, somando o bônus de Sabedoria nos seus PM.",
+    "gastoPe": 1,
+    "classe": "Clérigo"
+  },
+  {
+    "nome": "Abençoar Arma",
+    "descricao": "Gaste uma ação de movimento e 3 PM para infundir sua arma com poder divino, usando Sabedoria para ataques e dano, aumentando o passo de dano e tornando-a mágica.",
+    "gastoPe": 3,
+    "classe": "Clérigo"
+  },
+  {
+    "nome": "Canalizar Energia Positiva/Negativa",
+    "descricao": "Gaste uma ação padrão e 2 PM para liberar uma onda de energia que cura 1d6 PV em aliados e causa 1d6 de dano em mortos-vivos (energia positiva) ou vice-versa (negativa).",
+    "gastoPe": 2,
+    "classe": "Clérigo"
+  },
+  {
+    "nome": "Canalizar Amplo",
+    "descricao": "Ao usar Canalizar Energia, você pode pagar +2 PM extras para aumentar o alcance dela de curto para longo.",
+    "gastoPe": 2,
+    "classe": "Clérigo"
+  },
+  {
+    "nome": "Comunhão Vital",
+    "descricao": "Quando conjura uma magia de cura, pague +2 PM extras para fazer outra criatura recuperar metade da cura realizada.",
+    "gastoPe": 2,
+    "classe": "Clérigo"
+  },
+  {
+    "nome": "Expulsar/Comandar Mortos-Vivos",
+    "descricao": "Gaste uma ação padrão e 3 PM para fazer todos os mortos-vivos em alcance curto ficarem apavorados ou sob seu comando (Vontade CD Car anula).",
+    "gastoPe": 3,
+    "classe": "Clérigo"
+  },
+  {
+    "nome": "Símbolo Sagrado Abençoado",
+    "descricao": "Gaste uma ação de movimento e 1 PM para fazer seu símbolo sagrado brilhar, reduzindo o custo de suas magias divinas em -1 PM.",
+    "gastoPe": 1,
+    "classe": "Clérigo"
+  },
+  {
+    "nome": "Mão da Divindade",
+    "descricao": "Gaste uma ação completa e 15 PM no 20º nível para canalizar a energia de seu deus e lançar três magias divinas quaisquer sem gastar PM adicionais.",
+    "gastoPe": 15,
+    "classe": "Clérigo"
+  },
+  {
+    "nome": "Devoto (Druida)",
+    "descricao": "Você se devota a Allihanna, Megalokk ou Oceano, ganhando os poderes e obrigações concedidos.",
+    "gastoPe": null,
+    "classe": "Druida"
+  },
+  {
+    "nome": "Empatia Selvagem",
+    "descricao": "Você se comunica com animais por vocalizações e linguagem corporal, podendo usar Adestramento para mudar a atitude deles.",
+    "gastoPe": null,
+    "classe": "Druida"
+  },
+  {
+    "nome": "Magias (Druida)",
+    "descricao": "Você pode lançar magias divinas de 1º círculo pertencentes a três escolas escolhidas.",
+    "gastoPe": 1,
+    "classe": "Druida"
+  },
+  {
+    "nome": "Aspecto do Outono",
+    "descricao": "Você aprende uma magia de necromancia. Pode gastar 1 PM para impor uma penalidade de -2 nos testes de resistência de todos os inimigos em alcance médio.",
+    "gastoPe": 1,
+    "classe": "Druida"
+  },
+  {
+    "nome": "Aspecto do Verão",
+    "descricao": "Você recebe +2 em Iniciativa e pode gastar 1 PM para cobrir suas armas ou ataques naturais com chamas (+1d6 de dano de fogo até o final da cena).",
+    "gastoPe": 1,
+    "classe": "Druida"
+  },
+  {
+    "nome": "Tranquilidade dos Lagos",
+    "descricao": "Soma +2 em Vontade. Se estiver perto de um lago ou rio, pode pagar 1 PM para repetir um teste de resistência recém-feito.",
+    "gastoPe": 1,
+    "classe": "Druida"
+  },
+  {
+    "nome": "Forma Selvagem",
+    "descricao": "Gaste 3 PM para se transformar em uma forma animal, recebendo benefícios físicos. Pode usar a versão Aprimorada por 6 PM e a Superior por 10 PM.",
+    "gastoPe": 3,
+    "classe": "Druida"
+  },
+  {
+    "nome": "Ataque Especial",
+    "descricao": "Quando faz um ataque, você pode gastar 1 PM para receber +4 no teste de ataque ou na rolagem de dano (aumenta o bônus e custo em níveis altos).",
+    "gastoPe": 1,
+    "classe": "Guerreiro"
+  },
+  {
+    "nome": "Durão",
+    "descricao": "Sempre que sofrer dano, você pode gastar 2 PM para reduzir esse dano à metade.",
+    "gastoPe": 2,
+    "classe": "Guerreiro"
+  },
+  {
+    "nome": "Ataque Extra",
+    "descricao": "A partir do 6º nível, quando usa a ação ataque, você pode gastar 2 PM para realizar um ataque adicional com a mesma arma.",
+    "gastoPe": 2,
+    "classe": "Guerreiro"
+  },
+  {
+    "nome": "Campeão",
+    "descricao": "No 20º nível, o dano de todos os seus ataques aumenta em um passo e recupera metade dos PM gastos em Ataques Especiais ou Golpes Pessoais que acertarem.",
+    "gastoPe": null,
+    "classe": "Guerreiro"
+  },
+  {
+    "nome": "Ataque Reflexo",
+    "descricao": "Se um inimigo corpo a corpo ficar desprevenido ou sair do seu alcance, gaste 1 PM para realizar um ataque contra ele como reação.",
+    "gastoPe": 1,
+    "classe": "Guerreiro"
+  },
+  {
+    "nome": "Golpe de Raspão",
+    "descricao": "Quando erra um ataque, você pode pagar 1 PM para causar 1d8 pontos de dano do tipo da arma no alvo.",
+    "gastoPe": 1,
+    "classe": "Guerreiro"
+  },
+  {
+    "nome": "Golpe Demolidor",
+    "descricao": "Ao quebrar itens ou atacar objetos, gaste 1 PM para ignorar a RD do alvo, ou 3 PM para ignorar a RD e causar dano dobrado.",
+    "gastoPe": 1,
+    "classe": "Guerreiro"
+  },
+  {
+    "nome": "Engenhosidade",
+    "descricao": "Quando faz um teste de perícia (exceto ataque), você pode gastar 2 PM para receber um bônus igual ao seu modificador de Inteligência.",
+    "gastoPe": 2,
+    "classe": "Inventor"
+  },
+  {
+    "nome": "Protótipo",
+    "descricao": "Você começa o jogo com um item superior com uma modificação ou 10 itens alquímicos de até T$ 500.",
+    "gastoPe": null,
+    "classe": "Inventor"
+  },
+  {
+    "nome": "Agite Antes de Usar",
+    "descricao": "Ao usar um item alquímico que causa dano, gaste até o seu modificador de Inteligência em PM para causar um dado de dano extra por PM.",
+    "gastoPe": 1,
+    "classe": "Inventor"
+  },
+  {
+    "nome": "Ajuste de Mira",
+    "descricao": "Gaste uma ação de movimento e até seu modificador de Inteligência em PM para receber +1 em rolagens de dano por PM com armas de ataque à distância.",
+    "gastoPe": 1,
+    "classe": "Inventor"
+  },
+  {
+    "nome": "Ativação Rápida",
+    "descricao": "Você pode pagar 2 PM para ativar uma engenhoca como uma ação de movimento.",
+    "gastoPe": 2,
+    "classe": "Inventor"
+  },
+  {
+    "nome": "Autômato Prototipado",
+    "descricao": "Gaste uma ação padrão e 2 PM para ativar uma modificação experimental no seu autômato (aumenta o nível de aliado temporariamente).",
+    "gastoPe": 2,
+    "classe": "Inventor"
+  },
+  {
+    "nome": "Catalisador Instável",
+    "descricao": "Gaste uma ação completa e 3 PM para fabricar um item alquímico ou poção instantaneamente até o fim da cena pela metade do custo.",
+    "gastoPe": 3,
+    "classe": "Inventor"
+  },
+  {
+    "nome": "Chutes e Palavrões",
+    "descricao": "Uma vez por rodada, pague 1 PM para repetir um teste de Ofício (engenhoqueiro) fracassado.",
+    "gastoPe": 1,
+    "classe": "Inventor"
+  },
+  {
+    "nome": "Invenção Potente",
+    "descricao": "Ao usar um item fabricado por você mesmo, pague 1 PM para aumentar em +2 a CD para resistir a ele.",
+    "gastoPe": 1,
+    "classe": "Inventor"
+  },
+  {
+    "nome": "Maestria em Perícia",
+    "descricao": "Escolha perícias iguais a sua Inteligência para gastar 1 PM e poder escolher 10 em qualquer situação (exceto testes de ataque).",
+    "gastoPe": 1,
+    "classe": "Inventor"
+  },
+  {
+    "nome": "Oficina de Campo",
+    "descricao": "Gaste uma hora e 2 PM para dar manutenção nos equipamentos do grupo, concedendo bônus em testes e reduzindo penalidades por um dia.",
+    "gastoPe": 2,
+    "classe": "Inventor"
+  },
+  {
+    "nome": "Pedra de Amolar",
+    "descricao": "Gaste uma ação de movimento e até sua Inteligência em PM para conceder +1 em rolagens de dano corpo a corpo com a arma por PM.",
+    "gastoPe": 1,
+    "classe": "Inventor"
+  },
+  {
+    "nome": "Ataque Furtivo",
+    "descricao": "Causa +1d6 de dano adicional ao atingir alvos desprevenidos ou flanqueados corpo a corpo ou em alcance curto (aumenta progressivamente com os níveis).",
+    "gastoPe": null,
+    "classe": "Ladino"
+  },
+  {
+    "nome": "Especialista",
+    "descricao": "Escolha perícias iguais à sua Inteligência. Gaste 1 PM ao fazer testes nelas para dobrar seu bônus de treinamento (exceto ataques).",
+    "gastoPe": 1,
+    "classe": "Ladino"
+  },
+  {
+    "nome": "Assassinar",
+    "descricao": "Gaste uma ação de movimento e 3 PM para analisar um alvo. O próximo ataque furtivo contra ele causa o dobro dos dados de dano.",
+    "gastoPe": 3,
+    "classe": "Ladino"
+  },
+  {
+    "nome": "Fuga Formidável",
+    "descricao": "Gaste uma ação completa e 1 PM para analisar o ambiente e receber +3m de deslocamento, +5 em Acrobacia e Atletismo e ignorar terreno difícil para fugir.",
+    "gastoPe": 1,
+    "classe": "Ladino"
+  },
+  {
+    "nome": "Ladrão Arcano",
+    "descricao": "Ao causar dano com ataque furtivo em um conjurador, pague 1 PM por círculo da magia para 'roubar' uma magia dele e lançá-la até o fim da cena.",
+    "gastoPe": 1,
+    "classe": "Ladino"
+  },
+  {
+    "nome": "Mãos Rápidas",
+    "descricao": "Pague 1 PM para realizar testes de Ladinagem como ação livre.",
+    "gastoPe": 1,
+    "classe": "Ladino"
+  },
+  {
+    "nome": "Rolamento Defensivo",
+    "descricao": "Ao sofrer dano, gaste 2 PM para reduzir o dano à metade e ficar caído.",
+    "gastoPe": 2,
+    "classe": "Ladino"
+  },
+  {
+    "nome": "Velocidade Ladina",
+    "descricao": "Uma vez por rodada, gaste 2 PM para realizar uma ação de movimento adicional no seu turno.",
+    "gastoPe": 2,
+    "classe": "Ladino"
+  },
+  {
+    "nome": "Briga",
+    "descricao": "Seus ataques desarmados causam mais dano (inicia em 1d6) e podem causar dano letal ou não letal. O dano aumenta nos níveis subsequentes.",
+    "gastoPe": null,
+    "classe": "Lutador"
+  },
+  {
+    "nome": "Golpe Relâmpago",
+    "descricao": "Quando usa a ação ataque para fazer um ataque desarmado, gaste 1 PM para fazer um ataque desarmado adicional.",
+    "gastoPe": 1,
+    "classe": "Lutador"
+  },
+  {
+    "nome": "Cabeçada (Lutador)",
+    "descricao": "Ao fazer um ataque desarmado, gaste 2 PM para deixar o oponente desprevenido contra o ataque (uma vez por cena por criatura).",
+    "gastoPe": 2,
+    "classe": "Lutador"
+  },
+  {
+    "nome": "Golpe Baixo",
+    "descricao": "Ao fazer um ataque desarmado, gaste 2 PM para forçar o oponente a passar em teste de Fortitude ou ficar atordoado por 1 rodada.",
+    "gastoPe": 2,
+    "classe": "Lutador"
+  },
+  {
+    "nome": "Trocação",
+    "descricao": "Ao acertar um ataque desarmado, faça outro ataque pagando PM cumulativos (1 PM para o primeiro extra, 2 PM para o segundo e assim por diante).",
+    "gastoPe": 1,
+    "classe": "Lutador"
+  },
+  {
+    "nome": "Trocação Tumultuosa",
+    "descricao": "Ao atacar desarmado, gaste 2 PM para atingir todas as criaturas adjacentes (compara o teste contra a Defesa de cada um).",
+    "gastoPe": 2,
+    "classe": "Lutador"
+  },
+  {
+    "nome": "Voadora",
+    "descricao": "Em investidas desarmadas, gaste 2 PM para causar +1d6 de dano para cada 3 metros percorridos, limitado pelo seu nível.",
+    "gastoPe": 2,
+    "classe": "Lutador"
+  },
+  {
+    "nome": "Língua dos Becos",
+    "descricao": "Você pode pagar 1 PM para usar Força no lugar de Carisma em testes de perícia baseadas em Carisma.",
+    "gastoPe": 1,
+    "classe": "Lutador"
+  },
+  {
+    "nome": "Sequência Destruidora",
+    "descricao": "No início do seu turno, gaste 2 PM para declarar uma sequência de golpes consecutivos.",
+    "gastoPe": 2,
+    "classe": "Lutador"
+  },
+  {
+    "nome": "Autoconfiança",
+    "descricao": "Você aplica seu bônus de Carisma em vez de Destreza na Defesa (não se aplica se usar armadura pesada).",
+    "gastoPe": null,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Herança (Nobre)",
+    "descricao": "Você começa o jogo com um item superior ou mágico à sua escolha de até T$ 2.000.",
+    "gastoPe": null,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Orgulho",
+    "descricao": "Ao fazer testes de perícia, gaste PM (até o limite do bônus de Carisma) para ganhar +2 no teste por PM gasto.",
+    "gastoPe": 1,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Autoridade Feudal",
+    "descricao": "Pague 2 PM para conclamar o povo e obter sucesso automático em testes de perícia com CD até seu nível +5.",
+    "gastoPe": 2,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Favor (Nobre)",
+    "descricao": "Você gasta 5 PM e uma hora de bajulação para solicitar favores a pessoas influentes no reino.",
+    "gastoPe": 5,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Grito Tirânico",
+    "descricao": "Ao usar Palavras Afiadas, pague +2 PM para causar dano d8 e atingir todos os inimigos em alcance curto.",
+    "gastoPe": 2,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Inspirar Confiança",
+    "descricao": "Gaste 2 PM para fazer um aliado em alcance curto rolar novamente um teste recém-feito.",
+    "gastoPe": 2,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Inspirar Glória",
+    "descricao": "Gaste 5 PM para fazer um aliado em alcance curto receber uma ação padrão adicional em seu próximo turno.",
+    "gastoPe": 5,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Liderar pelo Exemplo",
+    "descricao": "Pague 2 PM para que aliados possam usar o resultado de um teste de perícia bem-sucedido que você acabou de realizar.",
+    "gastoPe": 2,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Língua de Prata",
+    "descricao": "Em testes baseados em Carisma, você pode gastar 2 PM para receber um bônus igual ao seu nível de Nobre.",
+    "gastoPe": 2,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Língua de Ouro",
+    "descricao": "Gaste uma ação padrão e 6 PM para gerar o efeito da magia Enfeitiçar com aprimoramentos sociais em área.",
+    "gastoPe": 6,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Jogo da Corte",
+    "descricao": "Você pode gastar 1 PM para rolar novamente um teste de Diplomacia, Intuição ou Nobreza.",
+    "gastoPe": 1,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Palavras Afiadas",
+    "descricao": "Gaste uma ação padrão e 1 PM para causar 2d6 de dano não-letal mental em alcance curto (teste oposto de Diplomacia/Intimidação contra Vontade).",
+    "gastoPe": 1,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Presença Aristocrática",
+    "descricao": "Sempre que uma criatura inteligente tentar machucá-lo, gaste 2 PM para forçá-la a passar em teste de Vontade ou perder a ação.",
+    "gastoPe": 2,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Título (Nobre)",
+    "descricao": "Você adquire um título de nobreza. Gaste 2 PM para conclamar o povo para um sucesso automático em CD igual ao seu nível +5.",
+    "gastoPe": 2,
+    "classe": "Nobre"
+  },
+  {
+    "nome": "Abençoado",
+    "descricao": "Você soma seu bônus de Carisma no seu total de pontos de mana no 1º nível e se torna devoto de uma divindade permitida.",
+    "gastoPe": null,
+    "classe": "Paladino"
+  },
+  {
+    "nome": "Código do Herói",
+    "descricao": "Você segue restrições rígidas em prol da justiça e proteção dos inocentes. Perde todos os PM se violar.",
+    "gastoPe": null,
+    "classe": "Paladino"
+  },
+  {
+    "nome": "Golpe Divino",
+    "descricao": "Quando ataca, gasta PM para canalizar poder sagrado, adicionando +1d8 de dano por círculo e bônus no acerto contra infiéis.",
+    "gastoPe": 1,
+    "classe": "Paladino"
+  },
+  {
+    "nome": "Cura pelas Mãos",
+    "descricao": "Gaste uma ação de movimento e 1 PM para curar 1d8+1 PV de um alvo por toque (pode gastar mais PM para curar mais d8).",
+    "gastoPe": 1,
+    "classe": "Paladino"
+  },
+  {
+    "nome": "Aura Sagrada",
+    "descricao": "Gaste 1 PM para gerar uma aura de alcance curto que concede seu bônus de Carisma em testes de resistência de aliados. Manter custa 1 PM por turno.",
+    "gastoPe": 1,
+    "classe": "Paladino"
+  },
+  {
+    "nome": "Bênção da Justiça",
+    "descricao": "Escolha entre Égide Sagrada ou Montaria Sagrada, gastando 2 PM para ativar seus efeitos protetores ou de montagem.",
+    "gastoPe": 2,
+    "classe": "Paladino"
+  },
+  {
+    "nome": "Julgamento Divino: Salvação",
+    "descricao": "Gaste 2 PM para marcar um inimigo. Sempre que acertar ataques nele, você recupera 5 PV.",
+    "gastoPe": 2,
+    "classe": "Paladino"
+  },
+  {
+    "nome": "Julgamento Divino: Vindicação",
+    "descricao": "Gaste 2 PM para marcar quem feriu você ou aliados, recebendo bônus cumulativos de ataque e dano contra o alvo.",
+    "gastoPe": 2,
+    "classe": "Paladino"
+  },
+  {
+    "nome": "Julgamento Divino: Zelo",
+    "descricao": "Gaste 1 PM para se mover com o dobro do deslocamento na direção de um alvo marcado em alcance longo.",
+    "gastoPe": 1,
+    "classe": "Paladino"
+  },
+  {
+    "nome": "Julgamento Divino: Arrependimento",
+    "descricao": "Gaste 2 PM para marcar um inimigo. Se ele atacar você ou aliados, deve fazer teste de Vontade ou ficará atordoado.",
+    "gastoPe": 2,
+    "classe": "Paladino"
+  },
+  {
+    "nome": "Julgamento Divino: Autoridade",
+    "descricao": "Gaste 1 PM para dar uma ordem simples a uma criatura (Diplomacia oposta por Vontade).",
+    "gastoPe": 1,
+    "classe": "Paladino"
+  },
+  {
+    "nome": "Julgamento Divino: Coragem",
+    "descricao": "Gaste 2 PM para conceder imunidade a medo e bônus de acerto contra oponentes de nível superior.",
+    "gastoPe": 2,
+    "classe": "Paladino"
+  },
+  {
+    "nome": "Julgamento Divino: Iluminação",
+    "descricao": "Marque um alvo. Ao acertar um ataque corpo a corpo nele, você recebe 2 PM temporários (uma vez por cena).",
+    "gastoPe": null,
+    "classe": "Paladino"
+  }
+]

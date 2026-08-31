@@ -1,0 +1,113 @@
+{
+  "tables": {
+    "profiles": {
+      "description": "Perfil público do usuário",
+      "columns": {
+        "id": { "type": "uuid", "pk": true, "default": "gen_random_uuid()" },
+        "user_id": { "type": "uuid", "nullable": false, "references": "auth.users(id)", "unique": true },
+        "nickname": { "type": "text", "nullable": true },
+        "avatar_url": { "type": "text", "nullable": true },
+        "created_at": { "type": "timestamptz", "default": "now()" }
+      }
+    },
+    "characters": {
+      "description": "Fichas de personagem (máx 2 por usuário)",
+      "columns": {
+        "id": { "type": "uuid", "pk": true, "default": "gen_random_uuid()" },
+        "user_id": { "type": "uuid", "nullable": false, "references": "auth.users(id)" },
+        "campaign_id": { "type": "uuid", "nullable": true, "references": "campaigns(id)" },
+        "nome": { "type": "text", "nullable": false },
+        "raca": { "type": "text", "nullable": true },
+        "classe": { "type": "text", "nullable": true },
+        "origem": { "type": "text", "nullable": true },
+        "nivel": { "type": "integer", "default": 1 },
+        "divindade": { "type": "text", "nullable": true },
+        "atributos": { "type": "jsonb", "default": "{\"FOR\":10,\"DES\":10,\"CON\":10,\"INT\":10,\"SAB\":10,\"CAR\":10}" },
+        "pv_max": { "type": "integer", "default": 20 },
+        "pm_max": { "type": "integer", "default": 5 },
+        "defesa": { "type": "integer", "default": 10 },
+        "deslocamento": { "type": "numeric", "default": 9 },
+        "pericias": { "type": "jsonb", "default": "{}" },
+        "ataques": { "type": "jsonb", "default": "[]" },
+        "inventario": { "type": "jsonb", "default": "[]" },
+        "tibares": { "type": "numeric", "default": 0 },
+        "poderes": { "type": "jsonb", "default": "[]" },
+        "anotacoes": { "type": "text", "nullable": true },
+        "created_at": { "type": "timestamptz", "default": "now()" },
+        "updated_at": { "type": "timestamptz", "default": "now()" }
+      }
+    },
+    "campaigns": {
+      "description": "Campanhas criadas por mestres",
+      "columns": {
+        "id": { "type": "uuid", "pk": true, "default": "gen_random_uuid()" },
+        "master_id": { "type": "uuid", "nullable": false, "references": "auth.users(id)" },
+        "nome": { "type": "text", "nullable": false },
+        "codigo_convite": { "type": "text", "nullable": false, "unique": true },
+        "created_at": { "type": "timestamptz", "default": "now()" }
+      }
+    },
+    "campaign_members": {
+      "description": "Jogadores vinculados a campanhas",
+      "columns": {
+        "id": { "type": "uuid", "pk": true, "default": "gen_random_uuid()" },
+        "campaign_id": { "type": "uuid", "nullable": false, "references": "campaigns(id)" },
+        "user_id": { "type": "uuid", "nullable": false, "references": "auth.users(id)" },
+        "character_id": { "type": "uuid", "nullable": true, "references": "characters(id)" },
+        "created_at": { "type": "timestamptz", "default": "now()" }
+      }
+    },
+    "rolls_log": {
+      "description": "Histórico de rolagens visível em tempo real via Realtime",
+      "columns": {
+        "id": { "type": "uuid", "pk": true, "default": "gen_random_uuid()" },
+        "campaign_id": { "type": "uuid", "nullable": false, "references": "campaigns(id)" },
+        "user_id": { "type": "uuid", "nullable": false, "references": "auth.users(id)" },
+        "character_name": { "type": "text", "nullable": true },
+        "descricao": { "type": "text", "nullable": false },
+        "resultado": { "type": "text", "nullable": false },
+        "created_at": { "type": "timestamptz", "default": "now()" }
+      }
+    },
+    "conditions_ref": {
+      "description": "Tabela estática de condições do Tormenta 20 (aba de referência)",
+      "columns": {
+        "id": { "type": "uuid", "pk": true, "default": "gen_random_uuid()" },
+        "nome": { "type": "text", "nullable": false, "unique": true },
+        "descricao": { "type": "text", "nullable": false },
+        "created_at": { "type": "timestamptz", "default": "now()" }
+      }
+    }
+  },
+  "indexes": {
+    "characters_user_id_idx": { "table": "characters", "column": "user_id" },
+    "characters_campaign_id_idx": { "table": "characters", "column": "campaign_id" },
+    "campaign_members_campaign_id_idx": { "table": "campaign_members", "column": "campaign_id" },
+    "campaign_members_user_id_idx": { "table": "campaign_members", "column": "user_id" },
+    "rolls_log_campaign_id_idx": { "table": "rolls_log", "column": "campaign_id" },
+    "campaigns_codigo_convite_idx": { "table": "campaigns", "column": "codigo_convite" }
+  },
+  "rls_policies": {
+    "characters": {
+      "select_own": "auth.uid() = user_id",
+      "insert_own": "auth.uid() = user_id AND (SELECT COUNT(*) FROM characters WHERE user_id = auth.uid()) < 2",
+      "update_own": "auth.uid() = user_id",
+      "delete_own": "auth.uid() = user_id",
+      "select_master": "auth.uid() IN (SELECT master_id FROM campaigns WHERE id = campaign_id)"
+    },
+    "campaigns": {
+      "select_own_master": "auth.uid() = master_id",
+      "select_member": "auth.uid() IN (SELECT user_id FROM campaign_members WHERE campaign_id = id)",
+      "insert_own": "auth.uid() = master_id",
+      "update_own": "auth.uid() = master_id"
+    },
+    "campaign_members": {
+      "select_own": "auth.uid() = user_id OR auth.uid() IN (SELECT master_id FROM campaigns WHERE id = campaign_id)",
+      "insert_public": "true",
+      "delete_master": "auth.uid() IN (SELECT master_id FROM campaigns WHERE id = campaign_id)"
+    },
+    "conditions_ref": {
+      "select_public": "true"
+    }
+  }
+}

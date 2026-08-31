@@ -1,0 +1,501 @@
+<div class="character-page-wrapper">
+  <div class="t20-top-toolbar">
+    <div class="toolbar-left">
+      <div class="char-select-wrap">
+        <label for="char-selector">Personagem:</label>
+        <select
+          id="char-selector"
+          x-model="selectedCharId"
+          x-on:change="selectCharacter(selectedCharId)"
+          class="char-select"
+        >
+          <template x-for="c in fichasApi" :key="c.id">
+            <option
+              :value="c.id"
+              x-text="(c.nomePersonagem || 'Sem Nome') + ' (Nv ' + (c.nivel || 1) + ' ' + (c.classe || '') + ')'"
+            ></option>
+          </template>
+          <option value="" x-show="!selectedCharId">+ Criar Novo Personagem</option>
+        </select>
+      </div>
+      <button x-on:click="newCharacter()" class="t20-btn t20-btn-new">
+        + Novo Personagem
+      </button>
+    </div>
+
+    <div class="toolbar-right">
+      <span x-show="saveFeedback" class="save-toast" x-transition>Salvo com sucesso!</span>
+      <button x-on:click="save()" class="t20-btn t20-btn-save">
+        Salvar Ficha
+      </button>
+      <button
+        x-show="selectedCharId"
+        x-on:click="deleteCharacter()"
+        class="t20-btn t20-btn-delete"
+      >
+        Excluir
+      </button>
+    </div>
+  </div>
+
+  <div class="t20-sheet-container">
+    <div class="t20-sheet">
+      <!-- HEADER -->
+      <header class="t20-header">
+        <div class="t20-header-top">
+          <div class="t20-char-identity-left">
+            <div class="t20-main-title">PERSONAGEM</div>
+            <div class="t20-name-box">
+              <input
+                type="text"
+                x-model="form.nome"
+                placeholder="Nome do Personagem"
+                class="t20-name-input"
+              />
+            </div>
+          </div>
+
+          <div class="t20-player-box">
+            <label class="t20-field-sub">JOGADOR(a)</label>
+            <input
+              type="text"
+              x-model="form.jogador"
+              class="t20-player-input"
+            />
+          </div>
+
+          <div class="t20-header-logo-col">
+            <button x-on:click="resetForm()" class="t20-reset-btn" title="Resetar campos">Reset</button>
+            <div class="t20-tormenta-logo">
+              <span>TORMENTA</span>
+              <span class="t20-logo-sub">20</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="t20-id-bar">
+          <div class="t20-id-cell">
+            <select x-model="form.raca" class="t20-select-field">
+              <option value="">— Selecione —</option>
+              <template x-for="r in RACAS" :key="r">
+                <option x-text="r" :value="r"></option>
+              </template>
+            </select>
+            <span class="t20-id-sublabel">RAÇA</span>
+          </div>
+
+          <div class="t20-id-cell">
+            <select x-model="form.origem" class="t20-select-field">
+              <option value="">— Selecione —</option>
+              <template x-for="o in ORIGENS" :key="o">
+                <option x-text="o" :value="o"></option>
+              </template>
+            </select>
+            <span class="t20-id-sublabel">ORIGEM</span>
+          </div>
+
+          <div class="t20-id-cell">
+            <select x-model="form.classe" class="t20-select-field">
+              <option value="">— Selecione —</option>
+              <template x-for="c in CLASSES" :key="c">
+                <option x-text="c" :value="c"></option>
+              </template>
+            </select>
+            <span class="t20-id-sublabel">CLASSE(S)</span>
+          </div>
+
+          <div class="t20-id-cell t20-id-nivel">
+            <input
+              type="number"
+              x-model.number="form.nivel"
+              min="1"
+              max="20"
+              class="t20-input-field t20-text-center"
+            />
+            <span class="t20-id-sublabel">NÍVEL(IS)</span>
+          </div>
+
+          <div class="t20-id-cell">
+            <select x-model="form.divindade" class="t20-select-field">
+              <option value="">— Selecione —</option>
+              <template x-for="d in DIVINDADES" :key="d">
+                <option x-text="d" :value="d"></option>
+              </template>
+            </select>
+            <span class="t20-id-sublabel">DIVINDADE</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- 2-COLUMN MAIN BODY -->
+      <div class="t20-main-grid">
+        <!-- LEFT COLUMN -->
+        <div class="t20-left-column">
+          <!-- ATRIBUTOS (6 SHIELD CARDS) -->
+          <div class="t20-attributes-header">
+            <span class="t20-attributes-title">Atributos</span>
+            <button
+              class="t20-attr-edit-btn"
+              :class="{ active: editAtributos }"
+              x-on:click="editAtributos = !editAtributos"
+              :title="editAtributos ? 'Desativar edição (clique nos números para rolar)' : 'Editar atributos'"
+            >
+              <span class="material-symbols-outlined">edit</span>
+            </button>
+          </div>
+          <div class="t20-attributes-row">
+            <template x-for="attr in ['FOR', 'DES', 'CON', 'INT', 'SAB', 'CAR']" :key="attr">
+              <div
+                class="t20-attr-card"
+                :class="{ editing: editAtributos }"
+                :title="editAtributos ? 'Editar valor de ' + attr : 'Rolar teste de ' + attr"
+              >
+                <div class="t20-attr-ribbon-tag" x-on:click="!editAtributos && rollAttr(attr)" x-text="attr"></div>
+                <div class="t20-attr-value-box" x-on:click="!editAtributos && rollAttr(attr)">
+                  <input
+                    type="number"
+                    x-model="form.atributos[attr]"
+                    :readonly="!editAtributos"
+                    class="t20-attr-input"
+                  />
+                  <span class="t20-attr-roll-icon">🎲</span>
+                </div>
+              </div>
+            </template>
+          </div>
+
+          <!-- PV & PM ROW -->
+          <div class="t20-vitals-row">
+            <!-- PV -->
+            <div class="t20-vital-block t20-pv-block">
+              <div class="t20-vital-fill t20-pv-fill" :style="{ width: pvPercent + '%' }"></div>
+              <div class="t20-vital-arrow t20-vital-arrow-left" x-on:click="form.pv_atual = (Number(form.pv_atual) || 0) - 5" title="-5 PV"><span>&lt;&lt;</span></div>
+              <div class="t20-vital-arrow" x-on:click="form.pv_atual = (Number(form.pv_atual) || 0) - 1" title="-1 PV"><span>&lt;</span></div>
+
+              <div class="t20-vital-main">
+                <span class="t20-vital-bar-title">PONTOS DE VIDA</span>
+                <div class="t20-vital-values">
+                  <input type="number" x-model.number="form.pv_atual" class="t20-vital-current-input" />
+                  <span class="t20-vital-slash">/</span>
+                  <input type="number" x-model.number="form.pv_max" class="t20-vital-current-input t20-vital-max-inline" />
+                </div>
+              </div>
+
+              <div class="t20-vital-arrow" x-on:click="form.pv_atual = (Number(form.pv_atual) || 0) + 1" title="+1 PV"><span>&gt;</span></div>
+              <div class="t20-vital-arrow t20-vital-arrow-right" x-on:click="form.pv_atual = (Number(form.pv_atual) || 0) + 5" title="+5 PV"><span>&gt;&gt;</span></div>
+            </div>
+
+            <!-- PM -->
+            <div class="t20-vital-block t20-pm-block">
+              <div class="t20-vital-fill t20-pm-fill" :style="{ width: pmPercent + '%' }"></div>
+              <div class="t20-vital-arrow t20-vital-arrow-left" x-on:click="form.pm_atual = (Number(form.pm_atual) || 0) - 5" title="-5 PM"><span>&lt;&lt;</span></div>
+              <div class="t20-vital-arrow" x-on:click="form.pm_atual = (Number(form.pm_atual) || 0) - 1" title="-1 PM"><span>&lt;</span></div>
+
+              <div class="t20-vital-main">
+                <span class="t20-vital-bar-title">PONTOS DE MANA</span>
+                <div class="t20-vital-values">
+                  <input type="number" x-model.number="form.pm_atual" class="t20-vital-current-input" />
+                  <span class="t20-vital-slash">/</span>
+                  <input type="number" x-model.number="form.pm_max" class="t20-vital-current-input t20-vital-max-inline" />
+                </div>
+              </div>
+
+              <div class="t20-vital-arrow" x-on:click="form.pm_atual = (Number(form.pm_atual) || 0) + 1" title="+1 PM"><span>&gt;</span></div>
+              <div class="t20-vital-arrow t20-vital-arrow-right" x-on:click="form.pm_atual = (Number(form.pm_atual) || 0) + 5" title="+5 PM"><span>&gt;&gt;</span></div>
+            </div>
+          </div>
+
+          <!-- DEFESA & PROFICIÊNCIAS ROW -->
+          <div class="t20-mid-section-row">
+            <!-- DEFESA -->
+            <div class="t20-defense-box">
+              <div class="t20-defense-top">
+                <div class="t20-defense-shield">
+                  <span class="t20-defense-label">DEFESA</span>
+                  <span class="t20-defense-total" x-text="calcDefesa()">10</span>
+                </div>
+
+                <div class="t20-defense-formula">
+                  <div class="t20-def-eq">
+                    <span class="t20-def-base">(=10)</span>
+                    <span class="t20-op">+</span>
+                    <label class="t20-def-chk">
+                      <input type="checkbox" x-model="form.defesa_des_check" />
+                      <span>Des</span>
+                    </label>
+                    <span class="t20-op">+</span>
+                    <div class="t20-def-field">
+                      <input type="number" x-model.number="form.armadura_defesa" class="t20-mini-input" />
+                      <span class="t20-def-sub">Bônus de Armadura</span>
+                    </div>
+                    <span class="t20-op">+</span>
+                    <div class="t20-def-field">
+                      <input type="number" x-model.number="form.escudo_defesa" class="t20-mini-input" />
+                      <span class="t20-def-sub">Bônus de Escudo</span>
+                    </div>
+                    <span class="t20-op">+</span>
+                    <div class="t20-def-field">
+                      <input type="number" x-model.number="form.defesa_outros" class="t20-mini-input" />
+                      <span class="t20-def-sub">Outros</span>
+                    </div>
+                  </div>
+
+                  <div class="t20-armor-penalty-row">
+                    <span>Penalidade total de Armadura</span>
+                    <span class="t20-armor-penalty-badge" x-text="calcPenalidadeArmadura()">0</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="t20-armor-table-wrap">
+                <table class="t20-mini-armor-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 50%;">Equipamento</th>
+                      <th>Defesa</th>
+                      <th>Penalidade</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><input type="text" x-model="form.armadura_nome" placeholder="Armadura" class="t20-line-input" /></td>
+                      <td><input type="number" x-model.number="form.armadura_defesa" class="t20-line-input t20-text-center" /></td>
+                      <td><input type="number" x-model.number="form.armadura_penalidade" class="t20-line-input t20-text-center" /></td>
+                    </tr>
+                    <tr>
+                      <td><input type="text" x-model="form.escudo_nome" placeholder="Escudo" class="t20-line-input" /></td>
+                      <td><input type="number" x-model.number="form.escudo_defesa" class="t20-line-input t20-text-center" /></td>
+                      <td><input type="number" x-model.number="form.escudo_penalidade" class="t20-line-input t20-text-center" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- PROFICIÊNCIAS & OUTRAS CARACTERÍSTICAS -->
+            <div class="t20-profs-box">
+              <div class="t20-profs-title">PROFICIÊNCIAS & OUTRAS CARACTERÍSTICAS</div>
+              <textarea
+                x-model="form.proficiencias_poderes"
+                placeholder="Poderes de classe, raça, divindade, magias conhecidas, proficiências com armas e armaduras..."
+                class="t20-profs-textarea"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- TAMANHO, DESLOCAMENTO & XP -->
+          <div class="t20-stats-row">
+            <div class="t20-stat-block t20-stat-tamanho">
+              <span class="t20-stat-tag">TAMANHO</span>
+              <input type="text" x-model="form.tamanho" class="t20-stat-val-input" placeholder="Médio" />
+              <div class="t20-stat-mod-box">
+                <input type="text" x-model="form.tamanho_mod" class="t20-stat-mod-input" placeholder="0 / 0" />
+              </div>
+            </div>
+
+            <div class="t20-stat-block t20-stat-deslocamento">
+              <span class="t20-stat-tag">DESLOCAMENTO</span>
+              <div class="t20-desloc-wrap">
+                <input type="number" x-model.number="form.deslocamento" step="1.5" class="t20-stat-val-input t20-text-center" />
+                <span class="t20-unit">m</span>
+              </div>
+            </div>
+
+            <div class="t20-stat-block t20-stat-xp">
+              <span class="t20-stat-tag">PONTOS DE EXPERIÊNCIA</span>
+              <div class="t20-xp-wrap">
+                <input type="number" x-model.number="form.xp_atual" class="t20-stat-val-input t20-text-center" />
+                <span>/</span>
+                <input type="number" x-model.number="form.xp_max" class="t20-stat-val-input t20-text-center" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: PERÍCIAS (ALL 30 SKILLS) -->
+        <div class="t20-right-column">
+          <div class="t20-pericias-container">
+              <div class="t20-pericias-header-row">
+                <div class="col-p-name">Perícias</div>
+                <div class="col-p-total">Total</div>
+                <div class="col-p-op-head">=</div>
+                <div class="col-p-half">1/2 Nv</div>
+                <div class="col-p-op-head">+</div>
+                <div class="col-p-attr">Atributo</div>
+                <div class="col-p-op-head">+</div>
+                <div class="col-p-treino">Treino</div>
+                <div class="col-p-op-head">+</div>
+                <div class="col-p-outros">Outros</div>
+              </div>
+
+            <div class="t20-pericias-list">
+              <template x-for="p in PERICIAS_DEF" :key="p.key">
+                <div class="t20-pericia-row">
+                  <!-- Skill Name -->
+                  <div class="t20-p-name-col">
+                    <template x-if="!p.isCustom">
+                      <span class="t20-p-label" x-text="p.nome"></span>
+                    </template>
+                    <template x-if="p.isCustom">
+                      <div class="t20-p-custom-wrap">
+                        <span>Ofício (</span>
+                        <input
+                          type="text"
+                          x-model="form.pericias[p.key].customName"
+                          placeholder="________"
+                          class="t20-p-custom-input"
+                        />
+                        <span>)</span>
+                      </div>
+                    </template>
+                    <span class="t20-p-symbol" x-show="p.penalidade">⚑</span>
+                    <span class="t20-p-symbol" x-show="p.treinado">★</span>
+                  </div>
+
+                  <!-- Total Pill Button -->
+                  <div class="t20-p-total-col">
+                    <button
+                      type="button"
+                      class="t20-total-pill"
+                      x-on:click="rollPericia(p)"
+                      :title="'Rolar 1D20 com total da perícia'"
+                    >
+                      <span x-text="calcPericiaTotal(p)"></span>
+                    </button>
+                  </div>
+
+                  <!-- Operator = -->
+                  <span class="t20-p-op">=</span>
+
+                  <!-- 1/2 Nível -->
+                  <div class="t20-p-half-col">
+                    <span x-text="calcHalfLevel()">0</span>
+                  </div>
+
+                  <!-- Operator + -->
+                  <span class="t20-p-op">+</span>
+
+                  <!-- Atributo -->
+                  <div class="t20-p-attr-col">
+                    <template x-if="editingAttr !== p.key">
+                      <button
+                        type="button"
+                        class="t20-p-attr-btn"
+                        x-on:click="editingAttr = p.key"
+                        :title="'Mudar atributo'"
+                      >
+                        <span x-text="form.pericias[p.key].attr || p.attr"></span>
+                      </button>
+                    </template>
+                    <template x-if="editingAttr === p.key">
+                      <select
+                        x-model="form.pericias[p.key].attr"
+                        x-on:change="form.pericias[p.key].attr = $event.target.value; editingAttr = null"
+                        class="t20-p-treino-select"
+                      >
+                        <option value="FOR">FOR</option>
+                        <option value="DES">DES</option>
+                        <option value="CON">CON</option>
+                        <option value="INT">INT</option>
+                        <option value="SAB">SAB</option>
+                        <option value="CAR">CAR</option>
+                      </select>
+                    </template>
+                  </div>
+
+                  <!-- Operator + -->
+                  <span class="t20-p-op">+</span>
+
+                  <!-- Treino Select -->
+                  <div class="t20-p-treino-col">
+                    <select x-model.number="form.pericias[p.key].treino" class="t20-p-treino-select">
+                      <option value="0">0</option>
+                      <option value="2">+2</option>
+                      <option value="4">+4</option>
+                      <option value="6">+6</option>
+                    </select>
+                  </div>
+
+                  <!-- Operator + -->
+                  <span class="t20-p-op">+</span>
+
+                  <!-- Outros Input -->
+                  <div class="t20-p-outros-col">
+                    <input
+                      type="number"
+                      x-model.number="form.pericias[p.key].outros"
+                      class="t20-p-outros-input"
+                    />
+                  </div>
+                </div>
+              </template>
+            </div>
+
+            <div class="t20-pericias-footer">
+              <span>⚑ Penalidade de armadura. ★ Somente treinado.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM SECTION: EQUIPAMENTO -->
+      <div class="t20-equipment-card">
+        <div class="t20-equip-ribbon-title">EQUIPAMENTO</div>
+        <div class="t20-equip-grid">
+          <!-- Left items column -->
+          <div class="t20-equip-col">
+            <div class="t20-equip-col-header">
+              <span class="col-eq-name">ITEM</span>
+              <span class="col-eq-slots">QTD / SLOTS</span>
+            </div>
+            <div class="t20-equip-list">
+              <template x-for="(item, i) in form.inventario1" :key="'inv1-' + i">
+                <div class="t20-equip-row">
+                  <input type="text" x-model="item.nome" class="t20-line-input t20-eq-name-input" />
+                  <input type="text" x-model="item.slots" class="t20-line-input t20-eq-slots-input" />
+                  <button x-on:click="removeInventoryRow(1, i)" class="t20-eq-del-btn" title="Remover item">✕</button>
+                </div>
+              </template>
+            </div>
+            <button x-on:click="addInventoryRow(1)" class="t20-link-btn">+ Linha de Item</button>
+          </div>
+
+          <!-- Right items column -->
+          <div class="t20-equip-col">
+            <div class="t20-equip-col-header">
+              <span class="col-eq-name">ITEM</span>
+              <span class="col-eq-slots">QTD / SLOTS</span>
+            </div>
+            <div class="t20-equip-list">
+              <template x-for="(item, i) in form.inventario2" :key="'inv2-' + i">
+                <div class="t20-equip-row">
+                  <input type="text" x-model="item.nome" class="t20-line-input t20-eq-name-input" />
+                  <input type="text" x-model="item.slots" class="t20-line-input t20-eq-slots-input" />
+                  <button x-on:click="removeInventoryRow(2, i)" class="t20-eq-del-btn" title="Remover item">✕</button>
+                </div>
+              </template>
+            </div>
+            <button x-on:click="addInventoryRow(2)" class="t20-link-btn">+ Linha de Item</button>
+          </div>
+        </div>
+
+        <!-- Bottom status bar for Money & Carry Capacity -->
+        <div class="t20-equip-bottom-bar">
+          <div class="t20-money-wrap">
+            <span class="t20-money-label">T$</span>
+            <input type="number" x-model.number="form.tibares" class="t20-line-input t20-money-input" />
+          </div>
+
+          <div class="t20-capacity-wrap">
+            <div class="t20-capacity-vals">
+              <span>Lim. carga: <strong x-text="calcLimiteCarga()"></strong></span>
+              <span class="t20-cap-sep">|</span>
+              <span>Carga Usada: <strong x-text="calcCargaUsada()" :class="{ 't20-over-encumbered': calcCargaUsada() > calcLimiteCarga() }"></strong></span>
+            </div>
+            <div class="t20-capacity-formula">limite de carga = 10 + 2*Força (-1*Força se Força negativa)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

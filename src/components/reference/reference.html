@@ -1,0 +1,18 @@
+<div class="reference-section">
+  <h2>Condições & Referência</h2>
+  <div class="ref-search">
+    <input type="text" x-model="ref.search" placeholder="Buscar condição..." />
+  </div>
+  <div class="conditions-grid">
+    <template x-for="cond in ref.filteredConditions" :key="cond.nome">
+      <div class="condition-card">
+        <h3 x-text="cond.nome"></h3>
+        <span class="condition-type" x-text="cond.tipo"></span>
+        <p x-text="cond.descricao"></p>
+      </div>
+    </template>
+  </div>
+  <div x-show="!ref.filteredConditions.length" class="empty-state">
+    Nenhuma condição encontrada.
+  </div>
+</div>

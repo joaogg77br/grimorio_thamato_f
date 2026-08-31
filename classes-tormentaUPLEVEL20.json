@@ -1,0 +1,825 @@
+[
+  {
+    "classe": "Arcanista",
+    "pv_inicial": "8 + mod_constituição",
+    "pv_por_nivel": "2 + mod_constituição",
+    "pm_por_nivel": 6,
+    "pericias_treinadas_obrigatorias": [
+      "Misticismo",
+      "Vontade"
+    ],
+    "pericias_escolha": {
+      "quantidade": 1,
+      "opcoes": [
+        "Conhecimento",
+        "Iniciativa",
+        "Ofício",
+        "Percepção"
+      ]
+    },
+    "proficiencias": [
+      "Nenhuma"
+    ],
+    "atributos_importantes": [
+      "Inteligência (Bruxo/Mago)",
+      "Carisma (Feiticeiro)"
+    ],
+    "progressao": {
+      "1": "Caminho do Arcanista, Magias (1º círculo)",
+      "2": "Poder de arcanista",
+      "3": "Poder de arcanista",
+      "4": "Poder de arcanista",
+      "5": "Magias (2º círculo), Poder de arcanista",
+      "6": "Poder de arcanista",
+      "7": "Poder de arcanista",
+      "8": "Poder de arcanista",
+      "9": "Magias (3º círculo), Poder de arcanista",
+      "10": "Poder de arcanista",
+      "11": "Poder de arcanista",
+      "12": "Poder de arcanista",
+      "13": "Magias (4º círculo), Poder de arcanista",
+      "14": "Poder de arcanista",
+      "15": "Poder de arcanista",
+      "16": "Poder de arcanista",
+      "17": "Magias (5º círculo), Poder de arcanista",
+      "18": "Poder de arcanista",
+      "19": "Poder de arcanista",
+      "20": "Alta Arcana, Poder de arcanista"
+    }
+  },
+  {
+    "classe": "Bárbaro",
+    "pv_inicial": "24 + mod_constituição",
+    "pv_por_nivel": "6 + mod_constituição",
+    "pm_por_nivel": 3,
+    "pericias_treinadas_obrigatorias": [
+      "Fortitude",
+      "Luta"
+    ],
+    "pericias_escolha": {
+      "quantidade": 4,
+      "opcoes": [
+        "Adestramento",
+        "Atletismo",
+        "Cavalgar",
+        "Iniciativa",
+        "Intimidação",
+        "Ofício",
+        "Percepção",
+        "Pontaria",
+        "Sobrevivência",
+        "Vontade"
+      ]
+    },
+    "proficiencias": [
+      "Armas marciais",
+      "Escudos"
+    ],
+    "atributos_importantes": [
+      "Força",
+      "Constituição"
+    ],
+    "progressao": {
+      "1": "Fúria +2",
+      "2": "Poder de bárbaro",
+      "3": "Instinto selvagem +1, Poder de bárbaro",
+      "4": "Poder de bárbaro",
+      "5": "Resistência a dano 2, Poder de bárbaro",
+      "6": "Fúria +3, Poder de bárbaro",
+      "7": "Poder de bárbaro",
+      "8": "Resistência a dano 4, Poder de bárbaro",
+      "9": "Instinto selvagem +2, Poder de bárbaro",
+      "10": "Poder de bárbaro",
+      "11": "Fúria +4, Resistência a dano 6, Poder de bárbaro",
+      "12": "Poder de bárbaro",
+      "13": "Poder de bárbaro",
+      "14": "Resistência a dano 8, Poder de bárbaro",
+      "15": "Instinto selvagem +3, Poder de bárbaro",
+      "16": "Fúria +5, Poder de bárbaro",
+      "17": "Resistência a dano 10, Poder de bárbaro",
+      "18": "Poder de bárbaro",
+      "19": "Poder de bárbaro",
+      "20": "Fúria titânica, Poder de bárbaro"
+    }
+  },
+  {
+    "classe": "Bardo",
+    "pv_inicial": "12 + mod_constituição",
+    "pv_por_nivel": "3 + mod_constituição",
+    "pm_por_nivel": 4,
+    "pericias_treinadas_obrigatorias": [
+      "Atuação",
+      "Reflexos"
+    ],
+    "pericias_escolha": {
+      "quantidade": 6,
+      "opcoes": [
+        "Acrobacia",
+        "Cavalgar",
+        "Conhecimento",
+        "Diplomacia",
+        "Enganação",
+        "Furtividade",
+        "Iniciativa",
+        "Intuição",
+        "Investigação",
+        "Jogatina",
+        "Ladinagem",
+        "Luta",
+        "Misticismo",
+        "Nobreza",
+        "Percepção",
+        "Pontaria",
+        "Religião",
+        "Vontade"
+      ]
+    },
+    "proficiencias": [
+      "Armas marciais"
+    ],
+    "atributos_importantes": [
+      "Carisma",
+      "Inteligência"
+    ],
+    "progressao": {
+      "1": "Inspiração +1, Magias (1º círculo)",
+      "2": "Versatilidade, Poder de bardo",
+      "3": "Poder de bardo",
+      "4": "Poder de bardo",
+      "5": "Inspiração +2, Poder de bardo",
+      "6": "Magias (2º círculo), Poder de bardo",
+      "7": "Poder de bardo",
+      "8": "Poder de bardo",
+      "9": "Inspiração +3, Poder de bardo",
+      "10": "Magias (3º círculo), Poder de bardo",
+      "11": "Poder de bardo",
+      "12": "Poder de bardo",
+      "13": "Inspiração +4, Poder de bardo",
+      "14": "Magias (4º círculo), Poder de bardo",
+      "15": "Poder de bardo",
+      "16": "Poder de bardo",
+      "17": "Inspiração +5, Poder de bardo",
+      "18": "Poder de bardo",
+      "19": "Poder de bardo",
+      "20": "Poder de bardo"
+    }
+  },
+  {
+    "classe": "Bucaneiro",
+    "pv_inicial": "16 + mod_constituição",
+    "pv_por_nivel": "4 + mod_constituição",
+    "pm_por_nivel": 3,
+    "pericias_treinadas_obrigatorias": [
+      "Reflexos"
+    ],
+    "pericias_escolha_obrigatorias": {
+      "quantidade": 1,
+      "opcoes": [
+        "Luta",
+        "Pontaria"
+      ]
+    },
+    "pericias_escolha": {
+      "quantidade": 4,
+      "opcoes": [
+        "Acrobacia",
+        "Atletismo",
+        "Atuação",
+        "Enganação",
+        "Fortitude",
+        "Furtividade",
+        "Iniciativa",
+        "Intimidação",
+        "Jogatina",
+        "Navegação",
+        "Ofício",
+        "Percepção",
+        "Pontaria"
+      ]
+    },
+    "proficiencias": [
+      "Armas marciais"
+    ],
+    "atributos_importantes": [
+      "Destreza",
+      "Carisma"
+    ],
+    "progressao": {
+      "1": "Audácia, Insolência",
+      "2": "Evasão, Poder de bucaneiro",
+      "3": "Esquiva sagaz +1, Poder de bucaneiro",
+      "4": "Poder de bucaneiro",
+      "5": "Panache, Poder de bucaneiro",
+      "6": "Poder de bucaneiro",
+      "7": "Esquiva sagaz +2, Poder de bucaneiro",
+      "8": "Poder de bucaneiro",
+      "9": "Poder de bucaneiro",
+      "10": "Evasão aprimorada, Poder de bucaneiro",
+      "11": "Esquiva sagaz +3, Poder de bucaneiro",
+      "12": "Poder de bucaneiro",
+      "13": "Poder de bucaneiro",
+      "14": "Poder de bucaneiro",
+      "15": "Esquiva sagaz +4, Poder de bucaneiro",
+      "16": "Poder de bucaneiro",
+      "17": "Poder de bucaneiro",
+      "18": "Poder de bucaneiro",
+      "19": "Poder de bucaneiro",
+      "20": "Sorte de Nimb, Poder de bucaneiro"
+    }
+  },
+  {
+    "classe": "Caçador",
+    "pv_inicial": "16 + mod_constituição",
+    "pv_por_nivel": "4 + mod_constituição",
+    "pm_por_nivel": 4,
+    "pericias_treinadas_obrigatorias": [
+      "Sobrevivência"
+    ],
+    "pericias_escolha_obrigatorias": {
+      "quantidade": 1,
+      "opcoes": [
+        "Luta",
+        "Pontaria"
+      ]
+    },
+    "pericias_escolha": {
+      "quantidade": 6,
+      "opcoes": [
+        "Adestramento",
+        "Atletismo",
+        "Cavalgar",
+        "Cura",
+        "Fortitude",
+        "Furtividade",
+        "Iniciativa",
+        "Ofício",
+        "Percepção",
+        "Reflexos"
+      ]
+    },
+    "proficiencias": [
+      "Armas marciais",
+      "Escudos"
+    ],
+    "atributos_importantes": [
+      "Destreza",
+      "Sabedoria"
+    ],
+    "progressao": {
+      "1": "Marca da presa +1d4, Rastreador",
+      "2": "Poder de caçador",
+      "3": "Explorador, Poder de caçador",
+      "4": "Poder de caçador",
+      "5": "Caminho do explorador, Marca da presa +1d8, Poder de caçador",
+      "6": "Poder de caçador",
+      "7": "Explorador, Poder de caçador",
+      "8": "Poder de caçador",
+      "9": "Marca da presa +1d12, Poder de caçador",
+      "10": "Poder de caçador",
+      "11": "Explorador, Poder de caçador",
+      "12": "Poder de caçador",
+      "13": "Marca da presa +2d8, Poder de caçador",
+      "14": "Poder de caçador",
+      "15": "Explorador, Poder de caçador",
+      "16": "Poder de caçador",
+      "17": "Marca da presa +2d10, Poder de caçador",
+      "18": "Poder de caçador",
+      "19": "Explorador, Poder de caçador",
+      "20": "Mestre caçador, Poder de caçador"
+    }
+  },
+  {
+    "classe": "Cavaleiro",
+    "pv_inicial": "20 + mod_constituição",
+    "pv_por_nivel": "5 + mod_constituição",
+    "pm_por_nivel": 3,
+    "pericias_treinadas_obrigatorias": [
+      "Fortitude",
+      "Luta"
+    ],
+    "pericias_escolha": {
+      "quantidade": 2,
+      "opcoes": [
+        "Adestramento",
+        "Atletismo",
+        "Cavalgar",
+        "Diplomacia",
+        "Guerra",
+        "Iniciativa",
+        "Intimidação",
+        "Nobreza",
+        "Percepção",
+        "Vontade"
+      ]
+    },
+    "proficiencias": [
+      "Armas marciais",
+      "Armaduras pesadas",
+      "Escudos"
+    ],
+    "atributos_importantes": [
+      "Força",
+      "Constituição",
+      "Carisma"
+    ],
+    "progressao": {
+      "1": "Baluarte +2, Código de Honra",
+      "2": "Duelo, Poder de cavaleiro",
+      "3": "Poder de cavaleiro",
+      "4": "Poder de cavaleiro",
+      "5": "Caminho do cavaleiro, Baluarte +4, Poder de cavaleiro",
+      "6": "Poder de cavaleiro",
+      "7": "Baluarte (aliados adjacentes), Poder de cavaleiro",
+      "8": "Poder de cavaleiro",
+      "9": "Baluarte +6, Poder de cavaleiro",
+      "10": "Poder de cavaleiro",
+      "11": "Resoluto, Poder de cavaleiro",
+      "12": "Poder de cavaleiro",
+      "13": "Baluarte +8, Poder de cavaleiro",
+      "14": "Poder de cavaleiro",
+      "15": "Baluarte (aliados em alcance curto), Poder de cavaleiro",
+      "16": "Poder de cavaleiro",
+      "17": "Baluarte +10, Poder de cavaleiro",
+      "18": "Poder de cavaleiro",
+      "19": "Poder de cavaleiro",
+      "20": "Bravura final, Poder de cavaleiro"
+    }
+  },
+  {
+    "classe": "Clérigo",
+    "pv_inicial": "16 + mod_constituição",
+    "pv_por_nivel": "4 + mod_constituição",
+    "pm_por_nivel": 5,
+    "pericias_treinadas_obrigatorias": [
+      "Religião",
+      "Vontade"
+    ],
+    "pericias_escolha": {
+      "quantidade": 2,
+      "opcoes": [
+        "Conhecimento",
+        "Cura",
+        "Diplomacia",
+        "Fortitude",
+        "Iniciativa",
+        "Intuição",
+        "Luta",
+        "Misticismo",
+        "Nobreza",
+        "Ofício",
+        "Percepção"
+      ]
+    },
+    "proficiencias": [
+      "Armaduras pesadas",
+      "Escudos"
+    ],
+    "atributos_importantes": [
+      "Sabedoria",
+      "Carisma"
+    ],
+    "progressao": {
+      "1": "Devoto, Magias (1º círculo)",
+      "2": "Poder de clérigo",
+      "3": "Poder de clérigo",
+      "4": "Poder de clérigo",
+      "5": "Magias (2º círculo), Poder de clérigo",
+      "6": "Poder de clérigo",
+      "7": "Poder de clérigo",
+      "8": "Poder de clérigo",
+      "9": "Magias (3º círculo), Poder de clérigo",
+      "10": "Poder de clérigo",
+      "11": "Poder de clérigo",
+      "12": "Poder de clérigo",
+      "13": "Magias (4º círculo), Poder de clérigo",
+      "14": "Poder de clérigo",
+      "15": "Poder de clérigo",
+      "16": "Poder de clérigo",
+      "17": "Magias (5º círculo), Poder de clérigo",
+      "18": "Poder de clérigo",
+      "19": "Poder de clérigo",
+      "20": "Poder de clérigo"
+    }
+  },
+  {
+    "classe": "Druida",
+    "pv_inicial": "16 + mod_constituição",
+    "pv_por_nivel": "4 + mod_constituição",
+    "pm_por_nivel": 4,
+    "pericias_treinadas_obrigatorias": [
+      "Sobrevivência",
+      "Vontade"
+    ],
+    "pericias_escolha": {
+      "quantidade": 4,
+      "opcoes": [
+        "Adestramento",
+        "Atletismo",
+        "Cavalgar",
+        "Conhecimento",
+        "Cura",
+        "Fortitude",
+        "Iniciativa",
+        "Intuição",
+        "Luta",
+        "Misticismo",
+        "Ofício",
+        "Percepção",
+        "Religião"
+      ]
+    },
+    "proficiencias": [
+      "Escudos"
+    ],
+    "atributos_importantes": [
+      "Sabedoria",
+      "Força/Constituição (para Forma Selvagem)"
+    ],
+    "progressao": {
+      "1": "Devoto, Empatia selvagem, Magias (1º círculo)",
+      "2": "Caminho dos ermos, Poder de druida",
+      "3": "Poder de druida",
+      "4": "Poder de druida",
+      "5": "Poder de druida",
+      "6": "Magias (2º círculo), Poder de druida",
+      "7": "Poder de druida",
+      "8": "Poder de druida",
+      "9": "Poder de druida",
+      "10": "Magias (3º círculo), Poder de druida",
+      "11": "Poder de druida",
+      "12": "Poder de druida",
+      "13": "Poder de druida",
+      "14": "Magias (4º círculo), Poder de druida",
+      "15": "Poder de druida",
+      "16": "Poder de druida",
+      "17": "Poder de druida",
+      "18": "Poder de druida",
+      "19": "Poder de druida",
+      "20": "Força da natureza, Poder de druida"
+    }
+  },
+  {
+    "classe": "Guerreiro",
+    "pv_inicial": "20 + mod_constituição",
+    "pv_por_nivel": "5 + mod_constituição",
+    "pm_por_nivel": 3,
+    "pericias_treinadas_obrigatorias": [
+      "Fortitude"
+    ],
+    "pericias_escolha_obrigatorias": {
+      "quantidade": 1,
+      "opcoes": [
+        "Luta",
+        "Pontaria"
+      ]
+    },
+    "pericias_escolha": {
+      "quantidade": 2,
+      "opcoes": [
+        "Adestramento",
+        "Atletismo",
+        "Cavalgar",
+        "Guerra",
+        "Iniciativa",
+        "Intimidação",
+        "Luta",
+        "Ofício",
+        "Percepção",
+        "Pontaria",
+        "Reflexos"
+      ]
+    },
+    "proficiencias": [
+      "Armas marciais",
+      "Armaduras pesadas",
+      "Escudos"
+    ],
+    "atributos_importantes": [
+      "Força (Combate Próximo)",
+      "Destreza (Combate à Distância)",
+      "Constituição"
+    ],
+    "progressao": {
+      "1": "Ataque especial +4",
+      "2": "Poder de guerreiro",
+      "3": "Durão, Poder de guerreiro",
+      "4": "Poder de guerreiro",
+      "5": "Ataque especial +8, Poder de guerreiro",
+      "6": "Ataque extra, Poder de guerreiro",
+      "7": "Poder de guerreiro",
+      "8": "Poder de guerreiro",
+      "9": "Ataque especial +12, Poder de guerreiro",
+      "10": "Poder de guerreiro",
+      "11": "Poder de guerreiro",
+      "12": "Poder de guerreiro",
+      "13": "Ataque especial +16, Poder de guerreiro",
+      "14": "Poder de guerreiro",
+      "15": "Poder de guerreiro",
+      "16": "Poder de guerreiro",
+      "17": "Ataque especial +20, Poder de guerreiro",
+      "18": "Poder de guerreiro",
+      "19": "Poder de guerreiro",
+      "20": "Campeão, Poder de guerreiro"
+    }
+  },
+  {
+    "classe": "Inventor",
+    "pv_inicial": "12 + mod_constituição",
+    "pv_por_nivel": "3 + mod_constituição",
+    "pm_por_nivel": 4,
+    "pericias_treinadas_obrigatorias": [
+      "Ofício",
+      "Vontade"
+    ],
+    "pericias_escolha": {
+      "quantidade": 4,
+      "opcoes": [
+        "Adestramento",
+        "Conhecimento",
+        "Cura",
+        "Diplomacia",
+        "Fortitude",
+        "Iniciativa",
+        "Investigação",
+        "Luta",
+        "Misticismo",
+        "Ofício",
+        "Pontaria",
+        "Percepção"
+      ]
+    },
+    "proficiencias": [
+      "Nenhuma"
+    ],
+    "atributos_importantes": [
+      "Inteligência"
+    ],
+    "progressao": {
+      "1": "Engenhosidade, Protótipo",
+      "2": "Fabricar item superior (1 modificação), Poder de inventor",
+      "3": "Mercador, Poder de inventor",
+      "4": "Fabricar item superior (2 modificações), Poder de inventor",
+      "5": "Poder de inventor",
+      "6": "Fabricar item superior (3 modificações), Poder de inventor",
+      "7": "Encontrar fraqueza, Poder de inventor",
+      "8": "Fabricar item superior (4 modificações), Poder de inventor",
+      "9": "Fabricar item mágico (menor), Poder de inventor",
+      "10": "Fabricar item superior (5 modificações), Poder de inventor",
+      "11": "Olho do dragão, Poder de inventor",
+      "12": "Fabricar item superior (6 modificações), Poder de inventor",
+      "13": "Fabricar item mágico (médio), Poder de inventor",
+      "14": "Poder de inventor",
+      "15": "Poder de inventor",
+      "16": "Poder de inventor",
+      "17": "Fabricar item mágico (maior), Poder de inventor",
+      "18": "Poder de inventor",
+      "19": "Poder de inventor",
+      "20": "Obra-prima, Poder de inventor"
+    }
+  },
+  {
+    "classe": "Ladino",
+    "pv_inicial": "12 + mod_constituição",
+    "pv_por_nivel": "3 + mod_constituição",
+    "pm_por_nivel": 4,
+    "pericias_treinadas_obrigatorias": [
+      "Ladinagem",
+      "Reflexos"
+    ],
+    "pericias_escolha": {
+      "quantidade": 8,
+      "opcoes": [
+        "Acrobacia",
+        "Atletismo",
+        "Atuação",
+        "Cavalgar",
+        "Conhecimento",
+        "Diplomacia",
+        "Enganação",
+        "Furtividade",
+        "Iniciativa",
+        "Intimidação",
+        "Intuição",
+        "Investigação",
+        "Jogatina",
+        "Luta",
+        "Navegação",
+        "Ofício",
+        "Percepção",
+        "Pontaria"
+      ]
+    },
+    "proficiencias": [
+      "Nenhuma"
+    ],
+    "atributos_importantes": [
+      "Destreza",
+      "Inteligência"
+    ],
+    "progressao": {
+      "1": "Ataque furtivo +1d6, Especialista",
+      "2": "Evasão, Poder de ladino",
+      "3": "Ataque furtivo +2d6, Poder de ladino",
+      "4": "Esquiva sobrenatural, Poder de ladino",
+      "5": "Ataque furtivo +3d6, Poder de ladino",
+      "6": "Poder de ladino",
+      "7": "Ataque furtivo +4d6, Poder de ladino",
+      "8": "Olhos nas costas, Poder de ladino",
+      "9": "Ataque furtivo +5d6, Poder de ladino",
+      "10": "Evasão aprimorada, Poder de ladino",
+      "11": "Ataque furtivo +6d6, Poder de ladino",
+      "12": "Poder de ladino",
+      "13": "Ataque furtivo +7d6, Poder de ladino",
+      "14": "Poder de ladino",
+      "15": "Ataque furtivo +8d6, Poder de ladino",
+      "16": "Poder de ladino",
+      "17": "Ataque furtivo +9d6, Poder de ladino",
+      "18": "Poder de ladino",
+      "19": "Ataque furtivo +10d6, Poder de ladino",
+      "20": "A pessoa certa para o trabalho, Poder de ladino"
+    }
+  },
+  {
+    "classe": "Lutador",
+    "pv_inicial": "20 + mod_constituição",
+    "pv_por_nivel": "5 + mod_constituição",
+    "pm_por_nivel": 3,
+    "pericias_treinadas_obrigatorias": [
+      "Fortitude",
+      "Luta"
+    ],
+    "pericias_escolha": {
+      "quantidade": 4,
+      "opcoes": [
+        "Acrobacia",
+        "Adestramento",
+        "Atletismo",
+        "Enganação",
+        "Furtividade",
+        "Iniciativa",
+        "Intimidação",
+        "Ofício",
+        "Percepção",
+        "Pontaria",
+        "Reflexos"
+      ]
+    },
+    "proficiencias": [
+      "Nenhuma"
+    ],
+    "atributos_importantes": [
+      "Força",
+      "Constituição"
+    ],
+    "progressao": {
+      "1": "Briga (1d6), Golpe relâmpago",
+      "2": "Poder de lutador",
+      "3": "Casca grossa, Poder de lutador",
+      "4": "Poder de lutador",
+      "5": "Briga (1d8), Golpe cruel, Poder de lutador",
+      "6": "Poder de lutador",
+      "7": "Casca grossa (Con+1), Poder de lutador",
+      "8": "Poder de lutador",
+      "9": "Briga (1d10), Golpe violento, Poder de lutador",
+      "10": "Poder de lutador",
+      "11": "Casca grossa (Con+2), Poder de lutador",
+      "12": "Poder de lutador",
+      "13": "Briga (2d6), Poder de lutador",
+      "14": "Poder de lutador",
+      "15": "Casca grossa (Con+3), Poder de lutador",
+      "16": "Poder de lutador",
+      "17": "Briga (2d8), Poder de lutador",
+      "18": "Poder de lutador",
+      "19": "Casca grossa (Con+4), Poder de lutador",
+      "20": "Dono da rua (2d10), Poder de lutador"
+    }
+  },
+  {
+    "classe": "Nobre",
+    "pv_inicial": "16 + mod_constituição",
+    "pv_por_nivel": "4 + mod_constituição",
+    "pm_por_nivel": 4,
+    "pericias_treinadas_obrigatorias": [
+      "Vontade"
+    ],
+    "pericias_escolha_obrigatorias": {
+      "quantidade": 1,
+      "opcoes": [
+        "Diplomacia",
+        "Intimidação"
+      ]
+    },
+    "pericias_escolha": {
+      "quantidade": 4,
+      "opcoes": [
+        "Adestramento",
+        "Atuação",
+        "Cavalgar",
+        "Conhecimento",
+        "Diplomacia",
+        "Enganação",
+        "Fortitude",
+        "Guerra",
+        "Iniciativa",
+        "Intimidação",
+        "Intuição",
+        "Investigação",
+        "Jogatina",
+        "Luta",
+        "Nobreza",
+        "Ofício",
+        "Percepção",
+        "Pontaria"
+      ]
+    },
+    "proficiencias": [
+      "Armas marciais",
+      "Armaduras pesadas",
+      "Escudos"
+    ],
+    "atributos_importantes": [
+      "Carisma",
+      "Inteligência"
+    ],
+    "progressao": {
+      "1": "Autoconfiança, Herança, Orgulho",
+      "2": "Riqueza, Poder de nobre",
+      "3": "Gritar ordens, Poder de nobre",
+      "4": "Poder de nobre",
+      "5": "Poder de nobre",
+      "6": "Poder de nobre",
+      "7": "Poder de nobre",
+      "8": "Poder de nobre",
+      "9": "Poder de nobre",
+      "10": "Poder de nobre",
+      "11": "Poder de nobre",
+      "12": "Poder de nobre",
+      "13": "Poder de nobre",
+      "14": "Poder de nobre",
+      "15": "Poder de nobre",
+      "16": "Poder de nobre",
+      "17": "Poder de nobre",
+      "18": "Poder de nobre",
+      "19": "Poder de nobre",
+      "20": "Realeza, Poder de nobre"
+    }
+  },
+  {
+    "classe": "Paladino",
+    "pv_inicial": "20 + mod_constituição",
+    "pv_por_nivel": "5 + mod_constituição",
+    "pm_por_nivel": 3,
+    "pericias_treinadas_obrigatorias": [
+      "Luta",
+      "Vontade"
+    ],
+    "pericias_escolha": {
+      "quantidade": 2,
+      "opcoes": [
+        "Adestramento",
+        "Atletismo",
+        "Cavalgar",
+        "Cura",
+        "Diplomacia",
+        "Fortitude",
+        "Guerra",
+        "Iniciativa",
+        "Intuição",
+        "Nobreza",
+        "Percepção",
+        "Religião"
+      ]
+    },
+    "proficiencias": [
+      "Armas marciais",
+      "Armaduras pesadas",
+      "Escudos"
+    ],
+    "atributos_importantes": [
+      "Força",
+      "Carisma"
+    ],
+    "progressao": {
+      "1": "Abençoado, Código do herói, Golpe divino (+1d8)",
+      "2": "Cura pelas mãos (1d8+1 PV), Poder de paladino",
+      "3": "Aura sagrada, Poder de paladino",
+      "4": "Poder de paladino",
+      "5": "Bênção da justiça, Golpe divino (+2d8), Poder de paladino",
+      "6": "Cura pelas mãos (2d8+2 PV), Poder de paladino",
+      "7": "Poder de paladino",
+      "8": "Poder de paladino",
+      "9": "Golpe divino (+3d8), Poder de paladino",
+      "10": "Cura pelas mãos (3d8+3 PV), Poder de paladino",
+      "11": "Poder de paladino",
+      "12": "Poder de paladino",
+      "13": "Golpe divino (+4d8), Poder de paladino",
+      "14": "Poder de paladino",
+      "15": "Aura antimagia, Poder de paladino",
+      "16": "Poder de paladino",
+      "17": "Golpe divino (+5d8), Poder de paladino",
+      "18": "Poder de paladino",
+      "19": "Poder de paladino",
+      "20": "Vingador sagrado, Poder de paladino"
+    }
+  }
+]

@@ -1,0 +1,2981 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/Grimorio-thamato.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <script type="module" defer src="./src/main.js"></script>
+    <title>Grimório de Thanato</title>
+  </head>
+  <body>
+    <div id="app" x-data="router">
+      <nav
+        class="navbar"
+        x-show="currentPage !== 'login' && currentPage !== 'register'"
+      >
+        <div
+          class="nav-brand"
+          x-on:click="navigate('home')"
+          style="cursor: pointer"
+        >
+          Grimório de Thanato
+        </div>
+        <div class="nav-links">
+          <button
+            x-on:click="navigate('home')"
+            :class="{ active: currentPage === 'home' }"
+          >
+            Início
+          </button>
+          <button
+            x-on:click="navigate('characters')"
+            :class="{ active: currentPage === 'characters' }"
+          >
+            Personagens
+          </button>
+          <button
+            x-on:click="navigate('campaigns')"
+            :class="{ active: currentPage === 'campaigns' }"
+          >
+            Campanhas
+          </button>
+          <button
+            x-on:click="navigate('master')"
+            :class="{ active: currentPage === 'master' }"
+          >
+            Mestre
+          </button>
+          <button
+            x-on:click="navigate('reference')"
+            :class="{ active: currentPage === 'reference' }"
+          >
+            Referência
+          </button>
+          <div class="settings-wrapper" @click.away="settingsOpen = false">
+            <button
+              class="settings-btn"
+              x-on:click="settingsOpen = !settingsOpen"
+            >
+              <span class="material-symbols-outlined">settings</span>
+            </button>
+            <div class="settings-dropdown" x-show="settingsOpen" x-transition>
+              <button class="settings-dropdown-item" x-on:click="$store.sound.toggle()">
+                <span class="material-symbols-outlined" x-text="$store.sound.enabled ? 'mic' : 'mic_off'"></span>
+                <span x-text="$store.sound.enabled ? 'Desativar sons' : 'Ativar sons'"></span>
+              </button>
+              <button class="settings-dropdown-item" x-on:click="logout()">
+                <span class="material-symbols-outlined">logout</span>
+                Sair da conta
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div x-data="auth" x-show="currentPage === 'login'" class="auth-page">
+        <div class="auth-card">
+          <h1 class="auth-title">Grimório de Thanato</h1>
+          <p class="auth-subtitle">Entre para acessar seu grimório</p>
+          <form
+            x-on:submit.prevent="if (await entrar()) navigate('home')"
+            class="auth-form"
+          >
+            <div class="form-group">
+              <label for="login-usuario">Nome ou E-mail</label>
+              <input
+                id="login-usuario"
+                type="text"
+                x-model="loginForm.usuario"
+                placeholder="Seu nome ou e-mail"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              class="hero-btn auth-submit"
+              :disabled="loggingIn"
+            >
+              <span x-text="loggingIn ? 'Entrando...' : 'Entrar'"></span>
+            </button>
+            <p
+              x-show="loginError"
+              class="auth-feedback auth-feedback--error"
+              x-text="loginError"
+            ></p>
+          </form>
+          <p class="auth-alt">
+            Não tem conta?
+            <a href="/cadastro" x-on:click.prevent="navigate('register')"
+              >Cadastre-se</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <div x-data="auth" x-show="currentPage === 'register'" class="auth-page">
+        <div class="auth-card">
+          <h1 class="auth-title">Criar Conta</h1>
+          <p class="auth-subtitle">Cadastre-se para forjar seus personagens</p>
+          <form x-on:submit.prevent="cadastrar()" class="auth-form">
+            <div class="form-group">
+              <label for="cadastro-nome">Nome</label>
+              <input
+                id="cadastro-nome"
+                type="text"
+                x-model="registerForm.nome"
+                placeholder="Seu nome"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="cadastro-email">E-mail</label>
+              <input
+                id="cadastro-email"
+                type="email"
+                x-model="registerForm.emailUser"
+                placeholder="seu@email.com"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              class="hero-btn auth-submit"
+              :disabled="registering"
+            >
+              <span
+                x-text="registering ? 'Cadastrando...' : 'Cadastrar'"
+              ></span>
+            </button>
+            <p
+              x-show="registerSuccess"
+              class="auth-feedback auth-feedback--success"
+              x-text="registerSuccess"
+            ></p>
+            <p
+              x-show="registerError"
+              class="auth-feedback auth-feedback--error"
+              x-text="registerError"
+            ></p>
+          </form>
+          <p class="auth-alt">
+            Já tem conta?
+            <a href="/" x-on:click.prevent="navigate('login')">Entrar</a>
+          </p>
+        </div>
+      </div>
+
+      <div x-show="currentPage === 'home'" class="landing">
+        <section class="hero-section">
+          <div class="hero-overlay"></div>
+          <div class="hero-bg-shine"></div>
+          <div class="hero-content">
+            <span class="hero-badge">Tormenta 20 · Jogo do Ano</span>
+            <h1 class="hero-title">Grimório de Thanato</h1>
+            <p class="hero-subtitle">
+              Seu grimório digital de personagens, campanhas e ferramentas de
+              mesa para Tormenta 20 — tudo em um só lugar.
+            </p>
+            <div class="hero-actions">
+              <button x-on:click="navigate('characters')" class="hero-btn">Criar Personagem</button>
+              <button x-on:click="navigate('master')" class="hero-btn hero-btn-ghost">Painel do Mestre</button>
+            </div>
+            <div class="hero-stats">
+              <div class="hero-stat">
+                <strong>+20</strong>
+                <span>Atributos & Perícias</span>
+              </div>
+              <div class="hero-stat">
+                <strong>15</strong>
+                <span>Classes do livro básico</span>
+              </div>
+              <div class="hero-stat">
+                <strong>20</strong>
+                <span>Divindades de Arton</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="landing-inner">
+          <section class="info-section">
+            <span class="section-eyebrow">Recursos</span>
+            <h2 class="info-title">Tudo para sua mesa em um só lugar</h2>
+            <p class="section-intro">
+              Do personagem à condução da aventura, o Grimório reúne as
+              ferramentas essenciais do Tormenta 20.
+            </p>
+            <div class="info-cards">
+              <div class="info-card accent-1">
+                <div class="info-icon">&#9876;</div>
+                <h3>Personagens</h3>
+                <p>
+                  Fichas completas com atributos, perícias, PM, PV,
+                  equipamentos e magias. Crie e edite seus heróis do zero.
+                </p>
+              </div>
+              <div class="info-card accent-2">
+                <div class="info-icon">&#128214;</div>
+                <h3>Campanhas</h3>
+                <p>
+                  Monte seu grupo, vincula fichas dos jogadores e acompanhe o
+                  progresso da sua aventura do começo ao fim.
+                </p>
+              </div>
+              <div class="info-card accent-3">
+                <div class="info-icon">&#127922;</div>
+                <h3>Rolador de Dados</h3>
+                <p>
+                  Dados digitais direto na ficha. Role D20, dados de dano e
+                  teste de perícia com um toque.
+                </p>
+              </div>
+              <div class="info-card accent-4">
+                <div class="info-icon">&#128295;</div>
+                <h3>Poderes & Magias</h3>
+                <p>
+                  Organize habilidades, poderes e magias do seu personagem
+                  para consultar na hora do combate.
+                </p>
+              </div>
+              <div class="info-card accent-5">
+                <div class="info-icon">&#9881;</div>
+                <h3>Painel do Mestre</h3>
+                <p>
+                  Conduza suas mesas com acesso às fichas da campanha e
+                  ferramentas de apoio ao mestre.
+                </p>
+              </div>
+              <div class="info-card accent-6">
+                <div class="info-icon">&#128214;</div>
+                <h3>Referências</h3>
+                <p>
+                  Consulte condições e regras rapidamente, sem interromper o
+                  ritmo da aventura.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="steps-section">
+            <span class="section-eyebrow">Como funciona</span>
+            <h2 class="info-title">Comece em três passos</h2>
+            <div class="steps-row">
+              <div class="step-item">
+                <span class="step-num">1</span>
+                <h3>Crie seu personagem</h3>
+                <p>Escolha raça, distribua atributos, classe e divindade no assistente guiado.</p>
+              </div>
+              <div class="step-item">
+                <span class="step-num">2</span>
+                <h3>Complete sua ficha</h3>
+                <p>Adicione perícias, poderes, equipamentos e magias ao seu herói.</p>
+              </div>
+              <div class="step-item">
+                <span class="step-num">3</span>
+                <h3>Jogue e conduza</h3>
+                <p>Participe de campanhas, role dados e conduza mesas no painel do mestre.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="cta-section">
+            <h2>Pronto para começar sua jornada?</h2>
+            <p>Crie seu primeiro personagem e mergulhe no mundo de Arton</p>
+            <button x-on:click="navigate('characters')" class="hero-btn">
+              Criar Personagem
+            </button>
+          </section>
+        </div>
+
+        <footer class="site-footer">
+          <div class="footer-grid">
+            <div class="footer-col footer-brand">
+              <h3>Grimório de Thanato</h3>
+              <p>Ferramenta digital de apoio para mesas de Tormenta 20. Projeto feito por fãs, sem vínculo oficial com a Jambô Editora.</p>
+            </div>
+            <div class="footer-col">
+              <h4>Navegação</h4>
+              <ul>
+                <li><button x-on:click="navigate('characters')">Personagens</button></li>
+                <li><button x-on:click="navigate('campaigns')">Campanhas</button></li>
+                <li><button x-on:click="navigate('master')">Painel do Mestre</button></li>
+                <li><button x-on:click="navigate('reference')">Referências</button></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Recursos</h4>
+              <ul>
+                <li>Criação de Personagem</li>
+                <li>Rolador de Dados</li>
+                <li>Gestão de Campanhas</li>
+                <li>Painel do Mestre</li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Sobre</h4>
+              <ul>
+                <li>Tormenta 20</li>
+                <li>Projeto de fãs</li>
+                <li>Open Source</li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <span>&copy; 2026 Grimório de Thanato. Tormenta 20 é marca registrada da Jambô Editora.</span>
+          </div>
+        </footer>
+      </div>
+
+      <main class="main-content">
+        <div x-data="dice" x-show="currentPage === 'characters'">
+        <div x-data="character">
+          <div
+            x-show="wizardOpen"
+            class="wizard-overlay"
+            x-transition.opacity.duration.200ms
+          >
+            <div class="wizard" x-transition.scale.duration.200ms>
+              <div class="wizard-header">
+                <h2 class="wizard-title">Criar Personagem</h2>
+                <button x-on:click="fecharWizard()" class="wizard-close">✕</button>
+              </div>
+
+              <div class="wizard-steps">
+                <button
+                  type="button"
+                  class="wizard-step"
+                  :class="{ active: wizardStep >= 1, done: wizardStep > 1, locked: !wizardStepReached(1) }"
+                  x-on:click="wizardGoTo(1)"
+                >
+                  <span class="wizard-step-num">1</span>
+                  <span class="wizard-step-label">Raça</span>
+                </button>
+                <button
+                  type="button"
+                  class="wizard-step"
+                  :class="{ active: wizardStep >= 2, done: wizardStep > 2, locked: !wizardStepReached(2) }"
+                  x-on:click="wizardGoTo(2)"
+                >
+                  <span class="wizard-step-num">2</span>
+                  <span class="wizard-step-label">Atributos</span>
+                </button>
+                <button
+                  type="button"
+                  class="wizard-step"
+                  :class="{ active: wizardStep >= 3, locked: !wizardStepReached(3) }"
+                  x-on:click="wizardGoTo(3)"
+                >
+                  <span class="wizard-step-num">3</span>
+                  <span class="wizard-step-label">Classe & Identidade</span>
+                </button>
+              </div>
+
+              <div class="wizard-body">
+                <div x-show="wizardStep === 1" class="wizard-panel">
+                  <p class="wizard-panel-hint">
+                    Escolha a raça do seu personagem. Ela define modificadores de atributos e habilidades especiais.
+                  </p>
+                  <div class="t20-equip-search wizard-search">
+                    <span class="material-symbols-outlined">search</span>
+                    <input
+                      type="text"
+                      x-model="wizardRacaSearchTerm"
+                      placeholder="Filtrar por nome, atributo ou habilidade..."
+                      class="t20-equip-search-input"
+                    />
+                  </div>
+                  <div class="wizard-racas">
+                    <template x-for="raca in wizardRacasFiltradas" :key="raca.nome">
+                      <div
+                        class="wizard-raca"
+                        :class="{ selected: wizardRaca?.nome === raca.nome }"
+                        x-on:click="escolherRaca(raca)"
+                      >
+                        <h3 class="wizard-raca-nome" x-text="raca.nome"></h3>
+                        <div class="wizard-raca-tam">
+                          <span x-text="raca.tamanho"></span>
+                          <span class="wizard-raca-sep">·</span>
+                          <span x-text="raca.deslocamento"></span>
+                        </div>
+                        <p
+                          class="wizard-raca-atributos"
+                          x-text="raca.atributos?.descricao_atributos"
+                        ></p>
+                        <div class="wizard-raca-habs">
+                          <template x-for="h in raca.habilidades" :key="h.nome">
+                            <div class="wizard-raca-hab">
+                              <span class="wizard-raca-hab-nome" x-text="h.nome"></span>
+                              <p class="wizard-raca-hab-desc" x-text="h.descricao"></p>
+                            </div>
+                          </template>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+                  <div class="t20-equip-list-empty" x-show="wizardRacasFiltradas.length === 0">
+                    <p>Nenhuma raça encontrada para esse filtro.</p>
+                  </div>
+                </div>
+
+                <div x-show="wizardStep === 2" class="wizard-panel">
+                  <div class="wizard-pontos">
+                    <span
+                      class="wizard-pontos-label"
+                      :class="{ negative: wizardPontosRestantes < 0 }"
+                    >
+                      Pontos restantes: <strong x-text="wizardPontosRestantes"></strong>
+                    </span>
+                    <span class="wizard-pontos-hint">
+                      Compra por pontos · orçamento de 20
+                      <span class="wizard-help" tabindex="0">
+                        <span class="wizard-help-icon">?</span>
+                        <span class="wizard-help-tip">
+                          <strong>Como funciona a compra de atributos</strong>
+                          <ul>
+                            <li>Você tem <strong>20 pontos</strong> para distribuir entre os 6 atributos.</li>
+                            <li>Todo atributo começa em <strong>10</strong> (custo 0).</li>
+                            <li>Subir um atributo custa pontos: 11=1, 12=2, 13=3, 14=4, 15=6.</li>
+                            <li>Baixar devolve pontos: 9=-1, 8=-2.</li>
+                            <li>Arraste um valor (8–15) para um atributo, ou edite direto.</li>
+                            <li>Valores <strong>vermelhos</strong> não têm pontos suficientes para comprar.</li>
+                            <li>O modificador racial é somado por cima do valor base.</li>
+                          </ul>
+                        </span>
+                      </span>
+                    </span>
+                  </div>
+
+                  <div class="wizard-racial-choice" x-show="wizardPrecisaEscolherAtributos">
+                    <p class="wizard-racial-choice-title">
+                      Escolha os atributos com <strong>+2</strong> (selecione <span x-text="wizardRacialChoices.length"></span> de <span x-text="wizardRacialChoicesCount"></span>)
+                    </p>
+                    <div class="wizard-racial-choice-opts">
+                      <template x-for="a in wizardAtributosList" :key="a.key">
+                        <button
+                          type="button"
+                          class="wizard-racial-choice-opt"
+                          :class="{ selected: wizardRacialChoices.includes(a.key) }"
+                          x-on:click="alternarRacialEscolha(a.key)"
+                        >
+                          <span x-text="a.nome"></span>
+                          <span class="wizard-racial-choice-bonus" x-show="wizardRacialChoices.includes(a.key)">+2</span>
+                        </button>
+                      </template>
+                    </div>
+                  </div>
+
+                  <div class="wizard-atributos-build">
+                    <div class="wizard-pool">
+                      <p class="wizard-pool-title">Valores</p>
+                      <div class="wizard-pool-tokens">
+                        <template x-for="v in wizardValoresDisponiveis" :key="v">
+                          <div
+                            class="wizard-token"
+                            :class="{ blocked: wizardTokenBloqueado(v) }"
+                            :draggable="!wizardTokenBloqueado(v)"
+                            x-on:dragstart="wizardDragging = v; $event.dataTransfer.setData('text/plain', v)"
+                            x-on:dragend="wizardDragging = null"
+                          >
+                            <span class="wizard-token-val" x-text="v"></span>
+                            <span class="wizard-token-custo" x-text="'Custo ' + (CUSTO_ATRIBUTO[v] >= 0 ? '+' : '') + CUSTO_ATRIBUTO[v]"></span>
+                          </div>
+                        </template>
+                      </div>
+                      <p class="wizard-pool-note">Arraste um valor para o atributo desejado.</p>
+                    </div>
+
+                    <div class="wizard-atributos-drop">
+                      <template x-for="a in wizardAtributosList" :key="a.key">
+                        <div
+                          class="wizard-drop-attr"
+                          :class="{ droptarget: wizardDropKey === a.key }"
+                          x-on:dragover.prevent="wizardDropKey = a.key"
+                          x-on:dragleave="wizardDropKey = wizardDropKey === a.key ? null : wizardDropKey"
+                          x-on:drop.prevent="wizardDropKey = null; wizardAtribuir(a.key, wizardDragging ?? Number($event.dataTransfer.getData('text/plain')))"
+                        >
+                          <span class="wizard-drop-nome" x-text="a.nome"></span>
+                          <div class="wizard-drop-controls">
+                            <input
+                              type="number"
+                              class="wizard-drop-input"
+                              min="8"
+                              max="15"
+                              step="1"
+                              x-model.number="wizardAtributos[a.key]"
+                              x-on:change="wizardClampAtributo(a.key)"
+                            />
+                            <span class="wizard-drop-racial" x-show="wizardModRacial(a.key) !== 0" x-text="(wizardModRacial(a.key) > 0 ? '+' : '') + wizardModRacial(a.key)"></span>
+                            <span class="wizard-drop-final" x-text="'= ' + wizardValorFinal(a.key)"></span>
+                          </div>
+                          <span class="wizard-drop-custo">
+                            Mod <strong x-text="(wizardModificador(wizardValorFinal(a.key)) >= 0 ? '+' : '') + wizardModificador(wizardValorFinal(a.key))"></strong>
+                            · Custo <strong x-text="CUSTO_ATRIBUTO[wizardAtributos[a.key]]"></strong>
+                          </span>
+                        </div>
+                      </template>
+                    </div>
+                  </div>
+                  <p class="wizard-atributos-note">
+                    Arraste os valores (8 a 15) para os atributos ou edite diretamente. Modificadores raciais são aplicados automaticamente. Você deve gastar exatamente os 20 pontos.
+                  </p>
+                </div>
+
+                <div x-show="wizardStep === 3" class="wizard-panel">
+                  <div class="wizard-form">
+                    <div class="form-group">
+                      <label>Nome do Personagem</label>
+                      <input type="text" x-model="wizardNome" placeholder="Ex: Gorath" />
+                    </div>
+                    <div class="form-group">
+                      <label>Jogador(a)</label>
+                      <input type="text" x-model="wizardJogador" />
+                    </div>
+                    <div class="form-group">
+                      <label>Classe</label>
+                      <div
+                        class="select-field"
+                        :class="{ open }"
+                        x-data="selectField({
+                          value: () => wizardClasse,
+                          options: () => CLASSES,
+                          onchange: v => wizardClasse = v,
+                          placeholder: '— Selecione a classe —'
+                        })"
+                      >
+                        <button type="button" class="select-field-btn" x-on:click="toggle()">
+                          <span class="select-field-value" :class="{ 'is-placeholder': !selected }" x-text="label"></span>
+                          <svg class="select-field-arrow" :class="{ open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                        </button>
+                        <div class="select-field-pop" x-show="open" x-on:click.outside="close()">
+                          <template x-for="o in options" :key="ident(o)">
+                            <button type="button" class="select-field-opt" :class="{ active: value === ident(o) }" x-on:click="pick(o)" x-text="optLabel(o)"></button>
+                          </template>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Origem</label>
+                      <div
+                        class="select-field"
+                        :class="{ open }"
+                        x-data="selectField({
+                          value: () => wizardOrigem,
+                          options: () => ORIGENS,
+                          onchange: v => wizardOrigem = v,
+                          placeholder: '— Selecione a origem —'
+                        })"
+                      >
+                        <button type="button" class="select-field-btn" x-on:click="toggle()">
+                          <span class="select-field-value" :class="{ 'is-placeholder': !selected }" x-text="label"></span>
+                          <svg class="select-field-arrow" :class="{ open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                        </button>
+                        <div class="select-field-pop" x-show="open" x-on:click.outside="close()">
+                          <template x-for="o in options" :key="ident(o)">
+                            <button type="button" class="select-field-opt" :class="{ active: value === ident(o) }" x-on:click="pick(o)" x-text="optLabel(o)"></button>
+                          </template>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group wizard-divindades-group">
+                      <label>Divindade</label>
+                      <div class="t20-equip-search wizard-deuses-search">
+                        <span class="material-symbols-outlined">search</span>
+                        <input
+                          type="text"
+                          x-model="wizardDivindadeSearchTerm"
+                          placeholder="Filtrar divindade..."
+                          class="t20-equip-search-input"
+                        />
+                      </div>
+                      <div class="wizard-divindades">
+                        <template x-for="d in wizardDivindadesFiltradas" :key="d">
+                          <button
+                            type="button"
+                            class="wizard-divindade"
+                            :class="{ selected: wizardDivindade === d }"
+                            x-on:click="wizardDivindade = d"
+                            x-text="d"
+                          ></button>
+                        </template>
+                        <div class="t20-equip-list-empty" x-show="wizardDivindadesFiltradas.length === 0">
+                          <p>Nenhuma divindade encontrada.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Descrição / História</label>
+                      <textarea x-model="wizardDescricao" rows="4" placeholder="Conte um pouco sobre a história e personalidade do seu personagem..."></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wizard-footer">
+                <button
+                  x-show="wizardStep > 1"
+                  x-on:click="wizardBack()"
+                  class="btn-secondary"
+                >Voltar</button>
+                <span class="wizard-spacer"></span>
+                <button
+                  x-show="wizardStep < 3"
+                  x-on:click="wizardNext()"
+                  class="btn-primary"
+                  :disabled="!wizardPodeProximo"
+                >Próximo</button>
+                <button
+                  x-show="wizardStep === 3"
+                  x-on:click="wizardFinalizar()"
+                  class="btn-primary"
+                  :disabled="!wizardPodeProximo"
+                >Criar Personagem</button>
+              </div>
+            </div>
+          </div>
+          <div x-show="viewMode === 'list'" class="fichas-lista-section">
+            <div class="fichas-lista-header">
+              <h2>Personagens</h2>
+              <button x-on:click="abrirWizard()" class="t20-btn t20-btn-new">
+                + Novo Personagem
+              </button>
+            </div>
+
+            <div class="fichas-search">
+              <span class="material-symbols-outlined fichas-search-icon"
+                >search</span
+              >
+              <input
+                type="text"
+                x-model="searchTerm"
+                placeholder="Filtrar por nome, classe, raça ou jogador..."
+                class="fichas-search-input"
+              />
+            </div>
+
+            <div x-show="loading" class="fichas-loading">
+              <span class="material-symbols-outlined fichas-loading-icon"
+                >hourglass_empty</span
+              >
+              <p>Carregando fichas...</p>
+            </div>
+
+            <div
+              x-show="!loading && fichasFiltradas.length === 0"
+              class="fichas-empty"
+            >
+              <span class="material-symbols-outlined fichas-empty-icon"
+                >person_add</span
+              >
+              <p
+                x-text="searchTerm ? 'Nenhuma ficha encontrada para esse filtro.' : 'Nenhuma ficha criada ainda.'"
+              ></p>
+            </div>
+
+            <div class="fichas-grid">
+              <template x-for="ficha in fichasFiltradas" :key="ficha.id">
+                <div class="ficha-card" x-on:click="abrirFicha(ficha)">
+                  <div class="ficha-card-top">
+                    <span
+                      class="ficha-card-classe"
+                      x-text="ficha.classe"
+                    ></span>
+                    <span
+                      class="ficha-card-nivel"
+                      x-text="'Nv ' + ficha.nivel"
+                    ></span>
+                  </div>
+                  <h3
+                    class="ficha-card-nome"
+                    x-text="ficha.nomePersonagem"
+                  ></h3>
+                  <div class="ficha-card-info">
+                    <span x-text="ficha.raca"></span>
+                    <span class="ficha-card-sep">·</span>
+                    <span x-text="ficha.nomeJogador"></span>
+                  </div>
+                  <div class="ficha-card-stats">
+                    <span class="ficha-stat"
+                      ><strong x-text="ficha.pvCurrent"></strong>/<span
+                        x-text="ficha.pvMax"
+                      ></span>
+                      PV</span
+                    >
+                    <span class="ficha-stat"
+                      ><strong x-text="ficha.pmCurrent"></strong>/<span
+                        x-text="ficha.pmMax"
+                      ></span>
+                      PM</span
+                    >
+                    <span class="ficha-stat"
+                      >Def <strong x-text="defesaDeFicha(ficha)"></strong
+                    ></span>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <div x-show="viewMode === 'edit'" class="character-page-wrapper">
+            <div class="t20-top-toolbar">
+              <div class="toolbar-left">
+                <button
+                  x-on:click="voltarParaLista()"
+                  class="t20-btn t20-btn-back"
+                >
+                  <span class="material-symbols-outlined">arrow_back</span>
+                  Voltar
+                </button>
+                <div class="char-select-wrap" x-show="false">
+                  <label for="char-selector">Personagem:</label>
+                  <select
+                    id="char-selector"
+                    x-model="selectedCharId"
+                    x-on:change="selectCharacter(selectedCharId)"
+                    class="char-select"
+                  >
+                    <template x-for="c in fichasApi" :key="c.id">
+                      <option
+                        :value="c.id"
+                        x-text="(c.nomePersonagem || 'Sem Nome') + ' (Nv ' + (c.Nivel || 1) + ' ' + (c.Classe || '') + ')'"
+                      ></option>
+                    </template>
+                    <option value="" x-show="!selectedCharId">
+                      + Criar Novo Personagem
+                    </option>
+                  </select>
+                </div>
+                <button x-on:click="abrirWizard()" class="t20-btn t20-btn-new">
+                  + Novo Personagem
+                </button>
+              </div>
+
+              <div class="toolbar-right">
+                <span x-show="saveFeedback" class="save-toast" x-transition
+                  >Salvo com sucesso!</span
+                >
+                <button x-on:click="save()" class="t20-btn t20-btn-save">
+                  Salvar Ficha
+                </button>
+                <button
+                  x-show="selectedCharId"
+                  x-on:click="deleteCharacter()"
+                  class="t20-btn t20-btn-delete"
+                >
+                  Excluir
+                </button>
+                <button
+                  x-on:click="resetForm()"
+                  class="t20-btn t20-btn-reset"
+                  title="Resetar campos"
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+
+            <div class="t20-sheet-container">
+              <div class="t20-sheet">
+                <header class="t20-header">
+                  <div class="t20-header-top">
+                    <div class="t20-char-identity-left">
+                      <div class="t20-main-title">PERSONAGEM</div>
+                      <div class="t20-name-box">
+                        <input
+                          type="text"
+                          x-model="form.nome"
+                          placeholder="Nome do Personagem"
+                          class="t20-name-input"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="t20-player-box">
+                      <label class="t20-field-sub">JOGADOR(a)</label>
+                      <input
+                        type="text"
+                        x-model="form.jogador"
+                        class="t20-player-input"
+                      />
+                    </div>
+
+                    <div class="t20-header-logo-col">
+                      <div class="t20-tormenta-logo">
+                        <span>TORMENTA</span>
+                        <span class="t20-logo-sub">20</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="t20-id-bar">
+                    <div class="t20-id-cell">
+                      <div
+                        class="select-field t20-select-cont"
+                        :class="{ open }"
+                        x-data="selectField({
+                          value: () => form.raca,
+                          options: () => RACAS,
+                          onchange: v => form.raca = v,
+                          placeholder: '— Selecione —'
+                        })"
+                      >
+                        <button type="button" class="t20-select-drop" x-on:click="toggle()">
+                          <span class="select-field-value" :class="{ 'is-placeholder': !selected }" x-text="label"></span>
+                          <svg class="select-field-arrow" :class="{ open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                        </button>
+                        <div class="select-field-pop" x-show="open" x-on:click.outside="close()">
+                          <template x-for="o in options" :key="ident(o)">
+                            <button type="button" class="select-field-opt" :class="{ active: value === ident(o) }" x-on:click="pick(o)" x-text="optLabel(o)"></button>
+                          </template>
+                        </div>
+                      </div>
+                      <span class="t20-id-sublabel">RAÇA</span>
+                    </div>
+
+                    <div class="t20-id-cell">
+                      <div
+                        class="select-field t20-select-cont"
+                        :class="{ open }"
+                        x-data="selectField({
+                          value: () => form.origem,
+                          options: () => ORIGENS,
+                          onchange: v => form.origem = v,
+                          placeholder: '— Selecione —'
+                        })"
+                      >
+                        <button type="button" class="t20-select-drop" x-on:click="toggle()">
+                          <span class="select-field-value" :class="{ 'is-placeholder': !selected }" x-text="label"></span>
+                          <svg class="select-field-arrow" :class="{ open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                        </button>
+                        <div class="select-field-pop" x-show="open" x-on:click.outside="close()">
+                          <template x-for="o in options" :key="ident(o)">
+                            <button type="button" class="select-field-opt" :class="{ active: value === ident(o) }" x-on:click="pick(o)" x-text="optLabel(o)"></button>
+                          </template>
+                        </div>
+                      </div>
+                      <span class="t20-id-sublabel">ORIGEM</span>
+                    </div>
+
+                    <div class="t20-id-cell">
+                      <div
+                        class="select-field t20-select-cont"
+                        :class="{ open }"
+                        x-data="selectField({
+                          value: () => form.classe,
+                          options: () => CLASSES,
+                          onchange: v => form.classe = v,
+                          placeholder: '— Selecione —'
+                        })"
+                      >
+                        <button type="button" class="t20-select-drop" x-on:click="toggle()">
+                          <span class="select-field-value" :class="{ 'is-placeholder': !selected }" x-text="label"></span>
+                          <svg class="select-field-arrow" :class="{ open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                        </button>
+                        <div class="select-field-pop" x-show="open" x-on:click.outside="close()">
+                          <template x-for="o in options" :key="ident(o)">
+                            <button type="button" class="select-field-opt" :class="{ active: value === ident(o) }" x-on:click="pick(o)" x-text="optLabel(o)"></button>
+                          </template>
+                        </div>
+                      </div>
+                      <span class="t20-id-sublabel">CLASSE(S)</span>
+                    </div>
+
+                    <div class="t20-id-cell t20-id-nivel">
+                      <input
+                        type="number"
+                        x-model.number="form.nivel"
+                        x-on:change="onNivelChange()"
+                        min="1"
+                        max="20"
+                        class="t20-input-field t20-text-center"
+                      />
+                      <span class="t20-id-sublabel">NÍVEL(IS)</span>
+                    </div>
+
+                    <div class="t20-id-cell">
+                      <div
+                        class="select-field t20-select-cont"
+                        :class="{ open }"
+                        x-data="selectField({
+                          value: () => form.divindade,
+                          options: () => DIVINDADES,
+                          onchange: v => form.divindade = v,
+                          placeholder: '— Selecione —'
+                        })"
+                      >
+                        <button type="button" class="t20-select-drop" x-on:click="toggle()">
+                          <span class="select-field-value" :class="{ 'is-placeholder': !selected }" x-text="label"></span>
+                          <svg class="select-field-arrow" :class="{ open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                        </button>
+                        <div class="select-field-pop" x-show="open" x-on:click.outside="close()">
+                          <template x-for="o in options" :key="ident(o)">
+                            <button type="button" class="select-field-opt" :class="{ active: value === ident(o) }" x-on:click="pick(o)" x-text="optLabel(o)"></button>
+                          </template>
+                        </div>
+                      </div>
+                      <span class="t20-id-sublabel">DIVINDADE</span>
+                    </div>
+                  </div>
+                </header>
+
+                <div class="t20-main-grid">
+                  <div class="t20-left-column">
+                    <div class="adv-roller">
+                      <button class="adv-roller-btn" :class="{ active: advantageMode }" x-on:click="toggleAdv('advantage')" :title="advantageMode ? 'Desativar vantagem' : 'Rolar com vantagem'">
+                        <span class="adv-roller-icon">▲</span>
+                        <span class="adv-roller-text">Vantagem</span>
+                      </button>
+                      <div class="adv-roller-count">
+                        <input type="number" class="adv-roller-input" x-model.number="advantageCount" min="2" max="10" step="1" />
+                        <span class="adv-roller-x">x</span>
+                      </div>
+                      <button class="adv-roller-btn adv-roller-btn--danger" :class="{ active: disadvantageMode }" x-on:click="toggleAdv('disadvantage')" :title="disadvantageMode ? 'Desativar desvantagem' : 'Rolar com desvantagem'">
+                        <span class="adv-roller-icon">▼</span>
+                        <span class="adv-roller-text">Desvantagem</span>
+                      </button>
+                    </div>
+
+                    <div class="t20-attributes-header">
+                      <span class="t20-attributes-title">Atributos</span>
+                      <button
+                        class="t20-attr-edit-btn"
+                        :class="{ active: editAtributos }"
+                        x-on:click="toggleEditAtributos()"
+                        :title="editAtributos ? 'Desativar edição (clique nos números para rolar)' : 'Editar atributos'"
+                      >
+                        <span class="material-symbols-outlined">edit</span>
+                      </button>
+                    </div>
+
+                    <div class="t20-attributes-row">
+                      <template
+                        x-for="attr in ['FOR', 'DES', 'CON', 'INT', 'SAB', 'CAR']"
+                        :key="attr"
+                      >
+                        <div
+                          class="t20-attr-card"
+                          :class="{ editing: editAtributos }"
+                          :title="editAtributos ? 'Editar valor de ' + attr : 'Rolar teste de ' + attr"
+                        >
+                          <div class="t20-attr-ribbon-tag" x-on:click="!editAtributos && rollAttr(attr)" x-text="attr"></div>
+                          <div class="t20-attr-value-box" x-on:click="!editAtributos && rollAttr(attr)">
+                            <input
+                              type="number"
+                              x-model="form.atributos[attr]"
+                              :readonly="!editAtributos"
+                              class="t20-attr-input"
+                            />
+                            <span class="t20-attr-roll-icon">🎲</span>
+                          </div>
+                          <div class="t20-attr-mod" :class="{ positive: getAttrVal(attr) > 0, negative: getAttrVal(attr) < 0 }" x-text="attrModDisplay(attr)"></div>
+                        </div>
+                      </template>
+                    </div>
+
+                    <div class="t20-vitals-row">
+                      <div class="t20-vital-block t20-pv-block">
+                        <div class="t20-vital-fill t20-pv-fill" :style="{ width: pvPercent + '%' }"></div>
+                        <div class="t20-vital-arrow t20-vital-arrow-left" x-on:click="form.pv_atual = (Number(form.pv_atual) || 0) - 5" title="-5 PV">
+                          <span>&lt;&lt;</span>
+                        </div>
+                        <div class="t20-vital-arrow" x-on:click="form.pv_atual = (Number(form.pv_atual) || 0) - 1" title="-1 PV">
+                          <span>&lt;</span>
+                        </div>
+
+                        <div class="t20-vital-main">
+                          <span class="t20-vital-bar-title">PONTOS DE VIDA</span>
+                          <div class="t20-vital-values">
+                            <input type="number" x-model.number="form.pv_atual" class="t20-vital-current-input" />
+                            <span class="t20-vital-slash">/</span>
+                            <input type="number" x-model.number="form.pv_max" class="t20-vital-current-input t20-vital-max-inline" />
+                          </div>
+                        </div>
+
+                        <div class="t20-vital-arrow" x-on:click="form.pv_atual = (Number(form.pv_atual) || 0) + 1" title="+1 PV">
+                          <span>&gt;</span>
+                        </div>
+                        <div class="t20-vital-arrow t20-vital-arrow-right" x-on:click="form.pv_atual = (Number(form.pv_atual) || 0) + 5" title="+5 PV">
+                          <span>&gt;&gt;</span>
+                        </div>
+                      </div>
+
+                      <div class="t20-vital-block t20-pm-block">
+                        <div class="t20-vital-fill t20-pm-fill" :style="{ width: pmPercent + '%' }"></div>
+                        <div class="t20-vital-arrow t20-vital-arrow-left" x-on:click="form.pm_atual = (Number(form.pm_atual) || 0) - 5" title="-5 PM">
+                          <span>&lt;&lt;</span>
+                        </div>
+                        <div class="t20-vital-arrow" x-on:click="form.pm_atual = (Number(form.pm_atual) || 0) - 1" title="-1 PM">
+                          <span>&lt;</span>
+                        </div>
+
+                        <div class="t20-vital-main">
+                          <span class="t20-vital-bar-title">PONTOS DE MANA</span>
+                          <div class="t20-vital-values">
+                            <input type="number" x-model.number="form.pm_atual" class="t20-vital-current-input" />
+                            <span class="t20-vital-slash">/</span>
+                            <input type="number" x-model.number="form.pm_max" class="t20-vital-current-input t20-vital-max-inline" />
+                          </div>
+                        </div>
+
+                        <div class="t20-vital-arrow" x-on:click="form.pm_atual = (Number(form.pm_atual) || 0) + 1" title="+1 PM">
+                          <span>&gt;</span>
+                        </div>
+                        <div class="t20-vital-arrow t20-vital-arrow-right" x-on:click="form.pm_atual = (Number(form.pm_atual) || 0) + 5" title="+5 PM">
+                          <span>&gt;&gt;</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="t20-mid-section-row">
+                      <div class="t20-defense-box">
+                        <div class="t20-defense-top">
+                          <div class="t20-defense-shield">
+                            <span class="t20-defense-label">DEFESA</span>
+                            <span
+                              class="t20-defense-total"
+                              x-text="calcDefesa()"
+                              >10</span
+                            >
+                          </div>
+
+                          <div class="t20-defense-formula">
+                            <div class="t20-def-eq">
+                              <span class="t20-def-base">(=10)</span>
+                              <span class="t20-op">+</span>
+                              <label class="t20-def-chk">
+                                <input
+                                  type="checkbox"
+                                  x-model="form.defesa_des_check"
+                                />
+                                <span>Des</span>
+                              </label>
+                              <span class="t20-op">+</span>
+                              <div class="t20-def-field">
+                                <span class="t20-def-auto" x-text="equippedArmaduraBonus()"></span>
+                                <span class="t20-def-sub">Bônus de Armadura</span>
+                              </div>
+                              <span class="t20-op">+</span>
+                              <div class="t20-def-field">
+                                <span class="t20-def-auto" x-text="equippedEscudoBonus()"></span>
+                                <span class="t20-def-sub">Bônus de Escudo</span>
+                              </div>
+                              <span class="t20-op">+</span>
+                              <div class="t20-def-field">
+                                <input
+                                  type="number"
+                                  x-model.number="form.defesa_outros"
+                                  class="t20-mini-input"
+                                />
+                                <span class="t20-def-sub">Outros</span>
+                              </div>
+                            </div>
+
+                            <div class="t20-armor-penalty-row">
+                              <span>Penalidade total de Armadura</span>
+                              <span
+                                class="t20-armor-penalty-badge"
+                                x-text="calcPenalidadeArmadura()"
+                                >0</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="t20-armor-table-wrap">
+                          <table class="t20-mini-armor-table">
+                            <thead>
+                              <tr>
+                                <th style="width: 50%">Equipamento</th>
+                                <th>Defesa</th>
+                                <th>Penalidade</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <template x-if="protecoesEquipadas.length === 0">
+                                <tr>
+                                  <td colspan="3" class="t20-equipped-prot-empty">Nenhuma proteção equipada.</td>
+                                </tr>
+                              </template>
+                              <template x-for="(p, i) in protecoesEquipadas" :key="p.id || i">
+                                <tr class="t20-equipped-prot-row">
+                                  <td>
+                                    <span class="t20-equipped-prot-name" x-text="p.nomeProtecao"></span>
+                                    <span class="t20-equipped-prot-tag" x-text="p.tipoProtecao"></span>
+                                  </td>
+                                  <td>
+                                    <span class="t20-equipped-prot-val" x-text="'+' + (p.bonus || 0)"></span>
+                                  </td>
+                                  <td>
+                                    <span class="t20-equipped-prot-val" x-text="p.penalidade || 0"></span>
+                                  </td>
+                                </tr>
+                              </template>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div class="t20-profs-box">
+                        <div class="t20-profs-title">
+                          PROFICIÊNCIAS & OUTRAS CARACTERÍSTICAS
+                        </div>
+                        <textarea
+                          x-model="form.proficiencias_poderes"
+                          placeholder="Poderes de classe, raça, divindade, magias conhecidas, proficiências com armas e armaduras..."
+                          class="t20-profs-textarea"
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <div class="t20-stats-row">
+                      <div class="t20-stat-block t20-stat-tamanho">
+                        <span class="t20-stat-tag">TAMANHO</span>
+                        <input
+                          type="text"
+                          x-model="form.tamanho"
+                          class="t20-stat-val-input"
+                          placeholder="Médio"
+                        />
+                        <div class="t20-stat-mod-box">
+                          <input
+                            type="text"
+                            x-model="form.tamanho_mod"
+                            class="t20-stat-mod-input"
+                            placeholder="0 / 0"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="t20-stat-block t20-stat-deslocamento">
+                        <span class="t20-stat-tag">DESLOCAMENTO</span>
+                        <div class="t20-desloc-wrap">
+                          <input
+                            type="number"
+                            x-model.number="form.deslocamento"
+                            step="1.5"
+                            class="t20-stat-val-input t20-text-center"
+                          />
+                          <span class="t20-unit">m</span>
+                        </div>
+                      </div>
+
+                      <div class="t20-stat-block t20-stat-xp">
+                        <span class="t20-stat-tag">PONTOS DE EXPERIÊNCIA</span>
+                        <div class="t20-xp-wrap">
+                          <input
+                            type="number"
+                            x-model.number="form.xp_atual"
+                            class="t20-stat-val-input t20-text-center"
+                          />
+                          <span>/</span>
+                          <input
+                            type="number"
+                            x-model.number="form.xp_max"
+                            class="t20-stat-val-input t20-text-center"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="t20-right-column">
+                    <div class="t20-tabs">
+                      <button
+                        class="t20-tab"
+                        :class="{ active: activeTab === 'pericias' }"
+                        x-on:click="activeTab = 'pericias'"
+                      >
+                        Perícias
+                      </button>
+                      <button
+                        class="t20-tab"
+                        :class="{ active: activeTab === 'inventario' }"
+                        x-on:click="activeTab = 'inventario'"
+                      >
+                        Inventário
+                      </button>
+                      <button
+                        class="t20-tab"
+                        :class="{ active: activeTab === 'magias' }"
+                        x-on:click="activeTab = 'magias'"
+                      >
+                        Magias
+                      </button>
+                      <button
+                        class="t20-tab"
+                        :class="{ active: activeTab === 'habilidades' }"
+                        x-on:click="activeTab = 'habilidades'"
+                      >
+                        Habilidades
+                      </button>
+                      <button
+                        class="t20-tab"
+                        :class="{ active: activeTab === 'descricao' }"
+                        x-on:click="activeTab = 'descricao'"
+                      >
+                        Descrição
+                      </button>
+                      <button
+                        class="t20-tab"
+                        :class="{ active: activeTab === 'ataques' }"
+                        x-on:click="activeTab = 'ataques'"
+                      >
+                        Ataques
+                      </button>
+                      <button
+                        class="t20-tab"
+                        :class="{ active: activeTab === 'historico' }"
+                        x-on:click="activeTab = 'historico'"
+                      >
+                        Histórico
+                      </button>
+                      <div
+                        class="t20-tab-indicator"
+                        :style="{
+                      width: 'calc(100% / 7)',
+                      transform: 'translateX(' + (['pericias','inventario','magias','habilidades','descricao','ataques','historico'].indexOf(activeTab) * 100) + '%)'
+                    }"
+                      ></div>
+                    </div>
+
+                    <div class="t20-tab-panels">
+                      <div
+                        x-show="activeTab === 'pericias'"
+                        class="t20-tab-panel"
+                      >
+                        <div class="t20-pericias-container">
+                          <div class="t20-pericias-header-row">
+                            <div class="col-p-name">Perícias</div>
+                            <div class="col-p-total">Total</div>
+                            <div class="col-p-op-head">=</div>
+                            <div class="col-p-half">1/2 Nv</div>
+                            <div class="col-p-op-head">+</div>
+                            <div class="col-p-attr">Atributo</div>
+                            <div class="col-p-op-head">+</div>
+                            <div class="col-p-treino">Treino</div>
+                            <div class="col-p-op-head">+</div>
+                            <div class="col-p-outros">Outros</div>
+                          </div>
+
+                          <div class="t20-pericias-list">
+                            <template x-for="p in PERICIAS_DEF" :key="p.key">
+                              <div class="t20-pericia-row">
+                                <div class="t20-p-name-col">
+                                  <template x-if="!p.isCustom">
+                                    <span
+                                      class="t20-p-label"
+                                      x-text="p.nome"
+                                    ></span>
+                                  </template>
+                                  <template x-if="p.isCustom">
+                                    <div class="t20-p-custom-wrap">
+                                      <span>Ofício (</span>
+                                      <input
+                                        type="text"
+                                        x-model="form.pericias[p.key].customName"
+                                        placeholder="________"
+                                        class="t20-p-custom-input"
+                                      />
+                                      <span>)</span>
+                                    </div>
+                                  </template>
+                                  <span
+                                    class="t20-p-symbol"
+                                    x-show="p.penalidade"
+                                    >⚑</span
+                                  >
+                                  <span class="t20-p-symbol" x-show="p.treinado"
+                                    >★</span
+                                  >
+                                </div>
+
+                                <div class="t20-p-total-col">
+                                  <button
+                                    type="button"
+                                    class="t20-total-pill"
+                                    x-on:click="rollPericia(p)"
+                                    :title="'Rolar 1D20 com total da perícia'"
+                                  >
+                                    <span x-text="calcPericiaTotal(p)"></span>
+                                  </button>
+                                </div>
+
+                                <span class="t20-p-op">=</span>
+
+                                <div class="t20-p-half-col">
+                                  <span x-text="calcHalfLevel()">0</span>
+                                </div>
+
+                                <span class="t20-p-op">+</span>
+
+                                <div class="t20-p-attr-col">
+                                  <template x-if="editingAttr !== p.key">
+                                    <button
+                                      type="button"
+                                      class="t20-p-attr-btn"
+                                      x-on:click="editingAttr = p.key"
+                                      :title="'Mudar atributo'"
+                                    >
+                                      <span x-text="form.pericias[p.key].attr || p.attr"></span>
+                                    </button>
+                                  </template>
+                                  <template x-if="editingAttr === p.key">
+                                    <select
+                                      x-model="form.pericias[p.key].attr"
+                                      x-on:change="form.pericias[p.key].attr = $event.target.value; editingAttr = null"
+                                      class="t20-p-treino-select"
+                                    >
+                                      <option value="FOR">FOR</option>
+                                      <option value="DES">DES</option>
+                                      <option value="CON">CON</option>
+                                      <option value="INT">INT</option>
+                                      <option value="SAB">SAB</option>
+                                      <option value="CAR">CAR</option>
+                                    </select>
+                                  </template>
+                                </div>
+
+                                <span class="t20-p-op">+</span>
+
+                                <div class="t20-p-treino-col">
+                                  <select
+                                    x-model.number="form.pericias[p.key].treino"
+                                    class="t20-p-treino-select"
+                                  >
+                                    <option value="0">0</option>
+                                    <option value="2">+2</option>
+                                    <option value="4">+4</option>
+                                    <option value="6">+6</option>
+                                  </select>
+                                </div>
+
+                                <span class="t20-p-op">+</span>
+
+                                <div class="t20-p-outros-col">
+                                  <input
+                                    type="number"
+                                    x-model.number="form.pericias[p.key].outros"
+                                    class="t20-p-outros-input"
+                                  />
+                                </div>
+                              </div>
+                            </template>
+                          </div>
+
+                          <div class="t20-pericias-footer">
+                            <span
+                              >⚑ Penalidade de armadura. ★ Somente
+                              treinado.</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        x-show="activeTab === 'inventario'"
+                        class="t20-tab-panel"
+                      >
+                        <div class="t20-equipment-card">
+                          <div class="t20-equip-ribbon-title">INVENTÁRIO</div>
+
+                          <div class="t20-equip-header-row">
+                            <button x-on:click="openEquipPopup()" class="t20-btn t20-btn-new">
+                              + Adicionar Equipamento
+                            </button>
+                            <button x-on:click="openCriarPopup('equipamento')" class="t20-btn t20-btn-new">
+                              Criar equipamento
+                            </button>
+                            <div class="t20-equip-load-info">
+                              <span>Carga: <strong x-text="calcCargaUsada()"></strong> / <strong x-text="calcLimiteCarga()"></strong></span>
+                              <span class="t20-money-label">T$</span>
+                              <input type="number" x-model.number="form.tibares" class="t20-line-input t20-money-input" />
+                            </div>
+                          </div>
+
+                          <div class="t20-carried-list" x-show="armasCarregadas.length > 0">
+                            <div class="t20-carried-header">
+                              <span class="col-carried-name">ITEM</span>
+                              <span class="col-carried-dano">DANO</span>
+                              <span class="col-carried-tipo">TIPO</span>
+                              <span class="col-carried-peso">PESO</span>
+                              <span class="col-carried-actions"></span>
+                            </div>
+                            <template x-for="(arma, i) in armasCarregadas" :key="arma.id || i">
+                              <div class="t20-carried-block">
+                                <div class="t20-carried-row" x-on:click="toggleArmaCarregadaDesc(arma.id)">
+                                  <span class="t20-carried-name t20-carried-name-wrap">
+                                    <label
+                                      class="t20-equip-check"
+                                      :class="{ checked: arma.equiped }"
+                                      :title="(arma.equiped ? 'Desequipar' : 'Equipar') + ' ' + arma.nome"
+                                      x-on:click.stop
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        class="t20-equip-check-input"
+                                        :checked="arma.equiped"
+                                        x-on:change="toggleArmaEquiped(arma)"
+                                      />
+                                      <span class="t20-equip-check-box">
+                                        <span class="material-symbols-outlined">check</span>
+                                      </span>
+                                    </label>
+                                    <span class="material-symbols-outlined t20-carried-chevron" :class="{ expanded: expandedArmaCarregadaId === arma.id }">expand_more</span>
+                                    <span x-text="arma.nome"></span>
+                                  </span>
+                                  <span class="t20-carried-dano" x-text="arma.dadoDeDano"></span>
+                                  <span class="t20-carried-tipo" x-text="arma.tipoDano"></span>
+                                  <span class="t20-carried-peso" x-text="arma.peso + ' kg'"></span>
+                                  <div class="t20-carried-actions"></div>
+                                </div>
+                                <div class="t20-carried-detail" x-show="expandedArmaCarregadaId === arma.id" x-transition>
+                                  <p x-text="arma.descricao"></p>
+                                  <div>
+                                    <span>Alcance: <strong x-text="arma.alcance"></strong></span>
+                                    <span> · </span>
+                                    <span>Crítico: <strong x-text="arma.critico + '/' + arma.multiplicador"></strong></span>
+                                    <span> · </span>
+                                    <span>Preço: <strong x-text="'T$ ' + arma.preco"></strong></span>
+                                    <span> · </span>
+                                    <span>Tipo: <strong x-text="arma.tipoArma"></strong></span>
+                                  </div>
+                                  <div class="t20-carried-detail-actions">
+                                    <button x-on:click.stop="editarArma(arma)" class="t20-btn-edit">Editar</button>
+                                    <button x-on:click.stop="removeArmaFicha(arma.id)" class="t20-btn-del">Deletar</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </template>
+                          </div>
+
+                          <div class="t20-carried-empty" x-show="armasCarregadas.length === 0">
+                            <p>Nenhum equipamento carregado.</p>
+                            <p class="t20-carried-empty-sub">Clique em "Adicionar Equipamento" para começar.</p>
+                          </div>
+
+                          <div class="t20-carried-subsection" x-show="protecoesCarregadas.length > 0 || armasCarregadas.length > 0">
+                            <div class="t20-carried-subtitle">Proteções</div>
+                            <template x-for="(p, i) in protecoesCarregadas" :key="p.id || i">
+                              <div class="t20-carried-block">
+                                <div class="t20-carried-row" x-on:click="toggleProtecaoCarregadaDesc(p.id)">
+                                  <span class="t20-carried-name t20-carried-name-wrap">
+                                    <label
+                                      class="t20-equip-check"
+                                      :class="{ checked: p.equipada }"
+                                      :title="(p.equipada ? 'Desequipar' : 'Equipar') + ' ' + p.nomeProtecao"
+                                      x-on:click.stop
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        class="t20-equip-check-input"
+                                        :checked="p.equipada"
+                                        x-on:change="toggleProtecaoEquipada(p)"
+                                      />
+                                      <span class="t20-equip-check-box">
+                                        <span class="material-symbols-outlined">check</span>
+                                      </span>
+                                    </label>
+                                    <span class="material-symbols-outlined t20-carried-chevron" :class="{ expanded: expandedProtecaoCarregadaId === p.id }">expand_more</span>
+                                    <span x-text="p.nomeProtecao"></span>
+                                  </span>
+                                  <span class="t20-carried-dano" x-text="'+' + p.bonus"></span>
+                                  <span class="t20-carried-tipo" x-text="p.tipoProtecao"></span>
+                                  <span class="t20-carried-peso" x-text="p.peso + ' kg'"></span>
+                                  <div class="t20-carried-actions"></div>
+                                </div>
+                                <div class="t20-carried-detail" x-show="expandedProtecaoCarregadaId === p.id" x-transition>
+                                  <p x-text="p.descricao"></p>
+                                  <div>
+                                    <span>Bônus: <strong x-text="'+' + p.bonus"></strong></span>
+                                    <span> · </span>
+                                    <span>Penalidade: <strong x-text="p.penalidade"></strong></span>
+                                    <span> · </span>
+                                    <span>Preço: <strong x-text="'T$ ' + p.preco"></strong></span>
+                                    <span> · </span>
+                                    <span>Tipo: <strong x-text="p.tipoProtecao"></strong></span>
+                                  </div>
+                                  <div class="t20-carried-detail-actions">
+                                    <button x-on:click.stop="editarProtecao(p)" class="t20-btn-edit">Editar</button>
+                                    <button x-on:click.stop="removeProtecaoFicha(p.id)" class="t20-btn-del">Deletar</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </template>
+                            <div class="t20-carried-empty" x-show="protecoesCarregadas.length === 0">
+                              <p>Nenhuma proteção carregada.</p>
+                              <p class="t20-carried-empty-sub">Vá em "Adicionar Equipamento" na aba Proteção.</p>
+                            </div>
+                          </div>
+
+                          <div class="t20-carried-subsection" x-show="equipamentosCarregados.length > 0">
+                            <div class="t20-carried-subtitle">Equipamentos Gerais</div>
+                            <div class="t20-carried-list t20-carried-list--gerais">
+                              <div class="t20-carried-header">
+                                <span class="col-carried-name">EQUIPAMENTO</span>
+                                <span class="col-carried-dano">PESO</span>
+                                <span class="col-carried-tipo">DESCRIÇÃO</span>
+                                <span class="col-carried-actions"></span>
+                              </div>
+                              <template x-for="(eq, i) in equipamentosCarregados" :key="eq.id || i">
+                                <div class="t20-carried-block">
+                                  <div class="t20-carried-row" x-on:click="toggleEquipamentoCarregadoDesc(eq.id)">
+                                    <span class="t20-carried-name t20-carried-name-wrap">
+                                      <span class="material-symbols-outlined t20-carried-chevron" :class="{ expanded: expandedEquipamentoCarregadoId === eq.id }">expand_more</span>
+                                      <span x-text="eq.nome"></span>
+                                    </span>
+                                    <span class="t20-carried-dano" x-text="eq.peso + ' kg'"></span>
+                                    <span class="t20-carried-tipo" x-text="eq.descricao ? (eq.descricao.length > 30 ? eq.descricao.slice(0, 30) + '…' : eq.descricao) : ''"></span>
+                                    <div class="t20-carried-actions"></div>
+                                  </div>
+                                  <div class="t20-carried-detail" x-show="expandedEquipamentoCarregadoId === eq.id" x-transition>
+                                    <p x-text="eq.descricao"></p>
+                                    <div>
+                                      <span>Peso: <strong x-text="eq.peso + ' kg'"></strong></span>
+                                    </div>
+                                    <div class="t20-carried-detail-actions">
+                                      <button x-on:click.stop="editarEquipamento(eq)" class="t20-btn-edit">Editar</button>
+                                      <button x-on:click.stop="removeEquipamentoFicha(eq.id)" class="t20-btn-del">Deletar</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </template>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+<div
+                          x-show="showEquipPopup"
+                          class="t20-equip-popup-overlay"
+                          x-on:click.self="closeEquipPopup()"
+                          x-transition.opacity.duration.200ms
+                        >
+                          <div class="t20-equip-popup" x-transition.scale.duration.200ms>
+                          <div class="t20-equip-popup-header">
+                            <h3>Adicionar Equipamento</h3>
+                            <button x-on:click="closeEquipPopup()" class="t20-popup-close">✕</button>
+                          </div>
+
+                          <div class="t20-equip-popup-tabs">
+                            <button
+                              class="t20-equip-popup-tab"
+                              :class="{ active: activeEquipTab === 'armas' }"
+                              x-on:click="activeEquipTab = 'armas'"
+                            >Armas</button>
+                            <button
+                              class="t20-equip-popup-tab"
+                              :class="{ active: activeEquipTab === 'protecao' }"
+                              x-on:click="activeEquipTab = 'protecao'"
+                            >Proteção</button>
+                            <button
+                              class="t20-equip-popup-tab"
+                              :class="{ active: activeEquipTab === 'gerais' }"
+                              x-on:click="activeEquipTab = 'gerais'"
+                            >Equipamentos Gerais</button>
+                          </div>
+
+                          <div class="t20-equip-popup-body" x-show="activeEquipTab === 'armas'">
+                            <div class="t20-equip-search">
+                              <span class="material-symbols-outlined">search</span>
+                              <input
+                                type="text"
+                                x-model="armasSearchTerm"
+                                placeholder="Filtrar por nome, dano ou tipo..."
+                                class="t20-equip-search-input"
+                              />
+                            </div>
+
+                            <div class="t20-equip-list-popup">
+                              <template x-for="(arma, i) in armasFiltradas" :key="i">
+                                <div class="t20-equip-item-row">
+                                  <button
+                                    class="t20-equip-expand-btn"
+                                    x-on:click="toggleArmaDesc(i)"
+                                    :class="{ expanded: expandedArmaIndex === i }"
+                                  >
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                  </button>
+                                  <div class="t20-equip-item-info">
+                                    <div class="t20-equip-item-main">
+                                      <span class="t20-equip-item-name" x-text="arma.nome"></span>
+                                      <span class="t20-equip-item-tag" x-text="arma.tipoArma"></span>
+                                    </div>
+                                    <div class="t20-equip-item-stats">
+                                      <span x-text="arma.dadoDeDano"></span>
+                                      <span class="t20-equip-item-sep">·</span>
+                                      <span x-text="arma.tipoDano"></span>
+                                      <span class="t20-equip-item-sep">·</span>
+                                      <span x-text="'Crítico: ' + arma.critico + '/' + arma.multiplicador"></span>
+                                      <span class="t20-equip-item-sep">·</span>
+                                      <span x-text="arma.peso + ' kg'"></span>
+                                    </div>
+                                    <div class="t20-equip-item-desc" x-show="expandedArmaIndex === i" x-transition>
+                                      <p x-text="arma.descricao"></p>
+                                      <div class="t20-equip-item-desc-details">
+                                        <span>Alcance: <strong x-text="arma.alcance"></strong></span>
+                                        <span>Preço: <strong x-text="'T$ ' + arma.preco"></strong></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <button
+                                    class="t20-equip-add-btn"
+                                    x-on:click="addArmaToInventory(arma)"
+                                    title="Adicionar ao inventário"
+                                  >
+                                    <span class="material-symbols-outlined">add</span>
+                                  </button>
+                                </div>
+                              </template>
+                              <div class="t20-equip-list-empty" x-show="armasFiltradas.length === 0">
+                                <p>Nenhuma arma encontrada para esse filtro.</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="t20-equip-popup-body" x-show="activeEquipTab === 'protecao'">
+                            <div class="t20-equip-search">
+                              <span class="material-symbols-outlined">search</span>
+                              <input
+                                type="text"
+                                x-model="protecoesSearchTerm"
+                                placeholder="Filtrar por nome ou tipo..."
+                                class="t20-equip-search-input"
+                              />
+                            </div>
+                            <div class="t20-equip-popup-tiptabs">
+                              <button
+                                class="t20-equip-popup-tab"
+                                :class="{ active: protecaoTipoTab === 'todas' }"
+                                x-on:click="protecaoTipoTab = 'todas'"
+                              >Todas</button>
+                              <template x-for="t in PROTECAO_TIPOS" :key="t">
+                                <button
+                                  class="t20-equip-popup-tab"
+                                  :class="{ active: protecaoTipoTab === t }"
+                                  x-on:click="protecaoTipoTab = t"
+                                  x-text="t"
+                                ></button>
+                              </template>
+                            </div>
+                            <div class="t20-equip-list-popup">
+                              <template x-for="(p, i) in protecoesFiltradas" :key="i">
+                                <div class="t20-equip-item-row">
+                                  <button
+                                    class="t20-equip-expand-btn"
+                                    x-on:click="toggleProtecaoDesc(i)"
+                                    :class="{ expanded: expandedProtecaoIndex === i }"
+                                  >
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                  </button>
+                                  <div class="t20-equip-item-info">
+                                    <div class="t20-equip-item-main">
+                                      <span class="t20-equip-item-name" x-text="p.nome"></span>
+                                      <span class="t20-equip-item-tag" x-text="p.tipo"></span>
+                                    </div>
+                                    <div class="t20-equip-item-stats">
+                                      <span>DEF: <span x-text="'+' + p.bonusDefesa"></span></span>
+                                      <span class="t20-equip-item-sep">·</span>
+                                      <span x-text="'Penalidade: ' + p.penalidadeArmadura"></span>
+                                      <span class="t20-equip-item-sep">·</span>
+                                      <span x-text="p.peso + ' kg'"></span>
+                                    </div>
+                                    <div class="t20-equip-item-desc" x-show="expandedProtecaoIndex === i" x-transition>
+                                      <p x-text="p.descricao"></p>
+                                      <div class="t20-equip-item-desc-details">
+                                        <span>Preço: <strong x-text="'T$ ' + p.preco"></strong></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <button
+                                    class="t20-equip-add-btn"
+                                    x-on:click="addProtecaoToFicha(p)"
+                                    title="Adicionar ao inventário"
+                                  >
+                                    <span class="material-symbols-outlined">add</span>
+                                  </button>
+                                </div>
+                              </template>
+                              <div class="t20-equip-list-empty" x-show="protecoesFiltradas.length === 0">
+                                <p>Nenhuma proteção encontrada para esse filtro.</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="t20-equip-popup-body" x-show="activeEquipTab === 'gerais'">
+                            <div class="t20-equip-search">
+                              <span class="material-symbols-outlined">search</span>
+                              <input
+                                type="text"
+                                x-model="equipamentosSearchTerm"
+                                placeholder="Filtrar por nome ou descrição..."
+                                class="t20-equip-search-input"
+                              />
+                            </div>
+
+                            <div class="t20-equip-list-popup">
+                              <template x-for="(eq, i) in equipamentosFiltrados" :key="i">
+                                <div class="t20-equip-item-row">
+                                  <button
+                                    class="t20-equip-expand-btn"
+                                    x-on:click="toggleEquipamentoDesc(i)"
+                                    :class="{ expanded: expandedEquipamentoIndex === i }"
+                                  >
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                  </button>
+                                  <div class="t20-equip-item-info">
+                                    <div class="t20-equip-item-main">
+                                      <span class="t20-equip-item-name" x-text="eq.nome"></span>
+                                      <span class="t20-equip-item-tag">Equipamento</span>
+                                    </div>
+                                    <div class="t20-equip-item-stats">
+                                      <span x-text="eq.peso + ' kg'"></span>
+                                    </div>
+                                    <div class="t20-equip-item-desc" x-show="expandedEquipamentoIndex === i" x-transition>
+                                      <p x-text="eq.descricao"></p>
+                                    </div>
+                                  </div>
+                                  <button
+                                    class="t20-equip-add-btn"
+                                    x-on:click="addEquipamentoToFicha(eq)"
+                                    title="Adicionar ao inventário"
+                                  >
+                                    <span class="material-symbols-outlined">add</span>
+                                  </button>
+                                </div>
+                              </template>
+                              <div class="t20-equip-list-empty" x-show="equipamentosFiltrados.length === 0">
+                                <p>Nenhum equipamento encontrado para esse filtro.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        x-show="activeTab === 'magias'"
+                        class="t20-tab-panel"
+                      >
+                        <div class="t20-equipment-card">
+                          <div class="t20-equip-ribbon-title">MAGIAS</div>
+
+                          <div class="t20-equip-header-row">
+                            <button x-on:click="openMagiasPopup()" class="t20-btn t20-btn-new">
+                              + Adicionar Magia
+                            </button>
+                            <button x-on:click="openCriarPopup('magia')" class="t20-btn t20-btn-new">
+                              Criar magia
+                            </button>
+                          </div>
+
+                          <div class="t20-carried-list" x-show="magiasCarregadas.length > 0">
+                            <div class="t20-carried-header">
+                              <span class="col-carried-name">MAGIA</span>
+                              <span class="col-carried-dano">CÍRCULO</span>
+                              <span class="col-carried-tipo">TIPO</span>
+                              <span class="col-carried-peso">PM</span>
+                              <span class="col-carried-actions"></span>
+                            </div>
+                            <template x-for="(magia, i) in magiasCarregadas" :key="magia.id || i">
+                              <div class="t20-carried-block">
+                                <div class="t20-carried-row" x-on:click="toggleMagiaCarregadaDesc(magia.id)">
+                                  <span class="t20-carried-name t20-carried-name-wrap">
+                                    <span class="material-symbols-outlined t20-carried-chevron" :class="{ expanded: expandedMagiaCarregadaId === magia.id }">expand_more</span>
+                                    <span x-text="magia.nome"></span>
+                                  </span>
+                                  <span class="t20-carried-dano" x-text="magia.Circulo"></span>
+                                  <span class="t20-carried-tipo" x-text="magia.tipoMagia"></span>
+                                  <span class="t20-carried-peso" x-text="magia.gastoPe"></span>
+                                  <div class="t20-carried-actions">
+                                    <button x-on:click.stop="removeMagiaFicha(magia.id)" class="t20-btn-del" title="Remover">✕</button>
+                                  </div>
+                                </div>
+                                <div class="t20-carried-detail" x-show="expandedMagiaCarregadaId === magia.id" x-transition>
+                                  <p x-text="magia.descricao"></p>
+                                  <div>
+                                    <span>Execução: <strong x-text="magia.execucao"></strong></span>
+                                    <span> · </span>
+                                    <span>Alcance: <strong x-text="magia.alcance"></strong></span>
+                                    <span> · </span>
+                                    <span>Alvo: <strong x-text="magia.alvo"></strong></span>
+                                    <span> · </span>
+                                    <span>Duração: <strong x-text="magia.duracao"></strong></span>
+                                    <span> · </span>
+                                    <span>PM: <strong x-text="magia.gastoPe"></strong></span>
+                                  </div>
+                                  <div x-show="magia.truque">Truque: <strong x-text="magia.truque"></strong></div>
+                                </div>
+                              </div>
+                            </template>
+                          </div>
+
+                          <div class="t20-carried-empty" x-show="magiasCarregadas.length === 0">
+                            <p>Nenhuma magia conhecida.</p>
+                            <p class="t20-carried-empty-sub">Clique em "Adicionar Magia" para começar.</p>
+                          </div>
+                        </div>
+                      </div>
+
+<div
+                          x-show="showMagiasPopup"
+                          class="t20-equip-popup-overlay"
+                          x-on:click.self="closeMagiasPopup()"
+                          x-transition.opacity.duration.200ms
+                        >
+                          <div class="t20-equip-popup" x-transition.scale.duration.200ms>
+                          <div class="t20-equip-popup-header">
+                            <h3>Adicionar Magia</h3>
+                            <button x-on:click="closeMagiasPopup()" class="t20-popup-close">✕</button>
+                          </div>
+
+                          <div class="t20-equip-popup-body">
+                            <div class="t20-equip-search">
+                              <span class="material-symbols-outlined">search</span>
+                              <input
+                                type="text"
+                                x-model="magiasSearchTerm"
+                                placeholder="Filtrar por nome, tipo ou círculo..."
+                                class="t20-equip-search-input"
+                              />
+                            </div>
+
+                            <div class="t20-equip-popup-tabs">
+                              <button
+                                class="t20-equip-popup-tab"
+                                :class="{ active: activeMagiaTipoTab === 'todas' }"
+                                x-on:click="activeMagiaTipoTab = 'todas'"
+                              >Todas</button>
+                              <button
+                                class="t20-equip-popup-tab"
+                                :class="{ active: activeMagiaTipoTab === 'arcana' }"
+                                x-on:click="activeMagiaTipoTab = 'arcana'"
+                              >Arcanas</button>
+                              <button
+                                class="t20-equip-popup-tab"
+                                :class="{ active: activeMagiaTipoTab === 'divina' }"
+                                x-on:click="activeMagiaTipoTab = 'divina'"
+                              >Divinas</button>
+                              <button
+                                class="t20-equip-popup-tab"
+                                :class="{ active: activeMagiaTipoTab === 'universal' }"
+                                x-on:click="activeMagiaTipoTab = 'universal'"
+                              >Universais</button>
+                            </div>
+
+                            <div class="t20-equip-popup-tabs">
+                              <button
+                                class="t20-equip-popup-tab"
+                                :class="{ active: activeMagiaCirculoTab === 'todos' }"
+                                x-on:click="activeMagiaCirculoTab = 'todos'"
+                              >Todos</button>
+                              <template x-for="circulo in magiaCirculos" :key="circulo">
+                                <button
+                                  class="t20-equip-popup-tab"
+                                  :class="{ active: activeMagiaCirculoTab === circulo }"
+                                  x-on:click="activeMagiaCirculoTab = circulo"
+                                  x-text="circulo"
+                                ></button>
+                              </template>
+                            </div>
+
+                            <div class="t20-equip-list-popup">
+                              <template x-for="(magia, i) in magiasFiltradas" :key="i">
+                                <div class="t20-equip-item-row">
+                                  <button
+                                    class="t20-equip-expand-btn"
+                                    x-on:click="toggleMagiaDesc(i)"
+                                    :class="{ expanded: expandedMagiaIndex === i }"
+                                  >
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                  </button>
+                                  <div class="t20-equip-item-info">
+                                    <div class="t20-equip-item-main">
+                                      <span class="t20-equip-item-name" x-text="magia.nome"></span>
+                                      <span class="t20-equip-item-tag" x-text="magia.Circulo"></span>
+                                    </div>
+                                    <div class="t20-equip-item-stats">
+                                      <span x-text="magia.tipoMagia"></span>
+                                      <span class="t20-equip-item-sep">·</span>
+                                      <span x-text="'Execução: ' + magia.execucao"></span>
+                                      <span class="t20-equip-item-sep">·</span>
+                                      <span x-text="'Alcance: ' + magia.alcance"></span>
+                                      <span class="t20-equip-item-sep">·</span>
+                                      <span x-text="'Duração: ' + magia.duracao"></span>
+                                      <span class="t20-equip-item-sep">·</span>
+                                      <span x-text="magia.gastoPe + ' PM'"></span>
+                                    </div>
+                                    <div class="t20-equip-item-desc" x-show="expandedMagiaIndex === i" x-transition>
+                                      <p x-text="magia.descricao"></p>
+                                      <div class="t20-equip-item-desc-details">
+                                        <span>Alvo: <strong x-text="magia.alvo"></strong></span>
+                                        <span x-show="magia.truque">Truque: <strong x-text="magia.truque"></strong></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <button
+                                    class="t20-equip-add-btn"
+                                    x-on:click="addMagiaToFicha(magia)"
+                                    title="Adicionar à ficha"
+                                  >
+                                    <span class="material-symbols-outlined">add</span>
+                                  </button>
+                                </div>
+                              </template>
+                              <div class="t20-equip-list-empty" x-show="magiasFiltradas.length === 0">
+                                <p>Nenhuma magia encontrada para esse filtro.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        x-show="activeTab === 'habilidades'"
+                        class="t20-tab-panel"
+                      >
+                        <div class="t20-equipment-card">
+                          <div class="t20-equip-ribbon-title">HABILIDADES</div>
+
+                          <div class="t20-equip-popup-tabs t20-hab-main-tabs">
+                            <button
+                              class="t20-equip-popup-tab"
+                              :class="{ active: activeHabilidadeTab === 'classe' }"
+                              x-on:click="activeHabilidadeTab = 'classe'"
+                            >Classe</button>
+                            <button
+                              class="t20-equip-popup-tab"
+                              :class="{ active: activeHabilidadeTab === 'geral' }"
+                              x-on:click="activeHabilidadeTab = 'geral'"
+                            >Geral</button>
+                          </div>
+
+                          <div class="t20-equip-header-row">
+                            <button x-on:click="openHabilidadesPopup()" class="t20-btn t20-btn-new">
+                              + Adicionar Habilidade
+                            </button>
+                            <button x-on:click="openCriarPopup('habilidade')" class="t20-btn t20-btn-new">
+                              Criar habilidade
+                            </button>
+                          </div>
+
+                          <div class="t20-carried-list t20-carried-list--hab" x-show="habilidadesCarregadasFiltradas.length > 0">
+                            <div class="t20-carried-header">
+                              <span class="col-carried-name">HABILIDADE</span>
+                              <span class="col-carried-tipo">CLASSE</span>
+                              <span class="col-carried-peso">PM</span>
+                              <span class="col-carried-actions"></span>
+                            </div>
+                            <template x-for="hab in habilidadesCarregadasFiltradas" :key="hab.id">
+                              <div class="t20-carried-block">
+                                <div class="t20-carried-row" x-on:click="toggleHabilidadeCarregadaDesc(hab.id)">
+                                  <span class="t20-carried-name t20-carried-name-wrap">
+                                    <span class="material-symbols-outlined t20-carried-chevron" :class="{ expanded: expandedHabilidadeCarregadaId === hab.id }">expand_more</span>
+                                    <span x-text="hab.nome"></span>
+                                  </span>
+                                  <span class="t20-carried-tipo" x-text="hab.classe"></span>
+                                  <span class="t20-carried-peso" x-text="hab.gastoPe === null || hab.gastoPe === undefined ? '—' : hab.gastoPe"></span>
+                                  <div class="t20-carried-actions">
+                                    <button x-on:click.stop="removeHabilidadeFicha(hab.id)" class="t20-btn-del" title="Remover">✕</button>
+                                  </div>
+                                </div>
+                                <div class="t20-carried-detail" x-show="expandedHabilidadeCarregadaId === hab.id" x-transition>
+                                  <p x-text="hab.descricao"></p>
+                                  <div>
+                                    <span>PM: <strong x-text="hab.gastoPe === null || hab.gastoPe === undefined ? '—' : hab.gastoPe"></strong></span>
+                                    <span> · </span>
+                                    <span>Classe: <strong x-text="hab.classe"></strong></span>
+                                  </div>
+                                </div>
+                              </div>
+                            </template>
+                          </div>
+
+                          <div class="t20-carried-empty" x-show="habilidadesCarregadasFiltradas.length === 0">
+                            <p x-show="activeHabilidadeTab === 'classe'">Nenhuma habilidade de classe conhecida.</p>
+                            <p x-show="activeHabilidadeTab === 'geral'">Nenhuma habilidade geral conhecida.</p>
+                            <p class="t20-carried-empty-sub">Clique em "Adicionar Habilidade" para começar.</p>
+                          </div>
+                        </div>
+                      </div>
+
+<div
+                          x-show="showHabilidadesPopup"
+                          class="t20-equip-popup-overlay"
+                          x-on:click.self="closeHabilidadesPopup()"
+                          x-transition.opacity.duration.200ms
+                        >
+                          <div class="t20-equip-popup" x-transition.scale.duration.200ms>
+                          <div class="t20-equip-popup-header">
+                            <h3>Adicionar Habilidade</h3>
+                            <button x-on:click="closeHabilidadesPopup()" class="t20-popup-close">✕</button>
+                          </div>
+
+                          <div class="t20-equip-popup-body">
+                            <div class="t20-equip-search">
+                              <span class="material-symbols-outlined">search</span>
+                              <input
+                                type="text"
+                                x-model="habilidadesSearchTerm"
+                                placeholder="Filtrar por nome..."
+                                class="t20-equip-search-input"
+                              />
+                            </div>
+
+                            <div class="t20-equip-popup-tabs">
+                              <button
+                                class="t20-equip-popup-tab"
+                                :class="{ active: activeHabilidadeTab === 'classe' }"
+                                x-on:click="activeHabilidadeTab = 'classe'"
+                              >Classe</button>
+                              <button
+                                class="t20-equip-popup-tab"
+                                :class="{ active: activeHabilidadeTab === 'geral' }"
+                                x-on:click="activeHabilidadeTab = 'geral'"
+                              >Geral</button>
+                            </div>
+
+                            <div class="t20-equip-popup-tabs t20-hab-class-tabs" x-show="activeHabilidadeTab === 'classe'">
+                              <template x-for="cl in habClasses" :key="cl">
+                                <button
+                                  class="t20-equip-popup-tab"
+                                  :class="{ active: (activeClasseTab || habClasses[0]) === cl }"
+                                  x-on:click="activeClasseTab = cl"
+                                  x-text="cl"
+                                ></button>
+                              </template>
+                            </div>
+
+                            <div class="t20-equip-list-popup" x-show="activeHabilidadeTab === 'classe'">
+                              <template x-for="(hab, i) in habilidadesFiltradas" :key="i">
+                                <div class="t20-equip-item-row">
+                                  <button
+                                    class="t20-equip-expand-btn"
+                                    x-on:click="toggleHabilidadeDesc(i)"
+                                    :class="{ expanded: expandedHabilidadeIndex === i }"
+                                  >
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                  </button>
+                                  <div class="t20-equip-item-info">
+                                    <div class="t20-equip-item-main">
+                                      <span class="t20-equip-item-name" x-text="hab.nome"></span>
+                                      <span class="t20-equip-item-tag" x-text="hab.classe"></span>
+                                    </div>
+                                    <div class="t20-equip-item-stats">
+                                      <span x-text="hab.gastoPe === null || hab.gastoPe === undefined ? 'PM livre' : hab.gastoPe + ' PM'"></span>
+                                    </div>
+                                    <div class="t20-equip-item-desc" x-show="expandedHabilidadeIndex === i" x-transition>
+                                      <p x-text="hab.descricao"></p>
+                                    </div>
+                                  </div>
+                                  <button
+                                    class="t20-equip-add-btn"
+                                    x-on:click="addHabilidadeToFicha(hab)"
+                                    title="Adicionar à ficha"
+                                  >
+                                    <span class="material-symbols-outlined">add</span>
+                                  </button>
+                                </div>
+                              </template>
+                              <div class="t20-equip-list-empty" x-show="habilidadesFiltradas.length === 0">
+                                <p>Nenhuma habilidade encontrada para essa classe.</p>
+                              </div>
+                            </div>
+
+                            <div class="t20-equip-list-popup" x-show="activeHabilidadeTab === 'geral'">
+                              <template x-for="(hab, i) in habilidadesFiltradas" :key="i">
+                                <div class="t20-equip-item-row">
+                                  <button
+                                    class="t20-equip-expand-btn"
+                                    x-on:click="toggleHabilidadeDesc(i)"
+                                    :class="{ expanded: expandedHabilidadeIndex === i }"
+                                  >
+                                    <span class="material-symbols-outlined">expand_more</span>
+                                  </button>
+                                  <div class="t20-equip-item-info">
+                                    <div class="t20-equip-item-main">
+                                      <span class="t20-equip-item-name" x-text="hab.nome"></span>
+                                      <span class="t20-equip-item-tag" x-text="hab.classe"></span>
+                                    </div>
+                                    <div class="t20-equip-item-stats">
+                                      <span x-text="hab.gastoPe === null || hab.gastoPe === undefined ? 'PM livre' : hab.gastoPe + ' PM'"></span>
+                                    </div>
+                                    <div class="t20-equip-item-desc" x-show="expandedHabilidadeIndex === i" x-transition>
+                                      <p x-text="hab.descricao"></p>
+                                    </div>
+                                  </div>
+                                  <button
+                                    class="t20-equip-add-btn"
+                                    x-on:click="addHabilidadeToFicha(hab)"
+                                    title="Adicionar à ficha"
+                                  >
+                                    <span class="material-symbols-outlined">add</span>
+                                  </button>
+                                </div>
+                              </template>
+                              <div class="t20-equip-list-empty" x-show="habilidadesFiltradas.length === 0">
+                                <p>Nenhuma habilidade geral encontrada.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                          x-show="showCriarPopup"
+                          class="t20-equip-popup-overlay"
+                          x-on:click.self="closeCriarPopup()"
+                          x-transition.opacity.duration.200ms
+                        >
+                          <div class="t20-equip-popup t20-criar-popup" x-transition.scale.duration.200ms>
+                            <div class="t20-equip-popup-header">
+                              <h3 x-text="criarTipoSelector ? 'Criar Equipamento' : editArmaMode ? 'Editar Arma' : editProtecaoMode ? 'Editar Proteção' : editEquipamentoMode ? 'Editar Equipamento' : criarTipo === 'arma' ? 'Criar Item Personalizado' : criarTipo === 'magia' ? 'Criar Magia Personalizada' : criarTipo === 'habilidade' ? 'Criar Habilidade Personalizada' : criarTipo === 'item' ? 'Criar Equipamento' : 'Criar Proteção Personalizada'"></h3>
+                              <button x-on:click="closeCriarPopup()" class="t20-popup-close">✕</button>
+                            </div>
+
+                            <div class="t20-criar-tipos" x-show="criarTipoSelector">
+                              <button
+                                class="t20-equip-popup-tab"
+                                :class="{ active: criarTipo === 'arma' }"
+                                x-on:click="setCriarEquipTipo('arma')"
+                              >Arma</button>
+                              <button
+                                class="t20-equip-popup-tab"
+                                :class="{ active: criarTipo === 'protecao' }"
+                                x-on:click="setCriarEquipTipo('protecao')"
+                              >Proteção</button>
+                              <button
+                                class="t20-equip-popup-tab"
+                                :class="{ active: criarTipo === 'item' }"
+                                x-on:click="setCriarEquipTipo('item')"
+                              >Equipamento</button>
+                            </div>
+
+                            <div class="t20-equip-popup-body" x-show="criarTipo === 'item'">
+                              <div class="t20-criar-grid">
+                                <label class="t20-criar-field t20-criar-field--full">
+                                  <span>Nome</span>
+                                  <input type="text" x-model="novaEquipamentoForm.nome" placeholder="Corda, Mochila..." />
+                                </label>
+                                <label class="t20-criar-field">
+                                  <span>Peso (kg)</span>
+                                  <input type="number" x-model.number="novaEquipamentoForm.peso" />
+                                </label>
+                                <label class="t20-criar-field t20-criar-field--full">
+                                  <span>Descrição</span>
+                                  <textarea x-model="novaEquipamentoForm.descricao" placeholder="Descreva o equipamento..."></textarea>
+                                </label>
+                              </div>
+                            </div>
+
+                            <div class="t20-equip-popup-body">
+                              <div x-show="criarTipo === 'arma'">
+                                <div class="t20-criar-grid">
+                                  <label class="t20-criar-field t20-criar-field--full">
+                                    <span>Nome</span>
+                                    <input type="text" x-model="novaArmaForm.nome" placeholder="Espada Longa" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Dano</span>
+                                    <input type="text" x-model="novaArmaForm.dadoDeDano" placeholder="1d8" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Preço (T$)</span>
+                                    <input type="number" x-model.number="novaArmaForm.preco" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Peso</span>
+                                    <input type="number" x-model.number="novaArmaForm.peso" step="0.5" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Alcance</span>
+                                    <select x-model="novaArmaForm.alcance">
+                                      <template x-for="al in CRIAR_OPCOES_ALCANCE_ARMA" :key="al">
+                                        <option :value="al" x-text="al"></option>
+                                      </template>
+                                    </select>
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Tipo de Dano</span>
+                                    <select x-model="novaArmaForm.tipoDano">
+                                      <template x-for="td in CRIAR_OPCOES_TIPO_DANO" :key="td">
+                                        <option :value="td" x-text="td"></option>
+                                      </template>
+                                    </select>
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Tipo de Arma</span>
+                                    <select x-model="novaArmaForm.tipoArma">
+                                      <template x-for="ta in CRIAR_OPCOES_TIPO_ARMA" :key="ta">
+                                        <option :value="ta" x-text="ta"></option>
+                                      </template>
+                                    </select>
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Crítico</span>
+                                    <select x-model.number="novaArmaForm.critico">
+                                      <option :value="19">19</option>
+                                      <option :value="20">20</option>
+                                    </select>
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Multiplicador</span>
+                                    <select x-model="novaArmaForm.multiplicador">
+                                      <option value="x2">x2</option>
+                                      <option value="x3">x3</option>
+                                      <option value="x4">x4</option>
+                                    </select>
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Atributo</span>
+                                    <select x-model="novaArmaForm.atributo">
+                                      <template x-for="attr in ATRIBUTOS_LIST" :key="attr">
+                                        <option :value="attr" x-text="attr"></option>
+                                      </template>
+                                    </select>
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Perícia</span>
+                                    <select x-model="novaArmaForm.pericia">
+                                      <template x-for="p in PERICIAS_LIST" :key="p">
+                                        <option :value="p" x-text="p"></option>
+                                      </template>
+                                    </select>
+                                  </label>
+                                  <label class="t20-criar-field t20-criar-field--full">
+                                    <span>Descrição</span>
+                                    <textarea x-model="novaArmaForm.descricao" rows="3" placeholder="Efeitos especiais do item..."></textarea>
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div x-show="criarTipo === 'magia'">
+                                <div class="t20-criar-grid">
+                                  <label class="t20-criar-field t20-criar-field--full">
+                                    <span>Nome</span>
+                                    <input type="text" x-model="novaMagiaForm.nome" placeholder="Bola de Fogo" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Tipo</span>
+                                    <select x-model="novaMagiaForm.tipoMagia">
+                                      <template x-for="tm in CRIAR_OPCOES_TIPO_MAGIA" :key="tm">
+                                        <option :value="tm" x-text="tm"></option>
+                                      </template>
+                                    </select>
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Círculo</span>
+                                    <select x-model="novaMagiaForm.Circulo">
+                                      <template x-for="c in CRIAR_OPCOES_CIRCULO" :key="c">
+                                        <option :value="c" x-text="c"></option>
+                                      </template>
+                                    </select>
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Execução</span>
+                                    <select x-model="novaMagiaForm.execucao">
+                                      <template x-for="e in CRIAR_OPCOES_EXECUCAO" :key="e">
+                                        <option :value="e" x-text="e"></option>
+                                      </template>
+                                    </select>
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Custo (PM)</span>
+                                    <input type="number" x-model.number="novaMagiaForm.gastoPe" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Alcance</span>
+                                    <input type="text" x-model="novaMagiaForm.alcance" placeholder="curto" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Alvo</span>
+                                    <input type="text" x-model="novaMagiaForm.alvo" placeholder="1 criatura" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Duração</span>
+                                    <input type="text" x-model="novaMagiaForm.duracao" placeholder="cena" />
+                                  </label>
+                                  <label class="t20-criar-field t20-criar-field--full">
+                                    <span>Aprimoramento</span>
+                                    <textarea x-model="novaMagiaForm.truque" rows="2" placeholder="Custo adicional / bônus..."></textarea>
+                                  </label>
+                                  <label class="t20-criar-field t20-criar-field--full">
+                                    <span>Descrição</span>
+                                    <textarea x-model="novaMagiaForm.descricao" rows="3" placeholder="Efeito da magia..."></textarea>
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div x-show="criarTipo === 'habilidade'">
+                                <div class="t20-criar-grid">
+                                  <label class="t20-criar-field t20-criar-field--full">
+                                    <span>Nome</span>
+                                    <input type="text" x-model="novaHabilidadeForm.nome" placeholder="Golpe Poderoso" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Classe</span>
+                                    <select x-model="novaHabilidadeForm.classe">
+                                      <template x-for="cl in CRIAR_OPCOES_CLASSE" :key="cl">
+                                        <option :value="cl" x-text="cl"></option>
+                                      </template>
+                                    </select>
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Custo (PM)</span>
+                                    <input type="number" x-model.number="novaHabilidadeForm.gastoPe" />
+                                  </label>
+                                  <label class="t20-criar-field t20-criar-field--full">
+                                    <span>Descrição</span>
+                                    <textarea x-model="novaHabilidadeForm.descricao" rows="3" placeholder="O que a habilidade faz..."></textarea>
+                                  </label>
+                                </div>
+                              </div>
+
+                              <div x-show="criarTipo === 'protecao'">
+                                <div class="t20-criar-grid">
+                                  <label class="t20-criar-field t20-criar-field--full">
+                                    <span>Nome</span>
+                                    <input type="text" x-model="novaProtecaoForm.nome" placeholder="Armadura de couro" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Bônus de Defesa</span>
+                                    <input type="number" x-model.number="novaProtecaoForm.bonus" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Penalidade de Armadura</span>
+                                    <input type="number" x-model.number="novaProtecaoForm.penalidade" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Tipo</span>
+                                    <select x-model="novaProtecaoForm.tipoProtecao">
+                                      <template x-for="tp in PROTECAO_TIPOS" :key="tp">
+                                        <option :value="tp" x-text="tp"></option>
+                                      </template>
+                                    </select>
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Preço (T$)</span>
+                                    <input type="number" x-model.number="novaProtecaoForm.preco" />
+                                  </label>
+                                  <label class="t20-criar-field">
+                                    <span>Peso</span>
+                                    <input type="number" x-model.number="novaProtecaoForm.peso" step="0.5" />
+                                  </label>
+                                  <label class="t20-criar-field t20-criar-field--full">
+                                    <span>Descrição</span>
+                                    <textarea x-model="novaProtecaoForm.descricao" rows="3" placeholder="Detalhes da proteção..." ></textarea>
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="t20-criar-footer">
+                              <button x-on:click="closeCriarPopup()" class="btn-secondary">Cancelar</button>
+                              <button x-on:click="criarItem()" class="btn-primary" x-text="(editArmaMode || editProtecaoMode || editEquipamentoMode) ? 'Salvar' : 'Criar'"></button>
+                            </div>
+                          </div>
+                        </div>
+
+                      <div
+                        x-show="activeTab === 'descricao'"
+                        class="t20-tab-panel"
+                      >
+                        <div class="t20-tab-placeholder">
+                          <span class="material-symbols-outlined"
+                            >description</span
+                          >
+                          <p>Descrição</p>
+                          <span class="t20-tab-placeholder-sub">Em breve</span>
+                        </div>
+                      </div>
+
+                      <div
+                        x-show="activeTab === 'ataques'"
+                        class="t20-tab-panel"
+                      >
+                        <div class="t20-equipment-card">
+                          <div class="t20-equip-ribbon-title">ATAQUES</div>
+
+                          <div class="t20-carried-list t20-carried-list--ataques" x-show="armasEquipadas.length > 0">
+                            <div class="t20-carried-header">
+                              <span class="col-carried-name">ARMA</span>
+                              <span class="col-carried-tipo">PERÍCIA</span>
+                              <span class="col-carried-dano">DANO</span>
+                              <span class="col-carried-crit">CRÍTICO</span>
+                              <span class="col-carried-actions"></span>
+                            </div>
+                            <template x-for="arma in armasEquipadas" :key="arma.id">
+                              <div class="t20-carried-block">
+                                <div class="t20-carried-row" x-on:click="toggleAtaqueArmaExpand(arma)">
+                                  <span class="t20-carried-name t20-carried-name-wrap">
+                                    <span class="material-symbols-outlined t20-carried-chevron" :class="{ expanded: expandedAtaqueArmaId === arma.id }">expand_more</span>
+                                    <span x-text="arma.nome"></span>
+                                  </span>
+                                  <span class="t20-carried-tipo" x-text="armaPericiaInfo(arma).p.nome"></span>
+                                  <span class="t20-carried-peso" x-text="arma.dadoDeDano"></span>
+                                  <span class="t20-carried-crit" x-text="arma.critico + '/' + arma.multiplicador"></span>
+                                  <div class="t20-carried-actions">
+                                    <button
+                                      class="t20-ataque-dice-btn"
+                                      x-on:click.stop="rolarAtaque(arma)"
+                                      :title="'Rolar ataque de ' + arma.nome"
+                                    >
+                                      <span class="material-symbols-outlined">casino</span>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="t20-ataque-config" x-show="expandedAtaqueArmaId === arma.id">
+                                  <label class="t20-ataque-config-field">
+                                    <span class="t20-ataque-config-label">ATRIBUTO</span>
+                                    <select x-model="arma.atributo" x-on:change="salvarAtaqueConfig(arma)">
+                                      <template x-for="attr in ATRIBUTOS_LIST" :key="attr">
+                                        <option :value="attr" x-text="attr"></option>
+                                      </template>
+                                    </select>
+                                  </label>
+                                  <label class="t20-ataque-config-field">
+                                    <span class="t20-ataque-config-label">PERÍCIA</span>
+                                    <select x-model="arma.pericia" x-on:change="salvarAtaqueConfig(arma)">
+                                      <template x-for="p in PERICIAS_LIST" :key="p">
+                                        <option :value="p" x-text="p"></option>
+                                      </template>
+                                    </select>
+                                  </label>
+                                </div>
+                              </div>
+                            </template>
+                          </div>
+
+                          <div class="t20-carried-empty" x-show="armasEquipadas.length === 0">
+                            <p>Nenhuma arma equipada.</p>
+                            <p class="t20-carried-empty-sub">Equipe uma arma no Inventário para vê-la aqui.</p>
+                          </div>
+
+                          <div class="t20-ataque-roller">
+                            <div class="t20-ataque-roller-title">ROLADOR DE DADOS</div>
+                            <div class="dice-custom">
+                              <input
+                                type="text"
+                                x-model="customFormula"
+                                placeholder="Ex: 2D6+3, D20+5"
+                              />
+                              <button x-on:click="rollCustom()" class="btn-primary">Rolar</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        x-show="activeTab === 'historico'"
+                        class="t20-tab-panel"
+                      >
+                        <div class="t20-equipment-card">
+                          <div class="t20-equip-ribbon-title">HISTÓRICO DE DADOS</div>
+
+                          <div class="t20-history-list" x-show="history.length > 0">
+                            <template x-for="(h, i) in history" :key="i">
+                              <div class="history-item" :class="{ 'history-item--crit': h.sub?.multiplied }">
+                                <span class="h-label" x-text="h.label"></span>
+                                <span class="h-result" x-text="h.result"></span>
+                                <span class="h-detail" x-text="h.detail"></span>
+                                <template x-if="h.sub">
+                                  <div class="history-sub">
+                                    <span class="h-label" x-text="h.sub.label"></span>
+                                    <span class="h-result" :class="{ 'h-result--multiplied': h.sub.multiplied }" x-text="h.sub.result"></span>
+                                    <span class="h-detail" x-text="h.sub.detail"></span>
+                                  </div>
+                                </template>
+                              </div>
+                            </template>
+                          </div>
+
+                          <div class="t20-carried-empty" x-show="history.length === 0">
+                            <p>Nenhuma rolagem ainda.</p>
+                            <p class="t20-carried-empty-sub">Role dados na aba Ataques e o histórico aparecerá aqui.</p>
+                          </div>
+
+                          <div class="t20-history-footer" x-show="history.length > 0">
+                            <button x-on:click="clearHistory()" class="btn-secondary">Limpar histórico</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div x-show="d20Popup.show" class="d20-overlay"
+          :class="{ 'd20-overlay--fail': d20Popup.value === 1 && d20Popup.phase === 'result', 'd20-overlay--crit': d20Popup.value === 20 && d20Popup.phase === 'result' }">
+          <div class="d20-popup" :class="'phase-' + d20Popup.phase">
+            <div class="d20-viewport">
+              <div class="d20-anim-wrap" x-on:animationend="onSpinEnd()">
+                <div class="d20-img-container">
+                  <img src="/d20.png" alt="D20" class="d20-img" />
+                  <span class="d20-num-result" :class="d20Popup.value === 20 ? 'crit' : 'fail'" x-text="d20Popup.value"></span>
+                </div>
+              </div>
+            </div>
+            <p class="d20-label" x-show="d20Popup.phase === 'result'" :class="d20Popup.value === 20 ? 'crit' : 'fail'" x-text="d20Popup.value === 20 ? 'ACERTO CRÍTICO!' : 'FALHA CRÍTICA!'"></p>
+          </div>
+        </div>
+
+        <div class="dice-mini-toasts">
+          <template x-for="t in miniToasts" :key="t.id">
+            <div
+              class="dice-mini-toast"
+              :class="{ 'dice-mini-toast--ataque': t.variant === 'ataque', 'dice-mini-toast--crit': t.isCrit }"
+              x-on:click="dismissMiniToast(t.id)"
+              x-on:mouseenter="hoverToast(t.id)"
+              x-on:mouseleave="leaveToast(t.id)"
+            >
+              <button class="dmt-close" x-on:click.stop="dismissMiniToast(t.id)">✕</button>
+              <div class="dmt-main" x-show="t.variant !== 'ataque'">
+                <span class="dmt-label" x-text="t.label"></span>
+                <span class="dmt-result" x-text="t.result"></span>
+                <span class="dmt-detail" x-text="t.detail"></span>
+              </div>
+              <div class="dma-label-group" x-show="t.variant === 'ataque'">
+                <span class="dmt-label" x-text="t.weaponName"></span>
+                <span class="dma-pericia" x-text="t.periciaNome"></span>
+              </div>
+              <div class="dma-result-pair" x-show="t.variant === 'ataque'">
+                <div class="dma-box dma-box--attack">
+                  <span class="dma-box-label">ATAQUE</span>
+                  <span class="dma-box-value" x-text="t.ataque.total"></span>
+                  <span class="dma-box-detail" x-text="t.ataque.detail"></span>
+                </div>
+                <div class="dma-box dma-box--dano">
+                  <span class="dma-box-label">DANO</span>
+                  <span class="dma-box-value" x-text="t.dano.total"></span>
+                  <span class="dma-box-detail" x-text="t.dano.detail"></span>
+                </div>
+              </div>
+              <div class="dmt-hover" x-show="t.variant !== 'ataque' && t.rolls.length">
+                <div class="dmt-hover-title">Dados (menor → maior)</div>
+                <div class="dmt-hover-row" x-for="(r, i) in t.rolls" :key="i">
+                  <span class="dmt-hover-die" x-text="'d' + r.sides"></span>
+                  <span class="dmt-hover-value" x-text="r.value"></span>
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+        </div>
+
+        <div x-data="campaign" x-show="currentPage === 'campaigns'">
+          <div class="campaign-section">
+            <h2>Campanhas</h2>
+            <div class="campaign-tabs">
+              <button
+                x-on:click="activeTab = 'my'"
+                :class="{ active: activeTab === 'my' }"
+              >
+                Minhas Campanhas
+              </button>
+              <button
+                x-on:click="activeTab = 'join'"
+                :class="{ active: activeTab === 'join' }"
+              >
+                Entrar em uma Campanha
+              </button>
+            </div>
+            <div x-show="activeTab === 'my'">
+              <button x-on:click="showCreate = true" class="btn-primary">
+                Criar Campanha
+              </button>
+              <div x-show="showCreate" class="campaign-form">
+                <h3>Nova Campanha</h3>
+                <div class="form-group">
+                  <label>Nome</label
+                  ><input
+                    type="text"
+                    x-model="newName"
+                    placeholder="Ex: A Lenda do Golem"
+                  />
+                </div>
+                <div class="form-actions">
+                  <button x-on:click="create()" class="btn-primary">
+                    Criar
+                  </button>
+                  <button x-on:click="showCreate = false" class="btn-secondary">
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+              <div class="campaigns-list">
+                <template x-for="c in myCampaigns" :key="c.id">
+                  <div class="campaign-card">
+                    <h3 x-text="c.nomeCampanha"></h3>
+                    <button
+                      x-on:click="openFichaPopup(c)"
+                      class="btn-sm"
+                    >
+                      Adicionar Ficha
+                    </button>
+                    <div class="campaign-detail">
+                      <h4>Players</h4>
+                      <div class="members-list">
+                        <template x-for="m in c.players" :key="m.id">
+                          <div class="member-item">
+                            <div class="member-info">
+                              <span class="member-name" x-text="m.name"></span>
+                              <span class="member-role">Jogador</span>
+                            </div>
+                            <span
+                              class="master-player-mestre"
+                              x-show="m.id === c.playerMestreId"
+                              x-text="'Mestre'"
+                            ></span>
+                          </div>
+                        </template>
+                        <div x-show="!c.players.length" class="empty">
+                          Nenhum jogador ainda.
+                        </div>
+                      </div>
+                      <h4>Fichas</h4>
+                      <div class="members-list">
+                        <template x-for="f in c.fichas" :key="f.id">
+                          <div class="member-item">
+                            <div class="member-info">
+                              <span class="member-name" x-text="f.nomePersonagem"></span>
+                              <span class="member-role" x-text="f.classe + ' · Nível ' + f.nivel"></span>
+                            </div>
+                            <button
+                              x-on:click="removeFicha(c, f)"
+                              class="btn-sm btn-danger"
+                              :disabled="removingFichaId === f.id"
+                            >
+                              <span x-text="removingFichaId === f.id ? 'Removendo...' : 'Remover'"></span>
+                            </button>
+                          </div>
+                        </template>
+                        <div x-show="!c.fichas.length" class="empty">
+                          Nenhuma ficha ainda.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+                <div
+                  x-show="!myCampaigns.length && !showCreate"
+                  class="empty-state"
+                >
+                  Nenhuma campanha criada.
+                </div>
+              </div>
+            </div>
+            <div x-show="activeTab === 'join'">
+              <div class="join-form">
+                <div class="form-group">
+                  <label>Código de Convite</label
+                  ><input
+                    type="text"
+                    x-model="inviteCode"
+                    placeholder="Cole o código aqui"
+                  />
+                </div>
+                <button x-on:click="join()" class="btn-primary">Entrar</button>
+                <div
+                  x-show="joinError"
+                  class="error-msg"
+                  x-text="joinError"
+                ></div>
+              </div>
+              <div class="campaigns-list">
+                <template x-for="c in memberCampaigns" :key="c.id">
+                  <div class="campaign-card">
+                    <h3 x-text="c.nomeCampanha"></h3>
+                    <div class="campaign-detail">
+                      <h4>Players</h4>
+                      <div class="members-list">
+                        <template x-for="m in c.players" :key="m.id">
+                          <div class="member-item">
+                            <div class="member-info">
+                              <span class="member-name" x-text="m.name"></span>
+                              <span class="member-role">Jogador</span>
+                            </div>
+                            <span
+                              class="master-player-mestre"
+                              x-show="m.id === c.playerMestreId"
+                              x-text="'Mestre'"
+                            ></span>
+                          </div>
+                        </template>
+                        <div x-show="!c.players.length" class="empty">
+                          Nenhum jogador ainda.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+
+          <div
+            x-show="showFichaPopup"
+            class="t20-equip-popup-overlay"
+            x-on:click.self="closeFichaPopup()"
+            x-transition.opacity.duration.200ms
+          >
+            <div class="t20-equip-popup" x-transition.scale.duration.200ms>
+              <div class="t20-equip-popup-header">
+                <h3>Adicionar Ficha</h3>
+                <button x-on:click="closeFichaPopup()" class="t20-popup-close">✕</button>
+              </div>
+              <div class="t20-equip-popup-body t20-ficha-popup-body">
+                <div class="t20-equip-search">
+                  <input
+                    type="text"
+                    x-model="fichaSearchTerm"
+                    placeholder="Filtrar fichas..."
+                    class="t20-equip-search-input"
+                  />
+                </div>
+                <template x-if="loadingFichas">
+                  <div class="empty">Carregando fichas...</div>
+                </template>
+                <template x-if="!loadingFichas">
+                  <div class="t20-equip-list-popup">
+                    <template x-for="f in availableFichas()" :key="f.id">
+                      <div class="t20-equip-item-row">
+                        <div class="t20-equip-item-info">
+                          <div class="t20-equip-item-main">
+                            <span class="t20-equip-item-name" x-text="f.nomePersonagem"></span>
+                          </div>
+                          <div class="t20-equip-item-stats">
+                            <span x-text="f.classe"></span>
+                            <span class="t20-equip-item-sep">·</span>
+                            <span x-text="'Nível ' + f.nivel"></span>
+                          </div>
+                        </div>
+                        <button
+                          class="t20-equip-add-btn"
+                          x-on:click="addFichaToTarget(f)"
+                          :disabled="addingFichaId === f.id"
+                          title="Adicionar à campanha"
+                        >
+                          <span x-text="addingFichaId === f.id ? '...' : '+'"></span>
+                        </button>
+                      </div>
+                    </template>
+                    <div class="t20-equip-list-empty" x-show="availableFichas().length === 0">
+                      <p>Nenhuma ficha disponível.</p>
+                    </div>
+                  </div>
+                </template>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div x-data="master" x-show="currentPage === 'master'">
+          <div class="master-section">
+            <h2>Painel do Mestre</h2>
+            <div x-show="!myCampaigns.length">
+              <p class="empty-state">
+                Você não é mestre de nenhuma campanha ainda.
+              </p>
+            </div>
+            <div x-show="myCampaigns.length">
+              <div class="form-group">
+                <label>Selecione a Campanha</label>
+                <div
+                  class="select-field"
+                  :class="{ open }"
+                  x-data="selectField({
+                    value: () => selectedCampaignId,
+                    options: () => myCampaigns,
+                    identify: c => c.id,
+                    labelOf: c => c.nomeCampanha,
+                    onchange: v => { selectedCampaignId = v; loadPlayers(); loadFichas() },
+                    placeholder: '— Selecione —'
+                  })"
+                >
+                  <button type="button" class="select-field-btn" x-on:click="toggle()">
+                    <span class="select-field-value" :class="{ 'is-placeholder': !selected }" x-text="label"></span>
+                    <svg class="select-field-arrow" :class="{ open }" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+                  </button>
+                  <div
+                    class="select-field-pop"
+                    x-show="open"
+                    x-on:click.outside="close()"
+                    x-on:keydown.escape.window="close()"
+                  >
+                    <template x-for="o in options" :key="ident(o)">
+                      <button
+                        type="button"
+                        class="select-field-opt"
+                        :class="{ active: value === ident(o) }"
+                        x-on:click="pick(o)"
+                        x-text="optLabel(o)"
+                      ></button>
+                    </template>
+                    <div class="select-field-empty" x-show="!options.length" x-text="emptyText"></div>
+                  </div>
+                </div>
+              </div>
+              <div x-show="selectedCampaignId" class="master-panel">
+                <div class="form-group">
+                  <label>Dê este código para seus players</label>
+                  <button class="campaign-code" x-on:click="copyCode()" :title="'Copiar código ' + (selectedCampaign?.chaveLink || '')">
+                    <code x-text="selectedCampaign?.chaveLink"></code>
+                  </button>
+                </div>
+                <h3>Players da Campanha</h3>
+                <div class="master-characters">
+                  <template x-for="p in campaignPlayers" :key="p.id">
+                    <div class="master-char-card">
+                      <h4 x-text="p.name"></h4>
+                      <p x-text="p.email"></p>
+                      <div class="master-char-actions">
+                        <span
+                          class="master-player-mestre"
+                          x-show="p.id === selectedCampaign?.playerMestreId"
+                          x-text="'Mestre'"
+                        ></span>
+                        <button
+                          x-show="p.id !== $store.auth.user?.id"
+                          x-on:click="removePlayer(p)"
+                          class="btn-sm btn-danger"
+                        >
+                          Remover
+                        </button>
+                      </div>
+                    </div>
+                  </template>
+                  <p class="empty-state" x-show="!campaignPlayers.length">Nenhum player nesta campanha ainda.</p>
+                </div>
+                <h3>Fichas da Campanha</h3>
+                <div class="master-characters">
+                  <template x-for="f in campaignFichas" :key="f.id">
+                    <div class="master-char-card">
+                      <h4 x-text="f.nomePersonagem"></h4>
+                      <p x-text="f.classe + ' · Nível ' + f.nivel"></p>
+                      <div class="master-char-actions">
+                        <span
+                          class="master-player-mestre"
+                          x-text="f.raca"
+                        ></span>
+                        <button
+                          x-on:click="editFicha(f)"
+                          class="btn-sm"
+                        >
+                          Editar
+                        </button>
+                      </div>
+                    </div>
+                  </template>
+                  <p class="empty-state" x-show="!campaignFichas.length">Nenhuma ficha ligada a esta campanha ainda.</p>
+                </div>
+                <h3>Tracker de Iniciativa</h3>
+                <div class="initiative-tracker">
+                  <div class="init-form">
+                    <input type="text" x-model="initName" placeholder="Nome" />
+                    <input
+                      type="number"
+                      x-model="initValue"
+                      placeholder="Iniciativa"
+                    />
+                    <button x-on:click="addInitiative()" class="btn-sm">
+                      Adicionar
+                    </button>
+                  </div>
+                  <div class="init-list">
+                    <template x-for="(entry, i) in initiativeOrder" :key="i">
+                      <div
+                        class="init-item"
+                        :class="{ active: i === currentTurn }"
+                      >
+                        <span class="init-pos" x-text="i + 1"></span>
+                        <span class="init-name" x-text="entry.nome"></span>
+                        <span class="init-val" x-text="entry.valor"></span>
+                        <input
+                          type="number"
+                          x-model="entry.valor"
+                          x-on:input="reorderInitiative()"
+                          class="init-edit"
+                        />
+                        <button
+                          x-on:click="initiativeOrder.splice(i, 1)"
+                          class="btn-remove"
+                        >
+                          X
+                        </button>
+                      </div>
+                    </template>
+                  </div>
+                  <div class="init-controls">
+                    <button
+                      x-on:click="currentTurn = Math.max(0, currentTurn - 1)"
+                      class="btn-sm"
+                    >
+                      Anterior
+                    </button>
+                    <button
+                      x-on:click="currentTurn = Math.min(initiativeOrder.length - 1, currentTurn + 1)"
+                      class="btn-sm"
+                    >
+                      Próximo
+                    </button>
+                    <button
+                      x-on:click="clearInitiative()"
+                      class="btn-sm btn-danger"
+                    >
+                      Limpar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div x-data="reference" x-show="currentPage === 'reference'">
+          <div class="reference-section">
+            <h2>Condições & Referência</h2>
+            <div class="ref-search">
+              <input
+                type="text"
+                x-model="search"
+                placeholder="Buscar condição..."
+              />
+            </div>
+            <div class="conditions-grid">
+              <template x-for="cond in filteredConditions" :key="cond.nome">
+                <div class="condition-card">
+                  <h3 x-text="cond.nome"></h3>
+                  <span class="condition-type" x-text="cond.tipo"></span>
+                  <p x-text="cond.descricao"></p>
+                </div>
+              </template>
+            </div>
+            <div x-show="!filteredConditions.length" class="empty-state">
+              Nenhuma condição encontrada.
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <div class="toast-container" aria-live="polite">
+        <template x-for="toast in $store.toasts.items" :key="toast.id">
+          <div
+            class="toast"
+            :class="[`toast--${toast.type}`, { 'toast--leaving': toast.leaving }]"
+            x-on:click="$store.toasts.dismiss(toast.id)"
+          >
+            <span
+              class="toast-icon"
+              x-text="toast.type === 'success' ? '✓' : toast.type === 'error' ? '✕' : 'ℹ'"
+            ></span>
+            <p class="toast-message" x-text="toast.message"></p>
+          </div>
+        </template>
+      </div>
+    </div>
+  </body>
+</html>

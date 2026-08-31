@@ -1,0 +1,252 @@
+[
+  {
+    "nome": "Algemas",
+    "peso": 1.0,
+    "descricao": "Um par de algemas de ferro para criaturas Médias. Uma criatura presa pode escapar com um teste de Acrobacia (CD 30) ou ser libertada com um teste de Força (CD 26)."
+  },
+  {
+    "nome": "Algibeira",
+    "peso": 0.25,
+    "descricao": "Pequena bolsa de couro que se prende ao cinto. Útil para guardar moedas e pequenos itens de valor."
+  },
+  {
+    "nome": "Barraca",
+    "peso": 10.0,
+    "descricao": "Uma cabana desmontável de lona que abriga até duas pessoas. Fornece abrigo nos ermos e +2 em testes de Sobrevivência para acampar."
+  },
+  {
+    "nome": "Corda (10m)",
+    "peso": 5.0,
+    "descricao": "Um rolo com 10 metros de corda de cânhamo resistente. Dar um nó firme exige um teste de Destreza CD 10 (CD 12 para nós especiais)."
+  },
+  {
+    "nome": "Espelho de metal",
+    "peso": 0.25,
+    "descricao": "Espelho de metal polido. Útil para verificar a aparência, observar cantos cegos, fazer sinais de reflexo de luz e ajudar na aplicação de disfarces."
+  },
+  {
+    "nome": "Instrumento musical",
+    "peso": 1.5,
+    "descricao": "Um instrumento musical mundano (alaúde, flauta, lira, etc.). Equipamento essencial para bardos canalizarem sua arte e canções."
+  },
+  {
+    "nome": "Kit de Ofício",
+    "peso": 4.0,
+    "descricao": "Ferramentas necessárias para exercer um Ofício escolhido (ferreiro, carpintaria, alquimia, etc.). Usar Ofício sem o kit impõe uma penalidade de –5 no teste."
+  },
+  {
+    "nome": "Kit de disfarces",
+    "peso": 4.0,
+    "descricao": "Contém maquiagem, próteses simples e tinturas. Usar Enganação para criar um disfarce sem este kit aplica uma penalidade de –5 no teste."
+  },
+  {
+    "nome": "Kit de ladrão",
+    "peso": 0.5,
+    "descricao": "Ferramentas finas como gazuas e arames para abrir fechaduras e sabotar mecanismos. Usar Ladinagem para esses fins sem o kit impõe –5 de penalidade."
+  },
+  {
+    "nome": "Kit de medicamentos",
+    "peso": 2.0,
+    "descricao": "Ervas, bandagens e unguentos para curar ferimentos e doenças. Usar a perícia Cura para primeiros socorros ou tratamento sem o kit impõe –5 de penalidade."
+  },
+  {
+    "nome": "Lampião",
+    "peso": 1.0,
+    "descricao": "Cilindro de metal com portinholas que queima óleo para iluminar até 9 metros ao redor. Uma carga de óleo dura 6 horas."
+  },
+  {
+    "nome": "Mochila",
+    "peso": 1.0,
+    "descricao": "Bolsa de couro reforçada com alças para as costas. Equipamento básico para carregar pertences de viagem e aventura."
+  },
+  {
+    "nome": "Odre",
+    "peso": 2.0,
+    "descricao": "Bolsa de couro que comporta até 1 litro de água, vinho ou outras bebidas de viagem."
+  },
+  {
+    "nome": "Pé de cabra",
+    "peso": 2.5,
+    "descricao": "Barra de ferro usada para forçar portas e baús trancados. Concede +5 em testes de Força aplicáveis a esses propósitos."
+  },
+  {
+    "nome": "Pederneira",
+    "peso": 0.0,
+    "descricao": "Uma pedra de faísca e placa rugosa de metal. Usada para acender tochas ou lampiões com uma ação completa."
+  },
+  {
+    "nome": "Pena",
+    "peso": 0.0,
+    "descricao": "Uma pena de ave preparada para escrita com tinta líquida."
+  },
+  {
+    "nome": "Pergaminho (folha)",
+    "peso": 0.0,
+    "descricao": "Folha de couro tratado para escrita de relatórios, diários ou rituais de pergaminhos mágicos."
+  },
+  {
+    "nome": "Ração de viagem (por dia)",
+    "peso": 0.5,
+    "descricao": "Alimentos desidratados e conservados (queijo, pão, biscoitos, carne seca) suficientes para alimentar uma pessoa por um dia."
+  },
+  {
+    "nome": "Saco de dormir",
+    "peso": 2.5,
+    "descricao": "Colchão fino e coberta que garantem descanso adequado nos ermos. Dormir ao relento sem ele prejudica a recuperação de PV e PM."
+  },
+  {
+    "nome": "Saco de lona",
+    "peso": 0.25,
+    "descricao": "Saco simples de tecido grosso fechado por corda. Comporta até 20 kg de itens gerais."
+  },
+  {
+    "nome": "Tinta (frasco)",
+    "peso": 0.0,
+    "descricao": "Frasco pequeno com 30 ml de tinta preta comum para escrita."
+  },
+  {
+    "nome": "Tocha",
+    "peso": 0.5,
+    "descricao": "Bastão de madeira embebido em parafina que ilumina 6 metros ao redor por uma hora. Pode ser usado como arma leve que causa 1d4 de dano + 1 fogo."
+  },
+  {
+    "nome": "Vara de madeira (3m)",
+    "peso": 4.0,
+    "descricao": "Haste de madeira de 3 metros de comprimento para sondar pisos, armadilhas ou tatear profundidades nos ermos."
+  },
+  {
+    "nome": "Cão de guarda",
+    "peso": 0.0,
+    "descricao": "Cão de guarda grande e leal. Pode servir de montaria para personagens Pequenos ou aliado vigilante em acampamentos."
+  },
+  {
+    "nome": "Cavalo",
+    "peso": 0.0,
+    "descricao": "A montaria terrestre mais comum em Arton. Cavalos não treinados se assustam em combate, exigindo testes de Cavalgar CD 20 por rodada."
+  },
+  {
+    "nome": "Cavalo de guerra",
+    "peso": 0.0,
+    "descricao": "Cavalo treinado especificamente para a batalha. Dispensa testes de Cavalgar para permanecer montado durante combates."
+  },
+  {
+    "nome": "Pônei",
+    "peso": 0.0,
+    "descricao": "Montaria favorita de heróis Pequenos (como hynne e goblins). Requer teste de Cavalgar CD 20 em combate se não tiver treino de guerra."
+  },
+  {
+    "nome": "Sela",
+    "peso": 0.0,
+    "descricao": "Peça de couro e arreios para montaria. Inclui estribos, freios e alforjes de viagem."
+  },
+  {
+    "nome": "Trobo",
+    "peso": 0.0,
+    "descricao": "Ave enorme, dócil e sem asas de Arton. Parecido com avestruz com chifres e casco de búfalo, muito usada no campo para carga e tração."
+  },
+  {
+    "nome": "Balão goblin",
+    "peso": 0.0,
+    "descricao": "Estrutura aérea improvisada pelos goblins. Permite viagens de condução aérea, mas é arriscado devido à constante chance de pane e queda."
+  },
+  {
+    "nome": "Carroça",
+    "peso": 0.0,
+    "descricao": "Veículo terrestre de quatro rodas puxado por tração animal, ideal para transportar mercadorias pesadas do grupo."
+  },
+  {
+    "nome": "Carruagem",
+    "peso": 0.0,
+    "descricao": "Veículo terrestre refinado e fechado para transporte de passageiros em estradas pavimentadas do Reinado."
+  },
+  {
+    "nome": "Canoa",
+    "peso": 0.0,
+    "descricao": "Embarcação simples escavada a partir de um único tronco de árvore, própria para navegação em rios calmos."
+  },
+  {
+    "nome": "Veleiro",
+    "peso": 0.0,
+    "descricao": "Navio marítimo de grande porte com três mastros, ideal para mercadores e aventureiros cruzando os oceanos de Arton."
+  },
+  {
+    "nome": "Traje camuflado",
+    "peso": 2.0,
+    "descricao": "Roupas estampadas para um tipo específico de terreno. Fornece +2 em testes de Furtividade no ambiente correto."
+  },
+  {
+    "nome": "Traje da corte",
+    "peso": 2.0,
+    "descricao": "Vestimentas luxuosas feitas sob medida. Evita penalidades sociais de –5 em testes de Carisma em festas aristocráticas e na nobreza."
+  },
+  {
+    "nome": "Traje de plebeu",
+    "peso": 1.0,
+    "descricao": "Roupas simples de aldeão feitas de linho ou tecidos rústicos. Geralmente não inclui calçados."
+  },
+  {
+    "nome": "Traje de viajante",
+    "peso": 2.0,
+    "descricao": "Roupas padrão de aventureiros, compostas de botas resistentes, calças de couro, camisa de linho e uma capa grossa com capuz."
+  },
+  {
+    "nome": "Ácido",
+    "peso": 0.5,
+    "descricao": "Item alquímico. Um frasco com líquido corrosivo que pode ser arremessado em alcance curto como ação padrão para causar 2d4 de dano de ácido (Ref CD Des metade)."
+  },
+  {
+    "nome": "Bálsamo restaurador",
+    "peso": 0.5,
+    "descricao": "Item alquímico. Pasta fedorenta feita de ervas curativas. Aplicar no ferimento exige ação completa e recupera 2d4 pontos de vida."
+  },
+  {
+    "nome": "Essência de mana",
+    "peso": 0.1,
+    "descricao": "Item alquímico. Bebida concentrada que reabastece energias físicas e mentais, recuperando 1d4 pontos de mana (PM) com uma ação padrão."
+  },
+  {
+    "nome": "Fogo alquímico",
+    "peso": 0.5,
+    "descricao": "Item alquímico. Frasco com substância viscosa que pega fogo em contato com o ar. Causa 1d6 de dano de fogo e deixa o alvo em chamas (Ref CD Des anula chamas)."
+  },
+  {
+    "nome": "Granada",
+    "peso": 0.5,
+    "descricao": "Item alquímico. Pequena bomba pavio popular entre goblins. Causa 6d6 de dano de impacto em todas as criaturas a até 3m do ponto de explosão (Ref CD Des metade)."
+  },
+  {
+    "nome": "Batata valkariana",
+    "peso": 0.5,
+    "descricao": "Prato especial. Batatas em tiras fritas, gordurentas e deliciosas de Valkaria. Concede +1d6 adicionados a um único teste à escolha dentro de um dia."
+  },
+  {
+    "nome": "Bebida comum",
+    "peso": 0.5,
+    "descricao": "Caneca de bebida rústica (geralmente cerveja ou hidromel) servida em tavernas e estalagens do Reinado."
+  },
+  {
+    "nome": "Gorad quente",
+    "peso": 0.5,
+    "descricao": "Prato especial. Bebida doce de gorad (cacau artoniano) e leite quente que estimula o cérebro, concedendo +2 pontos de mana (PM) temporários por um dia."
+  },
+  {
+    "nome": "Macarrão de Yuvalin",
+    "peso": 0.5,
+    "descricao": "Prato especial. Macarrão espesso com bacon e creme de leite, originário das minas de Zakharov. Concede +5 pontos de vida (PV) temporários por um dia."
+  },
+  {
+    "nome": "Prato do aventureiro",
+    "peso": 0.5,
+    "descricao": "Prato especial. Cozido nutritivo de galinha e legumes. Melhora a recuperação de pontos de vida do próximo descanso em +1 por nível."
+  },
+  {
+    "nome": "Refeição comum",
+    "peso": 0.5,
+    "descricao": "Alimentação corriqueira de taverna contendo pão, queijo cozido de legumes, carne de caça comum e um caneco de bebida."
+  },
+  {
+    "nome": "Sopa de peixe",
+    "peso": 0.5,
+    "descricao": "Prato especial. Caldo leve de peixe fresco com verduras. Melhora a recuperação de pontos de mana do próximo descanso em +1 por nível."
+  }
+]

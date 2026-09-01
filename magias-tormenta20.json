@@ -9,7 +9,7 @@
     "duracao": "cena",
     "gastoPe": 1,
     "truque": "O alimento é 2 purificado (não causa nenhum efeito nocivo se estava estragado ou envenenado), mas não oferece bônus ao ser consumido.",
-    "descricao": "Você purifica e abençoa uma porção de comida ou dose de bebida. Isso torna um alimento sujo, estragado ou envenenado próprio para consumo. Se for consumido até o fim da duração, o alimento oferece 5 PV temporários ou 1 PM temporário."
+    "descricao": "Você purifica 2 e abençoa uma porção de comida ou dose de bebida. Isso torna um alimento sujo, estragado ou envenenado próprio para consumo. Se for consumido até o fim da duração, o alimento oferece 5 PV temporários ou 1 PM temporário."
   },
   {
     "nome": "Acalmar Animal",

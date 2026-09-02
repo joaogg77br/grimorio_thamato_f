@@ -1412,7 +1412,7 @@ export default {
               return
             }
             if (this.editMagiaMode && this.editMagiaId) {
-              await updateMagia(this.editMagiaId, {
+              await updateMagia(this.editMagiaId, this.selectedCharId, {
                 nome: f.nome.trim(),
                 tipoMagia: f.tipoMagia || "Arcana",
                 Circulo: f.Circulo || "1º Círculo",

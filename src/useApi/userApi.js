@@ -92,8 +92,8 @@ function deleteMagia(magiaId) {
   return client.delete(`/magias/delete/${magiaId}`)
 }
 
-function updateMagia(magiaId, data) {
-  return client.put(`/magia/update/${magiaId}`, data)
+function updateMagia(magiaId, fichaId, data) {
+  return client.put(`/magia/update/${magiaId}/${fichaId}`, data)
 }
 
 function createHabilidade(data) {

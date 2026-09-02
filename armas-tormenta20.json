@@ -24,6 +24,30 @@
         "descricao": "Você pode atacar com um soco, chute ou qualquer outro golpe que use seu próprio corpo como se fosse uma arma corpo a corpo. Um ataque desarmado causa dano não letal."
     },
     {
+        "nome": "Pistola",
+        "preco": 250,
+        "dadoDeDano": "2d6",
+        "alcance": "curto",
+        "peso": 0.5,
+        "tipoDano": "Perfuração",
+        "tipoArma": "Arma Simples",
+        "critico": 19,
+        "multiplicador": 3,
+        "descricao": "A arma de fogo mais comum. Uma pistola conta como uma arma leve para propósitos do poder Estilo de Duas Armas e similares. Recarregar uma pistola é uma ação padrão."
+    },
+    {
+        "nome": "Mosquete",
+        "preco": 500,
+        "dadoDeDano": "2d8",
+        "alcance": "Médio",
+        "peso": 0.5,
+        "tipoDano": "Perfuração",
+        "tipoArma": "Arma Simples",
+        "critico": 19,
+        "multiplicador": 3,
+        "descricao": "Uma arma de fogo de uso difícil, mas com poder devastador. Recarregar um mosquete é uma ação padrão. Exige as duas mãos." 
+    },
+    {
         "nome": "Espada curta",
         "preco": 10,
         "dadoDeDano": "1d6",

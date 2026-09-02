@@ -92,6 +92,10 @@ function deleteMagia(magiaId) {
   return client.delete(`/magias/delete/${magiaId}`)
 }
 
+function updateMagia(magiaId, data) {
+  return client.put(`/magia/update/${magiaId}`, data)
+}
+
 function createHabilidade(data) {
   return client.post("/habilidades/create/", data)
 }
@@ -102,6 +106,10 @@ function getHabilidadesByFicha(fichaId) {
 
 function deleteHabilidade(habilidadeId) {
   return client.post(`/habilidades/delete/${habilidadeId}`)
+}
+
+function updateHabilidade(habilidadeId, data) {
+  return client.put(`/habilidades/update/${habilidadeId}`, data)
 }
 
 function getPericiasByFicha(fichaId) {
@@ -152,4 +160,4 @@ function removeFichaFromCampanha(campanhaId, fichaId) {
   return client.delete(`/ficha/remove/${campanhaId}/${fichaId}`)
 }
 
-export { createUser, findAllUsers, loginUser, getFichasByUser, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, getPericiasByFicha, updatePericia, createCampanha, getCampanhasByMaster, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, removePlayerFromCampanha, deleteCampanha, addFichaToCampanha, getFichasByCampanha, removeFichaFromCampanha }
+export { createUser, findAllUsers, loginUser, getFichasByUser, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, createCampanha, getCampanhasByMaster, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, removePlayerFromCampanha, deleteCampanha, addFichaToCampanha, getFichasByCampanha, removeFichaFromCampanha }

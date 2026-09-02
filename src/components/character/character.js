@@ -1,5 +1,5 @@
 import { localDB, generateId } from "../../lib/localDB.js"
-import { getFichasByUser, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, getPericiasByFicha, updatePericia } from "../../useApi/index.js"
+import { getFichasByUser, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia } from "../../useApi/index.js"
 import html from "./character.html?raw"
 import ARMAS_DATA from "../../data/armas.js"
 import PROTECOES_DATA from "../../data/protecoes.js"
@@ -216,7 +216,11 @@ export default {
       editProtecaoId: null,
       editEquipamentoMode: false,
       editEquipamentoId: null,
-      novaArmaForm: { nome: "", preco: 0, dadoDeDano: "1d4", alcance: "Curto", peso: 0, tipoDano: "—", tipoArma: "Arma Simples", critico: 20, multiplicador: "x2", atributo: "FOR", pericia: "Luta", descricao: "" },
+      editMagiaMode: false,
+      editMagiaId: null,
+      editHabilidadeMode: false,
+      editHabilidadeId: null,
+      novaArmaForm: { nome: "", preco: 0, dadoDeDano: "1d4", alcance: "Curto", peso: 0, tipoDano: "—", tipoArma: "Arma Simples", critico: 20, multiplicador: 2, atributo: "FOR", pericia: "Luta", descricao: "" },
       novaMagiaForm: { nome: "", tipoMagia: "Arcana", Circulo: "1º Círculo", execucao: "padrão", alcance: "curto", alvo: "", duracao: "cena", gastoPe: 1, truque: "", descricao: "" },
       novaHabilidadeForm: { nome: "", classe: "Geral", gastoPe: null, descricao: "" },
       novaProtecaoForm: { nome: "", preco: 0, bonus: 0, penalidade: 0, peso: 0, tipoProtecao: "Leve", descricao: "" },
@@ -1219,8 +1223,12 @@ export default {
         this.editProtecaoId = null
         this.editEquipamentoMode = false
         this.editEquipamentoId = null
+        this.editMagiaMode = false
+        this.editMagiaId = null
+        this.editHabilidadeMode = false
+        this.editHabilidadeId = null
         if (tipo === "arma" || tipo === "equipamento") {
-          this.novaArmaForm = { nome: "", preco: 0, dadoDeDano: "1d4", alcance: "Curto", peso: 0, tipoDano: "—", tipoArma: "Arma Simples", critico: 20, multiplicador: "x2", atributo: "FOR", pericia: "Luta", descricao: "" }
+          this.novaArmaForm = { nome: "", preco: 0, dadoDeDano: "1d4", alcance: "Curto", peso: 0, tipoDano: "—", tipoArma: "Arma Simples", critico: 20, multiplicador: 2, atributo: "FOR", pericia: "Luta", descricao: "" }
           if (tipo === "equipamento") this.criarTipo = "arma"
         } else if (tipo === "magia") {
           this.novaMagiaForm = { nome: "", tipoMagia: "Arcana", Circulo: "1º Círculo", execucao: "padrão", alcance: "curto", alvo: "", duracao: "cena", gastoPe: 1, truque: "", descricao: "" }
@@ -1238,7 +1246,7 @@ export default {
         if (t !== "arma" && t !== "protecao" && t !== "item") return
         this.criarTipo = t
         if (t === "arma") {
-          this.novaArmaForm = { nome: "", preco: 0, dadoDeDano: "1d4", alcance: "Curto", peso: 0, tipoDano: "—", tipoArma: "Arma Simples", critico: 20, multiplicador: "x2", atributo: "FOR", pericia: "Luta", descricao: "" }
+          this.novaArmaForm = { nome: "", preco: 0, dadoDeDano: "1d4", alcance: "Curto", peso: 0, tipoDano: "—", tipoArma: "Arma Simples", critico: 20, multiplicador: 2, atributo: "FOR", pericia: "Luta", descricao: "" }
         } else if (t === "protecao") {
           this.novaProtecaoForm = { nome: "", preco: 0, bonus: 0, penalidade: 0, peso: 0, tipoProtecao: "Leve", descricao: "" }
         } else {
@@ -1254,6 +1262,10 @@ export default {
         this.editProtecaoId = null
         this.editEquipamentoMode = false
         this.editEquipamentoId = null
+        this.editMagiaMode = false
+        this.editMagiaId = null
+        this.editHabilidadeMode = false
+        this.editHabilidadeId = null
         this.criarTipoSelector = false
       },
 
@@ -1271,7 +1283,7 @@ export default {
           tipoDano: arma.tipoDano || "—",
           tipoArma: arma.tipoArma || "Arma Simples",
           critico: arma.critico || 20,
-          multiplicador: arma.multiplicador || "x2",
+          multiplicador: Number(String(arma.multiplicador || "2").replace("x", "").trim()) || 2,
           atributo: arma.atributo || "FOR",
           pericia: arma.pericia || "Luta",
           descricao: arma.descricao || "",
@@ -1309,6 +1321,40 @@ export default {
         this.showCriarPopup = true
       },
 
+      editarMagia(magia) {
+        this.editMagiaMode = true
+        this.editMagiaId = magia.id
+        this.criarTipo = "magia"
+        this.criarTipoSelector = false
+        this.novaMagiaForm = {
+          nome: magia.nome || "",
+          tipoMagia: magia.tipoMagia || "Arcana",
+          Circulo: magia.Circulo || "1º Círculo",
+          execucao: magia.execucao || "padrão",
+          alcance: magia.alcance || "curto",
+          alvo: magia.alvo || "",
+          duracao: magia.duracao || "cena",
+          gastoPe: magia.gastoPe ?? 1,
+          truque: magia.truque || "",
+          descricao: magia.descricao || "",
+        }
+        this.showCriarPopup = true
+      },
+
+      editarHabilidade(hab) {
+        this.editHabilidadeMode = true
+        this.editHabilidadeId = hab.id
+        this.criarTipo = "habilidade"
+        this.criarTipoSelector = false
+        this.novaHabilidadeForm = {
+          nome: hab.nome || "",
+          classe: hab.classe || "Geral",
+          gastoPe: hab.gastoPe ?? null,
+          descricao: hab.descricao || "",
+        }
+        this.showCriarPopup = true
+      },
+
       async criarItem() {
         if (!this.selectedCharId) {
           this.$store.toasts.push("Salve a ficha primeiro para adicionar itens.", "error")
@@ -1334,7 +1380,7 @@ export default {
                 tipoDano: f.tipoDano || "—",
                 tipoArma: f.tipoArma || "Arma Simples",
                 critico: Number(f.critico) || 20,
-                multiplicador: f.multiplicador || "x2",
+                multiplicador: Number(String(f.multiplicador || "2").replace("x", "").trim()) || 2,
                 atributo: attr,
                 pericia: per,
                 descricao: f.descricao || "",
@@ -1351,7 +1397,7 @@ export default {
                 tipoDano: f.tipoDano || "—",
                 tipoArma: f.tipoArma || "Arma Simples",
                 critico: Number(f.critico) || 20,
-                multiplicador: f.multiplicador || "x2",
+                multiplicador: Number(String(f.multiplicador || "2").replace("x", "").trim()) || 2,
                 atributo: attr,
                 pericia: per,
                 descricao: f.descricao || "",
@@ -1365,20 +1411,36 @@ export default {
               this.$store.toasts.push("Dê um nome para a magia.", "error")
               return
             }
-            await createMagia({
-              fichaId: this.selectedCharId,
-              nome: f.nome.trim(),
-              tipoMagia: f.tipoMagia || "Arcana",
-              Circulo: f.Circulo || "1º Círculo",
-              execucao: f.execucao || "padrão",
-              alcance: f.alcance || "",
-              alvo: f.alvo || "",
-              duracao: f.duracao || "",
-              gastoPe: Number(f.gastoPe) || 0,
-              truque: f.truque || "",
-              descricao: f.descricao || "",
-            })
-            this.$store.toasts.push(`${f.nome} criada e adicionada à ficha!`, "success")
+            if (this.editMagiaMode && this.editMagiaId) {
+              await updateMagia(this.editMagiaId, {
+                nome: f.nome.trim(),
+                tipoMagia: f.tipoMagia || "Arcana",
+                Circulo: f.Circulo || "1º Círculo",
+                execucao: f.execucao || "padrão",
+                alcance: f.alcance || "",
+                alvo: f.alvo || "",
+                duracao: f.duracao || "",
+                gastoPe: Number(f.gastoPe) || 0,
+                truque: f.truque || "",
+                descricao: f.descricao || "",
+              })
+              this.$store.toasts.push(`${f.nome} editada com sucesso!`, "success")
+            } else {
+              await createMagia({
+                fichaId: this.selectedCharId,
+                nome: f.nome.trim(),
+                tipoMagia: f.tipoMagia || "Arcana",
+                Circulo: f.Circulo || "1º Círculo",
+                execucao: f.execucao || "padrão",
+                alcance: f.alcance || "",
+                alvo: f.alvo || "",
+                duracao: f.duracao || "",
+                gastoPe: Number(f.gastoPe) || 0,
+                truque: f.truque || "",
+                descricao: f.descricao || "",
+              })
+              this.$store.toasts.push(`${f.nome} criada e adicionada à ficha!`, "success")
+            }
             await this.loadMagiasFicha()
           } else if (this.criarTipo === "habilidade") {
             const f = this.novaHabilidadeForm
@@ -1386,14 +1448,24 @@ export default {
               this.$store.toasts.push("Dê um nome para a habilidade.", "error")
               return
             }
-            await createHabilidade({
-              fichaId: this.selectedCharId,
-              nome: f.nome.trim(),
-              classe: f.classe || "Geral",
-              gastoPe: f.gastoPe !== "" && f.gastoPe !== null ? Number(f.gastoPe) : null,
-              descricao: f.descricao || "",
-            })
-            this.$store.toasts.push(`${f.nome} criada e adicionada à ficha!`, "success")
+            if (this.editHabilidadeMode && this.editHabilidadeId) {
+              await updateHabilidade(this.editHabilidadeId, {
+                nome: f.nome.trim(),
+                classe: f.classe || "Geral",
+                gastoPe: f.gastoPe !== "" && f.gastoPe !== null ? Number(f.gastoPe) : null,
+                descricao: f.descricao || "",
+              })
+              this.$store.toasts.push(`${f.nome} editada com sucesso!`, "success")
+            } else {
+              await createHabilidade({
+                fichaId: this.selectedCharId,
+                nome: f.nome.trim(),
+                classe: f.classe || "Geral",
+                gastoPe: f.gastoPe !== "" && f.gastoPe !== null ? Number(f.gastoPe) : null,
+                descricao: f.descricao || "",
+              })
+              this.$store.toasts.push(`${f.nome} criada e adicionada à ficha!`, "success")
+            }
             await this.loadHabilidadesFicha()
           } else if (this.criarTipo === "protecao") {
             const f = this.novaProtecaoForm

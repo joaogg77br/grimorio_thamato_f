@@ -1788,9 +1788,7 @@
                                   <span class="t20-carried-dano" x-text="magia.Circulo"></span>
                                   <span class="t20-carried-tipo" x-text="magia.tipoMagia"></span>
                                   <span class="t20-carried-peso" x-text="magia.gastoPe"></span>
-                                  <div class="t20-carried-actions">
-                                    <button x-on:click.stop="removeMagiaFicha(magia.id)" class="t20-btn-del" title="Remover">✕</button>
-                                  </div>
+                                  <div class="t20-carried-actions"></div>
                                 </div>
                                 <div class="t20-carried-detail" x-show="expandedMagiaCarregadaId === magia.id" x-transition>
                                   <p x-text="magia.descricao"></p>
@@ -1806,6 +1804,10 @@
                                     <span>PM: <strong x-text="magia.gastoPe"></strong></span>
                                   </div>
                                   <div x-show="magia.truque">Truque: <strong x-text="magia.truque"></strong></div>
+                                  <div class="t20-carried-detail-actions">
+                                    <button x-on:click.stop="editarMagia(magia)" class="t20-btn-edit">Editar</button>
+                                    <button x-on:click.stop="removeMagiaFicha(magia.id)" class="t20-btn-del">Deletar</button>
+                                  </div>
                                 </div>
                               </div>
                             </template>
@@ -1976,9 +1978,7 @@
                                   </span>
                                   <span class="t20-carried-tipo" x-text="hab.classe"></span>
                                   <span class="t20-carried-peso" x-text="hab.gastoPe === null || hab.gastoPe === undefined ? '—' : hab.gastoPe"></span>
-                                  <div class="t20-carried-actions">
-                                    <button x-on:click.stop="removeHabilidadeFicha(hab.id)" class="t20-btn-del" title="Remover">✕</button>
-                                  </div>
+                                  <div class="t20-carried-actions"></div>
                                 </div>
                                 <div class="t20-carried-detail" x-show="expandedHabilidadeCarregadaId === hab.id" x-transition>
                                   <p x-text="hab.descricao"></p>
@@ -1986,6 +1986,10 @@
                                     <span>PM: <strong x-text="hab.gastoPe === null || hab.gastoPe === undefined ? '—' : hab.gastoPe"></strong></span>
                                     <span> · </span>
                                     <span>Classe: <strong x-text="hab.classe"></strong></span>
+                                  </div>
+                                  <div class="t20-carried-detail-actions">
+                                    <button x-on:click.stop="editarHabilidade(hab)" class="t20-btn-edit">Editar</button>
+                                    <button x-on:click.stop="removeHabilidadeFicha(hab.id)" class="t20-btn-del">Deletar</button>
                                   </div>
                                 </div>
                               </div>
@@ -2130,7 +2134,7 @@
                         >
                           <div class="t20-equip-popup t20-criar-popup" x-transition.scale.duration.200ms>
                             <div class="t20-equip-popup-header">
-                              <h3 x-text="criarTipoSelector ? 'Criar Equipamento' : editArmaMode ? 'Editar Arma' : editProtecaoMode ? 'Editar Proteção' : editEquipamentoMode ? 'Editar Equipamento' : criarTipo === 'arma' ? 'Criar Item Personalizado' : criarTipo === 'magia' ? 'Criar Magia Personalizada' : criarTipo === 'habilidade' ? 'Criar Habilidade Personalizada' : criarTipo === 'item' ? 'Criar Equipamento' : 'Criar Proteção Personalizada'"></h3>
+                              <h3 x-text="criarTipoSelector ? 'Criar Equipamento' : editArmaMode ? 'Editar Arma' : editProtecaoMode ? 'Editar Proteção' : editEquipamentoMode ? 'Editar Equipamento' : editMagiaMode ? 'Editar Magia' : editHabilidadeMode ? 'Editar Habilidade' : criarTipo === 'arma' ? 'Criar Item Personalizado' : criarTipo === 'magia' ? 'Criar Magia Personalizada' : criarTipo === 'habilidade' ? 'Criar Habilidade Personalizada' : criarTipo === 'item' ? 'Criar Equipamento' : 'Criar Proteção Personalizada'"></h3>
                               <button x-on:click="closeCriarPopup()" class="t20-popup-close">✕</button>
                             </div>
 
@@ -2221,11 +2225,7 @@
                                   </label>
                                   <label class="t20-criar-field">
                                     <span>Multiplicador</span>
-                                    <select x-model="novaArmaForm.multiplicador">
-                                      <option value="x2">x2</option>
-                                      <option value="x3">x3</option>
-                                      <option value="x4">x4</option>
-                                    </select>
+                                    <input type="number" x-model.number="novaArmaForm.multiplicador" min="2" step="1" placeholder="2" />
                                   </label>
                                   <label class="t20-criar-field">
                                     <span>Atributo</span>
@@ -2372,7 +2372,7 @@
 
                             <div class="t20-criar-footer">
                               <button x-on:click="closeCriarPopup()" class="btn-secondary">Cancelar</button>
-                              <button x-on:click="criarItem()" class="btn-primary" x-text="(editArmaMode || editProtecaoMode || editEquipamentoMode) ? 'Salvar' : 'Criar'"></button>
+                              <button x-on:click="criarItem()" class="btn-primary" x-text="(editMagiaMode || editHabilidadeMode) ? 'Editar' : (editArmaMode || editProtecaoMode || editEquipamentoMode) ? 'Salvar' : 'Criar'"></button>
                             </div>
                           </div>
                         </div>

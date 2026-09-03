@@ -503,7 +503,7 @@
                               type="number"
                               class="wizard-drop-input"
                               min="8"
-                              max="15"
+                              max="18"
                               step="1"
                               x-model.number="wizardAtributos[a.key]"
                               x-on:change="wizardClampAtributo(a.key)"
@@ -520,7 +520,7 @@
                     </div>
                   </div>
                   <p class="wizard-atributos-note">
-                    Arraste os valores (8 a 15) para os atributos ou edite diretamente. Modificadores raciais são aplicados automaticamente. Você deve gastar exatamente os 20 pontos.
+                    Arraste os valores (8 a 18) para os atributos ou edite diretamente. Modificadores raciais são aplicados automaticamente. Você deve gastar exatamente os 20 pontos.
                   </p>
                 </div>
 
@@ -634,6 +634,12 @@
                   :disabled="!wizardPodeProximo"
                 >Criar Personagem</button>
               </div>
+            </div>
+          </div>
+          <div x-show="creatingFicha" class="t20-loading-overlay">
+            <div class="t20-loading-box">
+              <span class="t20-loading-spinner"></span>
+              <p>Criando personagem...</p>
             </div>
           </div>
           <div x-show="viewMode === 'list'" class="fichas-lista-section">
@@ -818,7 +824,7 @@
                         x-data="selectField({
                           value: () => form.raca,
                           options: () => RACAS,
-                          onchange: v => form.raca = v,
+                          onchange: v => { form.raca = v; aplicarDeslocamentoPorRaca(v); },
                           placeholder: '— Selecione —'
                         })"
                       >
@@ -866,7 +872,7 @@
                         x-data="selectField({
                           value: () => form.classe,
                           options: () => CLASSES,
-                          onchange: v => form.classe = v,
+                          onchange: v => { form.classe = v; aplicarStatusPorClasse(v); },
                           placeholder: '— Selecione —'
                         })"
                       >
@@ -1045,13 +1051,17 @@
                             <div class="t20-def-eq">
                               <span class="t20-def-base">(=10)</span>
                               <span class="t20-op">+</span>
-                              <label class="t20-def-chk">
-                                <input
-                                  type="checkbox"
-                                  x-model="form.defesa_des_check"
-                                />
-                                <span>Des</span>
-                              </label>
+                              <select
+                                class="t20-def-select"
+                                x-model="form.defesa_atributo"
+                              >
+                                <option value="FOR">For</option>
+                                <option value="DES">Des</option>
+                                <option value="CON">Con</option>
+                                <option value="INT">Int</option>
+                                <option value="SAB">Sab</option>
+                                <option value="CAR">Car</option>
+                              </select>
                               <span class="t20-op">+</span>
                               <div class="t20-def-field">
                                 <span class="t20-def-auto" x-text="equippedArmaduraBonus()"></span>
@@ -1389,7 +1399,8 @@
                               Criar equipamento
                             </button>
                             <div class="t20-equip-load-info">
-                              <span>Carga: <strong x-text="calcCargaUsada()"></strong> / <strong x-text="calcLimiteCarga()"></strong></span>
+                              <span>Carga: <strong x-text="calcCargaUsada()" :class="{ 't20-over-encumbered': isSobrecarregado() }"></strong> / <strong x-text="calcCargaMaxima()"></strong></span>
+                              <span x-show="isSobrecarregado()" class="t20-over-encumbered" style="font-size:0.75rem;">Sobrecarregado (−2 Furtividade, Ladinagem, Acrobacia) — limite livre: <strong x-text="calcCargaNormal()"></strong></span>
                               <span class="t20-money-label">T$</span>
                               <input type="number" x-model.number="form.tibares" class="t20-line-input t20-money-input" />
                             </div>
@@ -1943,14 +1954,24 @@
                           <div class="t20-equip-popup-tabs t20-hab-main-tabs">
                             <button
                               class="t20-equip-popup-tab"
+                              :class="{ active: activeHabilidadeTab === 'geral' }"
+                              x-on:click="activeHabilidadeTab = 'geral'"
+                            >Geral</button>
+                            <button
+                              class="t20-equip-popup-tab"
                               :class="{ active: activeHabilidadeTab === 'classe' }"
                               x-on:click="activeHabilidadeTab = 'classe'"
                             >Classe</button>
                             <button
                               class="t20-equip-popup-tab"
-                              :class="{ active: activeHabilidadeTab === 'geral' }"
-                              x-on:click="activeHabilidadeTab = 'geral'"
-                            >Geral</button>
+                              :class="{ active: activeHabilidadeTab === 'origem' }"
+                              x-on:click="activeHabilidadeTab = 'origem'"
+                            >Origem</button>
+                            <button
+                              class="t20-equip-popup-tab"
+                              :class="{ active: activeHabilidadeTab === 'raca' }"
+                              x-on:click="activeHabilidadeTab = 'raca'"
+                            >Raça</button>
                           </div>
 
                           <div class="t20-equip-header-row">
@@ -1998,7 +2019,9 @@
 
                           <div class="t20-carried-empty" x-show="habilidadesCarregadasFiltradas.length === 0">
                             <p x-show="activeHabilidadeTab === 'classe'">Nenhuma habilidade de classe conhecida.</p>
-                            <p x-show="activeHabilidadeTab === 'geral'">Nenhuma habilidade geral conhecida.</p>
+                            <p x-show="activeHabilidadeTab === 'geral'">Nenhuma habilidade conhecida.</p>
+                            <p x-show="activeHabilidadeTab === 'origem'">Nenhuma habilidade de origem conhecida.</p>
+                            <p x-show="activeHabilidadeTab === 'raca'">Nenhuma habilidade de raça conhecida.</p>
                             <p class="t20-carried-empty-sub">Clique em "Adicionar Habilidade" para começar.</p>
                           </div>
                         </div>
@@ -2030,14 +2053,24 @@
                             <div class="t20-equip-popup-tabs">
                               <button
                                 class="t20-equip-popup-tab"
+                                :class="{ active: activeHabilidadeTab === 'geral' }"
+                                x-on:click="activeHabilidadeTab = 'geral'"
+                              >Geral</button>
+                              <button
+                                class="t20-equip-popup-tab"
                                 :class="{ active: activeHabilidadeTab === 'classe' }"
                                 x-on:click="activeHabilidadeTab = 'classe'"
                               >Classe</button>
                               <button
                                 class="t20-equip-popup-tab"
-                                :class="{ active: activeHabilidadeTab === 'geral' }"
-                                x-on:click="activeHabilidadeTab = 'geral'"
-                              >Geral</button>
+                                :class="{ active: activeHabilidadeTab === 'origem' }"
+                                x-on:click="activeHabilidadeTab = 'origem'"
+                              >Origem</button>
+                              <button
+                                class="t20-equip-popup-tab"
+                                :class="{ active: activeHabilidadeTab === 'raca' }"
+                                x-on:click="activeHabilidadeTab = 'raca'"
+                              >Raça</button>
                             </div>
 
                             <div class="t20-equip-popup-tabs t20-hab-class-tabs" x-show="activeHabilidadeTab === 'classe'">
@@ -2051,7 +2084,7 @@
                               </template>
                             </div>
 
-                            <div class="t20-equip-list-popup" x-show="activeHabilidadeTab === 'classe'">
+                            <div class="t20-equip-list-popup" x-show="activeHabilidadeTab === 'classe' || activeHabilidadeTab === 'origem' || activeHabilidadeTab === 'raca'">
                               <template x-for="(hab, i) in habilidadesFiltradas" :key="i">
                                 <div class="t20-equip-item-row">
                                   <button
@@ -2119,7 +2152,7 @@
                                 </div>
                               </template>
                               <div class="t20-equip-list-empty" x-show="habilidadesFiltradas.length === 0">
-                                <p>Nenhuma habilidade geral encontrada.</p>
+                                <p>Nenhuma habilidade encontrada.</p>
                               </div>
                             </div>
                           </div>
@@ -2381,12 +2414,20 @@
                         x-show="activeTab === 'descricao'"
                         class="t20-tab-panel"
                       >
-                        <div class="t20-tab-placeholder">
-                          <span class="material-symbols-outlined"
-                            >description</span
-                          >
-                          <p>Descrição</p>
-                          <span class="t20-tab-placeholder-sub">Em breve</span>
+                        <div class="t20-equipment-card">
+                          <div class="t20-equip-ribbon-title">DESCRIÇÃO</div>
+                          <div class="t20-descricao-box">
+                            <label class="t20-field-sub">DESCRIÇÃO DO PERSONAGEM</label>
+                            <textarea
+                              x-model="form.anotacoes"
+                              rows="10"
+                              class="t20-profs-textarea t20-descricao-textarea"
+                              placeholder="Conte sobre a aparência, personalidade, história e motivações do personagem..."
+                            ></textarea>
+                          </div>
+                          <div class="t20-history-footer">
+                            <button x-on:click="salvarDescricao()" class="btn-primary">Salvar descrição</button>
+                          </div>
                         </div>
                       </div>
 
@@ -2473,30 +2514,31 @@
                         <div class="t20-equipment-card">
                           <div class="t20-equip-ribbon-title">HISTÓRICO DE DADOS</div>
 
-                          <div class="t20-history-list" x-show="history.length > 0">
-                            <template x-for="(h, i) in history" :key="i">
-                              <div class="history-item" :class="{ 'history-item--crit': h.sub?.multiplied }">
-                                <span class="h-label" x-text="h.label"></span>
-                                <span class="h-result" x-text="h.result"></span>
-                                <span class="h-detail" x-text="h.detail"></span>
-                                <template x-if="h.sub">
+                          <div class="t20-history-list" x-show="historicoCarregado.length > 0">
+                            <template x-for="(h, i) in historicoCarregado" :key="h.id">
+                              <div class="history-item">
+                                <template x-if="!splitHistoricoValue(h.value).dano">
+                                  <span class="h-detail" x-text="h.value"></span>
+                                </template>
+                                <template x-if="splitHistoricoValue(h.value).dano">
                                   <div class="history-sub">
-                                    <span class="h-label" x-text="h.sub.label"></span>
-                                    <span class="h-result" :class="{ 'h-result--multiplied': h.sub.multiplied }" x-text="h.sub.result"></span>
-                                    <span class="h-detail" x-text="h.sub.detail"></span>
+                                    <span class="h-detail" x-text="splitHistoricoValue(h.value).ataque"></span>
+                                  </div>
+                                  <div class="history-sub">
+                                    <span class="h-detail" x-text="splitHistoricoValue(h.value).dano"></span>
                                   </div>
                                 </template>
                               </div>
                             </template>
                           </div>
 
-                          <div class="t20-carried-empty" x-show="history.length === 0">
+                          <div class="t20-carried-empty" x-show="historicoCarregado.length === 0">
                             <p>Nenhuma rolagem ainda.</p>
                             <p class="t20-carried-empty-sub">Role dados na aba Ataques e o histórico aparecerá aqui.</p>
                           </div>
 
-                          <div class="t20-history-footer" x-show="history.length > 0">
-                            <button x-on:click="clearHistory()" class="btn-secondary">Limpar histórico</button>
+                          <div class="t20-history-footer" x-show="historicoCarregado.length > 0">
+                            <button x-on:click="limparHistoricoFicha()" class="btn-secondary">Limpar histórico</button>
                           </div>
                         </div>
                       </div>

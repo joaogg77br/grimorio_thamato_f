@@ -1,4 +1,5 @@
 import html from "./dice.html?raw"
+import { createHistorico } from "../../useApi/index.js"
 
 export default {
   html,
@@ -9,6 +10,7 @@ export default {
       lastResult: null,
       lastDetail: "",
       lastLabel: "",
+      lastRollData: null,
       isRolling: false,
       showResult: false,
       d20Popup: { show: false, phase: "idle", value: null },
@@ -23,13 +25,16 @@ export default {
 
       init() {
         window.addEventListener("roll-dice", (e) => {
-          const { formula, label } = e.detail
+          const { formula, label, fichaId } = e.detail
           this.customFormula = formula
           this.rollCustom(label)
+          if (this.lastRollData) {
+            this.persistirHistorico(fichaId, this.montarRollString(this.lastRollData))
+          }
         })
 
         window.addEventListener("roll-ataque", (e) => {
-          const { arma, label, mod, danoMod } = e.detail
+          const { arma, label, mod, danoMod, fichaId } = e.detail
           const m = Number(mod) || 0
           const sign = (m >= 0 ? "+" : "") + m
           const dm = Number(danoMod) || 0
@@ -38,24 +43,29 @@ export default {
           this.executeRoll(`1D20${sign}`, label)
           const ataqueTotal = this.lastResult
           const ataqueDetail = this.lastDetail
+          const ataqueRollData = this.lastRollData
           const ataqueIsCrit = this.lastResult !== null && ataqueDetail.includes("[20") && !ataqueDetail.includes("[1")
           const multiplier = Number(arma.multiplicador) || 2
           let danoTotal, danoDetail
           let critTotal
+          let danoFormula
           if (ataqueIsCrit && multiplier > 1) {
-            const danoFormula = this.multiplyDiceFormula(arma.dadoDeDano || "1d4", multiplier) + dsign
+            danoFormula = this.multiplyDiceFormula(arma.dadoDeDano || "1d4", multiplier) + dsign
             this.executeRoll(danoFormula, `${label} — Dano`)
             danoTotal = this.lastResult
             danoDetail = this.lastDetail
             critTotal = danoTotal
           } else {
-            const danoFormula = `${arma.dadoDeDano || "1d4"}${dsign}`
+            danoFormula = `${arma.dadoDeDano || "1d4"}${dsign}`
             this.executeRoll(danoFormula, `${label} — Dano`)
             danoTotal = this.lastResult
             danoDetail = this.lastDetail
             critTotal = danoTotal
           }
+          const danoRollData = this.lastRollData
+          const valorHistorico = `${this.montarRollString(ataqueRollData)}, Dano:${this.montarRollString(danoRollData)}`
           this.suppressToasts = false
+          this.persistirHistorico(fichaId, valorHistorico)
           this.pushAtaqueToast(
             arma.nome,
             e.detail.periciaNome || (arma.pericia || ""),
@@ -158,6 +168,7 @@ export default {
           const rolls = []
           const diceDetails = []
           const mods = []
+          const groups = []
           let total = 0
           let usedAdv = false
           let chosenD20 = null
@@ -165,6 +176,7 @@ export default {
             if (part.type === "dice") {
               const hasAdv = part.sides === 20 && (this.advantageMode || this.disadvantageMode)
               if (hasAdv) usedAdv = true
+              const groupRolls = []
               for (let i = 0; i < part.count; i++) {
                 if (hasAdv) {
                   const outcomes = []
@@ -175,21 +187,25 @@ export default {
                     outcomes.push(r)
                     chosen = this.advantageMode ? Math.max(chosen, r) : Math.min(chosen, r)
                   }
-                  outcomes.sort((a, b) => a - b)
-                  rolls.push(...outcomes)
+                  const sorted = this.advantageMode ? [...outcomes].sort((a, b) => b - a) : [...outcomes].sort((a, b) => a - b)
+                  groupRolls.push(...sorted)
+                  rolls.push(...sorted)
                   total += chosen
                   chosenD20 = chosen
                 } else {
                   const r = Math.floor(Math.random() * part.sides) + 1
                   rolls.push(r)
                   diceDetails.push({ value: r, sides: part.sides })
+                  groupRolls.push(r)
                   total += r
                   if (part.sides === 20) chosenD20 = r
                 }
               }
+              groups.push({ type: "dice", sides: part.sides, count: part.count, hasAdv, rolls: groupRolls })
             } else if (part.type === "mod") {
               total += part.value
               mods.push((part.value >= 0 ? "+" : "") + part.value)
+              groups.push({ type: "mod", value: part.value })
             }
           }
           const isCrit = chosenD20 !== null && (chosenD20 === 20 || chosenD20 === 1)
@@ -200,6 +216,7 @@ export default {
           this.lastResult = total
           this.lastDetail = detail
           this.lastLabel = label
+          this.lastRollData = { formula, rolls, mods, total, groups, isD20: chosenD20 !== null, chosenD20 }
           this.isRolling = true
           this.history = [{ label, result: total, detail }, ...this.history].slice(0, this.maxHistory)
           this.playDiceSound()
@@ -216,7 +233,34 @@ export default {
         } catch {
           this.lastResult = "Erro"
           this.lastDetail = "Fórmula inválida"
+          this.lastRollData = null
           this.showResult = true
+        }
+      },
+
+      montarFormulaFromGroups(groups) {
+        return (groups || []).map((g) => {
+          if (g.type === "mod") return (g.value >= 0 ? "+" : "") + g.value
+          const count = g.hasAdv ? this.advantageCount : (g.count || 1)
+          return `${count}d${g.sides}`
+        }).join("")
+      },
+
+      montarRollString(data) {
+        if (!data) return ""
+        const formula = this.montarFormulaFromGroups(data.groups) || String(data.formula || "").toLowerCase()
+        const dados = data.rolls && data.rolls.length ? `[${data.rolls.join(",")}]` : ""
+        if (!dados) return `${formula} = ${data.total}`
+        return `${formula} >${dados} = ${data.total}`
+      },
+
+      async persistirHistorico(fichaId, value) {
+        if (!fichaId) return
+        try {
+          await createHistorico(fichaId, value)
+          window.dispatchEvent(new CustomEvent("historico-atualizado", { detail: { fichaId } }))
+        } catch (err) {
+          console.error("Erro ao salvar histórico:", err)
         }
       },
 

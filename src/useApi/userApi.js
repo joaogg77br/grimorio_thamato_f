@@ -160,4 +160,20 @@ function removeFichaFromCampanha(campanhaId, fichaId) {
   return client.delete(`/ficha/remove/${campanhaId}/${fichaId}`)
 }
 
-export { createUser, findAllUsers, loginUser, getFichasByUser, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, createCampanha, getCampanhasByMaster, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, removePlayerFromCampanha, deleteCampanha, addFichaToCampanha, getFichasByCampanha, removeFichaFromCampanha }
+function createHistorico(fichaId, value) {
+  return client.post(`/historico/create/${fichaId}`, { value })
+}
+
+function getHistoricoByFicha(fichaId) {
+  return client.get(`/historico/list/${fichaId}`)
+}
+
+function deleteHistorico(historicoId) {
+  return client.delete(`/historico/delete/${historicoId}`)
+}
+
+function updateHistorico(historicoId, value) {
+  return client.put(`/historico/update/${historicoId}`, { value })
+}
+
+export { createUser, findAllUsers, loginUser, getFichasByUser, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, createCampanha, getCampanhasByMaster, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, removePlayerFromCampanha, deleteCampanha, addFichaToCampanha, getFichasByCampanha, removeFichaFromCampanha, createHistorico, getHistoricoByFicha, deleteHistorico, updateHistorico }

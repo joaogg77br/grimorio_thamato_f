@@ -1,5 +1,5 @@
 import { localDB, generateId } from "../../lib/localDB.js"
-import { getFichasByUser, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia } from "../../useApi/index.js"
+import { getFichasByUser, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, getHistoricoByFicha, deleteHistorico } from "../../useApi/index.js"
 import html from "./character.html?raw"
 import ARMAS_DATA from "../../data/armas.js"
 import PROTECOES_DATA from "../../data/protecoes.js"
@@ -8,6 +8,7 @@ import MAGIAS_DATA from "../../data/magias.js"
 import HABILIDADES_DATA from "../../data/habilidades.js"
 import EVOLUCAO_CLASSES from "../../data/evolucao.js"
 import RACAS_DATA from "../../data/racas.js"
+import { valoresIniciais } from "../../data/valores-iniciais.js"
 
 const CLASSES = [
   "Arcanista", "Bárbaro", "Bardo", "Bucaneiro", "Caçador",
@@ -49,11 +50,11 @@ const ATRIBUTOS_WIZARD = [
   { key: "CAR", nome: "Carisma", racaKey: "Carisma" },
 ]
 
-const CUSTO_ATRIBUTO = { 8: -2, 9: -1, 10: 0, 11: 1, 12: 2, 13: 3, 14: 4, 15: 6 }
+const CUSTO_ATRIBUTO = { 8: -2, 9: -1, 10: 0, 11: 1, 12: 2, 13: 3, 14: 4, 15: 6, 16: 8, 17: 11, 18: 14 }
 const PONTOS_CUSTO_ATRIBUTO = 20
 const MIN_ATRIBUTO = 8
-const MAX_ATRIBUTO = 15
-const VALORES_ATRIBUTO = [8, 9, 10, 11, 12, 13, 14, 15]
+const MAX_ATRIBUTO = 18
+const VALORES_ATRIBUTO = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
 
 const PERICIAS_DEF = [
   { key: "acrobacia", nome: "Acrobacia", attr: "DES", penalidade: true, treinado: false },
@@ -113,7 +114,7 @@ function buildEmptyForm() {
     pv_atual: 20,
     pm_max: 5,
     pm_atual: 5,
-    defesa_des_check: true,
+    defesa_atributo: "DES",
     defesa_outros: 0,
     defesaId: null,
     armadura_nome: "",
@@ -159,6 +160,8 @@ export default {
       fichasApi: [],
       searchTerm: '',
       loading: false,
+      creatingFicha: false,
+      historicoCarregado: [],
 
       characters: [],
       selectedCharId: null,
@@ -202,7 +205,7 @@ export default {
       habilidadesSearchTerm: "",
       expandedHabilidadeIndex: null,
       expandedHabilidadeCarregadaId: null,
-      activeHabilidadeTab: "classe",
+      activeHabilidadeTab: "geral",
       activeClasseTab: null,
       habilidadesData: HABILIDADES_DATA,
       habilidadesCarregadas: [],
@@ -256,7 +259,9 @@ export default {
         return this.armasData.filter(a =>
           (a.nome || '').toLowerCase().includes(term) ||
           (a.dadoDeDano || '').toLowerCase().includes(term) ||
-          (a.tipoDano || '').toLowerCase().includes(term)
+          (a.tipoDano || '').toLowerCase().includes(term) ||
+          (a.tipoArma || '').toLowerCase().includes(term) ||
+          (a.descricao || '').toLowerCase().includes(term)
         )
       },
 
@@ -273,7 +278,8 @@ export default {
         if (!term) return list
         return list.filter(p =>
           (p.nome || '').toLowerCase().includes(term) ||
-          (p.tipo || '').toLowerCase().includes(term)
+          (p.tipo || '').toLowerCase().includes(term) ||
+          (p.descricao || '').toLowerCase().includes(term)
         )
       },
 
@@ -355,7 +361,9 @@ export default {
           (!term ||
             (m.nome || '').toLowerCase().includes(term) ||
             (m.tipoMagia || '').toLowerCase().includes(term) ||
-            (m.Circulo || '').toLowerCase().includes(term))
+            (m.Circulo || '').toLowerCase().includes(term) ||
+            (m.descricao || '').toLowerCase().includes(term) ||
+            (m.alvo || '').toLowerCase().includes(term))
         )
       },
 
@@ -363,32 +371,53 @@ export default {
         const vistos = []
         for (const h of this.habilidadesData) {
           const cl = (h.classe || '').trim()
-          if (cl && cl.toLowerCase() !== "geral" && !vistos.includes(cl)) vistos.push(cl)
+          if (!cl) continue
+          const cll = cl.toLowerCase()
+          if (cll === "geral" || cll.startsWith("origem") || cll.startsWith("raça")) continue
+          if (!vistos.includes(cl)) vistos.push(cl)
         }
         return vistos
       },
 
       get habilidadesFiltradas() {
         const term = this.habilidadesSearchTerm.toLowerCase().trim()
+        const matches = h => {
+          if (!term) return true
+          return (h.nome || '').toLowerCase().includes(term) ||
+            (h.descricao || '').toLowerCase().includes(term) ||
+            (h.classe || '').toLowerCase().includes(term)
+        }
         return this.habilidadesData.filter(h => {
           const classe = (h.classe || '').trim().toLowerCase()
           if (this.activeHabilidadeTab === "geral") {
-            return classe === "geral" &&
-              (!term || (h.nome || '').toLowerCase().includes(term))
+            return matches(h)
+          }
+          if (this.activeHabilidadeTab === "origem") {
+            return classe.startsWith("origem") && matches(h)
+          }
+          if (this.activeHabilidadeTab === "raca") {
+            return classe.startsWith("raça") && matches(h)
           }
           const ativa = (this.activeClasseTab || this.habClasses[0] || '').toLowerCase()
           if (classe !== ativa) return false
-          return !term ||
-            (h.nome || '').toLowerCase().includes(term) ||
-            (h.descricao || '').toLowerCase().includes(term)
+          return matches(h)
         })
       },
 
       get habilidadesCarregadasFiltradas() {
         if (this.activeHabilidadeTab === "geral") {
-          return this.habilidadesCarregadas.filter(h => (h.classe || '').trim().toLowerCase() === "geral")
+          return this.habilidadesCarregadas
         }
-        return this.habilidadesCarregadas.filter(h => (h.classe || '').trim().toLowerCase() !== "geral")
+        if (this.activeHabilidadeTab === "origem") {
+          return this.habilidadesCarregadas.filter(h => (h.classe || '').trim().toLowerCase().startsWith("origem"))
+        }
+        if (this.activeHabilidadeTab === "raca") {
+          return this.habilidadesCarregadas.filter(h => (h.classe || '').trim().toLowerCase().startsWith("raça"))
+        }
+        return this.habilidadesCarregadas.filter(h => {
+          const c = (h.classe || '').trim().toLowerCase()
+          return c !== "geral" && !c.startsWith("origem") && !c.startsWith("raça")
+        })
       },
 
       get pvPercent() {
@@ -416,6 +445,12 @@ export default {
           if (ficha) {
             this.abrirFicha(ficha)
             this.$store.masterView.ficha = null
+          }
+        })
+        window.addEventListener("historico-atualizado", (e) => {
+          const { fichaId } = e.detail || {}
+          if (fichaId && Number(fichaId) === this.selectedCharId) {
+            this.loadHistoricoFicha(fichaId)
           }
         })
       },
@@ -461,9 +496,9 @@ export default {
           pv_atual: ficha.pvCurrent || 20,
           pm_max: ficha.pmMax || 5,
           pm_atual: ficha.pmCurrent || 5,
-          defesa_des_check: ficha.defesa
-            ? String(ficha.defesa.atributos || "").toLowerCase().includes("des")
-            : true,
+          defesa_atributo: ficha.defesa
+            ? this.normalizeDefesaAtributo(ficha.defesa.atributos)
+            : "DES",
           defesa_outros: ficha.defesa ? Number(ficha.defesa.outros) || 0 : 0,
           defesaId: ficha.defesa ? ficha.defesa.id : null,
           armadura_nome: '',
@@ -482,7 +517,7 @@ export default {
           inventario1: [],
           inventario2: [],
           tibares: this.toNum(ficha.tibao, this.toNum(ficha.tibares, 0)),
-          anotacoes: '',
+          anotacoes: ficha.descricao || '',
         }
         this.activeTab = 'pericias'
         this.viewMode = 'edit'
@@ -497,6 +532,7 @@ export default {
         this.loadMagiasFicha()
         this.loadHabilidadesFicha()
         this.loadPericiasFicha(ficha.id)
+        this.loadHistoricoFicha(ficha.id)
       },
 
       buildPericiasFromFicha(ficha) {
@@ -721,6 +757,14 @@ export default {
           this.form.atributos[key] = this.wizardValorFinal(key)
         }
         this.form.anotacoes = this.wizardDescricao
+        const classeAtual = this.form.classe || 'Guerreiro'
+        const { pv, pm } = valoresIniciais(classeAtual, this.form.atributos)
+        this.form.pv_max = pv
+        this.form.pv_atual = pv
+        this.form.pm_max = pm
+        this.form.pm_atual = pm
+        const deslRaca = this.extrairDeslocamento(this.wizardRaca)
+        if (deslRaca != null) this.form.deslocamento = deslRaca
         this.selectedCharId = null
         this.nivelAnterior = this.toNum(this.form.nivel, 1)
         this.wizardOpen = false
@@ -731,7 +775,7 @@ export default {
           raca: this.form.raca || 'Humano',
           divindade: this.form.divindade || 'Nenhuma',
           origem: this.form.origem || 'Aventureiro',
-          classe: this.form.classe || 'Guerreiro',
+          classe: classeAtual,
           nivel: this.toNum(this.form.nivel, 1),
           con: this.toNum(this.form.atributos?.CON, 10),
           des: this.toNum(this.form.atributos?.DES, 10),
@@ -739,25 +783,31 @@ export default {
           car: this.toNum(this.form.atributos?.CAR, 10),
           for_: this.toNum(this.form.atributos?.FOR, 10),
           int_: this.toNum(this.form.atributos?.INT, 10),
-          pvMax: this.toNum(this.form.pv_max, 20),
-          pvCurrent: this.toNum(this.form.pv_atual, 20),
-          pmMax: this.toNum(this.form.pm_max, 5),
-          pmCurrent: this.toNum(this.form.pm_atual, 5),
+          pvMax: pv,
+          pvCurrent: pv,
+          pmMax: pm,
+          pmCurrent: pm,
           deslocamento: this.toNum(this.form.deslocamento, 9),
           tibao: this.toNum(this.form.tibares, 0),
           jogadorId: user.id,
+          descricao: this.form.anotacoes || '',
           defesa: {
             outros: Number(this.form.defesa_outros) || 0,
-            atributo: this.form.defesa_des_check ? "DES" : "",
+            atributo: this.form.defesa_atributo || "DES",
           },
           pericias: this.buildPericiasPayload(),
         }
 
+        this.creatingFicha = true
         try {
           const { data } = await createFicha(payload)
+          const idCriada = data?.ficha?.id
+          if (idCriada) {
+            await this.adicionarHabilidadesDeRaca(idCriada, this.form.raca)
+          }
           await this.carregarFichas()
-          const criada = data?.ficha
-          if (criada?.id) {
+          const criada = idCriada ? this.fichasApi.find(f => f.id === idCriada) : null
+          if (criada) {
             this.abrirFicha(criada)
           } else {
             this.viewMode = 'edit'
@@ -766,6 +816,32 @@ export default {
         } catch (err) {
           console.error('Erro ao salvar ficha:', err)
           this.$store.toasts.push("Erro ao salvar ficha. Verifique os campos.", "error")
+        } finally {
+          this.creatingFicha = false
+        }
+      },
+
+      async adicionarHabilidadesDeRaca(fichaId, nomeRaca) {
+        const nome = (nomeRaca || '').trim().toLowerCase()
+        if (!nome) return
+        const habs = this.habilidadesData.filter(h => {
+          const cl = (h.classe || '').trim()
+          if (!cl.toLowerCase().startsWith('raça')) return false
+          const interno = cl.slice(cl.indexOf('(') + 1, cl.lastIndexOf(')')).trim().toLowerCase()
+          return interno === nome
+        })
+        for (const hab of habs) {
+          try {
+            await createHabilidade({
+              fichaId,
+              nome: hab.nome,
+              descricao: hab.descricao,
+              classe: hab.classe,
+              gastoPe: hab.gastoPe ?? null,
+            })
+          } catch (err) {
+            console.error('Erro ao adicionar habilidade de raça:', err)
+          }
         }
       },
 
@@ -933,7 +1009,8 @@ export default {
         const treino = Number(periciaData.treino) || 0
         const outros = Number(periciaData.outros) || 0
         const pen = p.penalidade ? this.calcPenalidadeArmadura() : 0
-        return half + attrVal + treino + outros - pen
+        const sobrecarga = ["acrobacia", "furtividade", "ladinagem"].includes(p.key) && this.isSobrecarregado() ? 2 : 0
+        return half + attrVal + treino + outros - pen - sobrecarga
       },
 
       buildPericiasPayload() {
@@ -1004,13 +1081,92 @@ export default {
         await Promise.all(updates)
       },
 
+      async loadHistoricoFicha(fichaId) {
+        if (!fichaId) return
+        try {
+          const { data } = await getHistoricoByFicha(fichaId)
+          this.historicoCarregado = (data?.historico || []).slice().reverse()
+        } catch (err) {
+          console.error('Erro ao carregar histórico:', err)
+          this.historicoCarregado = []
+        }
+      },
+
+      async limparHistoricoFicha() {
+        if (!this.selectedCharId && !this.historicoCarregado.length) return
+        if (!confirm("Tem certeza que deseja limpar todo o histórico?")) return
+        try {
+          await Promise.all(this.historicoCarregado.map(h => deleteHistorico(h.id)))
+          this.historicoCarregado = []
+          this.$store.toasts.push("Histórico limpo.", "success")
+        } catch (err) {
+          console.error('Erro ao limpar histórico:', err)
+          this.$store.toasts.push("Erro ao limpar o histórico.", "error")
+        }
+      },
+
+      splitHistoricoValue(value) {
+        const s = String(value || "")
+        const idx = s.indexOf(", Dano:")
+        if (idx === -1) return { ataque: s, dano: null }
+        return { ataque: s.slice(0, idx), dano: s.slice(idx + 2) }
+      },
+
+      async salvarDescricao() {
+        if (!this.selectedCharId) return
+        try {
+          await updateFicha(this.selectedCharId, { descricao: this.form.anotacoes || '' })
+          this.$store.toasts.push("Descrição salva com sucesso!", "success")
+        } catch (err) {
+          console.error('Erro ao salvar descrição:', err)
+          this.$store.toasts.push("Erro ao salvar a descrição.", "error")
+        }
+      },
+
+      extrairDeslocamento(raca) {
+        if (!raca) return null
+        const texto = String(raca.deslocamento || "").trim()
+        if (!texto) return null
+        const match = texto.match(/-?\d+(\.\d+)?/)
+        if (!match) return null
+        const n = Number(match[0])
+        return isNaN(n) ? null : n
+      },
+
+      aplicarDeslocamentoPorRaca(nomeRaca) {
+        const raca = RACAS_DATA.find(r => r.nome === nomeRaca)
+        const desl = this.extrairDeslocamento(raca)
+        if (desl != null) this.form.deslocamento = desl
+      },
+
+      aplicarStatusPorClasse(classe) {
+        if (this.toNum(this.form.nivel, 1) !== 1) return
+        const { pv, pm } = valoresIniciais(classe || "Guerreiro", this.form.atributos)
+        this.form.pv_max = pv
+        this.form.pv_atual = pv
+        this.form.pm_max = pm
+        this.form.pm_atual = pm
+      },
+
+      normalizeDefesaAtributo(val) {
+        const s = String(val || "").trim().toUpperCase()
+        if (["FORÇA", "FORCA", "FOR"].includes(s)) return "FOR"
+        if (["DESTREZA", "DES"].includes(s)) return "DES"
+        if (["CONSTITUIÇÃO", "CONSTITUICAO", "CON"].includes(s)) return "CON"
+        if (["INTELIGÊNCIA", "INTELIGENCIA", "INT"].includes(s)) return "INT"
+        if (["SABEDORIA", "SAB"].includes(s)) return "SAB"
+        if (["CARISMA", "CAR"].includes(s)) return "CAR"
+        return ""
+      },
+
       calcDefesa() {
         const base = 10
-        const des = this.form.defesa_des_check ? this.getAttrVal("DES") : 0
+        const attr = this.form.defesa_atributo
+        const mod = attr && ATRIBUTOS.includes(attr) ? this.getAttrVal(attr) : 0
         const outros = Number(this.form.defesa_outros) || 0
         const armadura = this.equippedArmaduraBonus()
         const escudo = this.equippedEscudoBonus()
-        return base + des + armadura + escudo + outros
+        return base + mod + armadura + escudo + outros
       },
 
       equippedArmaduraBonus() {
@@ -1044,13 +1200,34 @@ export default {
         return 10 + des + outros
       },
 
-      calcLimiteCarga() {
-        const forca = this.getAttrVal("FOR")
-        if (forca >= 0) {
-          return 10 + (2 * forca)
-        } else {
-          return Math.max(0, 10 + forca)
-        }
+      attrRaw(attr) {
+        const val = this.form.atributos?.[attr]
+        if (val === undefined || val === null || val === "") return 0
+        const n = Number(val)
+        if (isNaN(n)) return 0
+        return n
+      },
+
+      calcCargaMaxima() {
+        const forca = Math.max(0, this.attrRaw("FOR"))
+        return 10 * forca
+      },
+
+      calcCargaNormal() {
+        const forca = Math.max(0, this.attrRaw("FOR"))
+        return 3 * forca
+      },
+
+      isSobrecarregado() {
+        const normal = this.calcCargaNormal()
+        const usada = this.calcCargaUsada()
+        return usada > normal
+      },
+
+      cargaExcedeMaximo(peso) {
+        const max = this.calcCargaMaxima()
+        const novo = this.calcCargaUsada() + (Number(peso) || 0)
+        return novo > max
       },
 
       calcCargaUsada() {
@@ -1106,6 +1283,7 @@ export default {
           pmMax: this.toNum(this.form.pm_max, 5),
           pmCurrent: this.toNum(this.form.pm_atual, 5),
           deslocamento: this.toNum(this.form.deslocamento, 9),
+          descricao: this.form.anotacoes || '',
         }
         const criarPayload = {
           ...basePayload,
@@ -1115,7 +1293,7 @@ export default {
           jogadorId: user.id,
           defesa: {
             outros: Number(this.form.defesa_outros) || 0,
-            atributo: this.form.defesa_des_check ? "DES" : "",
+            atributo: this.form.defesa_atributo || "DES",
           },
           pericias: this.buildPericiasPayload(),
         }
@@ -1127,8 +1305,8 @@ export default {
           defesaId: this.form.defesaId ?? null,
           defesa: {
             outros: Number(this.form.defesa_outros) || 0,
-            atributo: this.form.defesa_des_check ? "DES" : "",
-            atributos: this.form.defesa_des_check ? "DES" : "",
+            atributo: this.form.defesa_atributo || "DES",
+            atributos: this.form.defesa_atributo || "DES",
           },
         }
 
@@ -1186,7 +1364,7 @@ export default {
           : p.nome
         const sign = total >= 0 ? `+${total}` : `${total}`
         window.dispatchEvent(new CustomEvent("roll-dice", {
-          detail: { formula: `1D20${sign}`, label: `Teste de ${name}` }
+          detail: { formula: `1D20${sign}`, label: `Teste de ${name}`, fichaId: this.selectedCharId }
         }))
       },
 
@@ -1194,7 +1372,7 @@ export default {
         const val = this.getAttrVal(attr)
         const sign = val >= 0 ? `+${val}` : `${val}`
         window.dispatchEvent(new CustomEvent("roll-dice", {
-          detail: { formula: `1D20${sign}`, label: `Teste de ${attr}` }
+          detail: { formula: `1D20${sign}`, label: `Teste de ${attr}`, fichaId: this.selectedCharId }
         }))
       },
 
@@ -1367,6 +1545,10 @@ export default {
               this.$store.toasts.push("Dê um nome para o item.", "error")
               return
             }
+            if (!this.editArmaMode && this.cargaExcedeMaximo(f.peso)) {
+              this.$store.toasts.push("Peso excede o limite de carga (10x FOR).", "error")
+              return
+            }
             const isRanged = !["corpo a corpo", "—", ""].includes(String(f.alcance || "").trim().toLowerCase())
             const attr = f.atributo || (isRanged ? "DES" : "FOR")
             const per = f.pericia || (isRanged ? "Pontaria" : "Luta")
@@ -1473,6 +1655,10 @@ export default {
               this.$store.toasts.push("Dê um nome para a proteção.", "error")
               return
             }
+            if (!this.editProtecaoMode && this.cargaExcedeMaximo(f.peso)) {
+              this.$store.toasts.push("Peso excede o limite de carga (10x FOR).", "error")
+              return
+            }
             if (this.editProtecaoMode && this.editProtecaoId) {
               await updateProtecao(this.editProtecaoId, {
                 nomeProtecao: f.nome.trim(),
@@ -1502,6 +1688,10 @@ export default {
             const f = this.novaEquipamentoForm
             if (!f.nome.trim()) {
               this.$store.toasts.push("Dê um nome para o equipamento.", "error")
+              return
+            }
+            if (!this.editEquipamentoMode && this.cargaExcedeMaximo(f.peso)) {
+              this.$store.toasts.push("Peso excede o limite de carga (10x FOR).", "error")
               return
             }
             if (this.editEquipamentoMode && this.editEquipamentoId) {
@@ -1536,6 +1726,10 @@ export default {
       async addArmaToInventory(arma) {
         if (!this.selectedCharId) {
           this.$store.toasts.push("Salve a ficha primeiro para adicionar equipamentos.", "error")
+          return
+        }
+        if (this.cargaExcedeMaximo(arma.peso)) {
+          this.$store.toasts.push("Peso excede o limite de carga (10x FOR).", "error")
           return
         }
         const isRanged = !["corpo a corpo", "—", ""].includes(String(arma.alcance || "").trim().toLowerCase())
@@ -1608,6 +1802,10 @@ export default {
           this.$store.toasts.push("Salve a ficha primeiro para adicionar equipamentos.", "error")
           return
         }
+        if (this.cargaExcedeMaximo(protecao.peso)) {
+          this.$store.toasts.push("Peso excede o limite de carga (10x FOR).", "error")
+          return
+        }
         try {
           await createProtecao({
             fichaId: this.selectedCharId,
@@ -1672,6 +1870,10 @@ export default {
       async addEquipamentoToFicha(equipamento) {
         if (!this.selectedCharId) {
           this.$store.toasts.push("Salve a ficha primeiro para adicionar equipamentos.", "error")
+          return
+        }
+        if (this.cargaExcedeMaximo(equipamento.peso)) {
+          this.$store.toasts.push("Peso excede o limite de carga (10x FOR).", "error")
           return
         }
         try {
@@ -1749,6 +1951,7 @@ export default {
             mod,
             danoMod,
             periciaNome: p.nome,
+            fichaId: this.selectedCharId,
           }
         }))
       },

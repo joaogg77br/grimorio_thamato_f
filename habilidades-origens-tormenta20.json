@@ -1,0 +1,212 @@
+[
+  {
+    "nome": "Membro da Igreja",
+    "descricao": "Você é um membro respeitado de sua ordem religiosa. Por isso, recebe +2 em testes de Diplomacia com devotos da sua divindade e pode conseguir hospedagem ou serviços gratuitos em templos da sua fé.",
+    "gastoPe": null,
+    "classe": "Origem (Acólito)"
+  },
+  {
+    "nome": "Amigo Especial",
+    "descricao": "Animais comuns são amistosos em relação a você. Mesmo que não seja um devoto de Allihanna, pássaros e outros pequenos animais sempre se aproximam sem receio. Além disso, caso possua um aliado animal, ele pertence a uma espécie exótica e impressionante, sempre atraindo atenção.",
+    "gastoPe": null,
+    "classe": "Origem (Amigo dos Animais)"
+  },
+  {
+    "nome": "Lembranças Graduais",
+    "descricao": "Durante suas aventuras, em determinados momentos a critério do mestre, você pode fazer um teste de Sabedoria (CD 10) para reconhecer pessoas, criaturas ou lugares que tenha encontrado antes de perder a memória.",
+    "gastoPe": null,
+    "classe": "Origem (Amnésico)"
+  },
+  {
+    "nome": "Sangue Azul",
+    "descricao": "Você tem alguma influência política, suficiente para ser tratado com mais leniência pela guarda, conseguir uma audiência com o nobre local etc.",
+    "gastoPe": null,
+    "classe": "Origem (Aristocrata)"
+  },
+  {
+    "nome": "Frutos do Trabalho",
+    "descricao": "Você sabe tirar o máximo de proveito do seu ofício. Quando passa em um teste de Ofício para sustento, você recebe o dobro do dinheiro.",
+    "gastoPe": null,
+    "classe": "Origem (Artesão)"
+  },
+  {
+    "nome": "Dom Artístico",
+    "descricao": "Sua arte é fascinante e comove o público. Quando usa a perícia Atuação para fazer uma apresentação e passa no teste, você ganha o dobro de tibares.",
+    "gastoPe": null,
+    "classe": "Origem (Artista)"
+  },
+  {
+    "nome": "Esse Cheiro...",
+    "descricao": "Exposição prolongada a reagentes e fórmulas lhe concedeu imunidades. Você recebe +2 em Fortitude e passa automaticamente em testes de Ofício (alquimia) para identificar itens alquímicos.",
+    "gastoPe": null,
+    "classe": "Origem (Assistente de Laboratório)"
+  },
+  {
+    "nome": "À Prova de Tudo",
+    "descricao": "Você desenvolveu pernas fortes e fôlego implacável para explorar. Você pode gastar 1 PM para ignorar a penalidade de deslocamento por terreno difícil em ambientes naturais até o final do seu turno.",
+    "gastoPe": 1,
+    "classe": "Origem (Batedor)"
+  },
+  {
+    "nome": "Confissão",
+    "descricao": "Sua postura ameaçadora quebra a força de vontade alheia. Você recebe +2 em testes de Intimidação. Além disso, se passar em um teste de Intimidação contra uma criatura, pode gastar 1 PM para fazê-la confessar um segredo ou responder a uma pergunta com total sinceridade.",
+    "gastoPe": 1,
+    "classe": "Origem (Capanga)"
+  },
+  {
+    "nome": "Alpinista Social",
+    "descricao": "Você sabe se infiltrar na alta sociedade fingindo ser quem não é. Você pode substituir testes de Diplomacia por testes de Enganação.",
+    "gastoPe": null,
+    "classe": "Origem (Charlatão)"
+  },
+  {
+    "nome": "Truque de Mágica",
+    "descricao": "Seu treinamento nas artes de ilusionismo circense lhe concedeu um truque real. Você aprende e pode lançar uma magia arcana de 1º círculo da escola de Ilusão, pagando seu custo normal em PM (atributo-chave Carisma).",
+    "gastoPe": 1,
+    "classe": "Origem (Circense)"
+  },
+  {
+    "nome": "Punguista",
+    "descricao": "Você aprendeu a sobreviver batendo carteiras e ocultando pertences. Você pode fazer testes de Ladinagem para sustento, como se usasse a perícia Ofício.",
+    "gastoPe": null,
+    "classe": "Origem (Criminoso)"
+  },
+  {
+    "nome": "Médico de Campo",
+    "descricao": "Você é rápido e preciso ao estancar sangramentos e tratar feridos sob pressão. Você pode gastar uma ação de movimento e 1 PM para usar a perícia Cura (para socorro imediato ou curar ferimentos).",
+    "gastoPe": 1,
+    "classe": "Origem (Curandeiro)"
+  },
+  {
+    "nome": "Busca Interior",
+    "descricao": "Seus longos anos em isolamento e contemplação espiritual lhe concederam paz mental. Você pode passar uma hora meditando para recuperar uma quantidade de PM igual ao seu modificador de Sabedoria. Você só pode usar esta habilidade uma vez por dia.",
+    "gastoPe": null,
+    "classe": "Origem (Eremita)"
+  },
+  {
+    "nome": "Desejo de Liberdade",
+    "descricao": "Anos de cativeiro e fuga aguçaram sua determinação em resistir a amarras. Você recebe +2 em testes de resistência contra efeitos de aprisionamento ou paralisia (como a manobra agarrar e a magia paralisia).",
+    "gastoPe": null,
+    "classe": "Origem (Escravo)"
+  },
+  {
+    "nome": "Palpite Fundamentado",
+    "descricao": "Sua mente acadêmica é repleta de teorias e fatos lidos. Você pode gastar 1 PM para receber um bônus igual ao seu modificador de Inteligência em qualquer teste de perícia de Conhecimento.",
+    "gastoPe": 1,
+    "classe": "Origem (Estudioso)"
+  },
+  {
+    "nome": "Água no Feijão",
+    "descricao": "Você aprendeu a economizar ingredientes e cozinhar com recursos escassos na fazenda. Você gasta apenas metade da matéria-prima (ou ingredientes) para testes de Ofício (cozinheiro).",
+    "gastoPe": null,
+    "classe": "Origem (Fazendeiro)"
+  },
+  {
+    "nome": "Cultura Exótica",
+    "descricao": "Sua herança estrangeira, sotaque e trejeitos incomuns despertam curiosidade. Você recebe +2 em testes de Diplomacia e Enganação com pessoas que não pertencem à sua cultura nativa devido ao seu comportamento exótico e intrigante.",
+    "gastoPe": null,
+    "classe": "Origem (Forasteiro)"
+  },
+  {
+    "nome": "Pão e Circo",
+    "descricao": "Por seu treino em combates de exibição na arena, você sabe desferir golpes dramáticos e “bater sem machucar”. Pode escolher causar dano não letal sem sofrer a penalidade padrão de –5 no teste de ataque.",
+    "gastoPe": null,
+    "classe": "Origem (Gladiador)"
+  },
+  {
+    "nome": "Detetive",
+    "descricao": "Seu faro investigativo nas patrulhas urbanas lhe ensinou a encontrar pistas onde outros falham. Você pode substituir testes de Percepção ou Intuição por testes de Investigação.",
+    "gastoPe": null,
+    "classe": "Origem (Guarda)"
+  },
+  {
+    "nome": "Herança",
+    "descricao": "Você é o herdeiro de um patrimônio ou item lendário de família. Você começa o jogo com um item superior com uma modificação de até T$ 1.000, ou um item mágico menor à sua escolha.",
+    "gastoPe": null,
+    "classe": "Origem (Herdeiro)"
+  },
+  {
+    "nome": "Amigo dos Plebeus",
+    "descricao": "Por ser considerado um herói do povo, você é sempre bem-vindo entre os humildes. Você consegue hospedagem gratuita, para você e seus aliados, em famílias ou comunidades plebeias.",
+    "gastoPe": null,
+    "classe": "Origem (Herói Camponês)"
+  },
+  {
+    "nome": "Passagem de Navio",
+    "descricao": "Sua experiência em portos e embarcações lhe garantiu muitos contatos e respeito dos capitães. Você consegue passagem de graça para você e aliados em qualquer navio comercial ou de passageiros que viaje em Arton.",
+    "gastoPe": null,
+    "classe": "Origem (Marujo)"
+  },
+  {
+    "nome": "Vendedor de Carcaças",
+    "descricao": "Você sabe extrair couro, dentes, peles e carcaças valiosas de animais selvagens. Você pode fazer testes de Sobrevivência para sustento, como se usasse a perícia Ofício.",
+    "gastoPe": null,
+    "classe": "Origem (Mateiro)"
+  },
+  {
+    "nome": "Rede de Contatos",
+    "descricao": "Suas conexões com a guilda facilitam o fluxo de informações no submundo. Você pode gastar 1 PM para obter informações ou itens do submundo na metade do tempo normal.",
+    "gastoPe": 1,
+    "classe": "Origem (Membro de Guilda)"
+  },
+  {
+    "nome": "Negociação",
+    "descricao": "Você tem um olho clínico para preços, barganhas e fechar negócios excelentes. Você recebe +2 em testes de Diplomacia. Além disso, quando vende itens, recebe 10% a mais do valor original deles.",
+    "gastoPe": null,
+    "classe": "Origem (Mercador)"
+  },
+  {
+    "nome": "Escavador",
+    "descricao": "Sua vida trabalhando em túneis profundos lhe concedeu facilidade sob a terra. Você se torna proficiente em picareta e não sofre penalidade em deslocamento por terreno difícil em masmorras e subterrâneos.",
+    "gastoPe": null,
+    "classe": "Origem (Minerador)"
+  },
+  {
+    "nome": "Mochileiro",
+    "descricao": "Você está acostumado a caminhar carregando todos os seus pertences nas costas por longas distâncias. Seu deslocamento não é reduzido por carregar excesso de carga ou por usar armadura média.",
+    "gastoPe": null,
+    "classe": "Origem (Nômade)"
+  },
+  {
+    "nome": "Quebra-Galho",
+    "descricao": "A sobrevivência nas ruas lhe ensinou a improvisar e se virar com o que tem. Você pode gastar 1 PM para realizar um teste de perícia não treinada como se fosse treinado nela (exceto Luta e Pontaria).",
+    "gastoPe": 1,
+    "classe": "Origem (Pivete)"
+  },
+  {
+    "nome": "Estoico",
+    "descricao": "Você suportou provações extremas e aprendeu a se revigorar com o mínimo. Sua recuperação de pontos de vida e pontos de mana com descanso aumenta em uma categoria: igual ao seu nível em condições desconfortáveis, o dobro em condições normais, etc.",
+    "gastoPe": null,
+    "classe": "Origem (Refugiado)"
+  },
+  {
+    "nome": "Antigo Mestre",
+    "descricao": "Você ainda mantém contato com o herói que costumava servir ou com seu grupo de aventureiros. A critério do mestre, em uma emergência, você pode conseguir alguma ajuda ou conselho valioso.",
+    "gastoPe": null,
+    "classe": "Origem (Seguidor)"
+  },
+  {
+    "nome": "Vida Rústica",
+    "descricao": "Criado fora do conforto das cidades, você resiste às intempéries da natureza selvagem. Você recebe +2 em testes de Fortitude e Sobrevivência. Além disso, pode recuperar PV e PM descansando em condições desconfortáveis como se fossem normais.",
+    "gastoPe": null,
+    "classe": "Origem (Selvagem)"
+  },
+  {
+    "nome": "Influência Militar",
+    "descricao": "Sua patente ou histórico no exército é reconhecido por forças militares locais. Você recebe +2 em testes de Diplomacia e Intimidação contra soldados, guardas municipais e milicianos, além de poder requisitar pequenos favores militares.",
+    "gastoPe": null,
+    "classe": "Origem (Soldado)"
+  },
+  {
+    "nome": "Gororoba",
+    "descricao": "Você sabe preparar um ensopado ou prato rústico que revigora seus companheiros de mesa. Você pode gastar 1 PM para preparar uma refeição comum que concede +5 PV temporários a quem consumi-la até o fim da cena.",
+    "gastoPe": 1,
+    "classe": "Origem (Taverneiro)"
+  },
+  {
+    "nome": "Esforçado",
+    "descricao": "Você não teme trabalho duro, tarefas repetitivas nem prazos apertados. Você recebe um bônus de +2 em todos os testes de perícias estendidos.",
+    "gastoPe": null,
+    "classe": "Origem (Trabalhador)"
+  }
+]

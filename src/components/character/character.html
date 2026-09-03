@@ -75,7 +75,7 @@
 
         <div class="t20-id-bar">
           <div class="t20-id-cell">
-            <select x-model="form.raca" class="t20-select-field">
+            <select x-model="form.raca" class="t20-select-field" x-on:change="aplicarDeslocamentoPorRaca(form.raca)">
               <option value="">— Selecione —</option>
               <template x-for="r in RACAS" :key="r">
                 <option x-text="r" :value="r"></option>
@@ -95,7 +95,7 @@
           </div>
 
           <div class="t20-id-cell">
-            <select x-model="form.classe" class="t20-select-field">
+            <select x-model="form.classe" class="t20-select-field" x-on:change="aplicarStatusPorClasse(form.classe)">
               <option value="">— Selecione —</option>
               <template x-for="c in CLASSES" :key="c">
                 <option x-text="c" :value="c"></option>
@@ -219,10 +219,14 @@
                   <div class="t20-def-eq">
                     <span class="t20-def-base">(=10)</span>
                     <span class="t20-op">+</span>
-                    <label class="t20-def-chk">
-                      <input type="checkbox" x-model="form.defesa_des_check" />
-                      <span>Des</span>
-                    </label>
+                    <select class="t20-def-select" x-model="form.defesa_atributo">
+                      <option value="FOR">For</option>
+                      <option value="DES">Des</option>
+                      <option value="CON">Con</option>
+                      <option value="INT">Int</option>
+                      <option value="SAB">Sab</option>
+                      <option value="CAR">Car</option>
+                    </select>
                     <span class="t20-op">+</span>
                     <div class="t20-def-field">
                       <input type="number" x-model.number="form.armadura_defesa" class="t20-mini-input" />
@@ -488,9 +492,9 @@
 
           <div class="t20-capacity-wrap">
             <div class="t20-capacity-vals">
-              <span>Lim. carga: <strong x-text="calcLimiteCarga()"></strong></span>
+              <span>Lim. carga: <strong x-text="calcCargaMaxima()"></strong></span>
               <span class="t20-cap-sep">|</span>
-              <span>Carga Usada: <strong x-text="calcCargaUsada()" :class="{ 't20-over-encumbered': calcCargaUsada() > calcLimiteCarga() }"></strong></span>
+              <span>Carga Usada: <strong x-text="calcCargaUsada()" :class="{ 't20-over-encumbered': isSobrecarregado() }"></strong></span>
             </div>
             <div class="t20-capacity-formula">limite de carga = 10 + 2*Força (-1*Força se Força negativa)</div>
           </div>

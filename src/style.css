@@ -1881,6 +1881,7 @@ select.t20-select-field:hover {
 .t20-carried-dano {
   color: var(--primary-hover);
   font-weight: 600;
+  text-align: center;
 }
 
 .t20-carried-tipo {
@@ -1888,8 +1889,9 @@ select.t20-select-field:hover {
 }
 
 .t20-carried-peso {
-  color: var(--text-dim);
-  text-align: center;
+  color: var(--primary-hover);
+  font-weight: 600;
+  text-align: left;
 }
 
 .t20-carried-actions {
@@ -1957,7 +1959,7 @@ select.t20-select-field:hover {
 
 .t20-carried-list--ataques .t20-carried-header,
 .t20-carried-list--ataques .t20-carried-row {
-  grid-template-columns: 2fr 1fr 0.9fr 0.7fr 40px;
+  grid-template-columns: 40px 0.9fr 2fr 1fr 0.7fr;
 }
 
 .t20-carried-list--gerais .t20-carried-header,
@@ -2656,7 +2658,7 @@ select.t20-select-field:hover {
   bottom: 1rem;
   right: 1rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 0.5rem;
   z-index: 1100;
   align-items: flex-end;
@@ -4348,6 +4350,29 @@ select.t20-select-field:hover {
 }
 .dice-mini-toast--crit .dmt-result {
   color: #4ade80;
+}
+.dice-mini-toast--critfail {
+  border-left-color: #ef4444 !important;
+}
+.dice-mini-toast--critfail .dma-box--attack {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: #ef4444;
+}
+.dice-mini-toast--critfail .dma-box--attack .dma-box-value {
+  color: #ef4444;
+}
+.dice-mini-toast--critfail .dma-box--dano {
+  background: rgba(239, 68, 68, 0.18);
+  border-color: #ef4444;
+}
+.dice-mini-toast--critfail .dma-box--dano .dma-box-value {
+  color: #ef4444;
+}
+.dice-mini-toast--critfail .dma-box-label {
+  color: #ef4444;
+}
+.dice-mini-toast--critfail .dmt-result {
+  color: #ef4444;
 }
 
 /* History sub-row (attack dano) */

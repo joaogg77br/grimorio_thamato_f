@@ -449,7 +449,7 @@ export default {
         })
         window.addEventListener("historico-atualizado", (e) => {
           const { fichaId } = e.detail || {}
-          if (fichaId && Number(fichaId) === this.selectedCharId) {
+          if (fichaId && Number(fichaId) === Number(this.selectedCharId)) {
             this.loadHistoricoFicha(fichaId)
           }
         })
@@ -1085,7 +1085,8 @@ export default {
         if (!fichaId) return
         try {
           const { data } = await getHistoricoByFicha(fichaId)
-          this.historicoCarregado = (data?.historico || []).slice().reverse()
+          const items = data?.historico || data?.data || data || []
+          this.historicoCarregado = Array.isArray(items) ? items.slice().reverse() : []
         } catch (err) {
           console.error('Erro ao carregar histórico:', err)
           this.historicoCarregado = []
@@ -1108,8 +1109,8 @@ export default {
       splitHistoricoValue(value) {
         const s = String(value || "")
         const idx = s.indexOf(", Dano:")
-        if (idx === -1) return { ataque: s, dano: null }
-        return { ataque: s.slice(0, idx), dano: s.slice(idx + 2) }
+        if (idx === -1) return s
+        return `${s.slice(0, idx)} — Dano:${s.slice(idx + 7)}`
       },
 
       async salvarDescricao() {
@@ -1967,7 +1968,7 @@ export default {
 
       async salvarAtaqueConfig(arma) {
         try {
-          await updateArma(arma.id, { equiped: arma.equiped, atributo: arma.atributo, pericia: arma.pericia })
+          await updateArma(arma.id, { equiped: arma.equiped, atributo: arma.atributo, pericia: arma.pericia, critico: arma.critico })
           this.$store.toasts.push(`${arma.nome}: ${arma.atributo || "FOR"} · ${arma.pericia || "Luta"}.`, "success")
         } catch (err) {
           console.error("Erro ao atualizar arma:", err)

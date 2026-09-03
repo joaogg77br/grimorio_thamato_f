@@ -44,7 +44,8 @@ export default {
           const ataqueTotal = this.lastResult
           const ataqueDetail = this.lastDetail
           const ataqueRollData = this.lastRollData
-          const ataqueIsCrit = this.lastResult !== null && ataqueDetail.includes("[20") && !ataqueDetail.includes("[1")
+          const ataqueIsCrit = this.lastRollData && this.lastRollData.chosenD20 !== null && this.lastRollData.chosenD20 >= (Number(arma.critico) || 20)
+          const ataqueCritFail = this.lastRollData && this.lastRollData.chosenD20 === 1
           const multiplier = Number(arma.multiplicador) || 2
           let danoTotal, danoDetail
           let critTotal
@@ -70,20 +71,37 @@ export default {
             arma.nome,
             e.detail.periciaNome || (arma.pericia || ""),
             { total: ataqueTotal, detail: ataqueDetail },
-            { total: critTotal, detail: danoDetail, baseTotal: danoTotal, isCrit: ataqueIsCrit, multiplier }
+            { total: critTotal, detail: danoDetail, baseTotal: danoTotal, isCrit: ataqueIsCrit, isCritFail: ataqueCritFail, multiplier }
           )
         })
       },
 
       pushAtaqueToast(weaponName, periciaNome, ataque, dano) {
-        const id = ++this.toastSeq
         const isCrit = dano.isCrit
+        const animated = isCrit || dano.isCritFail
         const duration = isCrit ? 10000 : 6000
-        const timer = setTimeout(() => {
-          this.miniToasts = this.miniToasts.filter((t) => t.id !== id)
-        }, duration)
-        this.history = [{ label: `Ataque ${weaponName}`, result: ataque.total, detail: ataque.detail, sub: { label: "Dano", result: dano.isCrit ? dano.baseTotal : dano.total, detail: dano.detail, multiplied: dano.isCrit, multiplier: dano.multiplier } }, ...this.history].slice(0, this.maxHistory)
-        this.miniToasts = [{ id, variant: "ataque", weaponName, periciaNome, ataque, dano, timer, isCrit }, ...this.miniToasts].slice(0, 5)
+        const slot = {
+          variant: "ataque",
+          weaponName,
+          periciaNome,
+          ataque,
+          dano,
+          isCrit,
+          isCritFail: dano.isCritFail,
+        }
+        const show = () => {
+          const id = ++this.toastSeq
+          const timer = setTimeout(() => {
+            this.miniToasts = this.miniToasts.filter((t) => t.id !== id)
+          }, duration)
+          this.history = [{ label: `Ataque ${weaponName}`, result: ataque.total, detail: ataque.detail, sub: { label: "Dano", result: dano.isCrit ? dano.baseTotal : dano.total, detail: dano.detail, multiplied: dano.isCrit, multiplier: dano.multiplier } }, ...this.history].slice(0, this.maxHistory)
+          this.miniToasts = [{ ...slot, id, timer }, ...this.miniToasts].slice(0, 5)
+        }
+        if (animated && this.$store.critAnim.enabled) {
+          setTimeout(show, 4900)
+        } else {
+          show()
+        }
       },
 
       pushMiniToast(label, result, detail, rolls, isCrit = false) {
@@ -249,9 +267,7 @@ export default {
       montarRollString(data) {
         if (!data) return ""
         const formula = this.montarFormulaFromGroups(data.groups) || String(data.formula || "").toLowerCase()
-        const dados = data.rolls && data.rolls.length ? `[${data.rolls.join(",")}]` : ""
-        if (!dados) return `${formula} = ${data.total}`
-        return `${formula} >${dados} = ${data.total}`
+        return `${formula} = ${data.total}`
       },
 
       async persistirHistorico(fichaId, value) {
@@ -310,6 +326,10 @@ export default {
 
       triggerD20Popup(value) {
         if (this.d20Popup.show) return
+        if (!this.$store.critAnim.enabled) {
+          this.showResult = true
+          return
+        }
         this.setD20Popup({ show: true, phase: "animating", value })
         setTimeout(() => {
           this.setPhase("fadeout")

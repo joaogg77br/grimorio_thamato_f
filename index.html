@@ -67,6 +67,10 @@
                 <span class="material-symbols-outlined" x-text="$store.sound.enabled ? 'mic' : 'mic_off'"></span>
                 <span x-text="$store.sound.enabled ? 'Desativar sons' : 'Ativar sons'"></span>
               </button>
+              <button class="settings-dropdown-item" x-on:click="$store.critAnim.toggle()">
+                <span class="material-symbols-outlined" x-text="$store.critAnim.enabled ? 'animation' : 'animation_off'"></span>
+                <span x-text="$store.critAnim.enabled ? 'Desativar animação de crítico' : 'Ativar animação de crítico'"></span>
+              </button>
               <button class="settings-dropdown-item" x-on:click="logout()">
                 <span class="material-symbols-outlined">logout</span>
                 Sair da conta
@@ -2250,11 +2254,8 @@
                                     </select>
                                   </label>
                                   <label class="t20-criar-field">
-                                    <span>Crítico</span>
-                                    <select x-model.number="novaArmaForm.critico">
-                                      <option :value="19">19</option>
-                                      <option :value="20">20</option>
-                                    </select>
+                                    <span>Margem de Ameaça</span>
+                                    <input type="number" x-model.number="novaArmaForm.critico" min="2" max="20" step="1" placeholder="20" />
                                   </label>
                                   <label class="t20-criar-field">
                                     <span>Multiplicador</span>
@@ -2440,31 +2441,29 @@
 
                           <div class="t20-carried-list t20-carried-list--ataques" x-show="armasEquipadas.length > 0">
                             <div class="t20-carried-header">
+                              <span class="col-carried-actions"></span>
+                              <span class="col-carried-crit">CRÍTICO</span>
+                              <span class="col-carried-dano">DADO</span>
                               <span class="col-carried-name">ARMA</span>
                               <span class="col-carried-tipo">PERÍCIA</span>
-                              <span class="col-carried-dano">DANO</span>
-                              <span class="col-carried-crit">CRÍTICO</span>
-                              <span class="col-carried-actions"></span>
                             </div>
                             <template x-for="arma in armasEquipadas" :key="arma.id">
                               <div class="t20-carried-block">
                                 <div class="t20-carried-row" x-on:click="toggleAtaqueArmaExpand(arma)">
+                                  <button
+                                    class="t20-ataque-dice-btn"
+                                    x-on:click.stop="rolarAtaque(arma)"
+                                    :title="'Rolar ataque de ' + arma.nome"
+                                  >
+                                    <span class="material-symbols-outlined">casino</span>
+                                  </button>
+                                  <span class="t20-carried-crit" x-text="arma.critico + '/' + arma.multiplicador"></span>
+                                  <span class="t20-carried-dano" x-text="arma.dadoDeDano"></span>
                                   <span class="t20-carried-name t20-carried-name-wrap">
                                     <span class="material-symbols-outlined t20-carried-chevron" :class="{ expanded: expandedAtaqueArmaId === arma.id }">expand_more</span>
                                     <span x-text="arma.nome"></span>
                                   </span>
                                   <span class="t20-carried-tipo" x-text="armaPericiaInfo(arma).p.nome"></span>
-                                  <span class="t20-carried-peso" x-text="arma.dadoDeDano"></span>
-                                  <span class="t20-carried-crit" x-text="arma.critico + '/' + arma.multiplicador"></span>
-                                  <div class="t20-carried-actions">
-                                    <button
-                                      class="t20-ataque-dice-btn"
-                                      x-on:click.stop="rolarAtaque(arma)"
-                                      :title="'Rolar ataque de ' + arma.nome"
-                                    >
-                                      <span class="material-symbols-outlined">casino</span>
-                                    </button>
-                                  </div>
                                 </div>
                                 <div class="t20-ataque-config" x-show="expandedAtaqueArmaId === arma.id">
                                   <label class="t20-ataque-config-field">
@@ -2481,6 +2480,17 @@
                                       <template x-for="p in PERICIAS_LIST" :key="p">
                                         <option :value="p" x-text="p"></option>
                                       </template>
+                                    </select>
+                                  </label>
+                                  <label class="t20-ataque-config-field">
+                                    <span class="t20-ataque-config-label">MARGEM DE AMEAÇA</span>
+                                    <select x-model.number="arma.critico" x-on:change="salvarAtaqueConfig(arma)">
+                                      <option :value="20">20</option>
+                                      <option :value="19">19</option>
+                                      <option :value="18">18</option>
+                                      <option :value="17">17</option>
+                                      <option :value="16">16</option>
+                                      <option :value="15">15</option>
                                     </select>
                                   </label>
                                 </div>
@@ -2517,17 +2527,7 @@
                           <div class="t20-history-list" x-show="historicoCarregado.length > 0">
                             <template x-for="(h, i) in historicoCarregado" :key="h.id">
                               <div class="history-item">
-                                <template x-if="!splitHistoricoValue(h.value).dano">
-                                  <span class="h-detail" x-text="h.value"></span>
-                                </template>
-                                <template x-if="splitHistoricoValue(h.value).dano">
-                                  <div class="history-sub">
-                                    <span class="h-detail" x-text="splitHistoricoValue(h.value).ataque"></span>
-                                  </div>
-                                  <div class="history-sub">
-                                    <span class="h-detail" x-text="splitHistoricoValue(h.value).dano"></span>
-                                  </div>
-                                </template>
+                                <span class="h-detail" x-text="splitHistoricoValue(h.value)"></span>
                               </div>
                             </template>
                           </div>
@@ -2569,7 +2569,7 @@
           <template x-for="t in miniToasts" :key="t.id">
             <div
               class="dice-mini-toast"
-              :class="{ 'dice-mini-toast--ataque': t.variant === 'ataque', 'dice-mini-toast--crit': t.isCrit }"
+              :class="{ 'dice-mini-toast--ataque': t.variant === 'ataque', 'dice-mini-toast--crit': t.isCrit, 'dice-mini-toast--critfail': t.isCritFail }"
               x-on:click="dismissMiniToast(t.id)"
               x-on:mouseenter="hoverToast(t.id)"
               x-on:mouseleave="leaveToast(t.id)"

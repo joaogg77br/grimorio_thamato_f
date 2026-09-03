@@ -80,6 +80,20 @@ document.addEventListener("alpine:init", () => {
     },
   })
 
+  Alpine.store("critAnim", {
+    _enabled: localStorage.getItem("grimorio_crit_anim") !== "off",
+    get enabled() {
+      return this._enabled
+    },
+    set enabled(v) {
+      this._enabled = v
+      localStorage.setItem("grimorio_crit_anim", v ? "on" : "off")
+    },
+    toggle() {
+      this.enabled = !this.enabled
+    },
+  })
+
   Alpine.store("auth", {
     user: localDB.getSession() || null,
     authenticated: false,

@@ -21,7 +21,7 @@
           <template x-for="ch in master.campaignChars" :key="ch.id">
             <div class="master-char-card">
               <h4 x-text="ch.nome"></h4>
-              <p x-text="ch.raca + ' - ' + ch.classe + ' (Nv ' + ch.nivel + ')'"></p>
+              <p x-text="master.racaEmoji(ch.raca) + ' - ' + ch.classe + ' (Nv ' + ch.nivel + ')'"></p>
               <div class="master-char-stats">
                 <span>PV: <strong x-text="ch.pv_max"></strong></span>
                 <span>PM: <strong x-text="ch.pm_max"></strong></span>

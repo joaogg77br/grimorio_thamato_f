@@ -1,6 +1,6 @@
 [
   {
-    "nome": "Humano",
+    "nome": "👤 Humano",
     "atributos": {
       "Força": 2,
       "Destreza": 2,
@@ -20,7 +20,7 @@
     ]
   },
   {
-    "nome": "Anão",
+    "nome": "🧔 Anão",
     "atributos": {
       "Constituição": 4,
       "Sabedoria": 2,
@@ -49,7 +49,7 @@
     ]
   },
   {
-    "nome": "Dahllan",
+    "nome": "🌿 Dahllan",
     "atributos": {
       "Sabedoria": 4,
       "Destreza": 2,
@@ -74,7 +74,7 @@
     ]
   },
   {
-    "nome": "Elfo",
+    "nome": "🧝 Elfo",
     "atributos": {
       "Inteligência": 4,
       "Destreza": 2,
@@ -99,7 +99,7 @@
     ]
   },
   {
-    "nome": "Goblin",
+    "nome": "👺 Goblin",
     "atributos": {
       "Destreza": 4,
       "Inteligência": 2,
@@ -128,7 +128,7 @@
     ]
   },
   {
-    "nome": "Lefou",
+    "nome": "🧬 Lefou",
     "atributos": {
       "descricao_atributos": "+2 em Três Atributos Diferentes (exceto Carisma), Carisma -2."
     },
@@ -146,7 +146,7 @@
     ]
   },
   {
-    "nome": "Minotauro",
+    "nome": "🐂 Minotauro",
     "atributos": {
       "Força": 4,
       "Constituição": 2,
@@ -175,7 +175,7 @@
     ]
   },
   {
-    "nome": "Qareen",
+    "nome": "🧞 Qareen",
     "atributos": {
       "Carisma": 4,
       "Inteligência": 2,
@@ -200,7 +200,7 @@
     ]
   },
   {
-    "nome": "Golem",
+    "nome": "🦾 Golem",
     "atributos": {
       "Força": 4,
       "Constituição": 2,
@@ -225,7 +225,7 @@
     ]
   },
   {
-    "nome": "Hynne",
+    "nome": "🦘 Hynne",
     "atributos": {
       "Destreza": 4,
       "Carisma": 2,
@@ -250,7 +250,7 @@
     ]
   },
   {
-    "nome": "Kliren",
+    "nome": "💡 Kliren",
     "atributos": {
       "Inteligência": 4,
       "Carisma": 2,
@@ -279,7 +279,7 @@
     ]
   },
   {
-    "nome": "Medusa",
+    "nome": "🐍 Medusa",
     "atributos": {
       "Carisma": 4,
       "Destreza": 2,
@@ -303,7 +303,7 @@
     ]
   },
   {
-    "nome": "Osteon",
+    "nome": "💀 Osteon",
     "atributos": {
       "descricao_atributos": "+2 em Três Atributos Diferentes (exceto Constituição), Constituição -2."
     },
@@ -329,7 +329,7 @@
     ]
   },
   {
-    "nome": "Sereia/Tritão",
+    "nome": "🧜 Sereia/Tritão",
     "atributos": {
       "descricao_atributos": "+2 em Três Atributos Diferentes."
     },
@@ -351,7 +351,7 @@
     ]
   },
   {
-    "nome": "Sílfide",
+    "nome": "🧚 Sílfide",
     "atributos": {
       "Destreza": 4,
       "Carisma": 2,
@@ -376,9 +376,11 @@
     ]
   },
   {
-    "nome": "Suraggel",
+    "nome": "👼 Suraggel - Aggelus",
     "atributos": {
-      "descricao_atributos": "Aggelus: Sab +4, Car +2. Sulfure: Des +4, Int +2."
+      "Sabedoria": 4,
+      "Carisma": 2,
+      "descricao_atributos": "Sab +4, Car +2."
     },
     "tamanho": "Médio",
     "deslocamento": "9m",
@@ -388,17 +390,33 @@
         "descricao": "Você é uma criatura do tipo espírito e recebe visão no escuro."
       },
       {
-        "nome": "Luz Sagrada (Aggelus)",
+        "nome": "Luz Sagrada",
         "descricao": "Você recebe +2 em Diplomacia e Intuição. Além disso, pode lançar Luz (como uma magia divina; atributo-chave Carisma). Caso aprenda novamente esta magia, o custo para lançá-la diminui em –1 PM."
+      }
+    ]
+  },
+  {
+    "nome": "😈 Suraggel - Sulfure",
+    "atributos": {
+      "Destreza": 4,
+      "Inteligência": 2,
+      "descricao_atributos": "Des +4, Int +2."
+    },
+    "tamanho": "Médio",
+    "deslocamento": "9m",
+    "habilidades": [
+      {
+        "nome": "Herança Divina",
+        "descricao": "Você é uma criatura do tipo espírito e recebe visão no escuro."
       },
       {
-        "nome": "Sombras Profanas (Sulfure)",
+        "nome": "Sombras Profanas",
         "descricao": "Você recebe +2 em Enganação e Furtividade. Além disso, pode lançar a magia Escuridão (atributo-chave Inteligência). Caso aprenda novamente esta magia, o custo para lançá-la diminui em –1 PM."
       }
     ]
   },
   {
-    "nome": "Trog",
+    "nome": "🦎 Trog",
     "atributos": {
       "Constituição": 4,
       "Força": 2,

@@ -7,7 +7,7 @@ import EQUIPAMENTOS_DATA from "../../data/equipamentos.js"
 import MAGIAS_DATA from "../../data/magias.js"
 import HABILIDADES_DATA from "../../data/habilidades.js"
 import EVOLUCAO_CLASSES from "../../data/evolucao.js"
-import RACAS_DATA from "../../data/racas.js"
+import RACAS_DATA, { limparEmojiRaca, adicionarEmojiRaca } from "../../data/racas.js"
 import { valoresIniciais } from "../../data/valores-iniciais.js"
 
 const CLASSES = [
@@ -31,6 +31,8 @@ const ORIGENS = [
 ]
 
 const RACAS = RACAS_DATA.map(r => r.nome)
+
+const racaDataPorNome = (nome) => RACAS_DATA.find(r => limparEmojiRaca(r.nome).toLowerCase() === String(nome || '').trim().toLowerCase())
 
 const DIVINDADES = [
   "Aharadak", "Allihanna", "Arsenal", "Azgher", "Glórienn",
@@ -249,7 +251,7 @@ export default {
           (f.nomePersonagem || '').toLowerCase().includes(term) ||
           (f.classe || '').toLowerCase().includes(term) ||
           (f.nomeJogador || '').toLowerCase().includes(term) ||
-          (f.raca || '').toLowerCase().includes(term)
+          limparEmojiRaca(f.raca).toLowerCase().includes(term)
         )
       },
 
@@ -479,7 +481,7 @@ export default {
           id: ficha.id,
           nome: ficha.nomePersonagem || '',
           jogador: ficha.nomeJogador || '',
-          raca: ficha.raca || '',
+          raca: adicionarEmojiRaca(ficha.raca) || '',
           origem: ficha.origem || '',
           classe: ficha.classe || '',
           nivel: ficha.nivel || 1,
@@ -599,7 +601,7 @@ export default {
         const term = (this.wizardRacaSearchTerm || "").toLowerCase().trim()
         if (!term) return this.wizardRacas
         return this.wizardRacas.filter(r =>
-          (r.nome || "").toLowerCase().includes(term) ||
+          limparEmojiRaca(r.nome).toLowerCase().includes(term) ||
           (r.atributos?.descricao_atributos || "").toLowerCase().includes(term) ||
           (r.habilidades || []).some(h => (h.nome || "").toLowerCase().includes(term) || (h.descricao || "").toLowerCase().includes(term))
         )
@@ -772,7 +774,7 @@ export default {
         const payload = {
           nomePersonagem: this.form.nome,
           nomeJogador: this.form.jogador || user.name,
-          raca: this.form.raca || 'Humano',
+          raca: limparEmojiRaca(this.form.raca) || 'Humano',
           divindade: this.form.divindade || 'Nenhuma',
           origem: this.form.origem || 'Aventureiro',
           classe: classeAtual,
@@ -822,7 +824,7 @@ export default {
       },
 
       async adicionarHabilidadesDeRaca(fichaId, nomeRaca) {
-        const nome = (nomeRaca || '').trim().toLowerCase()
+        const nome = limparEmojiRaca(nomeRaca).toLowerCase()
         if (!nome) return
         const habs = this.habilidadesData.filter(h => {
           const cl = (h.classe || '').trim()
@@ -1135,7 +1137,7 @@ export default {
       },
 
       aplicarDeslocamentoPorRaca(nomeRaca) {
-        const raca = RACAS_DATA.find(r => r.nome === nomeRaca)
+        const raca = racaDataPorNome(nomeRaca)
         const desl = this.extrairDeslocamento(raca)
         if (desl != null) this.form.deslocamento = desl
       },
@@ -1270,7 +1272,7 @@ export default {
         const basePayload = {
           nomePersonagem: this.form.nome,
           nomeJogador: this.form.jogador || user.name,
-          raca: this.form.raca || 'Humano',
+          raca: limparEmojiRaca(this.form.raca) || 'Humano',
           divindade: this.form.divindade || 'Nenhuma',
           origem: this.form.origem || 'Aventureiro',
           classe: this.form.classe || 'Guerreiro',

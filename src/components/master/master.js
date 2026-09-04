@@ -1,5 +1,6 @@
 import html from "./master.html?raw"
 import { getCampanhasByMaster, getPlayersByCampanha, removePlayerFromCampanha, getFichasByCampanha } from "../../useApi/index.js"
+import { adicionarEmojiRaca } from "../../data/racas.js"
 
 export default {
   html,
@@ -37,6 +38,10 @@ export default {
 
       get selectedCampaign() {
         return this.myCampaigns.find(c => c.id === this.selectedCampaignId) || null
+      },
+
+      racaEmoji(nome) {
+        return adicionarEmojiRaca(nome)
       },
 
       async copyCode() {

@@ -83,6 +83,28 @@
                 <span class="material-symbols-outlined" x-text="$store.critAnim.enabled ? 'animation' : 'animation_off'"></span>
                 <span x-text="$store.critAnim.enabled ? 'Desativar animação de crítico' : 'Ativar animação de crítico'"></span>
               </button>
+              <div class="settings-background-group">
+                <span class="settings-theme-title">Fundo da ficha</span>
+                <label class="settings-dropdown-item settings-file-item" for="sheet-background-file">
+                  <span class="material-symbols-outlined">image</span>
+                  <span x-text="$store.sheetBackground.hasImage ? 'Trocar imagem ou GIF' : 'Adicionar imagem ou GIF'"></span>
+                </label>
+                <input
+                  id="sheet-background-file"
+                  class="settings-file-input"
+                  type="file"
+                  accept="image/*"
+                  x-on:change="$store.sheetBackground.setFromFile($event.target.files[0]); $event.target.value = ''"
+                />
+                <button
+                  class="settings-dropdown-item"
+                  x-show="$store.sheetBackground.hasImage"
+                  x-on:click="$store.sheetBackground.clear()"
+                >
+                  <span class="material-symbols-outlined">hide_image</span>
+                  Remover fundo
+                </button>
+              </div>
               <div class="settings-theme-group">
                 <span class="settings-theme-title">Tema</span>
                 <div class="settings-theme-options" role="radiogroup" aria-label="Tema de cores">
@@ -808,7 +830,7 @@
             </div>
           </div>
 
-          <div x-show="viewMode === 'edit'" class="character-page-wrapper" :inert="leavingFicha" :aria-busy="leavingFicha">
+          <div x-show="viewMode === 'edit'" class="character-page-wrapper" :class="{ 'has-character-bg': $store.sheetBackground.hasImage }" :style="$store.sheetBackground.style" :inert="leavingFicha" :aria-busy="leavingFicha">
             <button type="button" class="t20-exit-sheet" x-on:click="sairDaFicha()" :disabled="leavingFicha" title="Voltar para a lista de personagens">
               <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
               <span x-text="leavingFicha ? 'Salvando...' : 'Sair da ficha'"></span>

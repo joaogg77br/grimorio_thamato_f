@@ -43,6 +43,7 @@ const PAGES = Object.fromEntries(
 const PUBLIC_PAGES = ["login", "register"]
 const THEME_KEY = "grimorio_theme"
 const THEME_OPTIONS = ["red", "blue", "purple"]
+const SHEET_BACKGROUND_KEY = "grimorio_sheet_background"
 
 function normalizeTheme(theme) {
   return THEME_OPTIONS.includes(theme) ? theme : "red"
@@ -102,6 +103,39 @@ document.addEventListener("alpine:init", () => {
     },
     toggle() {
       this.enabled = !this.enabled
+    },
+  })
+
+  Alpine.store("sheetBackground", {
+    url: localStorage.getItem(SHEET_BACKGROUND_KEY) || "",
+    get hasImage() {
+      return Boolean(this.url)
+    },
+    get style() {
+      return this.url ? `--character-bg-image: url("${this.url}")` : ""
+    },
+    set(url) {
+      this.url = url || ""
+      if (this.url) localStorage.setItem(SHEET_BACKGROUND_KEY, this.url)
+      else localStorage.removeItem(SHEET_BACKGROUND_KEY)
+    },
+    setFromFile(file) {
+      if (!file) return
+      if (!file.type?.startsWith("image/")) {
+        Alpine.store("toasts").push("Escolha um arquivo de imagem ou GIF.", "error")
+        return
+      }
+      const reader = new FileReader()
+      reader.onload = () => {
+        this.set(String(reader.result || ""))
+        Alpine.store("toasts").push("Fundo da ficha atualizado.", "success")
+      }
+      reader.onerror = () => Alpine.store("toasts").push("Não foi possível carregar a imagem.", "error")
+      reader.readAsDataURL(file)
+    },
+    clear() {
+      this.set("")
+      Alpine.store("toasts").push("Fundo da ficha removido.", "info")
     },
   })
 

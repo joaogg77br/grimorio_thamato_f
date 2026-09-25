@@ -16,9 +16,14 @@ import reference from "./components/reference/reference.js"
 import auth from "./components/auth/auth.js"
 
 import { localDB } from "./lib/localDB.js"
-import { loginUser, findAllUsers } from "./useApi/index.js"
+import { checkLogged } from "./useApi/index.js"
 
-const DEV_USER_ID = crypto.randomUUID()
+const SESSION_CHECK_INTERVAL = 5 * 60 * 1000
+const storedSession = localDB.getSession()
+const initialUser = storedSession?.user || null
+const initialToken = storedSession?.token || null
+const hasInitialSession = Boolean(initialUser?.id && initialUser.email && initialToken)
+if (!hasInitialSession) localDB.clearSession()
 
 const ROUTES = {
   "/": "login",
@@ -28,6 +33,7 @@ const ROUTES = {
   "/campanhas": "campaigns",
   "/mestre": "master",
   "/referencia": "reference",
+  "/perfil": "profile",
 }
 
 const PAGES = Object.fromEntries(
@@ -38,21 +44,6 @@ const PUBLIC_PAGES = ["login", "register"]
 
 function pageFromPath(path) {
   return ROUTES[path] || "home"
-}
-
-async function tryAutoLogin(stored) {
-  try {
-    await loginUser({ emailOrNickName: stored.name })
-    const { data } = await findAllUsers()
-    const alvo = stored.name.toLowerCase()
-    const found = data?.usersFind?.find(
-      (u) =>
-        u.email?.toLowerCase() === alvo ||
-        u.name?.toLowerCase() === alvo
-    )
-    if (found) return { id: found.id, name: found.name }
-  } catch { }
-  return null
 }
 
 document.addEventListener("alpine:init", () => {
@@ -103,8 +94,10 @@ document.addEventListener("alpine:init", () => {
   })
 
   Alpine.store("auth", {
-    user: localDB.getSession() || null,
+    user: null,
+    token: null,
     authenticated: false,
+    checking: hasInitialSession,
   })
 
   Alpine.store("masterView", {
@@ -115,6 +108,8 @@ document.addEventListener("alpine:init", () => {
     currentPage: pageFromPath(window.location.pathname),
     settingsOpen: false,
     autoLoginAttempted: false,
+    sessionCheckTimer: null,
+    sessionCheckInProgress: false,
 
     navigate(page) {
       this.currentPage = page
@@ -122,9 +117,86 @@ document.addEventListener("alpine:init", () => {
       history.pushState({ page }, "", PAGES[page] || "/")
     },
 
+    clearSession({ notify = true, message = "Sua sessão expirou. Entre novamente." } = {}) {
+      const auth = this.$store.auth
+      const hadSession = Boolean(auth.user || auth.token)
+      localDB.clearSession()
+      auth.user = null
+      auth.token = null
+      auth.authenticated = false
+      auth.checking = false
+      if (notify && hadSession) this.$store.toasts.push(message, "error")
+      if (!PUBLIC_PAGES.includes(this.currentPage)) this.navigate("login")
+    },
+
+    async restoreSession() {
+      const auth = this.$store.auth
+      if (!hasInitialSession) {
+        auth.checking = false
+        return false
+      }
+
+      try {
+        const { data } = await checkLogged({
+          token: initialToken,
+          email: initialUser.email,
+        })
+        if (data?.success !== true) {
+          this.clearSession({ notify: false })
+          this.$store.toasts.push("Sua sessão expirou. Entre novamente.", "error")
+          return false
+        }
+        auth.user = initialUser
+        auth.token = initialToken
+        auth.authenticated = true
+        return true
+      } catch (err) {
+        this.clearSession({ notify: false })
+        const status = err?.response?.status
+        const message = status && status < 500
+          ? "Sua sessão expirou. Entre novamente."
+          : "Não foi possível validar sua sessão. Tente entrar novamente."
+        this.$store.toasts.push(message, "error")
+        return false
+      } finally {
+        auth.checking = false
+      }
+    },
+
+    async checkSession({ notify = false } = {}) {
+      const auth = this.$store.auth
+      if (this.sessionCheckInProgress) return auth.authenticated
+      if (!auth.authenticated || !auth.user?.email || !auth.token) return false
+
+      this.sessionCheckInProgress = true
+      try {
+        const { data } = await checkLogged({
+          token: auth.token,
+          email: auth.user.email,
+        })
+        if (data?.success !== true) {
+          this.clearSession()
+          return false
+        }
+        auth.authenticated = true
+        return true
+      } catch (err) {
+        const status = err?.response?.status
+        if (status && status < 500) {
+          this.clearSession()
+          return false
+        }
+        if (notify) this.$store.toasts.push("Não foi possível confirmar sua sessão.", "error")
+        return auth.authenticated
+      } finally {
+        this.sessionCheckInProgress = false
+      }
+    },
+
     async logout() {
       localDB.clearSession()
       this.$store.auth.user = null
+      this.$store.auth.token = null
       this.$store.auth.authenticated = false
       this.settingsOpen = false
       this.$store.toasts.push("Você saiu da conta.", "info")
@@ -132,23 +204,18 @@ document.addEventListener("alpine:init", () => {
     },
 
     async init() {
-      const stored = localDB.getSession()
-      if (stored && !this.$store.auth.authenticated) {
-        const validUser = await tryAutoLogin(stored)
-        if (validUser) {
-          this.$store.auth.user = validUser
-          this.$store.auth.authenticated = true
-          if (PUBLIC_PAGES.includes(this.currentPage)) {
-            this.navigate("home")
-          }
-        } else {
-          localDB.clearSession()
-          this.$store.auth.user = null
-          if (!PUBLIC_PAGES.includes(this.currentPage)) {
-            this.navigate("login")
-          }
-        }
-      } else if (!stored && !PUBLIC_PAGES.includes(this.currentPage)) {
+      window.addEventListener("grimorio:unauthorized", () => this.clearSession())
+      await this.restoreSession()
+
+      if (
+        this.$store.auth.authenticated &&
+        PUBLIC_PAGES.includes(this.currentPage)
+      ) {
+        this.navigate("home")
+      } else if (
+        !this.$store.auth.authenticated &&
+        !PUBLIC_PAGES.includes(this.currentPage)
+      ) {
         this.navigate("login")
       }
       this.autoLoginAttempted = true
@@ -179,6 +246,16 @@ document.addEventListener("alpine:init", () => {
       window.addEventListener("grimorio:navigate", (e) => {
         if (e.detail?.page) this.navigate(e.detail.page)
       })
+
+      this.sessionCheckTimer = window.setInterval(() => {
+        if (this.$store.auth.authenticated) this.checkSession()
+      }, SESSION_CHECK_INTERVAL)
+
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible" && this.$store.auth.authenticated) {
+          this.checkSession()
+        }
+      })
     },
   }))
 
@@ -200,22 +277,4 @@ document.addEventListener("alpine:init", () => {
     optLabel(o) {
       if (config.labelOf) return config.labelOf(o)
       return typeof o === "object" ? (o.nomeCampanha || o.nome || o.name || "") : String(o)
-    },
-    get selected() {
-      const v = this.value
-      return this.options.find(o => this.ident(o) === v) || null
-    },
-    get label() {
-      return this.selected ? this.optLabel(this.selected) : (config.placeholder || "Selecione...")
-    },
-    get emptyText() { return config.emptyText || "Nenhuma opção." },
-    toggle() { this.open = !this.open },
-    close() { this.open = false },
-    pick(o) {
-      if (config.onchange) config.onchange(this.ident(o))
-      this.open = false
-    },
-  }))
-})
-
-Alpine.start()
+    }

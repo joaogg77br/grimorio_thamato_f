@@ -1,15 +1,19 @@
 import client from "./client.js"
 
-function createUser({ nome, emailUser }) {
-  return client.post("/create/user", { nome, emailUser })
+function createUser({ nome, emailUser, password }) {
+  return client.post("/create/user", { nome, emailUser, password })
 }
 
-function findAllUsers() {
-  return client.get("/find/allusers")
+function loginUser({ email, password }) {
+  return client.post("/login", { email, password })
 }
 
-function loginUser({ emailOrNickName }) {
-  return client.post("/login", { emailOrNickName })
+function checkLogged({ token, email }) {
+  return client.post("/logged", { token, email })
+}
+
+function updateUser(userId, data) {
+  return client.put(`/update/user/${userId}`, data)
 }
 
 function getFichasByUser(userId) {
@@ -29,7 +33,7 @@ function deleteFicha(fichaId) {
 }
 
 function findCampanhas(fichaId) {
-  return client.delete(`/find/ficha/CampanhaAtiva/${fichaId}`)
+  return client.get(`/find/ficha/CampanhaAtiva/${fichaId}`)
 }
 function createArma(data) {
   return client.post("/equipamentos/create/Armas", data)
@@ -179,4 +183,4 @@ function updateHistorico(historicoId, value) {
   return client.put(`/historico/update/${historicoId}`, { value })
 }
 
-export { createUser, findAllUsers, loginUser, getFichasByUser, findCampanhas, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, createCampanha, getCampanhasByMaster, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, removePlayerFromCampanha, deleteCampanha, addFichaToCampanha, getFichasByCampanha, removeFichaFromCampanha, createHistorico, getHistoricoByFicha, deleteHistorico, updateHistorico }
+export { createUser, loginUser, checkLogged, updateUser, getFichasByUser, findCampanhas, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, createCampanha, getCampanhasByMaster, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, removePlayerFromCampanha, deleteCampanha, addFichaToCampanha, getFichasByCampanha, removeFichaFromCampanha, createHistorico, getHistoricoByFicha, deleteHistorico, updateHistorico }

@@ -19,8 +19,8 @@ export const localDB = {
   getSession() {
     try { return JSON.parse(localStorage.getItem(SESSION_KEY)) || null } catch { return null }
   },
-  setSession(user) {
-    localStorage.setItem(SESSION_KEY, JSON.stringify(user))
+  setSession(session) {
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session))
   },
   clearSession() {
     localStorage.removeItem(SESSION_KEY)

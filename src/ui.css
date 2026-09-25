@@ -40,11 +40,11 @@ input[type="checkbox"] { accent-color: var(--primary-hover); }
 .nav-links > button .material-symbols-outlined { font-size: 20px; }
 .nav-links > button.active {
   color: var(--primary-hover);
-  background: #4299e112;
+  background: rgba(var(--primary-hover-rgb), 0.07);
   border-bottom-color: var(--primary-hover);
   text-decoration: none;
 }
-.nav-links > button:hover { background: #4299e112; color: var(--text); }
+.nav-links > button:hover { background: rgba(var(--primary-hover-rgb), 0.07); color: var(--text); }
 .settings-btn { min-width: 44px; min-height: 44px; }
 .settings-dropdown {
   border-color: var(--ui-line);
@@ -136,7 +136,7 @@ input[type="checkbox"] { accent-color: var(--primary-hover); }
 .ficha-card-action--open { background: var(--accent); color: #fff; }
 .campaign-tabs { border-bottom: 1px solid var(--border); gap: 0; margin-bottom: 24px; }
 .campaign-tabs button { min-height: 44px; border: 0; border-bottom: 2px solid transparent; background: transparent; padding: 10px 16px; }
-.campaign-tabs button.active { background: #4299e112; color: var(--primary-hover); border-bottom-color: var(--primary-hover); }
+.campaign-tabs button.active { background: rgba(var(--primary-hover-rgb), 0.07); color: var(--primary-hover); border-bottom-color: var(--primary-hover); }
 .campaign-form { padding: 24px 0; background: transparent; border: 0; border-bottom: 1px solid var(--border); }
 .campaign-form h3 { margin-bottom: 16px; }
 .campaign-code { min-height: 36px; }
@@ -178,7 +178,7 @@ input[type="checkbox"] { accent-color: var(--primary-hover); }
   height: 52px;
   flex: none;
   border-radius: 50%;
-  background: #4299e118;
+  background: rgba(var(--primary-hover-rgb), 0.09);
   color: var(--primary-hover);
   font-size: 30px;
 }
@@ -199,7 +199,7 @@ input[type="checkbox"] { accent-color: var(--primary-hover); }
 .t20-header { border-bottom-color: var(--ui-line); }
 .t20-tabs { gap: 0; }
 .t20-tab { font-family: "Segoe UI", sans-serif; letter-spacing: 0; min-height: 44px; }
-.t20-tab.active { color: var(--primary-hover); background: #4299e112; }
+.t20-tab.active { color: var(--primary-hover); background: rgba(var(--primary-hover-rgb), 0.07); }
 .t20-attr-card { border-color: var(--ui-line); }
 .t20-attr-ribbon-tag { letter-spacing: 0; }
 .t20-pericia-row { min-height: 36px; }

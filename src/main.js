@@ -41,6 +41,18 @@ const PAGES = Object.fromEntries(
 )
 
 const PUBLIC_PAGES = ["login", "register"]
+const THEME_KEY = "grimorio_theme"
+const THEME_OPTIONS = ["red", "blue", "purple"]
+
+function normalizeTheme(theme) {
+  return THEME_OPTIONS.includes(theme) ? theme : "red"
+}
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = normalizeTheme(theme)
+}
+
+applyTheme(localStorage.getItem(THEME_KEY))
 
 function pageFromPath(path) {
   return ROUTES[path] || "home"
@@ -90,6 +102,23 @@ document.addEventListener("alpine:init", () => {
     },
     toggle() {
       this.enabled = !this.enabled
+    },
+  })
+
+  Alpine.store("theme", {
+    options: [
+      { id: "red", label: "Vermelho", icon: "local_fire_department" },
+      { id: "blue", label: "Azul", icon: "water_drop" },
+      { id: "purple", label: "Roxo", icon: "auto_awesome" },
+    ],
+    current: normalizeTheme(localStorage.getItem(THEME_KEY)),
+    set(theme) {
+      this.current = normalizeTheme(theme)
+      localStorage.setItem(THEME_KEY, this.current)
+      applyTheme(this.current)
+    },
+    is(theme) {
+      return this.current === theme
     },
   })
 
@@ -277,4 +306,31 @@ document.addEventListener("alpine:init", () => {
     optLabel(o) {
       if (config.labelOf) return config.labelOf(o)
       return typeof o === "object" ? (o.nomeCampanha || o.nome || o.name || "") : String(o)
-    }
+    },
+    get selected() {
+      return this.options.find((o) => this.ident(o) === this.value)
+    },
+    get label() {
+      return this.selected ? this.optLabel(this.selected) : (config.placeholder || "Selecione")
+    },
+    get emptyText() {
+      return config.emptyText || "Nenhuma opção disponível."
+    },
+    toggle() {
+      this.open = !this.open
+    },
+    close() {
+      this.open = false
+    },
+    pick(o) {
+      const value = this.ident(o)
+      if (config.onchange) config.onchange(value, o)
+      this.close()
+    },
+  }))
+})
+
+window.Alpine = Alpine
+window.grimorioSocket = socket
+
+Alpine.start()

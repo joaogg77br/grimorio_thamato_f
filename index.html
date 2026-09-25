@@ -83,6 +83,24 @@
                 <span class="material-symbols-outlined" x-text="$store.critAnim.enabled ? 'animation' : 'animation_off'"></span>
                 <span x-text="$store.critAnim.enabled ? 'Desativar animação de crítico' : 'Ativar animação de crítico'"></span>
               </button>
+              <div class="settings-theme-group">
+                <span class="settings-theme-title">Tema</span>
+                <div class="settings-theme-options" role="radiogroup" aria-label="Tema de cores">
+                  <template x-for="theme in $store.theme.options" :key="theme.id">
+                    <button
+                      type="button"
+                      class="settings-theme-option"
+                      :class="['theme-' + theme.id, { active: $store.theme.is(theme.id) }]"
+                      :aria-checked="$store.theme.is(theme.id)"
+                      role="radio"
+                      x-on:click="$store.theme.set(theme.id)"
+                    >
+                      <span class="settings-theme-swatch" aria-hidden="true"></span>
+                      <span x-text="theme.label"></span>
+                    </button>
+                  </template>
+                </div>
+              </div>
               <button class="settings-dropdown-item" x-on:click="logout()">
                 <span class="material-symbols-outlined">logout</span>
                 Sair da conta

@@ -1,0 +1,229 @@
+:root {
+  --text-dim: #a4b0c7;
+  --ui-line: #30415e;
+}
+
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+button, input, select, textarea { letter-spacing: 0; }
+button { touch-action: manipulation; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+:where(button, a, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--primary-hover);
+  outline-offset: 3px;
+}
+input::placeholder, textarea::placeholder { color: var(--text-dim); opacity: .8; }
+input[type="checkbox"] { accent-color: var(--primary-hover); }
+
+.navbar {
+  padding: 12px 24px;
+  gap: 20px;
+  background: var(--surface);
+  box-shadow: 0 4px 16px #0002;
+}
+.nav-brand { font-size: 25px; letter-spacing: 0; }
+.nav-links { gap: 4px; letter-spacing: 0; align-items: center; }
+.nav-links > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 12px;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 13px;
+  border-bottom: 2px solid transparent;
+}
+.nav-links > button .material-symbols-outlined { font-size: 20px; }
+.nav-links > button.active {
+  color: var(--primary-hover);
+  background: #4299e112;
+  border-bottom-color: var(--primary-hover);
+  text-decoration: none;
+}
+.nav-links > button:hover { background: #4299e112; color: var(--text); }
+.settings-btn { min-width: 44px; min-height: 44px; }
+.settings-dropdown {
+  border-color: var(--ui-line);
+  box-shadow: 0 16px 40px #0006;
+  padding: 6px;
+}
+.settings-dropdown-item { min-height: 44px; font-family: "Segoe UI", sans-serif; font-size: 14px; }
+
+.main-content { padding: 32px 24px; }
+.fichas-lista-section, .campaign-section, .master-section, .reference-section {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0;
+}
+.page-heading, .fichas-lista-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+  font-size: 28px;
+  line-height: 1.3;
+  letter-spacing: 0;
+  margin: 0;
+}
+.page-heading > .material-symbols-outlined { color: var(--primary-hover); font-size: 28px; flex: none; }
+.campaign-section > .page-heading, .master-section > .page-heading, .reference-section > .page-heading {
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+.fichas-lista-header { gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.btn-primary, .btn-secondary, .btn-sm, .t20-btn, .t20-exit-sheet {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0;
+  padding: 9px 16px;
+  box-shadow: none;
+  transition: background .15s, border-color .15s;
+}
+.btn-primary, .t20-btn-new { background: var(--primary); border: 1px solid var(--primary-hover); color: #fff; }
+.btn-primary:hover, .t20-btn-new:hover { background: var(--primary-hover); transform: none; box-shadow: none; }
+.btn-secondary, .btn-sm { background: var(--surface); border-color: var(--ui-line); }
+.form-group { gap: 8px; }
+.form-group label { font-size: 13px; letter-spacing: 0; }
+.form-group input, .form-group select, .form-group textarea, .select-field-btn, .ref-search input, .fichas-search-input {
+  background-color: var(--surface);
+  border: 1px solid var(--ui-line);
+  box-shadow: none;
+  min-height: 44px;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 15px;
+  letter-spacing: 0;
+}
+.select-field-pop { border-color: var(--ui-line); box-shadow: 0 16px 32px #0005; }
+.select-field-opt { min-height: 40px; font-family: "Segoe UI", sans-serif; letter-spacing: 0; }
+.empty-state, .fichas-empty {
+  padding: 56px 24px;
+  border-block: 1px dashed var(--ui-line);
+  margin-top: 24px;
+  line-height: 1.7;
+}
+.fichas-empty-icon { color: var(--primary-hover); }
+.fichas-grid { gap: 16px; }
+.ficha-card, .campaign-card, .master-char-card, .condition-card {
+  background: var(--surface);
+  border: 1px solid var(--ui-line);
+  border-radius: 6px;
+  box-shadow: none;
+  padding: 20px;
+}
+.ficha-card:hover, .master-char-card:hover {
+  background: var(--surface);
+  border-color: var(--primary-hover);
+  transform: none;
+  box-shadow: none;
+}
+.ficha-card-nome, .campaign-card h3, .master-char-card h4 { font-size: 22px; letter-spacing: 0; }
+.ficha-card-stats { padding-top: 12px; border-top: 1px solid var(--border); gap: 20px; }
+.ficha-card-stats strong { font-variant-numeric: tabular-nums; }
+.ficha-card-actions { margin-top: 16px; }
+.ficha-card-action { min-height: 40px; font-family: "Segoe UI", sans-serif; letter-spacing: 0; }
+.ficha-card-action--open { background: var(--accent); color: #fff; }
+.campaign-tabs { border-bottom: 1px solid var(--border); gap: 0; margin-bottom: 24px; }
+.campaign-tabs button { min-height: 44px; border: 0; border-bottom: 2px solid transparent; background: transparent; padding: 10px 16px; }
+.campaign-tabs button.active { background: #4299e112; color: var(--primary-hover); border-bottom-color: var(--primary-hover); }
+.campaign-form { padding: 24px 0; background: transparent; border: 0; border-bottom: 1px solid var(--border); }
+.campaign-form h3 { margin-bottom: 16px; }
+.campaign-code { min-height: 36px; }
+.member-item { background: transparent; border: 0; border-bottom: 1px solid var(--border); border-radius: 0; padding: 12px 0; }
+.member-name, .member-sub, .member-role, .master-char-card p { font-family: "Segoe UI", sans-serif; letter-spacing: 0; }
+.master-panel { margin-top: 24px; }
+.master-panel > h3 { margin-bottom: 16px; }
+.init-item { min-height: 48px; padding: 8px 12px; border: 1px solid transparent; }
+.init-item.active { border-left: 3px solid var(--success); }
+.init-form input { min-height: 44px; box-shadow: none; }
+.ref-search { position: relative; max-width: 600px; margin-bottom: 24px; }
+.ref-search > .material-symbols-outlined { position: absolute; left: 14px; top: 12px; color: var(--text-dim); font-size: 20px; }
+.ref-search input { padding-left: 44px; }
+.conditions-grid { gap: 16px; }
+.condition-card { border-top: 2px solid var(--primary); display: flex; flex-direction: column; }
+.condition-card h3 { font-size: 20px; letter-spacing: 0; margin-bottom: 10px; }
+.condition-card p { color: #c0cadd; font-size: 14px; line-height: 1.75; flex: 1; }
+.condition-card .condition-type { border-radius: 4px; letter-spacing: 0; margin-bottom: 12px; }
+
+.auth-page { min-height: 100dvh; padding: 32px 20px; background: linear-gradient(90deg, #0a0e1aeb, #0a0e1ab8), url('/banner.jpg') center / cover; }
+.auth-page::before, .auth-page::after { display: none; }
+.auth-card { max-width: 440px; padding: 32px; border-top: 3px solid var(--primary-hover); border-radius: 8px; }
+.auth-emblem { display: block; width: 64px; height: 64px; object-fit: contain; margin: 0 auto 20px; }
+.auth-title { font-size: 28px; letter-spacing: 0; line-height: 1.3; }
+.auth-subtitle { margin-top: 10px; }
+.auth-form input { min-height: 48px; }
+.auth-submit { min-height: 48px; }
+
+.t20-sheet { border-color: var(--ui-line); box-shadow: none; }
+.t20-header { border-bottom-color: var(--ui-line); }
+.t20-tabs { gap: 0; }
+.t20-tab { font-family: "Segoe UI", sans-serif; letter-spacing: 0; min-height: 44px; }
+.t20-tab.active { color: var(--primary-hover); background: #4299e112; }
+.t20-attr-card { border-color: var(--ui-line); }
+.t20-attr-ribbon-tag { letter-spacing: 0; }
+.t20-pericia-row { min-height: 36px; }
+.t20-pericia-row:nth-child(even) { background: #ffffff03; }
+.t20-carried-header { color: var(--text-dim); letter-spacing: 0; }
+.t20-carried-row { min-height: 44px; }
+.t20-equip-popup, .wizard { border-color: var(--ui-line); box-shadow: 0 24px 80px #0007; }
+.t20-equip-popup-header, .wizard-header { background: var(--surface); border-bottom: 1px solid var(--ui-line); }
+.t20-equip-popup-header h3 { letter-spacing: 0; font-size: 20px; }
+.t20-popup-close { min-width: 44px; min-height: 44px; }
+.t20-equip-popup-tab { font-family: "Segoe UI", sans-serif; letter-spacing: 0; }
+.t20-equip-search { min-height: 44px; border-color: var(--ui-line); background: var(--bg); }
+.t20-equip-search-input { min-width: 0; }
+.t20-equip-item-row { border-color: var(--border); padding: 12px 8px; }
+.wizard-raca-nome, .wizard-drop-nome { letter-spacing: 0; }
+.wizard-step-label { letter-spacing: 0; }
+.t20-bottom-dock { box-shadow: 0 8px 32px #0008; border-color: var(--ui-line); }
+.t20-section-menu-item { font-family: "Segoe UI", sans-serif; letter-spacing: 0; }
+
+@media (max-width: 1000px) {
+  .navbar { flex-direction: column; gap: 8px; align-items: center; }
+  .nav-links { justify-content: center; }
+}
+
+@media (max-width: 720px) {
+  .navbar { padding: 12px 12px 0; gap: 12px; position: sticky; }
+  .nav-brand { font-size: 23px; max-width: calc(100% - 48px); white-space: normal; text-align: center; }
+  .nav-links {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    overflow: visible;
+  }
+  .nav-links > button { flex-direction: column; gap: 4px; min-width: 0; padding: 8px 2px; font-size: 11px; min-height: 58px; }
+  .nav-links > button > span:last-child { max-width: 100%; overflow-wrap: anywhere; white-space: normal; }
+  .settings-wrapper { position: absolute; top: 8px; right: 8px; }
+  .settings-dropdown { width: min(300px, calc(100vw - 24px)); }
+  .main-content { padding: 24px 16px; }
+  .page-heading, .fichas-lista-header h2 { font-size: 24px; gap: 8px; }
+  .fichas-lista-header { align-items: stretch; gap: 16px; }
+  .campaign-section > .page-heading, .master-section > .page-heading, .reference-section > .page-heading { padding-bottom: 20px; margin-bottom: 20px; }
+  .btn-primary, .btn-secondary, .btn-sm, .t20-btn { min-height: 44px; }
+  .form-group input, .form-group select, .form-group textarea, .select-field-btn, .ref-search input, .fichas-search-input, .auth-form input { font-size: 16px; }
+  .conditions-grid, .fichas-grid { grid-template-columns: minmax(0, 1fr); }
+  .condition-card, .campaign-card, .master-char-card, .ficha-card { padding: 16px; }
+  .campaign-tabs button { flex: 1; min-width: 0; font-size: 13px; padding: 10px; }
+  .auth-card { padding: 28px 20px; }
+  .auth-title { font-size: 25px; }
+  .t20-equip-popup, .wizard { box-shadow: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

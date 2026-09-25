@@ -28,6 +28,9 @@ function deleteFicha(fichaId) {
   return client.delete(`/deleteFicha/${fichaId}`)
 }
 
+function findCampanhas(fichaId) {
+  return client.delete(`/find/ficha/CampanhaAtiva/${fichaId}`)
+}
 function createArma(data) {
   return client.post("/equipamentos/create/Armas", data)
 }
@@ -176,4 +179,4 @@ function updateHistorico(historicoId, value) {
   return client.put(`/historico/update/${historicoId}`, { value })
 }
 
-export { createUser, findAllUsers, loginUser, getFichasByUser, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, createCampanha, getCampanhasByMaster, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, removePlayerFromCampanha, deleteCampanha, addFichaToCampanha, getFichasByCampanha, removeFichaFromCampanha, createHistorico, getHistoricoByFicha, deleteHistorico, updateHistorico }
+export { createUser, findAllUsers, loginUser, getFichasByUser, findCampanhas, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, createCampanha, getCampanhasByMaster, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, removePlayerFromCampanha, deleteCampanha, addFichaToCampanha, getFichasByCampanha, removeFichaFromCampanha, createHistorico, getHistoricoByFicha, deleteHistorico, updateHistorico }

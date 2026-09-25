@@ -1,5 +1,12 @@
 import Alpine from "alpinejs"
 import "./style.css"
+import "./ui.css"
+import "./home.css"
+import { io } from "socket.io-client"
+
+const socket = io("https://grimorioback.vercel.app/", {
+  transports: ["websocket"]
+})
 
 import character from "./components/character/character.js"
 import dice from "./components/dice/dice.js"
@@ -7,6 +14,7 @@ import campaign from "./components/campaign/campaign.js"
 import master from "./components/master/master.js"
 import reference from "./components/reference/reference.js"
 import auth from "./components/auth/auth.js"
+
 import { localDB } from "./lib/localDB.js"
 import { loginUser, findAllUsers } from "./useApi/index.js"
 
@@ -43,7 +51,7 @@ async function tryAutoLogin(stored) {
         u.name?.toLowerCase() === alvo
     )
     if (found) return { id: found.id, name: found.name }
-  } catch {}
+  } catch { }
   return null
 }
 

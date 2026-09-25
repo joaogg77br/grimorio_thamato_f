@@ -1,5 +1,15 @@
 import html from "./dice.html?raw"
 import { createHistorico } from "../../useApi/index.js"
+import { io } from "socket.io-client"
+
+const socket = io("https://grimorioback.vercel.app/", {
+  transports: ['websocket'], // required — Socket.IO defaults to HTTP long-polling
+});
+
+socket.on("message", (msg) => {
+
+})
+
 
 export default {
   html,
@@ -91,11 +101,12 @@ export default {
         }
         const show = () => {
           const id = ++this.toastSeq
+          this.miniToasts.forEach((t) => { if (t.timer) clearTimeout(t.timer) })
           const timer = setTimeout(() => {
             this.miniToasts = this.miniToasts.filter((t) => t.id !== id)
           }, duration)
           this.history = [{ label: `Ataque ${weaponName}`, result: ataque.total, detail: ataque.detail, sub: { label: "Dano", result: dano.isCrit ? dano.baseTotal : dano.total, detail: dano.detail, multiplied: dano.isCrit, multiplier: dano.multiplier } }, ...this.history].slice(0, this.maxHistory)
-          this.miniToasts = [{ ...slot, id, timer }, ...this.miniToasts].slice(0, 5)
+          this.miniToasts = [{ ...slot, id, timer }]
         }
         if (animated && this.$store.critAnim.enabled) {
           setTimeout(show, 4900)
@@ -104,14 +115,22 @@ export default {
         }
       },
 
+
       pushMiniToast(label, result, detail, rolls, isCrit = false) {
+        async function AchaPessoa() {
+          socket.emit("message", `${label} - ${result} - ${detail}`);
+          const GrimorioSession = localStorage.getItem("grimorio_session")
+          console.log("GrimorioSession", GrimorioSession)
+        }
+        AchaPessoa();
         const sorted = rolls ? [...rolls].sort((a, b) => a.value - b.value) : []
         const id = ++this.toastSeq
         const duration = isCrit ? 10000 : 4000
+        this.miniToasts.forEach((t) => { if (t.timer) clearTimeout(t.timer) })
         const timer = setTimeout(() => {
           this.miniToasts = this.miniToasts.filter((t) => t.id !== id)
         }, duration)
-        this.miniToasts = [{ id, label, result, detail, rolls: sorted, timer, isCrit }, ...this.miniToasts].slice(0, 5)
+        this.miniToasts = [{ id, label, result, detail, rolls: sorted, timer, isCrit }]
       },
 
       dismissMiniToast(id) {

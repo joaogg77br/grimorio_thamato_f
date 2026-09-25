@@ -15,10 +15,15 @@
     <div id="app" x-data="router">
       <nav
         class="navbar"
+        :class="{ 'home-navbar': currentPage === 'home' }"
         x-show="currentPage !== 'login' && currentPage !== 'register'"
       >
         <div
           class="nav-brand"
+          role="button"
+          tabindex="0"
+          x-on:keydown.enter.prevent="navigate('home')"
+          x-on:keydown.space.prevent="navigate('home')"
           x-on:click="navigate('home')"
           style="cursor: pointer"
         >
@@ -29,35 +34,38 @@
             x-on:click="navigate('home')"
             :class="{ active: currentPage === 'home' }"
           >
-            Início
+            <span class="material-symbols-outlined" aria-hidden="true">home</span><span>Início</span>
           </button>
           <button
             x-on:click="navigate('characters')"
             :class="{ active: currentPage === 'characters' }"
           >
-            Personagens
+            <span class="material-symbols-outlined" aria-hidden="true">shield</span><span>Personagens</span>
           </button>
           <button
             x-on:click="navigate('campaigns')"
             :class="{ active: currentPage === 'campaigns' }"
           >
-            Campanhas
+            <span class="material-symbols-outlined" aria-hidden="true">explore</span><span>Campanhas</span>
           </button>
           <button
             x-on:click="navigate('master')"
             :class="{ active: currentPage === 'master' }"
           >
-            Mestre
+            <span class="material-symbols-outlined" aria-hidden="true">auto_fix_high</span><span>Mestre</span>
           </button>
           <button
             x-on:click="navigate('reference')"
             :class="{ active: currentPage === 'reference' }"
           >
-            Referência
+            <span class="material-symbols-outlined" aria-hidden="true">menu_book</span><span>Referência</span>
           </button>
           <div class="settings-wrapper" @click.away="settingsOpen = false">
             <button
               class="settings-btn"
+              title="Configurações"
+              aria-label="Configurações"
+              :aria-expanded="settingsOpen"
               x-on:click="settingsOpen = !settingsOpen"
             >
               <span class="material-symbols-outlined">settings</span>
@@ -79,9 +87,9 @@
           </div>
         </div>
       </nav>
-
       <div x-data="auth" x-show="currentPage === 'login'" class="auth-page">
         <div class="auth-card">
+          <img class="auth-emblem" src="/Grimorio-thamato.png" width="64" height="64" alt="" />
           <h1 class="auth-title">Grimório de Thanato</h1>
           <p class="auth-subtitle">Entre para acessar seu grimório</p>
           <form
@@ -122,6 +130,7 @@
 
       <div x-data="auth" x-show="currentPage === 'register'" class="auth-page">
         <div class="auth-card">
+          <img class="auth-emblem" src="/Grimorio-thamato.png" width="64" height="64" alt="" />
           <h1 class="auth-title">Criar Conta</h1>
           <p class="auth-subtitle">Cadastre-se para forjar seus personagens</p>
           <form x-on:submit.prevent="cadastrar()" class="auth-form">
@@ -172,126 +181,59 @@
         </div>
       </div>
 
-      <div x-show="currentPage === 'home'" class="landing">
+      <div x-show="currentPage === 'home'" class="landing home-redesign">
         <section class="hero-section">
           <div class="hero-overlay"></div>
-          <div class="hero-bg-shine"></div>
           <div class="hero-content">
-            <span class="hero-badge">Tormenta 20 · Jogo do Ano</span>
+            <span class="hero-badge"><span class="material-symbols-outlined" aria-hidden="true">auto_stories</span> Tormenta 20 · Jogo do Ano</span>
             <h1 class="hero-title">Grimório de Thanato</h1>
             <p class="hero-subtitle">
-              Seu grimório digital de personagens, campanhas e ferramentas de
-              mesa para Tormenta 20 — tudo em um só lugar.
+              Toda lenda começa com um nome.<br />A próxima pode ser a sua.
             </p>
             <div class="hero-actions">
-              <button x-on:click="navigate('characters')" class="hero-btn">Criar Personagem</button>
-              <button x-on:click="navigate('master')" class="hero-btn hero-btn-ghost">Painel do Mestre</button>
-            </div>
-            <div class="hero-stats">
-              <div class="hero-stat">
-                <strong>+20</strong>
-                <span>Atributos & Perícias</span>
-              </div>
-              <div class="hero-stat">
-                <strong>15</strong>
-                <span>Classes do livro básico</span>
-              </div>
-              <div class="hero-stat">
-                <strong>20</strong>
-                <span>Divindades de Arton</span>
-              </div>
+              <button x-on:click="navigate('characters')" class="hero-btn">Meus personagens <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button>
+              <button x-on:click="navigate('campaigns')" class="hero-btn hero-btn-ghost">Minhas campanhas</button>
             </div>
           </div>
+          <span class="home-hero-caption">Arton espera por você.</span>
         </section>
 
         <div class="landing-inner">
           <section class="info-section">
-            <span class="section-eyebrow">Recursos</span>
-            <h2 class="info-title">Tudo para sua mesa em um só lugar</h2>
-            <p class="section-intro">
-              Do personagem à condução da aventura, o Grimório reúne as
-              ferramentas essenciais do Tormenta 20.
-            </p>
+            <div class="home-section-heading">
+              <div><span class="section-eyebrow">Seu próximo capítulo</span>
+              <h2 class="info-title">À mesa, aventureiro.</h2></div>
+              <span class="home-section-mark" aria-hidden="true">I / ARTON</span>
+            </div>
             <div class="info-cards">
-              <div class="info-card accent-1">
-                <div class="info-icon">&#9876;</div>
+              <button type="button" class="info-card accent-1" x-on:click="navigate('characters')">
+                <div class="info-icon"><span class="material-symbols-outlined" aria-hidden="true">shield</span></div>
                 <h3>Personagens</h3>
-                <p>
-                  Fichas completas com atributos, perícias, PM, PV,
-                  equipamentos e magias. Crie e edite seus heróis do zero.
-                </p>
-              </div>
-              <div class="info-card accent-2">
-                <div class="info-icon">&#128214;</div>
+                <span class="home-card-link">Abrir fichas <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+              </button>
+              <button type="button" class="info-card accent-2" x-on:click="navigate('campaigns')">
+                <div class="info-icon"><span class="material-symbols-outlined" aria-hidden="true">explore</span></div>
                 <h3>Campanhas</h3>
-                <p>
-                  Monte seu grupo, vincula fichas dos jogadores e acompanhe o
-                  progresso da sua aventura do começo ao fim.
-                </p>
-              </div>
-              <div class="info-card accent-3">
-                <div class="info-icon">&#127922;</div>
-                <h3>Rolador de Dados</h3>
-                <p>
-                  Dados digitais direto na ficha. Role D20, dados de dano e
-                  teste de perícia com um toque.
-                </p>
-              </div>
-              <div class="info-card accent-4">
-                <div class="info-icon">&#128295;</div>
-                <h3>Poderes & Magias</h3>
-                <p>
-                  Organize habilidades, poderes e magias do seu personagem
-                  para consultar na hora do combate.
-                </p>
-              </div>
-              <div class="info-card accent-5">
-                <div class="info-icon">&#9881;</div>
+                <span class="home-card-link">Encontrar meu grupo <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+              </button>
+              <button type="button" class="info-card accent-5" x-on:click="navigate('master')">
+                <div class="info-icon"><span class="material-symbols-outlined" aria-hidden="true">auto_fix_high</span></div>
                 <h3>Painel do Mestre</h3>
-                <p>
-                  Conduza suas mesas com acesso às fichas da campanha e
-                  ferramentas de apoio ao mestre.
-                </p>
-              </div>
-              <div class="info-card accent-6">
-                <div class="info-icon">&#128214;</div>
+                <span class="home-card-link">Conduzir a aventura <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+              </button>
+              <button type="button" class="info-card accent-6" x-on:click="navigate('reference')">
+                <div class="info-icon"><span class="material-symbols-outlined" aria-hidden="true">menu_book</span></div>
                 <h3>Referências</h3>
-                <p>
-                  Consulte condições e regras rapidamente, sem interromper o
-                  ritmo da aventura.
-                </p>
-              </div>
+                <span class="home-card-link">Consultar condições <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+              </button>
             </div>
           </section>
 
-          <section class="steps-section">
-            <span class="section-eyebrow">Como funciona</span>
-            <h2 class="info-title">Comece em três passos</h2>
-            <div class="steps-row">
-              <div class="step-item">
-                <span class="step-num">1</span>
-                <h3>Crie seu personagem</h3>
-                <p>Escolha raça, distribua atributos, classe e divindade no assistente guiado.</p>
-              </div>
-              <div class="step-item">
-                <span class="step-num">2</span>
-                <h3>Complete sua ficha</h3>
-                <p>Adicione perícias, poderes, equipamentos e magias ao seu herói.</p>
-              </div>
-              <div class="step-item">
-                <span class="step-num">3</span>
-                <h3>Jogue e conduza</h3>
-                <p>Participe de campanhas, role dados e conduza mesas no painel do mestre.</p>
-              </div>
-            </div>
-          </section>
-
-          <section class="cta-section">
-            <h2>Pronto para começar sua jornada?</h2>
-            <p>Crie seu primeiro personagem e mergulhe no mundo de Arton</p>
-            <button x-on:click="navigate('characters')" class="hero-btn">
-              Criar Personagem
-            </button>
+          <section class="home-oath">
+            <img src="/d20.png" width="160" height="160" alt="Dado de vinte faces" loading="lazy" />
+            <div><span class="section-eyebrow">Entre o destino e a escolha</span>
+            <h2>Os dados rolam.<br />As histórias ficam.</h2></div>
+            <span class="home-oath-mark" aria-hidden="true">T20</span>
           </section>
         </div>
 
@@ -345,14 +287,13 @@
             <div class="wizard" x-transition.scale.duration.200ms>
               <div class="wizard-header">
                 <h2 class="wizard-title">Criar Personagem</h2>
-                <button x-on:click="fecharWizard()" class="wizard-close">✕</button>
+                <button type="button" x-on:click="fecharWizard()" class="wizard-close" aria-label="Fechar criação de personagem"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
               </div>
-
               <div class="wizard-steps">
                 <button
                   type="button"
                   class="wizard-step"
-                  :class="{ active: wizardStep >= 1, done: wizardStep > 1, locked: !wizardStepReached(1) }"
+                  :class="{ active: wizardStep === 1, done: wizardStep > 1, locked: !wizardStepReached(1) }"
                   x-on:click="wizardGoTo(1)"
                 >
                   <span class="wizard-step-num">1</span>
@@ -361,7 +302,8 @@
                 <button
                   type="button"
                   class="wizard-step"
-                  :class="{ active: wizardStep >= 2, done: wizardStep > 2, locked: !wizardStepReached(2) }"
+                  :class="{ active: wizardStep === 2, done: wizardStep > 2, locked: !wizardStepReached(2) }"
+                  :disabled="!wizardStepReached(2)"
                   x-on:click="wizardGoTo(2)"
                 >
                   <span class="wizard-step-num">2</span>
@@ -371,10 +313,11 @@
                   type="button"
                   class="wizard-step"
                   :class="{ active: wizardStep >= 3, locked: !wizardStepReached(3) }"
+                  :disabled="!wizardStepReached(3)"
                   x-on:click="wizardGoTo(3)"
                 >
                   <span class="wizard-step-num">3</span>
-                  <span class="wizard-step-label">Classe & Identidade</span>
+                  <span class="wizard-step-label">Identidade</span>
                 </button>
               </div>
 
@@ -397,6 +340,11 @@
                       <div
                         class="wizard-raca"
                         :class="{ selected: wizardRaca?.nome === raca.nome }"
+                        role="button"
+                        tabindex="0"
+                        :aria-pressed="wizardRaca?.nome === raca.nome"
+                        x-on:keydown.enter.prevent="escolherRaca(raca)"
+                        x-on:keydown.space.prevent="escolherRaca(raca)"
                         x-on:click="escolherRaca(raca)"
                       >
                         <h3 class="wizard-raca-nome" x-text="raca.nome"></h3>
@@ -444,7 +392,6 @@
                             <li>Todo atributo começa em <strong>10</strong> (custo 0).</li>
                             <li>Subir um atributo custa pontos: 11=1, 12=2, 13=3, 14=4, 15=6.</li>
                             <li>Baixar devolve pontos: 9=-1, 8=-2.</li>
-                            <li>Arraste um valor (8–15) para um atributo, ou edite direto.</li>
                             <li>Valores <strong>vermelhos</strong> não têm pontos suficientes para comprar.</li>
                             <li>O modificador racial é somado por cima do valor base.</li>
                           </ul>
@@ -463,6 +410,7 @@
                           type="button"
                           class="wizard-racial-choice-opt"
                           :class="{ selected: wizardRacialChoices.includes(a.key) }"
+                          :aria-pressed="wizardRacialChoices.includes(a.key)"
                           x-on:click="alternarRacialEscolha(a.key)"
                         >
                           <span x-text="a.nome"></span>
@@ -503,15 +451,23 @@
                         >
                           <span class="wizard-drop-nome" x-text="a.nome"></span>
                           <div class="wizard-drop-controls">
+                            <button type="button" class="wizard-attr-adjust" :aria-label="'Diminuir ' + a.nome" :disabled="wizardAtributos[a.key] <= 8" x-on:click="wizardDec(a.key)">
+                              <span class="material-symbols-outlined" aria-hidden="true">remove</span>
+                            </button>
                             <input
                               type="number"
                               class="wizard-drop-input"
                               min="8"
                               max="18"
                               step="1"
-                              x-model.number="wizardAtributos[a.key]"
-                              x-on:change="wizardClampAtributo(a.key)"
+                              :value="wizardAtributos[a.key]"
+                              :aria-label="'Valor base de ' + a.nome"
+                              inputmode="numeric"
+                              x-on:change="wizardAtribuir(a.key, $event.target.value); $event.target.value = wizardAtributos[a.key]"
                             />
+                            <button type="button" class="wizard-attr-adjust" :aria-label="'Aumentar ' + a.nome" :disabled="!wizardPodeAumentar(a.key)" x-on:click="wizardInc(a.key)">
+                              <span class="material-symbols-outlined" aria-hidden="true">add</span>
+                            </button>
                             <span class="wizard-drop-racial" x-show="wizardModRacial(a.key) !== 0" x-text="(wizardModRacial(a.key) > 0 ? '+' : '') + wizardModRacial(a.key)"></span>
                             <span class="wizard-drop-final" x-text="'= ' + wizardValorFinal(a.key)"></span>
                           </div>
@@ -524,7 +480,7 @@
                     </div>
                   </div>
                   <p class="wizard-atributos-note">
-                    Arraste os valores (8 a 18) para os atributos ou edite diretamente. Modificadores raciais são aplicados automaticamente. Você deve gastar exatamente os 20 pontos.
+                    Orçamento: 20 pontos. Bônus raciais não consomem pontos.
                   </p>
                 </div>
 
@@ -648,9 +604,9 @@
           </div>
           <div x-show="viewMode === 'list'" class="fichas-lista-section">
             <div class="fichas-lista-header">
-              <h2>Personagens</h2>
+              <h2 class="page-heading"><span class="material-symbols-outlined" aria-hidden="true">shield</span>Personagens</h2>
               <button x-on:click="abrirWizard()" class="t20-btn t20-btn-new">
-                + Novo Personagem
+                <span class="material-symbols-outlined" aria-hidden="true">add</span> Novo Personagem
               </button>
             </div>
 
@@ -724,69 +680,34 @@
                       >Def <strong x-text="defesaDeFicha(ficha)"></strong
                     ></span>
                   </div>
+                  <div class="ficha-card-actions">
+                    <button
+                      type="button"
+                      class="ficha-card-action ficha-card-action--open"
+                      x-on:click.stop="abrirFicha(ficha)"
+                    >
+                      <span class="material-symbols-outlined">edit</span>
+                      Abrir
+                    </button>
+                    <button
+                      type="button"
+                      class="ficha-card-action ficha-card-action--delete"
+                      x-on:click.stop="deleteFichaCard(ficha)"
+                    >
+                      <span class="material-symbols-outlined">delete</span>
+                      Excluir
+                    </button>
+                  </div>
                 </div>
               </template>
             </div>
           </div>
 
-          <div x-show="viewMode === 'edit'" class="character-page-wrapper">
-            <div class="t20-top-toolbar">
-              <div class="toolbar-left">
-                <button
-                  x-on:click="voltarParaLista()"
-                  class="t20-btn t20-btn-back"
-                >
-                  <span class="material-symbols-outlined">arrow_back</span>
-                  Voltar
-                </button>
-                <div class="char-select-wrap" x-show="false">
-                  <label for="char-selector">Personagem:</label>
-                  <select
-                    id="char-selector"
-                    x-model="selectedCharId"
-                    x-on:change="selectCharacter(selectedCharId)"
-                    class="char-select"
-                  >
-                    <template x-for="c in fichasApi" :key="c.id">
-                      <option
-                        :value="c.id"
-                        x-text="(c.nomePersonagem || 'Sem Nome') + ' (Nv ' + (c.Nivel || 1) + ' ' + (c.Classe || '') + ')'"
-                      ></option>
-                    </template>
-                    <option value="" x-show="!selectedCharId">
-                      + Criar Novo Personagem
-                    </option>
-                  </select>
-                </div>
-                <button x-on:click="abrirWizard()" class="t20-btn t20-btn-new">
-                  + Novo Personagem
-                </button>
-              </div>
-
-              <div class="toolbar-right">
-                <span x-show="saveFeedback" class="save-toast" x-transition
-                  >Salvo com sucesso!</span
-                >
-                <button x-on:click="save()" class="t20-btn t20-btn-save">
-                  Salvar Ficha
-                </button>
-                <button
-                  x-show="selectedCharId"
-                  x-on:click="deleteCharacter()"
-                  class="t20-btn t20-btn-delete"
-                >
-                  Excluir
-                </button>
-                <button
-                  x-on:click="resetForm()"
-                  class="t20-btn t20-btn-reset"
-                  title="Resetar campos"
-                >
-                  Reset
-                </button>
-              </div>
-            </div>
-
+          <div x-show="viewMode === 'edit'" class="character-page-wrapper" :inert="leavingFicha" :aria-busy="leavingFicha">
+            <button type="button" class="t20-exit-sheet" x-on:click="sairDaFicha()" :disabled="leavingFicha" title="Voltar para a lista de personagens">
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+              <span x-text="leavingFicha ? 'Salvando...' : 'Sair da ficha'"></span>
+            </button>
             <div class="t20-sheet-container">
               <div class="t20-sheet">
                 <header class="t20-header">
@@ -1195,54 +1116,67 @@
                     </div>
                   </div>
 
-                  <div class="t20-right-column">
+                  <div
+                    class="t20-right-column t20-section-stage"
+                    :class="{ 'is-open': sectionOpen }"
+                    x-ref="t20TabPanels"
+                  >
+                    <div class="t20-section-stage-head">
+                      <div>
+                        <span class="t20-section-eyebrow">Sessão da ficha</span>
+                        <h2 x-text="activeSectionLabel"></h2>
+                      </div>
+                      <button type="button" class="t20-section-close" x-on:click="closeFichaSection()">
+                        <span class="material-symbols-outlined">close</span>
+                      </button>
+                    </div>
                     <div class="t20-tabs">
                       <button
                         class="t20-tab"
                         :class="{ active: activeTab === 'pericias' }"
-                        x-on:click="activeTab = 'pericias'"
+                        x-on:click="openFichaSection('pericias')"
                       >
                         Perícias
                       </button>
                       <button
                         class="t20-tab"
                         :class="{ active: activeTab === 'inventario' }"
-                        x-on:click="activeTab = 'inventario'"
+                        x-on:click="openFichaSection('inventario')"
                       >
                         Inventário
                       </button>
                       <button
                         class="t20-tab"
                         :class="{ active: activeTab === 'magias' }"
-                        x-on:click="activeTab = 'magias'"
+                        x-on:click="openFichaSection('magias')"
                       >
                         Magias
                       </button>
                       <button
                         class="t20-tab"
                         :class="{ active: activeTab === 'habilidades' }"
-                        x-on:click="activeTab = 'habilidades'"
+                        x-on:click="openFichaSection('habilidades')"
                       >
                         Habilidades
                       </button>
                       <button
                         class="t20-tab"
                         :class="{ active: activeTab === 'descricao' }"
-                        x-on:click="activeTab = 'descricao'"
+                        x-on:click="openFichaSection('descricao')"
                       >
                         Descrição
                       </button>
                       <button
                         class="t20-tab"
                         :class="{ active: activeTab === 'ataques' }"
-                        x-on:click="activeTab = 'ataques'"
+                        x-on:click="openFichaSection('ataques')"
                       >
                         Ataques
                       </button>
                       <button
                         class="t20-tab"
                         :class="{ active: activeTab === 'historico' }"
-                        x-on:click="activeTab = 'historico'"
+                        x-on:click="openFichaSection('historico')"
                       >
                         Histórico
                       </button>
@@ -2547,6 +2481,32 @@
                 </div>
               </div>
             </div>
+
+            <div class="t20-bottom-dock">
+              <button type="button" class="t20-dock-btn" x-on:click="sairDaFicha()" :disabled="leavingFicha" title="Sair da ficha" aria-label="Sair da ficha">
+                <span class="material-symbols-outlined">arrow_back</span>
+                <span>Fichas</span>
+              </button>
+
+              <div class="t20-autosave-pill" :class="'state-' + (autoSaveState || 'idle')">
+                <span class="material-symbols-outlined" x-text="autoSaveState === 'salvando' ? 'sync' : autoSaveState === 'erro' ? 'error' : 'cloud_done'"></span>
+                <span x-text="autoSaveState === 'editando' ? 'Editando...' : autoSaveState === 'salvando' ? 'Salvando...' : autoSaveState === 'erro' ? 'Erro ao salvar' : 'Salvo automático'"></span>
+              </div>
+
+              <button type="button" class="t20-dock-btn t20-dock-menu-btn" x-on:click="openSectionMenu()" :class="{ active: sectionMenuOpen }">
+                <span class="material-symbols-outlined">menu</span>
+                <span>Sessões</span>
+              </button>
+
+              <div class="t20-section-menu" x-show="sectionMenuOpen" x-transition x-on:click.outside="sectionMenuOpen = false">
+                <template x-for="section in fichaSections" :key="section.key">
+                  <button type="button" class="t20-section-menu-item" :class="{ active: activeTab === section.key && sectionOpen }" x-on:click="openFichaSection(section.key)">
+                    <span class="material-symbols-outlined" x-text="section.icon"></span>
+                    <span x-text="section.label"></span>
+                  </button>
+                </template>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -2610,7 +2570,7 @@
 
         <div x-data="campaign" x-show="currentPage === 'campaigns'">
           <div class="campaign-section">
-            <h2>Campanhas</h2>
+            <h2 class="page-heading"><span class="material-symbols-outlined" aria-hidden="true">explore</span>Campanhas</h2>
             <div class="campaign-tabs">
               <button
                 x-on:click="activeTab = 'my'"
@@ -2627,7 +2587,7 @@
             </div>
             <div x-show="activeTab === 'my'">
               <button x-on:click="showCreate = true" class="btn-primary">
-                Criar Campanha
+                <span class="material-symbols-outlined" aria-hidden="true">add</span> Criar Campanha
               </button>
               <div x-show="showCreate" class="campaign-form">
                 <h3>Nova Campanha</h3>
@@ -2817,7 +2777,7 @@
 
         <div x-data="master" x-show="currentPage === 'master'">
           <div class="master-section">
-            <h2>Painel do Mestre</h2>
+            <h2 class="page-heading"><span class="material-symbols-outlined" aria-hidden="true">auto_fix_high</span>Painel do Mestre</h2>
             <div x-show="!myCampaigns.length">
               <p class="empty-state">
                 Você não é mestre de nenhuma campanha ainda.
@@ -2979,11 +2939,13 @@
 
         <div x-data="reference" x-show="currentPage === 'reference'">
           <div class="reference-section">
-            <h2>Condições & Referência</h2>
+            <h2 class="page-heading"><span class="material-symbols-outlined" aria-hidden="true">menu_book</span>Condições & Referência</h2>
             <div class="ref-search">
+              <span class="material-symbols-outlined" aria-hidden="true">search</span>
               <input
                 type="text"
                 x-model="search"
+                aria-label="Buscar condição"
                 placeholder="Buscar condição..."
               />
             </div>
@@ -3003,6 +2965,7 @@
         </div>
       </main>
 
+
       <div class="toast-container" aria-live="polite">
         <template x-for="toast in $store.toasts.items" :key="toast.id">
           <div
@@ -3019,5 +2982,6 @@
         </template>
       </div>
     </div>
+
   </body>
 </html>

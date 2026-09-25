@@ -32,7 +32,7 @@ const ORIGENS = [
 
 const RACAS = RACAS_DATA.map(r => r.nome)
 
-const racaDataPorNome = (nome) => RACAS_DATA.find(r => limparEmojiRaca(r.nome).toLowerCase() === String(nome || '').trim().toLowerCase())
+const racaDataPorNome = (nome) => RACAS_DATA.find(r => limparEmojiRaca(r.nome).toLowerCase() === limparEmojiRaca(nome).toLowerCase())
 
 const DIVINDADES = [
   "Aharadak", "Allihanna", "Arsenal", "Azgher", "Glórienn",
@@ -168,6 +168,15 @@ export default {
       characters: [],
       selectedCharId: null,
       saveFeedback: false,
+      autoSaveTimer: null,
+      autoSaveState: "",
+      autoSaveSuspended: false,
+      autoSaveInFlight: false,
+      autoSavePromise: null,
+      leavingFicha: false,
+      autoSaveQueued: false,
+      sectionMenuOpen: false,
+      sectionOpen: false,
       activeTab: "pericias",
       editingAttr: null,
       nivelAnterior: 1,
@@ -242,6 +251,22 @@ export default {
       ATRIBUTOS_WIZARD,
 
       form: buildEmptyForm(),
+
+      get fichaSections() {
+        return [
+          { key: "pericias", label: "Perícias", icon: "casino" },
+          { key: "inventario", label: "Inventário", icon: "backpack" },
+          { key: "magias", label: "Magias", icon: "auto_fix_high" },
+          { key: "habilidades", label: "Habilidades", icon: "auto_awesome" },
+          { key: "descricao", label: "Descrição", icon: "notes" },
+          { key: "ataques", label: "Ataques", icon: "swords" },
+          { key: "historico", label: "Histórico", icon: "history" },
+        ]
+      },
+
+      get activeSectionLabel() {
+        return this.fichaSections.find(s => s.key === this.activeTab)?.label || "Sessão"
+      },
 
       get fichasFiltradas() {
         const term = this.searchTerm.toLowerCase().trim()
@@ -440,6 +465,9 @@ export default {
 
       async init() {
         await this.carregarFichas()
+        this.$watch("form", () => {
+          this.scheduleAutoSave()
+        })
         this.$watch('$store.auth.user', async (user) => {
           if (user) await this.carregarFichas()
         })
@@ -475,7 +503,9 @@ export default {
         }
       },
 
-      abrirFicha(ficha) {
+      async abrirFicha(ficha) {
+        this.autoSaveSuspended = true
+        this.clearAutoSaveTimer()
         this.selectedCharId = ficha.id
         this.form = {
           id: ficha.id,
@@ -509,8 +539,8 @@ export default {
           escudo_nome: '',
           escudo_defesa: 0,
           escudo_penalidade: 0,
-          tamanho: 'Médio',
-          tamanho_mod: '0 / 0',
+          tamanho: ficha.tamanho || 'Médio',
+          tamanho_mod: ficha.tamanho_mod || '0 / 0',
           deslocamento: ficha.deslocamento || 9,
           xp_atual: 0,
           xp_max: 1000,
@@ -523,18 +553,26 @@ export default {
         }
         this.activeTab = 'pericias'
         this.viewMode = 'edit'
+        this.sectionOpen = false
+        this.sectionMenuOpen = false
         this.nivelAnterior = this.toNum(ficha.nivel, 1)
         this.expandedArmaCarregadaId = null
         this.expandedMagiaCarregadaId = null
         this.expandedHabilidadeCarregadaId = null
         this.expandedAtaqueArmaId = null
-        this.loadArmasFicha()
-        this.loadProtecoesFicha()
-        this.loadEquipamentosFicha()
-        this.loadMagiasFicha()
-        this.loadHabilidadesFicha()
-        this.loadPericiasFicha(ficha.id)
-        this.loadHistoricoFicha(ficha.id)
+        await Promise.all([
+          this.loadArmasFicha(),
+          this.loadProtecoesFicha(),
+          this.loadEquipamentosFicha(),
+          this.loadMagiasFicha(),
+          this.loadHabilidadesFicha(),
+          this.loadPericiasFicha(ficha.id),
+          this.loadHistoricoFicha(ficha.id),
+        ])
+        this.$nextTick(() => {
+          this.autoSaveSuspended = false
+          this.autoSaveState = ""
+        })
       },
 
       buildPericiasFromFicha(ficha) {
@@ -550,9 +588,30 @@ export default {
         return pericias
       },
 
+      async sairDaFicha() {
+        if (this.leavingFicha) return
+        this.leavingFicha = true
+        this.clearAutoSaveTimer()
+        try {
+          if (this.autoSavePromise) await this.autoSavePromise
+          this.autoSaveQueued = false
+          const saved = await this.performAutoSave()
+          if (!saved) {
+            this.$store.toasts.push("Não foi possível salvar. A ficha permanece aberta para tentar novamente.", "error")
+            return
+          }
+          this.voltarParaLista()
+        } finally {
+          this.leavingFicha = false
+        }
+      },
+
       voltarParaLista() {
+        this.clearAutoSaveTimer()
         this.viewMode = 'list'
         this.selectedCharId = null
+        this.sectionOpen = false
+        this.sectionMenuOpen = false
         this.form = buildEmptyForm()
         this.expandedAtaqueArmaId = null
         this.armasCarregadas = []
@@ -568,6 +627,8 @@ export default {
         this.form = buildEmptyForm()
         this.nivelAnterior = this.toNum(this.form.nivel, 1)
         this.viewMode = 'edit'
+        this.sectionOpen = false
+        this.sectionMenuOpen = false
       },
 
       abrirWizard() {
@@ -677,7 +738,9 @@ export default {
       },
 
       wizardAtribuir(key, valor) {
-        const v = Math.max(MIN_ATRIBUTO, Math.min(MAX_ATRIBUTO, Number(valor) || 10))
+        const numero = Number(valor)
+        if (!Number.isInteger(numero)) return
+        const v = Math.max(MIN_ATRIBUTO, Math.min(MAX_ATRIBUTO, numero))
         const valorAntigo = this.wizardAtributos[key] ?? 10
         const custoAntigo = CUSTO_ATRIBUTO[valorAntigo] || 0
         const custoNovo = CUSTO_ATRIBUTO[v] || 0
@@ -709,7 +772,7 @@ export default {
 
       wizardStepReached(n) {
         if (n === 1) return true
-        if (n === 2) return !!this.wizardRaca && this.wizardRacialEscolhaCompleta
+        if (n === 2) return !!this.wizardRaca
         if (n === 3) return !!this.wizardRaca && this.wizardPontosRestantes === 0 && this.wizardRacialEscolhaCompleta
         return false
       },
@@ -718,6 +781,11 @@ export default {
         if (n < 1 || n > 3) return
         if (n > this.wizardStep && !this.wizardStepReached(n)) return
         this.wizardStep = n
+      },
+
+      wizardPodeAumentar(key) {
+        const atual = this.wizardAtributos[key]
+        return atual < MAX_ATRIBUTO && this.wizardPontosRestantes >= CUSTO_ATRIBUTO[atual + 1] - CUSTO_ATRIBUTO[atual]
       },
 
       wizardInc(key) {
@@ -767,6 +835,7 @@ export default {
         this.form.pm_atual = pm
         const deslRaca = this.extrairDeslocamento(this.wizardRaca)
         if (deslRaca != null) this.form.deslocamento = deslRaca
+        if (this.wizardRaca?.tamanho) this.form.tamanho = this.wizardRaca.tamanho
         this.selectedCharId = null
         this.nivelAnterior = this.toNum(this.form.nivel, 1)
         this.wizardOpen = false
@@ -790,6 +859,7 @@ export default {
           pmMax: pm,
           pmCurrent: pm,
           deslocamento: this.toNum(this.form.deslocamento, 9),
+          tamanho: this.form.tamanho || 'Médio',
           tibao: this.toNum(this.form.tibares, 0),
           jogadorId: user.id,
           descricao: this.form.anotacoes || '',
@@ -1140,6 +1210,7 @@ export default {
         const raca = racaDataPorNome(nomeRaca)
         const desl = this.extrairDeslocamento(raca)
         if (desl != null) this.form.deslocamento = desl
+        if (raca?.tamanho) this.form.tamanho = raca.tamanho
       },
 
       aplicarStatusPorClasse(classe) {
@@ -1262,7 +1333,74 @@ export default {
         return total
       },
 
-      async save() {
+      clearAutoSaveTimer() {
+        if (this.autoSaveTimer) {
+          clearTimeout(this.autoSaveTimer)
+          this.autoSaveTimer = null
+        }
+      },
+
+      scheduleAutoSave() {
+        if (this.leavingFicha || this.autoSaveSuspended || this.viewMode !== "edit" || !this.selectedCharId) return
+        this.clearAutoSaveTimer()
+        this.autoSaveState = "editando"
+        this.autoSaveTimer = setTimeout(() => {
+          this.performAutoSave()
+        }, 1500)
+      },
+
+      performAutoSave() {
+        if (this.autoSaveInFlight) {
+          this.autoSaveQueued = true
+          return this.autoSavePromise
+        }
+        this.autoSaveInFlight = true
+        this.autoSaveState = "salvando"
+        this.autoSavePromise = this.runAutoSave()
+        return this.autoSavePromise
+      },
+
+      async runAutoSave() {
+        try {
+          const saved = await this.save({ silent: true, stay: true })
+          if (saved) {
+            this.autoSaveState = "salvo"
+            setTimeout(() => {
+              if (this.autoSaveState === "salvo") this.autoSaveState = ""
+            }, 1800)
+          }
+          return saved
+        } finally {
+          this.autoSaveInFlight = false
+          this.autoSavePromise = null
+          if (this.autoSaveQueued) {
+            this.autoSaveQueued = false
+            this.scheduleAutoSave()
+          }
+        }
+      },
+
+      openSectionMenu() {
+        this.sectionMenuOpen = !this.sectionMenuOpen
+      },
+
+      openFichaSection(tab) {
+        this.closeEquipPopup()
+        this.closeMagiasPopup()
+        this.closeHabilidadesPopup()
+        this.closeCriarPopup()
+        this.activeTab = tab
+        this.sectionOpen = true
+        this.sectionMenuOpen = false
+      },
+
+      closeFichaSection() {
+        this.sectionOpen = false
+        this.sectionMenuOpen = false
+      },
+
+      async save(options = {}) {
+        const { silent = false, stay = false } = options
         if (!this.form.nome?.trim()) {
           this.form.nome = "Personagem sem Nome"
         }
@@ -1286,6 +1424,7 @@ export default {
           pmMax: this.toNum(this.form.pm_max, 5),
           pmCurrent: this.toNum(this.form.pm_atual, 5),
           deslocamento: this.toNum(this.form.deslocamento, 9),
+          tamanho: this.form.tamanho || 'Médio',
           descricao: this.form.anotacoes || '',
         }
         const criarPayload = {
@@ -1317,18 +1456,21 @@ export default {
           if (this.selectedCharId) {
             await updateFicha(this.selectedCharId, editarPayload)
             await this.updatePericiasFicha()
-            this.$store.toasts.push("Ficha atualizada com sucesso!", "success")
+            if (!silent) this.$store.toasts.push("Ficha atualizada com sucesso!", "success")
           } else {
             await createFicha(criarPayload)
-            this.$store.toasts.push("Ficha criada com sucesso!", "success")
+            if (!silent) this.$store.toasts.push("Ficha criada com sucesso!", "success")
           }
           this.saveFeedback = true
           setTimeout(() => { this.saveFeedback = false }, 2000)
           await this.carregarFichas()
-          this.viewMode = 'list'
+          if (!stay) this.viewMode = 'list'
+          return true
         } catch (err) {
           console.error('Erro ao salvar ficha:', err)
-          this.$store.toasts.push("Erro ao salvar ficha. Verifique os campos.", "error")
+          this.autoSaveState = "erro"
+          if (!silent) this.$store.toasts.push("Erro ao salvar ficha. Verifique os campos.", "error")
+          return false
         }
       },
 
@@ -1345,6 +1487,24 @@ export default {
           await deleteFicha(this.selectedCharId)
           this.$store.toasts.push("Ficha excluída.", "success")
           this.voltarParaLista()
+        } catch (err) {
+          console.error("Erro ao excluir ficha:", err)
+          this.$store.toasts.push("Erro ao excluir a ficha. Tente novamente.", "error")
+        }
+      },
+
+      async deleteFichaCard(ficha) {
+        if (!ficha?.id) return
+        const nome = ficha.nomePersonagem || "esta ficha"
+        if (!confirm(`Tem certeza que deseja excluir ${nome}?`)) return
+        try {
+          await deleteFicha(ficha.id)
+          this.$store.toasts.push("Ficha excluída.", "success")
+          if (Number(this.selectedCharId) === Number(ficha.id)) {
+            this.selectedCharId = null
+            this.viewMode = "list"
+          }
+          await this.carregarFichas()
         } catch (err) {
           console.error("Erro ao excluir ficha:", err)
           this.$store.toasts.push("Erro ao excluir a ficha. Tente novamente.", "error")

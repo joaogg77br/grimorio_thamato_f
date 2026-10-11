@@ -1,4 +1,6 @@
 import Alpine from "alpinejs"
+import alpineRouter from "@shaun/alpinejs-router"
+import { APP_PATHS, PUBLIC_PATHS, FICHA_PATHS } from "./lib/routes.js"
 import "./style.css"
 import "./ui.css"
 import "./home.css"
@@ -9,13 +11,14 @@ const socket = io("https://grimorioback.vercel.app/", {
 })
 
 import character from "./components/character/character.js"
-import dice from "./components/dice/dice.js"
+  import dice from "./components/dice/dice.js"
 import campaign from "./components/campaign/campaign.js"
 import master from "./components/master/master.js"
 import reference from "./components/reference/reference.js"
 import auth from "./components/auth/auth.js"
 
 import { localDB } from "./lib/localDB.js"
+import { sheetBackgroundFiles } from "./lib/sheetBackgroundFiles.js"
 import { checkLogged } from "./useApi/index.js"
 
 const SESSION_CHECK_INTERVAL = 5 * 60 * 1000
@@ -25,25 +28,10 @@ const initialToken = storedSession?.token || null
 const hasInitialSession = Boolean(initialUser?.id && initialUser.email && initialToken)
 if (!hasInitialSession) localDB.clearSession()
 
-const ROUTES = {
-  "/": "login",
-  "/cadastro": "register",
-  "/inicio": "home",
-  "/personagens": "characters",
-  "/campanhas": "campaigns",
-  "/mestre": "master",
-  "/referencia": "reference",
-  "/perfil": "profile",
-}
-
-const PAGES = Object.fromEntries(
-  Object.entries(ROUTES).map(([path, page]) => [page, path])
-)
-
-const PUBLIC_PAGES = ["login", "register"]
 const THEME_KEY = "grimorio_theme"
 const THEME_OPTIONS = ["red", "blue", "purple"]
 const SHEET_BACKGROUND_KEY = "grimorio_sheet_background"
+const SHEET_BACKGROUND_MAX_BYTES = 20 * 1024 * 1024
 
 function normalizeTheme(theme) {
   return THEME_OPTIONS.includes(theme) ? theme : "red"
@@ -55,9 +43,7 @@ function applyTheme(theme) {
 
 applyTheme(localStorage.getItem(THEME_KEY))
 
-function pageFromPath(path) {
-  return ROUTES[path] || "home"
-}
+Alpine.plugin(alpineRouter)
 
 document.addEventListener("alpine:init", () => {
   Alpine.store("toasts", {
@@ -108,34 +94,84 @@ document.addEventListener("alpine:init", () => {
 
   Alpine.store("sheetBackground", {
     url: localStorage.getItem(SHEET_BACKGROUND_KEY) || "",
+    sheetOpen: false,
+    busy: true,
+    async init() {
+      try {
+        const file = await sheetBackgroundFiles.read()
+        if (file) this.replaceUrl(URL.createObjectURL(file))
+      } catch {
+        Alpine.store("toasts").push("Não foi possível recuperar o fundo salvo.", "error")
+      } finally {
+        this.busy = false
+      }
+    },
     get hasImage() {
       return Boolean(this.url)
     },
-    get style() {
-      return this.url ? `--character-bg-image: url("${this.url}")` : ""
+    get canEdit() {
+      return Alpine.$router.is(...FICHA_PATHS) && this.sheetOpen
     },
-    set(url) {
-      this.url = url || ""
-      if (this.url) localStorage.setItem(SHEET_BACKGROUND_KEY, this.url)
-      else localStorage.removeItem(SHEET_BACKGROUND_KEY)
+    setSheetOpen(open) {
+      this.sheetOpen = Boolean(open)
     },
-    setFromFile(file) {
-      if (!file) return
-      if (!file.type?.startsWith("image/")) {
+    warnUnavailable() {
+      Alpine.store("toasts").push("Abra uma ficha salva para alterar o fundo.", "info")
+    },
+    replaceUrl(url) {
+      const previous = this.url
+      this.url = url
+      if (previous.startsWith("blob:")) URL.revokeObjectURL(previous)
+    },
+    async setFromFile(file) {
+      if (!file || this.busy) return
+      if (!this.canEdit) {
+        this.warnUnavailable()
+        return
+      }
+      if (!file.type?.startsWith("image/") && !(!file.type && /\.gif$/i.test(file.name))) {
         Alpine.store("toasts").push("Escolha um arquivo de imagem ou GIF.", "error")
         return
       }
-      const reader = new FileReader()
-      reader.onload = () => {
-        this.set(String(reader.result || ""))
-        Alpine.store("toasts").push("Fundo da ficha atualizado.", "success")
+      if (file.size > SHEET_BACKGROUND_MAX_BYTES) {
+        Alpine.store("toasts").push("Escolha uma imagem ou GIF de até 20 MB.", "error")
+        return
       }
-      reader.onerror = () => Alpine.store("toasts").push("Não foi possível carregar a imagem.", "error")
-      reader.readAsDataURL(file)
+      this.busy = true
+      let url = ""
+      try {
+        url = URL.createObjectURL(file)
+        const image = new Image()
+        image.src = url
+        await image.decode()
+        await sheetBackgroundFiles.save(file)
+        localStorage.removeItem(SHEET_BACKGROUND_KEY)
+        this.replaceUrl(url)
+        Alpine.store("toasts").push("Fundo da ficha atualizado.", "success")
+      } catch {
+        if (url) URL.revokeObjectURL(url)
+        Alpine.store("toasts").push("Não foi possível carregar ou salvar o fundo. Tente outro arquivo ou libere espaço no navegador.", "error")
+      } finally {
+        this.busy = false
+      }
     },
-    clear() {
-      this.set("")
-      Alpine.store("toasts").push("Fundo da ficha removido.", "info")
+    async clear() {
+      if (this.busy) return
+      if (!this.canEdit) {
+        this.warnUnavailable()
+        return
+      }
+      this.busy = true
+      try {
+        await sheetBackgroundFiles.clear()
+        localStorage.removeItem(SHEET_BACKGROUND_KEY)
+        this.replaceUrl("")
+        Alpine.store("toasts").push("Fundo da ficha removido.", "info")
+      } catch {
+        Alpine.store("toasts").push("Não foi possível remover o fundo. Tente novamente.", "error")
+      } finally {
+        this.busy = false
+      }
     },
   })
 
@@ -167,17 +203,22 @@ document.addEventListener("alpine:init", () => {
     ficha: null,
   })
 
-  Alpine.data("router", () => ({
-    currentPage: pageFromPath(window.location.pathname),
+  Alpine.data("app", () => ({
     settingsOpen: false,
     autoLoginAttempted: false,
     sessionCheckTimer: null,
     sessionCheckInProgress: false,
 
-    navigate(page) {
-      this.currentPage = page
+    guardRoute() {
       this.settingsOpen = false
-      history.pushState({ page }, "", PAGES[page] || "/")
+      if (!this.autoLoginAttempted) return
+      if (!this.$store.auth.authenticated && !this.$router.is(...PUBLIC_PATHS)) {
+        this.$router.replace("/")
+      } else if (this.$store.auth.authenticated && this.$router.is(...PUBLIC_PATHS)) {
+        this.$router.replace("/inicio")
+      } else if (!this.$router.is(...APP_PATHS)) {
+        this.$router.replace(this.$store.auth.authenticated ? "/inicio" : "/")
+      }
     },
 
     clearSession({ notify = true, message = "Sua sessão expirou. Entre novamente." } = {}) {
@@ -189,7 +230,7 @@ document.addEventListener("alpine:init", () => {
       auth.authenticated = false
       auth.checking = false
       if (notify && hadSession) this.$store.toasts.push(message, "error")
-      if (!PUBLIC_PAGES.includes(this.currentPage)) this.navigate("login")
+      if (!this.$router.is(...PUBLIC_PATHS)) this.$router.replace("/")
     },
 
     async restoreSession() {
@@ -263,52 +304,15 @@ document.addEventListener("alpine:init", () => {
       this.$store.auth.authenticated = false
       this.settingsOpen = false
       this.$store.toasts.push("Você saiu da conta.", "info")
-      this.navigate("login")
+      this.$router.replace("/")
     },
 
     async init() {
       window.addEventListener("grimorio:unauthorized", () => this.clearSession())
+      this.$watch("$router.path", () => this.guardRoute())
       await this.restoreSession()
-
-      if (
-        this.$store.auth.authenticated &&
-        PUBLIC_PAGES.includes(this.currentPage)
-      ) {
-        this.navigate("home")
-      } else if (
-        !this.$store.auth.authenticated &&
-        !PUBLIC_PAGES.includes(this.currentPage)
-      ) {
-        this.navigate("login")
-      }
       this.autoLoginAttempted = true
-
-      this.$watch("currentPage", (page) => {
-        if (
-          this.autoLoginAttempted &&
-          !this.$store.auth.authenticated &&
-          !PUBLIC_PAGES.includes(page)
-        ) {
-          this.navigate("login")
-        }
-      })
-
-      window.addEventListener("popstate", () => {
-        const page = pageFromPath(window.location.pathname)
-        if (
-          this.autoLoginAttempted &&
-          !this.$store.auth.authenticated &&
-          !PUBLIC_PAGES.includes(page)
-        ) {
-          this.navigate("login")
-          return
-        }
-        this.currentPage = page
-      })
-
-      window.addEventListener("grimorio:navigate", (e) => {
-        if (e.detail?.page) this.navigate(e.detail.page)
-      })
+      this.guardRoute()
 
       this.sessionCheckTimer = window.setInterval(() => {
         if (this.$store.auth.authenticated) this.checkSession()

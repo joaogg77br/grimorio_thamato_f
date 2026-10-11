@@ -83,9 +83,26 @@ describe("Salvamento da ficha", () => {
     expect(updateFicha).toHaveBeenCalledTimes(1)
   })
 
+  it("sai da ficha sem salvar novamente quando nao ha edicao pendente", async () => {
+    await state.sairDaFicha()
+    expect(updateFicha).not.toHaveBeenCalled()
+    expect(state.viewMode).toBe("list")
+    expect(state.selectedCharId).toBeNull()
+  })
+
+  it("nao repete o salvamento ao sair depois de um autosave concluido", async () => {
+    state.scheduleAutoSave()
+    await vi.advanceTimersByTimeAsync(1500)
+    expect(updateFicha).toHaveBeenCalledTimes(1)
+    await state.sairDaFicha()
+    expect(updateFicha).toHaveBeenCalledTimes(1)
+    expect(state.selectedCharId).toBeNull()
+  })
+
   it("ignora cliques repetidos em sair durante o salvamento", async () => {
     const request = deferred()
     vi.mocked(updateFicha).mockImplementationOnce(() => request.promise)
+    state.scheduleAutoSave()
     const leaving = state.sairDaFicha()
     await state.sairDaFicha()
     expect(updateFicha).toHaveBeenCalledTimes(1)
@@ -102,6 +119,7 @@ describe("Salvamento da ficha", () => {
       .mockImplementationOnce(() => last.promise)
     const saving = state.performAutoSave()
     state.form.nome = "Edicao durante autosave"
+    state.scheduleAutoSave()
     const leaving = state.sairDaFicha()
     expect(updateFicha).toHaveBeenCalledTimes(1)
     first.resolve({ data: {} })
@@ -118,6 +136,7 @@ describe("Salvamento da ficha", () => {
   it("preserva a ficha quando a API falha e permite tentar sair novamente", async () => {
     vi.spyOn(console, "error").mockImplementation(() => {})
     vi.mocked(updateFicha).mockRejectedValueOnce(new Error("Falha simulada"))
+    state.scheduleAutoSave()
     await state.sairDaFicha()
     expect(state.viewMode).toBe("edit")
     expect(state.selectedCharId).toBe("ficha-teste")
@@ -132,6 +151,7 @@ describe("Salvamento da ficha", () => {
   it("nao sai quando a atualizacao das pericias falha", async () => {
     vi.spyOn(console, "error").mockImplementation(() => {})
     state.updatePericiasFicha.mockRejectedValueOnce(new Error("Falha nas pericias"))
+    state.scheduleAutoSave()
     await state.sairDaFicha()
     expect(state.viewMode).toBe("edit")
     expect(state.form.nome).toBe("Arin")

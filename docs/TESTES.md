@@ -58,6 +58,27 @@ alteracao. Esse comando encerra sozinho e tambem pode ser usado em CI.
 | `tests/character-wizard.test.js` | Valores iniciais, custo progressivo, devolucao de pontos, limites 8 a 18, entradas invalidas, bonus raciais, restricoes de etapas, nome e classe obrigatorios. |
 | `tests/character-save.test.js` | Debounce de 1,5 segundo, estados que suspendem autosave, serializacao de requisicoes, edicao durante salvamento, saida com dados pendentes, clique duplicado, falhas e nova tentativa. |
 | `tests/character-sections.test.js` | Abertura das sete secoes, fechamento de popups e menu, limpeza do modo de edicao de arma e preservacao dos dados ao fechar uma secao. |
+| `tests/dice-rolls.test.js` | Validacao de formulas, vantagem e desvantagem, criticos e ordem entre animacao e toast. |
+| `tests/e2e/routes.spec.js` | Navegacao real com Alpine e alpinejs-router, retorno a lista, background, voltar/avancar, acesso direto, recarga, autosave ao navegar, falhas, respostas atrasadas e protecao de rotas. |
+
+## Testes de navegador
+
+```sh
+npx playwright install chromium
+npm run test:e2e
+```
+
+O Playwright inicia o Vite em `http://127.0.0.1:5174` ou usa o servidor de
+desenvolvimento ja aberto nessa porta. Executa os cenarios em desktop e mobile
+(Pixel 7 em Chromium). As requisicoes de API recebem respostas simuladas; os
+testes nao precisam de conta e nao alteram o backend.
+
+Capturas e traces de falhas ficam em `test-results/`. Para investigar um caso:
+
+```sh
+npm run test:e2e -- --project=desktop --grep "abre, sai"
+npx playwright show-trace test-results/<caso>/trace.zip
+```
 
 ## Isolamento
 
@@ -112,19 +133,20 @@ verificacao apenas para deixar o resultado verde.
 
 ## Limites atuais
 
-Esta e uma suite de logica de componente, executada em Node. Ela nao monta o
-Alpine no navegador, nao dispara eventos de toque e nao verifica CSS, foco,
-atributos `inert`, rolagem, teclado virtual ou sobreposicao de elementos.
+A suite Vitest executa a logica dos componentes em Node. A suite Playwright
+monta a aplicacao completa e verifica visibilidade, interacoes, `inert` e
+historico do navegador. A emulacao mobile nao substitui a verificacao de
+teclado virtual e desempenho em aparelhos reais.
 
 O teste de debounce chama `scheduleAutoSave()` diretamente: ele valida o tempo
 e o salvamento, mas nao o registro do watcher do Alpine. Os testes da API
 simulada nao validam autenticacao, contratos HTTP, persistencia real ou a
 implementacao das requisicoes de pericias.
 
-Tambem nao ha, nesta primeira suite, cobertura de campanhas, painel do mestre,
-rolagens de dados e login. Nao foi configurado relatorio percentual de cobertura.
+A navegacao de campanhas, mestre e autenticacao e coberta pelo Playwright,
+mas os contratos e a persistencia do backend nao sao validados. Nao foi
+configurado relatorio percentual de cobertura.
 
 Para alteracoes visuais, confira no navegador desktop e celular: criar um
 personagem, distribuir pontos, trocar secoes, abrir e fechar popups e sair da
-ficha depois de editar. Testes de navegador podem ser adicionados depois para
-automatizar esses fluxos. Build aprovado nao substitui essa verificacao visual.
+ficha depois de editar. Build aprovado nao substitui essa verificacao visual.

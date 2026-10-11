@@ -1,6 +1,7 @@
 import { localDB, generateId } from "../../lib/localDB.js"
 import { getFichasByUser, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, getHistoricoByFicha, deleteHistorico } from "../../useApi/index.js"
 import html from "./character.html?raw"
+import { FICHA_PATHS, fichaPath, fichaSection } from "../../lib/routes.js"
 import ARMAS_DATA from "../../data/armas.js"
 import PROTECOES_DATA from "../../data/protecoes.js"
 import EQUIPAMENTOS_DATA from "../../data/equipamentos.js"
@@ -42,6 +43,16 @@ const DIVINDADES = [
 ]
 
 const ATRIBUTOS = ["FOR", "DES", "CON", "INT", "SAB", "CAR"]
+
+const NOMES_ALEATORIOS = [
+  "Arin", "Ayra", "Borin", "Dara", "Doran", "Elara", "Gorath", "Kael",
+  "Lira", "Mira", "Nerian", "Ravi", "Selene", "Tarek", "Thalia", "Valen",
+]
+
+const SOBRENOMES_ALEATORIOS = [
+  "Aurora", "Brumavale", "Caminhante", "Cinzas", "Estrela", "Ferro",
+  "Folha Verde", "Lua Nova", "Pedra Alta", "Rios", "Tempestade", "Ventobravo",
+]
 
 const ATRIBUTOS_WIZARD = [
   { key: "FOR", nome: "Força", racaKey: "Força" },
@@ -178,6 +189,9 @@ export default {
       sectionMenuOpen: false,
       sectionOpen: false,
       activeTab: "pericias",
+      openingFicha: false,
+      fichaLoadVersion: 0,
+      fichasLoaded: false,
       editingAttr: null,
       nivelAnterior: 1,
 
@@ -266,6 +280,18 @@ export default {
 
       get activeSectionLabel() {
         return this.fichaSections.find(s => s.key === this.activeTab)?.label || "Sessão"
+      },
+
+      get hasOpenFicha() {
+        return this.viewMode === "edit" && Boolean(this.selectedCharId)
+      },
+
+      get shouldShowFicha() {
+        return this.hasOpenFicha && this.isFichaRoute
+      },
+
+      get isFichaRoute() {
+        return this.$router.is(...FICHA_PATHS)
       },
 
       get fichasFiltradas() {
@@ -464,12 +490,19 @@ export default {
       },
 
       async init() {
-        await this.carregarFichas()
+        this.syncSheetBackgroundState()
+        this.$watch("$router.path + '?' + ($router.query.id || '')", () => this.syncCharacterRoute())
         this.$watch("form", () => {
           this.scheduleAutoSave()
         })
+        this.$watch("viewMode", () => this.syncSheetBackgroundState())
+        this.$watch("selectedCharId", () => this.syncSheetBackgroundState())
         this.$watch('$store.auth.user', async (user) => {
-          if (user) await this.carregarFichas()
+          this.fichasLoaded = false
+          if (user) {
+            await this.carregarFichas()
+            await this.syncCharacterRoute()
+          }
         })
         this.$watch('$store.masterView.ficha', (ficha) => {
           if (ficha) {
@@ -477,12 +510,54 @@ export default {
             this.$store.masterView.ficha = null
           }
         })
-        window.addEventListener("historico-atualizado", (e) => {
-          const { fichaId } = e.detail || {}
-          if (fichaId && Number(fichaId) === Number(this.selectedCharId)) {
-            this.loadHistoricoFicha(fichaId)
-          }
-        })
+        if (typeof window !== "undefined") {
+          window.addEventListener("historico-atualizado", (e) => {
+            const { fichaId } = e.detail || {}
+            if (fichaId && Number(fichaId) === Number(this.selectedCharId)) {
+              this.loadHistoricoFicha(fichaId)
+            }
+          })
+        }
+        await this.carregarFichas()
+        await this.syncCharacterRoute()
+      },
+
+      syncSheetBackgroundState() {
+        this.$store.sheetBackground.setSheetOpen(this.viewMode === "edit" && Boolean(this.selectedCharId))
+      },
+
+      async syncCharacterRoute() {
+        if (this.leavingFicha) return
+        if (!this.$store.auth.user) {
+          if (this.selectedCharId) this.voltarParaLista({ navigate: false })
+          this.fichasApi = []
+          return
+        }
+        if (!this.isFichaRoute) {
+          if (this.selectedCharId) await this.sairDaFicha({ navigate: false })
+          else this.viewMode = "list"
+          return
+        }
+        const section = fichaSection(this.$router)
+        const id = this.$router.query.id
+        if (this.selectedCharId && (!id || String(this.selectedCharId) === String(id))) {
+          this.openFichaSection(section, { updateRoute: false })
+          if (!id) this.$router.replace(fichaPath(section, this.selectedCharId))
+          return
+        }
+        if (!this.fichasLoaded || !this.$store.auth.user) return
+        if (this.selectedCharId) {
+          const destination = this.$router.resolve()
+          if (!await this.sairDaFicha({ navigate: false })) return
+          if (this.$router.resolve() !== destination) return
+        }
+        const ficha = this.fichasApi.find(item => String(item.id) === String(id))
+        if (ficha) await this.abrirFicha(ficha, { updateRoute: false })
+        else this.$router.replace("/personagens")
+      },
+
+      navigateCharacterRoute(section = this.activeTab) {
+        this.$router.push(fichaPath(section, this.selectedCharId))
       },
 
       async carregarFichas() {
@@ -491,19 +566,25 @@ export default {
         this.loading = true
         try {
           const { data } = await getFichasByUser(user.id)
+          if (this.$store.auth.user?.id !== user.id) return
           console.log('API response:', JSON.stringify(data))
           console.log("fichas Filtradas em carregar Fichas", this.fichasApi, data?.data)
           this.fichasApi = data?.data || []
         } catch (err) {
+          if (this.$store.auth.user?.id !== user.id) return
           console.error('Erro ao carregar fichas:', err)
           this.fichasApi = []
           this.$store.toasts.push("Erro ao carregar fichas.", "error")
         } finally {
           this.loading = false
+          this.fichasLoaded = true
         }
       },
 
-      async abrirFicha(ficha) {
+      async abrirFicha(ficha, { updateRoute = true } = {}) {
+        if (this.leavingFicha) return
+        const loadVersion = ++this.fichaLoadVersion
+        this.openingFicha = true
         this.autoSaveSuspended = true
         this.clearAutoSaveTimer()
         this.selectedCharId = ficha.id
@@ -551,7 +632,7 @@ export default {
           tibares: this.toNum(ficha.tibao, this.toNum(ficha.tibares, 0)),
           anotacoes: ficha.descricao || '',
         }
-        this.activeTab = 'pericias'
+        this.activeTab = fichaSection(this.$router)
         this.viewMode = 'edit'
         this.sectionOpen = false
         this.sectionMenuOpen = false
@@ -560,6 +641,7 @@ export default {
         this.expandedMagiaCarregadaId = null
         this.expandedHabilidadeCarregadaId = null
         this.expandedAtaqueArmaId = null
+        if (updateRoute) this.navigateCharacterRoute(this.activeTab)
         await Promise.all([
           this.loadArmasFicha(),
           this.loadProtecoesFicha(),
@@ -569,7 +651,10 @@ export default {
           this.loadPericiasFicha(ficha.id),
           this.loadHistoricoFicha(ficha.id),
         ])
+        if (loadVersion !== this.fichaLoadVersion) return
         this.$nextTick(() => {
+          if (loadVersion !== this.fichaLoadVersion) return
+          this.openingFicha = false
           this.autoSaveSuspended = false
           this.autoSaveState = ""
         })
@@ -588,26 +673,41 @@ export default {
         return pericias
       },
 
-      async sairDaFicha() {
-        if (this.leavingFicha) return
+      async sairDaFicha({ navigate = true } = {}) {
+        if (this.leavingFicha) return false
+        const returnPath = fichaPath(this.activeTab, this.selectedCharId)
+        let hasPendingChanges = Boolean(this.autoSaveTimer) || ["editando", "erro"].includes(this.autoSaveState) || this.autoSaveQueued
         this.leavingFicha = true
         this.clearAutoSaveTimer()
         try {
-          if (this.autoSavePromise) await this.autoSavePromise
-          this.autoSaveQueued = false
-          const saved = await this.performAutoSave()
-          if (!saved) {
-            this.$store.toasts.push("Não foi possível salvar. A ficha permanece aberta para tentar novamente.", "error")
-            return
+          if (this.autoSavePromise) {
+            await this.autoSavePromise
+            hasPendingChanges = hasPendingChanges || this.autoSaveQueued || this.autoSaveState === "erro"
           }
-          this.voltarParaLista()
+          if (hasPendingChanges) {
+            this.autoSaveQueued = false
+            const saved = await this.performAutoSave()
+            if (!saved) {
+              this.$store.toasts.push("Não foi possível salvar. A ficha permanece aberta para tentar novamente.", "error")
+              this.$router.replace(returnPath)
+              return false
+            }
+          }
+          this.voltarParaLista({ navigate })
+          return true
         } finally {
           this.leavingFicha = false
+          if (!navigate && this.isFichaRoute && !this.selectedCharId) {
+            this.$nextTick(() => this.syncCharacterRoute())
+          }
         }
       },
 
-      voltarParaLista() {
+      voltarParaLista({ navigate = true } = {}) {
         this.clearAutoSaveTimer()
+        this.fichaLoadVersion++
+        this.openingFicha = false
+        this.autoSaveSuspended = false
         this.viewMode = 'list'
         this.selectedCharId = null
         this.sectionOpen = false
@@ -619,7 +719,9 @@ export default {
         this.equipamentosCarregados = []
         this.magiasCarregadas = []
         this.habilidadesCarregadas = []
+        this.historicoCarregado = []
         this.carregarFichas()
+        if (navigate) this.$router.push("/personagens")
       },
 
       novaFicha() {
@@ -647,6 +749,29 @@ export default {
 
       fecharWizard() {
         this.wizardOpen = false
+      },
+
+      async criarPersonagemAleatorio() {
+        if (this.creatingFicha || this.openingFicha || this.selectedCharId || !this.$store.auth.user) return
+        const sortear = lista => lista[Math.floor(Math.random() * lista.length)]
+        this.abrirWizard()
+        this.escolherRaca(sortear(this.wizardRacas))
+        this.wizardNome = `${sortear(NOMES_ALEATORIOS)} ${sortear(SOBRENOMES_ALEATORIOS)}`
+        this.wizardClasse = sortear(CLASSES)
+        this.wizardOrigem = sortear(ORIGENS)
+        this.wizardDivindade = sortear(DIVINDADES)
+        this.wizardAtributos = Object.fromEntries(ATRIBUTOS.map(key => [key, MIN_ATRIBUTO]))
+        while (this.wizardPontosRestantes > 0) {
+          const disponiveis = ATRIBUTOS.filter(key => this.wizardPodeAumentar(key))
+          this.wizardInc(sortear(disponiveis))
+        }
+        const escolhasRaciais = [...ATRIBUTOS]
+        while (!this.wizardRacialEscolhaCompleta) {
+          const indice = Math.floor(Math.random() * escolhasRaciais.length)
+          this.alternarRacialEscolha(escolhasRaciais.splice(indice, 1)[0])
+        }
+        this.wizardStep = 3
+        await this.wizardFinalizar()
       },
 
       escolherRaca(raca) {
@@ -812,7 +937,7 @@ export default {
       },
 
       async wizardFinalizar() {
-        if (!this.wizardPodeProximo) return
+        if (this.creatingFicha || !this.wizardPodeProximo) return
         const user = this.$store.auth.user
         if (!user) return
         this.form = buildEmptyForm()
@@ -882,7 +1007,7 @@ export default {
           if (criada) {
             this.abrirFicha(criada)
           } else {
-            this.viewMode = 'edit'
+            this.voltarParaLista()
           }
           this.$store.toasts.push("Ficha criada com sucesso!", "success")
         } catch (err) {
@@ -1106,8 +1231,10 @@ export default {
 
       async loadPericiasFicha(fichaId) {
         if (!fichaId) return
+        const loadVersion = this.fichaLoadVersion
         try {
           const { data } = await getPericiasByFicha(fichaId)
+          if (loadVersion !== this.fichaLoadVersion) return
           const list = Array.isArray(data?.pericias) ? data.pericias : []
           const rest = [...list]
           for (const p of PERICIAS_DEF) {
@@ -1129,6 +1256,7 @@ export default {
             }
           }
         } catch (err) {
+          if (loadVersion !== this.fichaLoadVersion) return
           console.error("Erro ao carregar perícias:", err)
         }
       },
@@ -1155,11 +1283,14 @@ export default {
 
       async loadHistoricoFicha(fichaId) {
         if (!fichaId) return
+        const loadVersion = this.fichaLoadVersion
         try {
           const { data } = await getHistoricoByFicha(fichaId)
+          if (loadVersion !== this.fichaLoadVersion) return
           const items = data?.historico || data?.data || data || []
           this.historicoCarregado = Array.isArray(items) ? items.slice().reverse() : []
         } catch (err) {
+          if (loadVersion !== this.fichaLoadVersion) return
           console.error('Erro ao carregar histórico:', err)
           this.historicoCarregado = []
         }
@@ -1345,6 +1476,7 @@ export default {
         this.clearAutoSaveTimer()
         this.autoSaveState = "editando"
         this.autoSaveTimer = setTimeout(() => {
+          this.autoSaveTimer = null
           this.performAutoSave()
         }, 1500)
       },
@@ -1384,7 +1516,9 @@ export default {
         this.sectionMenuOpen = !this.sectionMenuOpen
       },
 
-      openFichaSection(tab) {
+      openFichaSection(tab, options = {}) {
+        const { updateRoute = true } = options
+        if (!this.fichaSections.some(s => s.key === tab)) return
         this.closeEquipPopup()
         this.closeMagiasPopup()
         this.closeHabilidadesPopup()
@@ -1392,6 +1526,7 @@ export default {
         this.activeTab = tab
         this.sectionOpen = true
         this.sectionMenuOpen = false
+        if (updateRoute && this.selectedCharId) this.navigateCharacterRoute(tab)
       },
 
       closeFichaSection() {
@@ -1924,10 +2059,13 @@ export default {
 
       async loadArmasFicha() {
         if (!this.selectedCharId) return
+        const loadVersion = this.fichaLoadVersion
         try {
           const { data } = await getArmasByFicha(this.selectedCharId)
+          if (loadVersion !== this.fichaLoadVersion) return
           this.armasCarregadas = data?.data || []
         } catch (err) {
+          if (loadVersion !== this.fichaLoadVersion) return
           console.error("Erro ao carregar armas:", err)
           this.armasCarregadas = []
         }
@@ -1990,10 +2128,13 @@ export default {
 
       async loadProtecoesFicha() {
         if (!this.selectedCharId) return
+        const loadVersion = this.fichaLoadVersion
         try {
           const { data } = await getProtecoesByFicha(this.selectedCharId)
+          if (loadVersion !== this.fichaLoadVersion) return
           this.protecoesCarregadas = data?.data || []
         } catch (err) {
+          if (loadVersion !== this.fichaLoadVersion) return
           console.error("Erro ao carregar proteções:", err)
           this.protecoesCarregadas = []
         }
@@ -2056,10 +2197,13 @@ export default {
 
       async loadEquipamentosFicha() {
         if (!this.selectedCharId) return
+        const loadVersion = this.fichaLoadVersion
         try {
           const { data } = await getEquipamentosByFicha(this.selectedCharId)
+          if (loadVersion !== this.fichaLoadVersion) return
           this.equipamentosCarregados = data?.data || []
         } catch (err) {
+          if (loadVersion !== this.fichaLoadVersion) return
           console.error("Erro ao carregar equipamentos:", err)
           this.equipamentosCarregados = []
         }
@@ -2183,10 +2327,13 @@ export default {
 
       async loadMagiasFicha() {
         if (!this.selectedCharId) return
+        const loadVersion = this.fichaLoadVersion
         try {
           const { data } = await getMagiasByFicha(this.selectedCharId)
+          if (loadVersion !== this.fichaLoadVersion) return
           this.magiasCarregadas = data?.magias || data?.data || []
         } catch (err) {
+          if (loadVersion !== this.fichaLoadVersion) return
           console.error("Erro ao carregar magias:", err)
           this.magiasCarregadas = []
         }
@@ -2245,10 +2392,13 @@ export default {
 
       async loadHabilidadesFicha() {
         if (!this.selectedCharId) return
+        const loadVersion = this.fichaLoadVersion
         try {
           const { data } = await getHabilidadesByFicha(this.selectedCharId)
+          if (loadVersion !== this.fichaLoadVersion) return
           this.habilidadesCarregadas = data?.habilidades || data?.data || []
         } catch (err) {
+          if (loadVersion !== this.fichaLoadVersion) return
           console.error("Erro ao carregar habilidades:", err)
           this.habilidadesCarregadas = []
         }

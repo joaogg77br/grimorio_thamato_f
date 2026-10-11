@@ -6,6 +6,16 @@ export function createCharacter() {
   state.$store = {
     auth: { user: { id: "test-user", name: "Jogador" } },
     toasts: { push: vi.fn() },
+    sheetBackground: { setSheetOpen: vi.fn() },
+  }
+  let url = new URL("http://localhost/personagens")
+  state.$router = {
+    get path() { return url.pathname },
+    get query() { return Object.fromEntries(url.searchParams) },
+    is: (...paths) => paths.includes(url.pathname),
+    push: vi.fn(path => { url = new URL(path, url) }),
+    replace: vi.fn(path => { url = new URL(path, url) }),
+    resolve: () => url.pathname + url.search,
   }
   state.$nextTick = callback => Promise.resolve().then(callback)
   return state

@@ -1,5 +1,5 @@
 import html from "./master.html?raw"
-import { getCampanhasByMaster, getPlayersByCampanha, removePlayerFromCampanha, getFichasByCampanha } from "../../useApi/index.js"
+import { getCampanhasByMaster, getPlayersByCampanha, removePlayerFromCampanha, getFichasByCampanha, deleteCampanha } from "../../useApi/index.js"
 import { adicionarEmojiRaca } from "../../data/racas.js"
 
 export default {
@@ -15,6 +15,7 @@ export default {
       currentTurn: 0,
       initName: "",
       initValue: "",
+      deletingCampaign: false,
 
       init() {
         this.loadCampaigns()
@@ -51,6 +52,26 @@ export default {
           this.$store.toasts.push("Código copiado!", "success")
         } catch {
           this.$store.toasts.push("Não foi possível copiar o código.", "error")
+        }
+      },
+
+      async removeCampaign() {
+        const campanha = this.selectedCampaign
+        if (!campanha || this.deletingCampaign) return
+        if (!confirm(`Tem certeza que deseja deletar a campanha "${campanha.nomeCampanha}"?`)) return
+        this.deletingCampaign = true
+        try {
+          await deleteCampanha(campanha.id)
+          this.$store.toasts.push(`Campanha "${campanha.nomeCampanha}" deletada.`, "success")
+          this.selectedCampaignId = ""
+          this.campaignPlayers = []
+          this.campaignFichas = []
+          await this.loadCampaigns()
+        } catch (err) {
+          const msg = err?.response?.data?.ErroMessage || "Erro ao deletar campanha."
+          this.$store.toasts.push(msg, "error")
+        } finally {
+          this.deletingCampaign = false
         }
       },
 
@@ -97,7 +118,6 @@ export default {
       editFicha(f) {
         this.$store.masterView.ficha = f
         this.$store.toasts.push(`Editando ficha "${f.nomePersonagem}".`, "info")
-        window.dispatchEvent(new CustomEvent("grimorio:navigate", { detail: { page: "characters" } }))
       },
 
       addInitiative() {

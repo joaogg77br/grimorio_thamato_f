@@ -35,4 +35,23 @@ describe("Navegacao das secoes", () => {
     expect(state.sectionMenuOpen).toBe(false)
     expect(state.form.nome).toBe("Arin")
   })
+
+  it("nao considera uma ficha aberta sem id selecionado", () => {
+    const state = createCharacter()
+    state.viewMode = "edit"
+    state.selectedCharId = null
+    expect(state.hasOpenFicha).toBe(false)
+    state.selectedCharId = "ficha-teste"
+    expect(state.hasOpenFicha).toBe(true)
+  })
+
+  it("so exibe a ficha quando a rota ativa e de ficha", () => {
+    const state = createCharacter()
+    state.viewMode = "edit"
+    state.selectedCharId = "ficha-teste"
+    state.$router.push("/personagens")
+    expect(state.shouldShowFicha).toBe(false)
+    state.$router.push("/personagens/ficha/pericias?id=ficha-teste")
+    expect(state.shouldShowFicha).toBe(true)
+  })
 })

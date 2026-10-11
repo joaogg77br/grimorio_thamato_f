@@ -1,17 +1,18 @@
 import html from "./campaign.html?raw"
-import { createCampanha, getCampanhasByUser, deleteCampanha, findCampanhaByChaveLink, getPlayersByCampanha, getFichasByUser, addFichaToCampanha, removeFichaFromCampanha, getFichasByCampanha } from "../../useApi/index.js"
+import { createCampanha, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, getFichasByUser, addFichaToCampanha, removeFichaFromCampanha, getFichasByCampanha, leaveCampanha } from "../../useApi/index.js"
 
 export default {
   html,
   data() {
     return {
-      activeTab: "my",
+      get activeTab() {
+        return this.$router.is("/campanhas/entrar") ? "join" : "my"
+      },
       myCampaigns: [],
       memberCampaigns: [],
       showCreate: false,
       newName: "",
       creating: false,
-      deletingId: null,
       joinCode: "",
       inviteCode: "",
       joinError: "",
@@ -22,10 +23,63 @@ export default {
       addingFichaId: null,
       removingFichaId: null,
       fichaSearchTerm: "",
+      expandedCampaigns: {},
+      leavingId: null,
 
       init() {
         this.loadCampaigns()
         this.$watch("$store.auth.user", () => this.loadCampaigns())
+      },
+
+      setTab(tab) {
+        if (tab !== "my" && tab !== "join") return
+        this.$router.push(tab === "join" ? "/campanhas/entrar" : "/campanhas/minhas")
+      },
+
+      isCollapsed(c) {
+        return !this.expandedCampaigns[c.id]
+      },
+
+      toggleCollapsed(c) {
+        if (this.expandedCampaigns[c.id]) {
+          const next = { ...this.expandedCampaigns }
+          delete next[c.id]
+          this.expandedCampaigns = next
+        } else {
+          this.expandedCampaigns = { ...this.expandedCampaigns, [c.id]: true }
+        }
+      },
+
+      isMaster(c) {
+        return c.playerMestreId === this.$store.auth.user?.id
+      },
+
+      playerIdIn(c) {
+        const user = this.$store.auth.user
+        if (!user?.id) return null
+        const player = (c.players || []).find(p => p.id === user.id || p.email === user.email)
+        return player?.id ?? user.id
+      },
+
+      async leaveCampaign(c) {
+        if (this.leavingId === c.id) return
+        if (!confirm(`Tem certeza que deseja sair da campanha "${c.nomeCampanha}"?`)) return
+        const playerId = this.playerIdIn(c)
+        if (!playerId) return
+        this.leavingId = c.id
+        try {
+          await leaveCampanha(playerId, c.id)
+          this.$store.toasts.push(`Você saiu da campanha "${c.nomeCampanha}".`, "success")
+          const next = { ...this.expandedCampaigns }
+          delete next[c.id]
+          this.expandedCampaigns = next
+          await this.loadCampaigns()
+        } catch (err) {
+          const msg = err?.response?.data?.ErroMessage || "Erro ao sair da campanha."
+          this.$store.toasts.push(msg, "error")
+        } finally {
+          this.leavingId = null
+        }
       },
 
       async loadCampaigns() {
@@ -79,21 +133,6 @@ export default {
           this.$store.toasts.push(msg, "error")
         } finally {
           this.creating = false
-        }
-      },
-
-      async remove(c) {
-        this.deletingId = c.id
-        try {
-          await deleteCampanha(c.id)
-          this.$store.toasts.push(`Campanha "${c.nomeCampanha}" deletada.`, "success")
-          if (this.detailId === c.id) this.detailId = null
-          await this.loadCampaigns()
-        } catch (err) {
-          const msg = err?.response?.data?.ErroMessage || "Erro ao deletar campanha."
-          this.$store.toasts.push(msg, "error")
-        } finally {
-          this.deletingId = null
         }
       },
 

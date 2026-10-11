@@ -3,12 +3,58 @@ import { createHistorico } from "../../useApi/index.js"
 import { io } from "socket.io-client"
 
 const socket = io("https://grimorioback.vercel.app/", {
-  transports: ['websocket'], // required — Socket.IO defaults to HTTP long-polling
+  transports: ['websocket'],
 });
 
 socket.on("message", (msg) => {
 
 })
+
+export function clampAdvantageCount(value) {
+  const n = Number(value)
+  if (!Number.isFinite(n)) return 2
+  return Math.max(2, Math.min(10, Math.floor(n)))
+}
+
+export function parseDiceFormula(formula) {
+  const normalized = String(formula || "").replace(/\s+/g, "").toLowerCase()
+  if (!normalized) throw new Error("Fórmula vazia")
+  if (!/^[+-]?(?:\d*d\d+|\d+)(?:[+-](?:\d*d\d+|\d+))*$/i.test(normalized)) {
+    throw new Error("Fórmula inválida")
+  }
+
+  const parts = []
+  const regex = /([+-]?)(\d*d\d+|\d+)/gi
+  let match
+  while ((match = regex.exec(normalized)) !== null) {
+    const sign = match[1] === "-" ? -1 : 1
+    const token = match[2]
+    const diceMatch = /^(\d*)d(\d+)$/i.exec(token)
+    if (diceMatch) {
+      const count = diceMatch[1] ? parseInt(diceMatch[1], 10) : 1
+      const sides = parseInt(diceMatch[2], 10)
+      if (!Number.isInteger(count) || !Number.isInteger(sides) || count < 1 || count > 100 || sides < 2 || sides > 1000) {
+        throw new Error("Fórmula inválida")
+      }
+      parts.push({ type: "dice", count, sides, sign })
+    } else {
+      const value = sign * parseInt(token, 10)
+      if (!Number.isFinite(value)) throw new Error("Fórmula inválida")
+      parts.push({ type: "mod", value })
+    }
+  }
+  return { parts }
+}
+
+export function multiplyDiceFormula(formula, multiplier) {
+  const mult = Number(multiplier) || 1
+  const parsed = parseDiceFormula(formula)
+  return parsed.parts.map((part, index) => {
+    const prefix = part.sign === -1 ? "-" : (index === 0 ? "" : "+")
+    if (part.type === "dice") return `${prefix}${part.count * mult}d${part.sides}`
+    return `${part.value >= 0 && index > 0 ? "+" : ""}${part.value}`
+  }).join("")
+}
 
 
 export default {
@@ -24,6 +70,7 @@ export default {
       isRolling: false,
       showResult: false,
       d20Popup: { show: false, phase: "idle", value: null },
+      d20AfterEnd: [],
       history: [],
       maxHistory: 50,
       miniToasts: [],
@@ -54,7 +101,9 @@ export default {
           const ataqueTotal = this.lastResult
           const ataqueDetail = this.lastDetail
           const ataqueRollData = this.lastRollData
-          const ataqueIsCrit = this.lastRollData && this.lastRollData.chosenD20 !== null && this.lastRollData.chosenD20 >= (Number(arma.critico) || 20)
+          const naturalD20 = this.lastRollData?.chosenD20
+          const ataqueIsNatural20 = naturalD20 === 20
+          const ataqueIsCrit = naturalD20 !== null && naturalD20 !== undefined && naturalD20 >= (Number(arma.critico) || 20)
           const ataqueCritFail = this.lastRollData && this.lastRollData.chosenD20 === 1
           const multiplier = Number(arma.multiplicador) || 2
           let danoTotal, danoDetail
@@ -81,14 +130,14 @@ export default {
             arma.nome,
             e.detail.periciaNome || (arma.pericia || ""),
             { total: ataqueTotal, detail: ataqueDetail },
-            { total: critTotal, detail: danoDetail, baseTotal: danoTotal, isCrit: ataqueIsCrit, isCritFail: ataqueCritFail, multiplier }
+            { total: critTotal, detail: danoDetail, baseTotal: danoTotal, isCrit: ataqueIsCrit, isNatural20: ataqueIsNatural20, isCritFail: ataqueCritFail, multiplier }
           )
         })
       },
 
       pushAtaqueToast(weaponName, periciaNome, ataque, dano) {
         const isCrit = dano.isCrit
-        const animated = isCrit || dano.isCritFail
+        const animated = dano.isNatural20 || dano.isCritFail
         const duration = isCrit ? 10000 : 6000
         const slot = {
           variant: "ataque",
@@ -109,7 +158,7 @@ export default {
           this.miniToasts = [{ ...slot, id, timer }]
         }
         if (animated && this.$store.critAnim.enabled) {
-          setTimeout(show, 4900)
+          this.afterD20Animation(show)
         } else {
           show()
         }
@@ -187,16 +236,7 @@ export default {
       },
 
       multiplyDiceFormula(formula, multiplier) {
-        const parts = String(formula || "").split("+")
-        return parts.map((p) => {
-          const t = p.trim().toLowerCase()
-          const diceMatch = /^(\d*)d(\d+)$/.exec(t)
-          if (diceMatch) {
-            const count = diceMatch[1] ? parseInt(diceMatch[1], 10) : 1
-            return `${count * multiplier}d${diceMatch[2]}`
-          }
-          return p
-        }).join("+")
+        return multiplyDiceFormula(formula, multiplier)
       },
 
       executeRoll(formula, label) {
@@ -218,34 +258,37 @@ export default {
                 if (hasAdv) {
                   const outcomes = []
                   let chosen = this.advantageMode ? 0 : Infinity
-                  for (let t = 0; t < this.advantageCount; t++) {
+                  const advCount = clampAdvantageCount(this.advantageCount)
+                  for (let t = 0; t < advCount; t++) {
                     const r = Math.floor(Math.random() * part.sides) + 1
                     diceDetails.push({ value: r, sides: part.sides })
                     outcomes.push(r)
                     chosen = this.advantageMode ? Math.max(chosen, r) : Math.min(chosen, r)
                   }
                   const sorted = this.advantageMode ? [...outcomes].sort((a, b) => b - a) : [...outcomes].sort((a, b) => a - b)
-                  groupRolls.push(...sorted)
-                  rolls.push(...sorted)
-                  total += chosen
+                  const signedSorted = sorted.map((r) => part.sign * r)
+                  groupRolls.push(...signedSorted)
+                  rolls.push(...signedSorted)
+                  total += part.sign * chosen
                   chosenD20 = chosen
                 } else {
                   const r = Math.floor(Math.random() * part.sides) + 1
-                  rolls.push(r)
+                  rolls.push(part.sign * r)
                   diceDetails.push({ value: r, sides: part.sides })
-                  groupRolls.push(r)
-                  total += r
+                  groupRolls.push(part.sign * r)
+                  total += part.sign * r
                   if (part.sides === 20) chosenD20 = r
                 }
               }
-              groups.push({ type: "dice", sides: part.sides, count: part.count, hasAdv, rolls: groupRolls })
+              groups.push({ type: "dice", sides: part.sides, count: part.count, sign: part.sign, hasAdv, rolls: groupRolls })
             } else if (part.type === "mod") {
               total += part.value
               mods.push((part.value >= 0 ? "+" : "") + part.value)
               groups.push({ type: "mod", value: part.value })
             }
           }
-          const isCrit = chosenD20 !== null && (chosenD20 === 20 || chosenD20 === 1)
+          const isCrit = chosenD20 !== null && chosenD20 === 20
+          const isCritFail = chosenD20 !== null && chosenD20 === 1
           let detail = rolls.length ? `[${rolls.join(", ")}]` : ""
           if (mods.length) {
             detail = detail ? `${detail} ${mods.join(" ")}` : mods.join(" ")
@@ -257,14 +300,19 @@ export default {
           this.isRolling = true
           this.history = [{ label, result: total, detail }, ...this.history].slice(0, this.maxHistory)
           this.playDiceSound()
-          if (isCrit) {
+          if (isCrit || isCritFail) {
             this.showResult = false
             this.triggerD20Popup(chosenD20)
           } else {
             this.showResult = true
           }
           if (!this.suppressToasts) {
-            this.pushMiniToast(label, total, detail, diceDetails, isCrit)
+            const showToast = () => this.pushMiniToast(label, total, detail, diceDetails, isCrit)
+            if ((isCrit || isCritFail) && this.$store.critAnim.enabled) {
+              this.afterD20Animation(showToast)
+            } else {
+              showToast()
+            }
           }
           setTimeout(() => { this.isRolling = false }, 400)
         } catch {
@@ -276,10 +324,11 @@ export default {
       },
 
       montarFormulaFromGroups(groups) {
-        return (groups || []).map((g) => {
-          if (g.type === "mod") return (g.value >= 0 ? "+" : "") + g.value
-          const count = g.hasAdv ? this.advantageCount : (g.count || 1)
-          return `${count}d${g.sides}`
+        return (groups || []).map((g, index) => {
+          if (g.type === "mod") return (g.value >= 0 && index > 0 ? "+" : "") + g.value
+          const sign = g.sign === -1 ? "-" : (index > 0 ? "+" : "")
+          const count = g.hasAdv ? clampAdvantageCount(this.advantageCount) : (g.count || 1)
+          return `${sign}${count}d${g.sides}`
         }).join("")
       },
 
@@ -343,6 +392,19 @@ export default {
         this.d20Popup = { ...this.d20Popup, ...state }
       },
 
+      afterD20Animation(callback) {
+        if (!this.d20Popup.show) {
+          callback()
+          return
+        }
+        this.d20AfterEnd.push(callback)
+      },
+
+      flushD20AfterEnd() {
+        const callbacks = this.d20AfterEnd.splice(0)
+        callbacks.forEach((callback) => callback())
+      },
+
       triggerD20Popup(value) {
         if (this.d20Popup.show) return
         if (!this.$store.critAnim.enabled) {
@@ -355,6 +417,7 @@ export default {
           setTimeout(() => {
             this.setD20Popup({ show: false, phase: "idle", value: null })
             this.showResult = true
+            this.flushD20AfterEnd()
           }, 400)
         }, 4500)
       },
@@ -374,18 +437,7 @@ export default {
       },
 
       parseDice(formula) {
-        const parts = []
-        const regex = /(\d*)d(\d+)|([+-]\d+)|(\d+)/gi
-        let match
-        while ((match = regex.exec(formula)) !== null) {
-          if (match[1] !== undefined || match[2] !== undefined) {
-            parts.push({ type: "dice", count: match[1] ? parseInt(match[1]) : 1, sides: parseInt(match[2]) })
-          } else {
-            const val = parseInt(match[0])
-            if (!isNaN(val)) parts.push({ type: "mod", value: val })
-          }
-        }
-        return { parts }
+        return parseDiceFormula(formula)
       },
     }
   },

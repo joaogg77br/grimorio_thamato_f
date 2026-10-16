@@ -1,9 +1,8 @@
 import html from "./dice.html?raw"
 import { createHistorico } from "../../useApi/index.js"
-import { API_BASE_URL } from "../../useApi/config.js"
 import { io } from "socket.io-client"
 
-const socket = io(API_BASE_URL, {
+const socket = io("https://grimorioback.vercel.app/", {
   transports: ['websocket'],
 });
 

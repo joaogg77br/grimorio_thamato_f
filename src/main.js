@@ -5,9 +5,8 @@ import "./style.css"
 import "./ui.css"
 import "./home.css"
 import { io } from "socket.io-client"
-import { API_BASE_URL } from "./useApi/config.js"
 
-const socket = io(API_BASE_URL, {
+const socket = io("https://grimorioback.vercel.app/", {
   transports: ["websocket"]
 })
 

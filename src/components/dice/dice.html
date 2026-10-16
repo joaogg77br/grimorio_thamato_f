@@ -35,7 +35,7 @@
     <h3>Histórico</h3>
     <div class="history-list">
       <template x-for="(h, i) in dice.history" :key="i">
-        <div class="history-item">
+        <div class="history-item" :class="{ 'history-item--crit': h.isCrit }">
           <span class="h-label" x-text="h.label"></span>
           <span class="h-result" x-text="h.result"></span>
           <span class="h-detail" x-text="h.detail"></span>

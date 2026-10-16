@@ -5535,8 +5535,13 @@
                                                                         class="history-item"
                                                                     >
                                                                         <span
-                                                                            class="h-detail"
-                                                                            x-text="splitHistoricoValue(h.value)"
+                                                                            class="history-entry-title"
+                                                                            x-text="historicoTitulo(h.value)"
+                                                                        ></span>
+                                                                        <span
+                                                                            class="history-entry-detail"
+                                                                            :class="{ 'history-entry-detail--crit': historicoTemCritico(h.value) }"
+                                                                            x-text="splitHistoricoValue(historicoDetalhe(h.value))"
                                                                         ></span>
                                                                     </div>
                                                                 </template>
@@ -5876,6 +5881,21 @@
                                             </button>
                                         </div>
                                         <div
+                                            class="campaign-actions"
+                                            x-show="!isMaster(c)"
+                                        >
+                                            <button
+                                                type="button"
+                                                x-on:click="leaveCampaign(c)"
+                                                class="btn-sm btn-danger"
+                                                :disabled="leavingId === c.id"
+                                            >
+                                                <span
+                                                    x-text="leavingId === c.id ? 'Saindo...' : 'Sair da campanha'"
+                                                ></span>
+                                            </button>
+                                        </div>
+                                        <div
                                             x-show="!isCollapsed(c)"
                                             x-transition.opacity.duration.150ms
                                         >
@@ -5885,17 +5905,6 @@
                                                     class="btn-sm"
                                                 >
                                                     Adicionar Ficha
-                                                </button>
-                                                <button
-                                                    x-show="!isMaster(c)"
-                                                    x-on:click="leaveCampaign(c)"
-                                                    class="btn-sm btn-danger"
-                                                    :disabled="leavingId === c.id"
-                                                    title="Sair da campanha"
-                                                >
-                                                    <span
-                                                        x-text="leavingId === c.id ? 'Saindo...' : 'Sair da campanha'"
-                                                    ></span>
                                                 </button>
                                             </div>
                                             <div class="campaign-detail">
@@ -6292,7 +6301,7 @@
                                     </button>
                                 </div>
                                 <h3>Players da Campanha</h3>
-                                <div class="master-characters">
+                                <div class="master-characters master-players-list">
                                     <template
                                         x-for="p in campaignPlayers"
                                         :key="p.id"

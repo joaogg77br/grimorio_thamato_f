@@ -1,8 +1,9 @@
 import html from "./dice.html?raw"
 import { createHistorico } from "../../useApi/index.js"
+import { API_BASE_URL } from "../../useApi/config.js"
 import { io } from "socket.io-client"
 
-const socket = io("https://grimorioback.vercel.app/", {
+const socket = io(API_BASE_URL, {
   transports: ['websocket'],
 });
 
@@ -86,7 +87,8 @@ export default {
           this.customFormula = formula
           this.rollCustom(label)
           if (this.lastRollData) {
-            this.persistirHistorico(fichaId, this.montarRollString(this.lastRollData))
+            const titulo = label || "Rolagem"
+            this.persistirHistorico(fichaId, `${titulo}: ${this.montarRollString(this.lastRollData)}`)
           }
         })
 
@@ -298,7 +300,7 @@ export default {
           this.lastLabel = label
           this.lastRollData = { formula, rolls, mods, total, groups, isD20: chosenD20 !== null, chosenD20 }
           this.isRolling = true
-          this.history = [{ label, result: total, detail }, ...this.history].slice(0, this.maxHistory)
+          this.history = [{ label, result: total, detail, isCrit }, ...this.history].slice(0, this.maxHistory)
           this.playDiceSound()
           if (isCrit || isCritFail) {
             this.showResult = false
@@ -335,7 +337,12 @@ export default {
       montarRollString(data) {
         if (!data) return ""
         const formula = this.montarFormulaFromGroups(data.groups) || String(data.formula || "").toLowerCase()
-        return `${formula} = ${data.total}`
+        const faces = (data.groups || [])
+          .filter((group) => group.type === "dice")
+          .map((group) => `D${group.sides} [${(group.rolls || []).map((roll) => Math.abs(roll)).join(", ")}]`)
+        const resultado = faces.length ? `${formula} · ${faces.join(" · ")}` : formula
+        const critico = data.chosenD20 === 20 ? " · D20 natural: 20" : ""
+        return `${resultado} = ${data.total}${critico}`
       },
 
       async persistirHistorico(fichaId, value) {

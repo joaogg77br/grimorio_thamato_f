@@ -1316,6 +1316,24 @@ export default {
         return `${s.slice(0, idx)} — Dano:${s.slice(idx + 7)}`
       },
 
+      historicoTitulo(value) {
+        const s = String(value || "")
+        const idx = s.indexOf(": ")
+        const comma = s.indexOf(",")
+        return idx !== -1 && (comma === -1 || idx < comma) ? s.slice(0, idx) : "Rolagem"
+      },
+
+      historicoDetalhe(value) {
+        const s = String(value || "")
+        const idx = s.indexOf(": ")
+        const comma = s.indexOf(",")
+        return idx !== -1 && (comma === -1 || idx < comma) ? s.slice(idx + 2) : s
+      },
+
+      historicoTemCritico(value) {
+        return String(value || "").includes("D20 natural: 20")
+      },
+
       async salvarDescricao() {
         if (!this.selectedCharId) return
         try {

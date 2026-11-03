@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test"
 import { readFileSync } from "node:fs"
+import { loadEnv } from "vite"
 
 const magias = JSON.parse(readFileSync(new URL("../../magias-tormenta20.json", import.meta.url), "utf8"))
+const apiBaseUrl = loadEnv("development", process.cwd()).VITE_API_URL ?? "https://grimorioback-rnkt.vercel.app/"
 
 test("lista aprimoramentos da ficha e do catálogo com custos, restrições e truques", async ({ page }, testInfo) => {
   const errors = []
@@ -13,7 +15,7 @@ test("lista aprimoramentos da ficha e do catálogo com custos, restrições e tr
     localStorage.setItem("grimorio_sound", "off")
   })
   const luz = magias.find(magia => magia.nome === "Luz")
-  await page.route("http://localhost:3000/**", route => {
+  await page.route(`${apiBaseUrl.replace(/\/$/, "")}/**`, route => {
     const path = new URL(route.request().url()).pathname
     let body = { data: [], magias: [], pericias: [], historico: [], campanhas: [] }
     if (path === "/logged") body = { success: true }

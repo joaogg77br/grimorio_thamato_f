@@ -1,0 +1,9 @@
+{
+  "acumulo": "Condições com os mesmos efeitos não se acumulam; aplique apenas os efeitos mais severos. Por exemplo, desprevenido e vulnerável resultam em –5 na Defesa, não –7.",
+  "duracao_padrao": "A menos que especificado o contrário, as condições terminam no fim da cena.",
+  "fonte": {
+    "edicao": "Playtest anexado à prévia de maio de 2020",
+    "pagina": 160,
+    "paginaPdf": 292
+  }
+}

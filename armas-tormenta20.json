@@ -1,446 +1,1272 @@
 [
-    {
-        "nome": "Adaga",
-        "preco": 2,
-        "dadoDeDano": "1d4",
-        "alcance": "Curto",
-        "peso": 0.5,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Simples",
-        "critico": 19,
-        "multiplicador": 2,
-        "descricao": "Esta faca afiada é usada por muitos habitantes adultos do Reinado, embora seja favorita de ladrões e assassinos, por ser facilmente escondida (fornece +2 em testes de Ladinagem para ocultá-la). Quando ataca com uma adaga, você pode usar seu modificador de Destreza em vez de Força nos testes de ataque. Uma adaga pode ser arremessada."
+  {
+    "nome": "Adaga",
+    "preco": 2.0,
+    "dadoDeDano": "1d4",
+    "alcance": "Curto",
+    "peso": 0.5,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Simples",
+    "critico": 19,
+    "multiplicador": 2,
+    "descricao": "Esta faca afiada é usada por muitos habitantes adultos do Reinado, embora seja favorita de ladrões e assassinos, por ser facilmente escondida (fornece +2 em testes de Ladinagem para ocultá-la). Quando ataca com uma adaga, você pode usar seu modificador de Destreza em vez de Força nos testes de ataque. Uma adaga pode ser arremessada.",
+    "categoria": "Arma",
+    "empunhadura": "Leves",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Ataque desarmado",
-        "preco": 0,
-        "dadoDeDano": "1d3",
-        "alcance": "Corpo a Corpo",
-        "peso": 0,
-        "tipoDano": "Impacto",
-        "tipoArma": "Arma Simples",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Você pode atacar com um soco, chute ou qualquer outro golpe que use seu próprio corpo como se fosse uma arma corpo a corpo. Um ataque desarmado causa dano não letal."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 142,
+      "paginaPdf": 144
     },
-    {
-        "nome": "Pistola",
-        "preco": 250,
-        "dadoDeDano": "2d6",
-        "alcance": "curto",
-        "peso": 0.5,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Simples",
-        "critico": 19,
-        "multiplicador": 3,
-        "descricao": "A arma de fogo mais comum. Uma pistola conta como uma arma leve para propósitos do poder Estilo de Duas Armas e similares. Recarregar uma pistola é uma ação padrão."
+    "propriedades": [],
+    "arremessavel": true
+  },
+  {
+    "nome": "Ataque desarmado",
+    "preco": 0,
+    "dadoDeDano": "1d3",
+    "alcance": "Corpo a Corpo",
+    "peso": 0,
+    "tipoDano": "Impacto",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Você pode atacar com um soco, chute ou qualquer outro golpe que use seu próprio corpo como se fosse uma arma corpo a corpo. Um ataque desarmado causa dano não letal.",
+    "categoria": "Arma",
+    "empunhadura": "Leves",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Mosquete",
-        "preco": 500,
-        "dadoDeDano": "2d8",
-        "alcance": "Médio",
-        "peso": 0.5,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Simples",
-        "critico": 19,
-        "multiplicador": 3,
-        "descricao": "Uma arma de fogo de uso difícil, mas com poder devastador. Recarregar um mosquete é uma ação padrão. Exige as duas mãos." 
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 142,
+      "paginaPdf": 144
     },
-    {
-        "nome": "Espada curta",
-        "preco": 10,
-        "dadoDeDano": "1d6",
-        "alcance": "Corpo a Corpo",
-        "peso": 1,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Simples",
-        "critico": 19,
-        "multiplicador": 2,
-        "descricao": "É o tipo mais comum de espada, usada por guardas de milícia ou como arma secundária de guerreiros mais capazes. Mede entre 40 e 50cm de comprimento."
+    "propriedades": [],
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Espada curta",
+    "preco": 10.0,
+    "dadoDeDano": "1d6",
+    "alcance": "Corpo a Corpo",
+    "peso": 1.0,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Simples",
+    "critico": 19,
+    "multiplicador": 2,
+    "descricao": "É o tipo mais comum de espada, usada por guardas de milícia ou como arma secundária de guerreiros mais capazes. Mede entre 40 e 50cm de comprimento.",
+    "categoria": "Arma",
+    "empunhadura": "Leves",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Foice",
-        "preco": 4,
-        "dadoDeDano": "1d6",
-        "alcance": "Corpo a Corpo",
-        "peso": 1,
-        "tipoDano": "Corte",
-        "tipoArma": "Arma Simples",
-        "critico": 20,
-        "multiplicador": 3,
-        "descricao": "Originalmente um instrumento agrícola, consiste de uma lâmina curva presa a um cabo de madeira. Uma arma tradicional de druidas."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 144,
+      "paginaPdf": 146
     },
-    {
-        "nome": "Manopla",
-        "preco": 5,
-        "dadoDeDano": "1d4",
-        "alcance": "Corpo a Corpo",
-        "peso": 1,
-        "tipoDano": "Impacto",
-        "tipoArma": "Arma Simples",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Luva metálica que protege a mão e também permite socos mais perigosos — ataques desarmados usando uma manopla causam dano letal. Uma armadura completa inclui um par de manoplas. Uma manopla não pode ser desarmada."
+    "propriedades": []
+  },
+  {
+    "nome": "Foice",
+    "preco": 4.0,
+    "dadoDeDano": "1d6",
+    "alcance": "Corpo a Corpo",
+    "peso": 1.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 3,
+    "descricao": "Originalmente um instrumento agrícola, consiste de uma lâmina curva presa a um cabo de madeira. Uma arma tradicional de druidas.",
+    "categoria": "Arma",
+    "empunhadura": "Leves",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Clava",
-        "preco": 0,
-        "dadoDeDano": "1d6",
-        "alcance": "Corpo a Corpo",
-        "peso": 1.5,
-        "tipoDano": "Impacto",
-        "tipoArma": "Arma Simples",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Um pedaço de madeira empunhado como arma, geralmente usado por bárbaros ou criaturas brutais — ou como arma improvisada, como um galho de árvore ou pedaço de mobília. Sendo fácil de conseguir, seu preço é zero."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 144,
+      "paginaPdf": 146
     },
-    {
-        "nome": "Lança",
-        "preco": 2,
-        "dadoDeDano": "1d6",
-        "alcance": "Curto",
-        "peso": 1.5,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Simples",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "“Lança” é o nome de qualquer arma feita com uma haste de madeira e uma ponta afiada, natural ou metálica. Por sua facilidade de fabricação, é muito comum entre orcs, kobolds, trogloditas e outras raças menos civilizadas. Uma lança pode ser arremessada."
+    "propriedades": []
+  },
+  {
+    "nome": "Manopla",
+    "preco": 5.0,
+    "dadoDeDano": "1d4",
+    "alcance": "Corpo a Corpo",
+    "peso": 1.0,
+    "tipoDano": "Impacto",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Luva metálica que protege a mão e também permite socos mais perigosos — ataques desarmados usando uma manopla causam dano letal. Uma armadura completa inclui um par de manoplas. Uma manopla não pode ser desarmada.",
+    "categoria": "Arma",
+    "empunhadura": "Leves",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Maça",
-        "preco": 12,
-        "dadoDeDano": "1d8",
-        "alcance": "Corpo a Corpo",
-        "peso": 6,
-        "tipoDano": "Impacto",
-        "tipoArma": "Arma Simples",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Bastão metálico com um peso cheio de protuberâncias na extremidade, a maça é muito usada por clérigos que fazem votos de não derramar sangue. De fato, um golpe de maça nem sempre derrama sangue, mas esmaga ossos."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 146,
+      "paginaPdf": 148
     },
-    {
-        "nome": "Bordão",
-        "preco": 0,
-        "dadoDeDano": "1d6/1d6",
-        "alcance": "Corpo a Corpo",
-        "peso": 2,
-        "tipoDano": "Impacto",
-        "tipoArma": "Arma Simples",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Um cajado apreciado por viajantes e camponeses por sua praticidade e fácil acesso (seu preço é zero). O bordão é uma arma dupla."
+    "propriedades": []
+  },
+  {
+    "nome": "Clava",
+    "preco": 0,
+    "dadoDeDano": "1d6",
+    "alcance": "Corpo a Corpo",
+    "peso": 1.5,
+    "tipoDano": "Impacto",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Um pedaço de madeira empunhado como arma, geralmente usado por bárbaros ou criaturas brutais — ou como arma improvisada, como um galho de árvore ou pedaço de mobília. Sendo fácil de conseguir, seu preço é zero.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Pique",
-        "preco": 2,
-        "dadoDeDano": "1d8",
-        "alcance": "Corpo a Corpo",
-        "peso": 5,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Simples",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Essencialmente uma lança muito longa. O pique é uma arma de haste."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 143,
+      "paginaPdf": 145
     },
-    {
-        "nome": "Tacape",
-        "preco": 0,
-        "dadoDeDano": "1d10",
-        "alcance": "Corpo a Corpo",
-        "peso": 4,
-        "tipoDano": "Impacto",
-        "tipoArma": "Arma Simples",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Versão maior e/ou com pregos de uma clava. Não é uma arma elegante, mas faz o serviço."
+    "propriedades": []
+  },
+  {
+    "nome": "Lança",
+    "preco": 2.0,
+    "dadoDeDano": "1d6",
+    "alcance": "Curto",
+    "peso": 1.5,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "“Lança” é o nome de qualquer arma feita com uma haste de madeira e uma ponta afiada, natural ou metálica. Por sua facilidade de fabricação, é muito comum entre orcs, kobolds, trogloditas e outras raças menos civilizadas. Uma lança pode ser arremessada.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Arco curto",
-        "preco": 30,
-        "dadoDeDano": "1d6",
-        "alcance": "Médio",
-        "peso": 1,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Simples",
-        "critico": 20,
-        "multiplicador": 3,
-        "descricao": "Uma arma antiga e comum, este arco é usado primariamente como ferramenta de caça, embora seja usado como arma de guerra por milícias, bandidos e exércitos menos equipados. Exige as duas mãos."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 145,
+      "paginaPdf": 147
     },
-    {
-        "nome": "Flechas (20)",
-        "preco": 1,
-        "dadoDeDano": "—",
-        "alcance": "—",
-        "peso": 1.5,
-        "tipoDano": "—",
-        "tipoArma": "Munição",
-        "critico": 0,
-        "multiplicador": 0,
-        "descricao": "Hastes de madeira com ponta metálica e penas para estabilizar o voo, flechas são vendidas em aljavas com 20 unidades. Recarregar um arco com uma flecha é uma ação livre."
+    "propriedades": [],
+    "arremessavel": true
+  },
+  {
+    "nome": "Maça",
+    "preco": 12.0,
+    "dadoDeDano": "1d8",
+    "alcance": "Corpo a Corpo",
+    "peso": 6.0,
+    "tipoDano": "Impacto",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Bastão metálico com um peso cheio de protuberâncias na extremidade, a maça é muito usada por clérigos que fazem votos de não derramar sangue. De fato, um golpe de maça nem sempre derrama sangue, mas esmaga ossos.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Besta leve",
-        "preco": 35,
-        "dadoDeDano": "1d8",
-        "alcance": "Médio",
-        "peso": 3,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Simples",
-        "critico": 19,
-        "multiplicador": 2,
-        "descricao": "Um arco montado sobre uma coronha de madeira com um gatilho, a besta leve é uma arma que dispara virotes com grande potência. Recarregar uma besta leve é uma ação de movimento. Exige as duas mãos."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 145,
+      "paginaPdf": 147
     },
-    {
-        "nome": "Virotes (10)",
-        "preco": 1,
-        "dadoDeDano": "—",
-        "alcance": "—",
-        "peso": 0.5,
-        "tipoDano": "—",
-        "tipoArma": "Munição",
-        "critico": 0,
-        "multiplicador": 0,
-        "descricao": "Pequenas setas de madeira que servem como munição para bestas. Uma caixa com 10 virotes custa 1 TP."
+    "propriedades": []
+  },
+  {
+    "nome": "Bordão",
+    "preco": 0,
+    "dadoDeDano": "1d6",
+    "alcance": "Corpo a Corpo",
+    "peso": 2.0,
+    "tipoDano": "Impacto",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Um cajado apreciado por viajantes e camponeses por sua praticidade e fácil acesso (seu preço é zero). O bordão é uma arma dupla. Pode ser usada com Estilo de Duas Armas e poderes similares para fazer ataques adicionais, como se fosse uma arma de uma mão e uma arma leve.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Azagaia",
-        "preco": 1,
-        "dadoDeDano": "1d6",
-        "alcance": "Médio",
-        "peso": 1,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Simples",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Uma lança leve e flexível, própria para arremesso. Pode ser usada como arma corpo a corpo, mas você sofre uma penalidade de –5 no teste de ataque."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 143,
+      "paginaPdf": 145
     },
-    {
-        "nome": "Funda",
-        "preco": 0,
-        "dadoDeDano": "1d4",
-        "alcance": "Médio",
-        "peso": 0.25,
-        "tipoDano": "Impacto",
-        "tipoArma": "Arma Simples",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Uma simples tira de couro usada para arremessar balas de metal. Na falta de munição adequada, pode disparar pedras comuns, mas o dano é reduzido em um passo. Colocar uma bala em uma funda é uma ação de movimento. Ao contrário de outras armas de disparo, você aplica seu modificador de Força a rolagens de dano com uma funda."
+    "dano_tabela": "1d6/1d6",
+    "danos_alternativos": [
+      "1d6",
+      "1d6"
+    ],
+    "propriedades": [
+      "dupla"
+    ]
+  },
+  {
+    "nome": "Pique",
+    "preco": 2.0,
+    "dadoDeDano": "1d8",
+    "alcance": "Corpo a Corpo",
+    "peso": 5.0,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Essencialmente uma lança muito longa. O pique é uma arma de haste. Dobra o alcance natural do atacante, mas não permite atacar um adversário adjacente.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Balas (10)",
-        "preco": 0,
-        "dadoDeDano": "—",
-        "alcance": "—",
-        "peso": 2,
-        "tipoDano": "—",
-        "tipoArma": "Munição",
-        "critico": 0,
-        "multiplicador": 0,
-        "descricao": "Fundas atiram pequenas balas esféricas de metal, que são vendidas em sacos de couro contendo 10 balas por 1 tibar de cobre. Recarregar uma funda com uma bala é uma ação de movimento."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 146,
+      "paginaPdf": 148
     },
-    {
-        "nome": "Escudo leve",
-        "preco": 5,
-        "dadoDeDano": "1d4",
-        "alcance": "Corpo a Corpo",
-        "peso": 3,
-        "tipoDano": "Impacto",
-        "tipoArma": "Arma Marcial",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Se você é proficiente em escudos, pode usar um escudo como uma arma marcial, mas perde seu bônus na Defesa até o próximo turno."
+    "propriedades": [
+      "haste"
+    ]
+  },
+  {
+    "nome": "Tacape",
+    "preco": 0,
+    "dadoDeDano": "1d10",
+    "alcance": "Corpo a Corpo",
+    "peso": 4.0,
+    "tipoDano": "Impacto",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Versão maior e/ou com pregos de uma clava. Não é uma arma elegante, mas faz o serviço.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Machadinha",
-        "preco": 6,
-        "dadoDeDano": "1d6",
-        "alcance": "Corpo a Corpo",
-        "peso": 2,
-        "tipoDano": "Corte",
-        "tipoArma": "Arma Marcial",
-        "critico": 20,
-        "multiplicador": 3,
-        "descricao": "Ferramenta útil para cortar madeira e também inimigos. Uma machadinha pode ser arremessada."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 147,
+      "paginaPdf": 149
     },
-    {
-        "nome": "Cimitarra",
-        "preco": 15,
-        "dadoDeDano": "1d6",
-        "alcance": "Corpo a Corpo",
-        "peso": 2,
-        "tipoDano": "Corte",
-        "tipoArma": "Arma Marcial",
-        "critico": 18,
-        "multiplicador": 2,
-        "descricao": "Espada com a lâmina curva, leve e muito afiada. A cimitarra é uma arma ágil."
+    "propriedades": []
+  },
+  {
+    "nome": "Arco curto",
+    "preco": 30.0,
+    "dadoDeDano": "1d6",
+    "alcance": "Médio",
+    "peso": 1.0,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 3,
+    "descricao": "Uma arma antiga e comum, este arco é usado primariamente como ferramenta de caça, embora seja usado como arma de guerra por milícias, bandidos e exércitos menos equipados. Exige as duas mãos.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Ataque à Distância",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Escudo pesado",
-        "preco": 15,
-        "dadoDeDano": "1d6",
-        "alcance": "Corpo a Corpo",
-        "peso": 7,
-        "tipoDano": "Impacto",
-        "tipoArma": "Arma Marcial",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Se você é proficiente em escudos, pode usar um escudo como uma arma marcial, mas perde seu bônus na Defesa até o próximo turno."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 142,
+      "paginaPdf": 144
     },
-    {
-        "nome": "Espada longa",
-        "preco": 15,
-        "dadoDeDano": "1d8",
-        "alcance": "Corpo a Corpo",
-        "peso": 2,
-        "tipoDano": "Corte",
-        "tipoArma": "Arma Marcial",
-        "critico": 19,
-        "multiplicador": 2,
-        "descricao": "Arma típica de soldados e guerreiros, esta espada de dois gumes tem lâmina reta medindo entre 80cm e 1m."
+    "propriedades": [],
+    "recarga": "Ação livre"
+  },
+  {
+    "nome": "Flechas (20)",
+    "preco": 1.0,
+    "dadoDeDano": "0",
+    "alcance": "Corpo a Corpo",
+    "peso": 1.5,
+    "tipoDano": "—",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Hastes de madeira com ponta metálica e penas para estabilizar o voo, flechas são vendidas em aljavas com 20 unidades. Recarregar um arco com uma flecha é uma ação livre.",
+    "categoria": "Munição",
+    "empunhadura": null,
+    "uso": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Florete",
-        "preco": 20,
-        "dadoDeDano": "1d6",
-        "alcance": "Corpo a Corpo",
-        "peso": 1,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Marcial",
-        "critico": 18,
-        "multiplicador": 2,
-        "descricao": "A lâmina leve e fina desta espada torna a arma muito precisa. O florete é uma arma ágil."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 144,
+      "paginaPdf": 146
     },
-    {
-        "nome": "Machado de batalha",
-        "preco": 10,
-        "dadoDeDano": "1d8",
-        "alcance": "Corpo a Corpo",
-        "peso": 3,
-        "tipoDano": "Corte",
-        "tipoArma": "Arma Marcial",
-        "critico": 20,
-        "multiplicador": 3,
-        "descricao": "Adaptado do machado de lenhador, este não é um instrumento para corte de árvores, mas sim uma arma capaz de causar ferimentos terríveis."
+    "quantidade": 20,
+    "propriedades": []
+  },
+  {
+    "nome": "Besta leve",
+    "preco": 35.0,
+    "dadoDeDano": "1d8",
+    "alcance": "Médio",
+    "peso": 3.0,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Simples",
+    "critico": 19,
+    "multiplicador": 2,
+    "descricao": "Um arco montado sobre uma coronha de madeira com um gatilho, a besta leve é uma arma que dispara virotes com grande potência. Recarregar uma besta leve é uma ação de movimento. Exige as duas mãos.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Ataque à Distância",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Mangual",
-        "preco": 8,
-        "dadoDeDano": "1d8",
-        "alcance": "Corpo a Corpo",
-        "peso": 2.5,
-        "tipoDano": "Impacto",
-        "tipoArma": "Arma Marcial",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Uma haste metálica ligada a uma corrente, que por sua vez é ligada a uma esfera de aço. O mangual pode se enroscar na arma do adversário; você recebe +2 em testes para desarmar."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 142,
+      "paginaPdf": 144
     },
-    {
-        "nome": "Martelo de guerra",
-        "preco": 12,
-        "dadoDeDano": "1d8",
-        "alcance": "Corpo a Corpo",
-        "peso": 2.5,
-        "tipoDano": "Impacto",
-        "tipoArma": "Arma Marcial",
-        "critico": 20,
-        "multiplicador": 3,
-        "descricao": "Outra ferramenta modificada para combate, o martelo de guerra é a arma favorita de quase todos os anões que não usam machados."
+    "propriedades": [],
+    "recarga": "Ação de movimento"
+  },
+  {
+    "nome": "Virotes (10)",
+    "preco": 1.0,
+    "dadoDeDano": "0",
+    "alcance": "Corpo a Corpo",
+    "peso": 0.5,
+    "tipoDano": "—",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Pequenas setas de madeira que servem como munição para bestas. Uma caixa com 10 virotes custa T$ 1.",
+    "categoria": "Munição",
+    "empunhadura": null,
+    "uso": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Picareta",
-        "preco": 8,
-        "dadoDeDano": "1d6",
-        "alcance": "Corpo a Corpo",
-        "peso": 3,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Marcial",
-        "critico": 20,
-        "multiplicador": 4,
-        "descricao": "Usada por mineradores, esta ferramenta quebra pedras com facilidade. Imagine o que pode fazer com carne e osso!"
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 147,
+      "paginaPdf": 149
     },
-    {
-        "nome": "Tridente",
-        "preco": 15,
-        "dadoDeDano": "1d8",
-        "alcance": "Corpo a Corpo",
-        "peso": 2,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Marcial",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "Uma lança com três pontas, favorita de sereias (e outras povos marinhos) e gladiadores."
+    "quantidade": 10,
+    "propriedades": []
+  },
+  {
+    "nome": "Azagaia",
+    "preco": 1.0,
+    "dadoDeDano": "1d6",
+    "alcance": "Médio",
+    "peso": 1.0,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Uma lança leve e flexível, própria para arremesso. Pode ser usada como arma corpo a corpo, mas você sofre uma penalidade de –5 no teste de ataque.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Ataque à Distância",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Alabarda",
-        "preco": 10,
-        "dadoDeDano": "1d10",
-        "alcance": "Corpo a Corpo",
-        "peso": 6,
-        "tipoDano": "Corte",
-        "tipoArma": "Arma Marcial",
-        "critico": 20,
-        "multiplicador": 3,
-        "descricao": "Uma haste de madeira com 2m de comprimento e uma lâmina de machado na ponta. A alabarda é uma arma de haste."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 142,
+      "paginaPdf": 144
     },
-    {
-        "nome": "Alfange",
-        "preco": 75,
-        "dadoDeDano": "2d4",
-        "alcance": "Corpo a Corpo",
-        "peso": 4,
-        "tipoDano": "Corte",
-        "tipoArma": "Arma Marcial",
-        "critico": 18,
-        "multiplicador": 2,
-        "descricao": "Uma versão maior da cimitarra, esta espada de lâmina larga e curva é bastante usada por guerreiros do Deserto da Perdição."
+    "propriedades": [],
+    "arremessavel": true
+  },
+  {
+    "nome": "Funda",
+    "preco": 0,
+    "dadoDeDano": "1d4",
+    "alcance": "Médio",
+    "peso": 0.25,
+    "tipoDano": "Impacto",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Uma simples tira de couro usada para arremessar balas de metal. Na falta de munição adequada, pode disparar pedras comuns, mas o dano é reduzido em um passo. Colocar uma bala em uma funda é uma ação de movimento. Ao contrário de outras armas de disparo, você aplica seu modificador de Força a rolagens de dano com uma funda.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Ataque à Distância",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Gadanho",
-        "preco": 18,
-        "dadoDeDano": "2d4",
-        "alcance": "Corpo a Corpo",
-        "peso": 5,
-        "tipoDano": "Corte",
-        "tipoArma": "Arma Marcial",
-        "critico": 20,
-        "multiplicador": 4,
-        "descricao": "Outra ferramenta agrícola, o gadanho é uma versão maior da foice, para uso com as duas mãos. Foi criada para ceifar cereais, mas também pode ceifar vidas."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 144,
+      "paginaPdf": 146
     },
-    {
-        "nome": "Lança montada",
-        "preco": 10,
-        "dadoDeDano": "1d8",
-        "alcance": "Corpo a Corpo",
-        "peso": 5,
-        "tipoDano": "Perfuração",
-        "tipoArma": "Arma Marcial",
-        "critico": 20,
-        "multiplicador": 2,
-        "descricao": "A lança montada é uma arma de haste. Se você estiver montado, pode usar esta arma com apenas uma mão. Além disso, quando usada numa investida montada, causa +2d8 pontos de dano (estes dados adicionais não são multiplicados em caso de acerto crítico)."
+    "propriedades": [],
+    "recarga": "Ação de movimento"
+  },
+  {
+    "nome": "Balas (10)",
+    "preco": 0.1,
+    "dadoDeDano": "0",
+    "alcance": "Corpo a Corpo",
+    "peso": 2.0,
+    "tipoDano": "—",
+    "tipoArma": "Arma Simples",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Fundas atiram pequenas balas esféricas de metal, que são vendidas em sacos de couro contendo 10 balas por 1 tibar de cobre. Recarregar uma funda com uma bala é uma ação de movimento.",
+    "categoria": "Munição",
+    "empunhadura": null,
+    "uso": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
     },
-    {
-        "nome": "Machado de guerra",
-        "preco": 20,
-        "dadoDeDano": "1d12",
-        "alcance": "Corpo a Corpo",
-        "peso": 6,
-        "tipoDano": "Corte",
-        "tipoArma": "Arma Marcial",
-        "critico": 20,
-        "multiplicador": 3,
-        "descricao": "Este imenso machado com lâmina dupla é uma das armas mais perigosas que existem."
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 142,
+      "paginaPdf": 144
     },
-    {
-        "nome": "Montante",
-        "preco": 50,
-        "dadoDeDano": "2d6",
-        "alcance": "Corpo a Corpo",
-        "peso": 4,
-        "tipoDano": "Corte",
-        "tipoArma": "Arma Marcial",
-        "critico": 19,
-        "multiplicador": 2,
-        "descricao": "Enorme e pesada, esta espada de 1,5m de comprimento é uma arma poderosa."
-    }
+    "quantidade": 10,
+    "propriedades": []
+  },
+  {
+    "nome": "Escudo leve",
+    "preco": 5.0,
+    "dadoDeDano": "1d4",
+    "alcance": "Corpo a Corpo",
+    "peso": 3.0,
+    "tipoDano": "Impacto",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Se você é proficiente em escudos, pode usar um escudo como uma arma marcial, mas perde seu bônus na Defesa até o próximo turno.",
+    "categoria": "Arma",
+    "empunhadura": "Leves",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 144,
+      "paginaPdf": 146
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Machadinha",
+    "preco": 6.0,
+    "dadoDeDano": "1d6",
+    "alcance": "Curto",
+    "peso": 2.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 3,
+    "descricao": "Ferramenta útil para cortar madeira e também inimigos. Uma machadinha pode ser arremessada.",
+    "categoria": "Arma",
+    "empunhadura": "Leves",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 145,
+      "paginaPdf": 147
+    },
+    "propriedades": [],
+    "arremessavel": true
+  },
+  {
+    "nome": "Cimitarra",
+    "preco": 15.0,
+    "dadoDeDano": "1d6",
+    "alcance": "Corpo a Corpo",
+    "peso": 2.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Marcial",
+    "critico": 18,
+    "multiplicador": 2,
+    "descricao": "Espada com a lâmina curva, leve e muito afiada. A cimitarra é uma arma ágil. Pode ser usada com Acuidade com Arma, mesmo não sendo uma arma leve.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 143,
+      "paginaPdf": 145
+    },
+    "propriedades": [
+      "ágil"
+    ]
+  },
+  {
+    "nome": "Escudo pesado",
+    "preco": 15.0,
+    "dadoDeDano": "1d6",
+    "alcance": "Corpo a Corpo",
+    "peso": 7.0,
+    "tipoDano": "Impacto",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Se você é proficiente em escudos, pode usar um escudo como uma arma marcial, mas perde seu bônus na Defesa até o próximo turno.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 144,
+      "paginaPdf": 146
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Espada longa",
+    "preco": 15.0,
+    "dadoDeDano": "1d8",
+    "alcance": "Corpo a Corpo",
+    "peso": 2.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Marcial",
+    "critico": 19,
+    "multiplicador": 2,
+    "descricao": "Arma típica de soldados e guerreiros, esta espada de dois gumes tem lâmina reta medindo entre 80cm e 1m.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 144,
+      "paginaPdf": 146
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Florete",
+    "preco": 20.0,
+    "dadoDeDano": "1d6",
+    "alcance": "Corpo a Corpo",
+    "peso": 1.0,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Marcial",
+    "critico": 18,
+    "multiplicador": 2,
+    "descricao": "A lâmina leve e fina desta espada torna a arma muito precisa. O florete é uma arma ágil. Pode ser usada com Acuidade com Arma, mesmo não sendo uma arma leve.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 144,
+      "paginaPdf": 146
+    },
+    "propriedades": [
+      "ágil"
+    ]
+  },
+  {
+    "nome": "Machado de batalha",
+    "preco": 10.0,
+    "dadoDeDano": "1d8",
+    "alcance": "Corpo a Corpo",
+    "peso": 3.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 3,
+    "descricao": "Adaptado do machado de lenhador, este não é um instrumento para corte de árvores, mas sim uma arma capaz de causar ferimentos terríveis.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 145,
+      "paginaPdf": 147
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Mangual",
+    "preco": 8.0,
+    "dadoDeDano": "1d8",
+    "alcance": "Corpo a Corpo",
+    "peso": 2.5,
+    "tipoDano": "Impacto",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Uma haste metálica ligada a uma corrente, que por sua vez é ligada a uma esfera de aço. O mangual pode se enroscar na arma do adversário; você recebe +2 em testes para desarmar.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 146,
+      "paginaPdf": 148
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Martelo de guerra",
+    "preco": 12.0,
+    "dadoDeDano": "1d8",
+    "alcance": "Corpo a Corpo",
+    "peso": 2.5,
+    "tipoDano": "Impacto",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 3,
+    "descricao": "Outra ferramenta modificada para combate, o martelo de guerra é a arma favorita de quase todos os anões que não usam machados.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 146,
+      "paginaPdf": 148
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Picareta",
+    "preco": 8.0,
+    "dadoDeDano": "1d6",
+    "alcance": "Corpo a Corpo",
+    "peso": 3.0,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 4,
+    "descricao": "Usada por mineradores, esta ferramenta quebra pedras com facilidade. Imagine o que pode fazer com carne e osso!",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 146,
+      "paginaPdf": 148
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Tridente",
+    "preco": 15.0,
+    "dadoDeDano": "1d8",
+    "alcance": "Corpo a Corpo",
+    "peso": 2.0,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Uma lança com três pontas, favorita de sereias (e outras povos marinhos) e gladiadores. Própria para prender as pernas do oponente, fornece +2 em testes para derrubar.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 147,
+      "paginaPdf": 149
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Alabarda",
+    "preco": 10.0,
+    "dadoDeDano": "1d10",
+    "alcance": "Corpo a Corpo",
+    "peso": 6.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 3,
+    "descricao": "Uma haste de madeira com 2m de comprimento e uma lâmina de machado na ponta. A alabarda é uma arma de haste. Dobra o alcance natural do atacante, mas não permite atacar um adversário adjacente.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 142,
+      "paginaPdf": 144
+    },
+    "propriedades": [
+      "haste"
+    ]
+  },
+  {
+    "nome": "Alfange",
+    "preco": 75.0,
+    "dadoDeDano": "2d4",
+    "alcance": "Corpo a Corpo",
+    "peso": 4.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Marcial",
+    "critico": 18,
+    "multiplicador": 2,
+    "descricao": "Uma versão maior da cimitarra, esta espada de lâmina larga e curva é bastante usada por guerreiros do Deserto da Perdição.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 142,
+      "paginaPdf": 144
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Gadanho",
+    "preco": 18.0,
+    "dadoDeDano": "2d4",
+    "alcance": "Corpo a Corpo",
+    "peso": 5.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 4,
+    "descricao": "Outra ferramenta agrícula, o gadanho é uma versão maior da foice, para uso com as duas mãos. Foi criada para ceifar cereais, mas também pode ceifar vidas.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 144,
+      "paginaPdf": 146
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Lança montada",
+    "preco": 10.0,
+    "dadoDeDano": "1d8",
+    "alcance": "Corpo a Corpo",
+    "peso": 5.0,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 3,
+    "descricao": "A lança montada é uma arma de haste. Se você estiver montado, pode usar esta arma com apenas uma mão. Além disso, quando usada numa investida montada, causa +2d8 pontos de dano (estes dados adicionais não são multiplicados em caso de acerto crítico). Dobra o alcance natural do atacante, mas não permite atacar um adversário adjacente.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 145,
+      "paginaPdf": 147
+    },
+    "propriedades": [
+      "haste"
+    ]
+  },
+  {
+    "nome": "Machado de guerra",
+    "preco": 20.0,
+    "dadoDeDano": "1d12",
+    "alcance": "Corpo a Corpo",
+    "peso": 6.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 3,
+    "descricao": "Este imenso machado com lâmina dupla é uma das armas mais perigosas que existem.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 145,
+      "paginaPdf": 147
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Montante",
+    "preco": 50.0,
+    "dadoDeDano": "2d6",
+    "alcance": "Corpo a Corpo",
+    "peso": 4.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Marcial",
+    "critico": 19,
+    "multiplicador": 2,
+    "descricao": "Enorme e pesada, esta espada de 1,5m de comprimento é uma arma poderosa.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 140,
+      "paginaPdf": 142
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 146,
+      "paginaPdf": 148
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Arco longo",
+    "preco": 100.0,
+    "dadoDeDano": "1d8",
+    "alcance": "Médio",
+    "peso": 1.5,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Marcial",
+    "critico": 20,
+    "multiplicador": 3,
+    "descricao": "Este arco reforçado tem a altura de uma pessoa. Ao contrário da versão curta, é primariamente uma arma de guerra. Por ter uma puxada pesada, permite que você aplique seu modificador de Força às rolagens de dano. Exige as duas mãos e não pode ser usado se você estiver em uma montaria.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Ataque à Distância",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 141,
+      "paginaPdf": 143
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 142,
+      "paginaPdf": 144
+    },
+    "propriedades": [],
+    "recarga": "Ação livre"
+  },
+  {
+    "nome": "Besta pesada",
+    "preco": 50.0,
+    "dadoDeDano": "1d12",
+    "alcance": "Médio",
+    "peso": 4.0,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma Marcial",
+    "critico": 19,
+    "multiplicador": 2,
+    "descricao": "Versão maior e mais potente da besta leve. Recarregar uma besta pesada é uma ação padrão. Exige as duas mãos.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Ataque à Distância",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 141,
+      "paginaPdf": 143
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 143,
+      "paginaPdf": 145
+    },
+    "propriedades": [],
+    "recarga": "Ação padrão"
+  },
+  {
+    "nome": "Chicote",
+    "preco": 2.0,
+    "dadoDeDano": "1d3",
+    "alcance": "Corpo a Corpo",
+    "peso": 1.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Exótica",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Você pode atacar um inimigo a até 4,5m com um chicote. Esta arma pode se enroscar nas mãos, pernas ou armas do adversário; você recebe +2 em testes para derrubar ou desarmar. O chicote é uma arma ágil. Pode ser usada com Acuidade com Arma, mesmo não sendo uma arma leve.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 141,
+      "paginaPdf": 143
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 143,
+      "paginaPdf": 145
+    },
+    "propriedades": [
+      "ágil"
+    ]
+  },
+  {
+    "nome": "Espada bastarda",
+    "preco": 35.0,
+    "dadoDeDano": "1d10",
+    "alcance": "Corpo a Corpo",
+    "peso": 3.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Exótica",
+    "critico": 19,
+    "multiplicador": 2,
+    "descricao": "Maior e mais pesada que a espada longa, esta arma poderosa é tradicionalmente usada pelos cavaleiros de Bielefeld. Seu nome vem do fato de que pode ser usada tanto com uma quanto com duas mãos (causando respectivamente 1d10 e 1d12 de dano). Uma espada bastarda é muito grande para ser usada com uma só mão sem treinamento especial; por isso é uma arma exótica. Ela pode ser usada como uma arma marcial de duas mãos.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 141,
+      "paginaPdf": 143
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 144,
+      "paginaPdf": 146
+    },
+    "dano_tabela": "1d10/1d12",
+    "danos_alternativos": [
+      "1d10",
+      "1d12"
+    ],
+    "propriedades": []
+  },
+  {
+    "nome": "Katana",
+    "preco": 100.0,
+    "dadoDeDano": "1d10",
+    "alcance": "Corpo a Corpo",
+    "peso": 2.5,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Exótica",
+    "critico": 19,
+    "multiplicador": 2,
+    "descricao": "A espada tradicional do samurai tem lâmina levemente curva e apenas um gume. A katana é uma arma ágil. É muito grande para ser empunhada com uma só mão sem treinamento especial; por isso, é uma arma exótica. Ela pode ser usada como uma arma marcial de duas mãos. Pode ser usada com Acuidade com Arma, mesmo não sendo uma arma leve.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 141,
+      "paginaPdf": 143
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 145,
+      "paginaPdf": 147
+    },
+    "propriedades": [
+      "ágil"
+    ]
+  },
+  {
+    "nome": "Machado anão",
+    "preco": 30.0,
+    "dadoDeDano": "1d10",
+    "alcance": "Corpo a Corpo",
+    "peso": 4.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Exótica",
+    "critico": 20,
+    "multiplicador": 3,
+    "descricao": "Este poderoso machado é a arma preferida por onze entre dez guerreiros anões. Um machado anão é muito grande para ser usado com uma só mão sem treinamento especial; por isso é uma arma exótica. Ele pode ser usado como uma arma marcial de duas mãos.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 141,
+      "paginaPdf": 143
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 145,
+      "paginaPdf": 147
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Corrente com cravos",
+    "preco": 25.0,
+    "dadoDeDano": "2d4",
+    "alcance": "Corpo a Corpo",
+    "peso": 5.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Exótica",
+    "critico": 19,
+    "multiplicador": 2,
+    "descricao": "Você pode atacar um inimigo a até 4,5m com uma corrente com cravos. Esta arma pode se enroscar nas mãos, pernas ou armas do adversário; você recebe +2 em testes para derrubar ou desarmar. A corrente com cravos é uma arma dupla e ágil. Pode ser usada com Acuidade com Arma, mesmo não sendo uma arma leve. Pode ser usada com Estilo de Duas Armas e poderes similares para fazer ataques adicionais, como se fosse uma arma de uma mão e uma arma leve.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 141,
+      "paginaPdf": 143
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 143,
+      "paginaPdf": 145
+    },
+    "propriedades": [
+      "dupla",
+      "ágil"
+    ]
+  },
+  {
+    "nome": "Machado táurico",
+    "preco": 50.0,
+    "dadoDeDano": "2d8",
+    "alcance": "Corpo a Corpo",
+    "peso": 12.0,
+    "tipoDano": "Corte",
+    "tipoArma": "Arma Exótica",
+    "critico": 20,
+    "multiplicador": 3,
+    "descricao": "Uma haste de 2m de comprimento com uma lâmina extremamente grossa na ponta, esta é uma arma ancestral dos minotauros. Um machado taúrico é muito grande para ser usado sem treinamento especial; por isso, é uma arma exótica. Além disso, por ser pesado e desbalanceado, impõe –1 na Defesa de seu usuário.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Corpo a Corpo",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 141,
+      "paginaPdf": 143
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 146,
+      "paginaPdf": 148
+    },
+    "propriedades": []
+  },
+  {
+    "nome": "Pistola",
+    "preco": 250.0,
+    "dadoDeDano": "2d6",
+    "alcance": "Curto",
+    "peso": 0.5,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma de Fogo",
+    "critico": 19,
+    "multiplicador": 3,
+    "descricao": "A arma de fogo mais comum. Uma pistola conta como uma arma leve para propósitos do poder Estilo de Duas Armas e similares. Recarregar uma pistola é uma ação padrão.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Ataque à Distância",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 141,
+      "paginaPdf": 143
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 146,
+      "paginaPdf": 148
+    },
+    "propriedades": [],
+    "recarga": "Ação padrão"
+  },
+  {
+    "nome": "Munição (10)",
+    "preco": 10.0,
+    "dadoDeDano": "0",
+    "alcance": "Corpo a Corpo",
+    "peso": 2.0,
+    "tipoDano": "—",
+    "tipoArma": "Arma de Fogo",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "Inclui uma bolsa com 10 balas (pequenas esferas de chumbo) e pólvora para 10 tiros de mosquete ou pistola.",
+    "categoria": "Munição",
+    "empunhadura": null,
+    "uso": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 141,
+      "paginaPdf": 143
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 146,
+      "paginaPdf": 148
+    },
+    "quantidade": 10,
+    "propriedades": []
+  },
+  {
+    "nome": "Mosquete",
+    "preco": 500.0,
+    "dadoDeDano": "2d8",
+    "alcance": "Médio",
+    "peso": 0.5,
+    "tipoDano": "Perfuração",
+    "tipoArma": "Arma de Fogo",
+    "critico": 19,
+    "multiplicador": 3,
+    "descricao": "Uma arma de fogo de uso difícil, mas com poder devastador. Recarregar um mosquete é uma ação padrão. Exige as duas mãos.",
+    "categoria": "Arma",
+    "empunhadura": "Duas Mãos",
+    "uso": "Ataque à Distância",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 141,
+      "paginaPdf": 143
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 146,
+      "paginaPdf": 148
+    },
+    "propriedades": [],
+    "recarga": "Ação padrão"
+  },
+  {
+    "nome": "Rede",
+    "preco": 20.0,
+    "dadoDeDano": "0",
+    "alcance": "Curto",
+    "peso": 13.0,
+    "tipoDano": "—",
+    "tipoArma": "Arma Exótica",
+    "critico": 20,
+    "multiplicador": 2,
+    "descricao": "A rede tem pequenos dentes em sua trama e uma corda para controlar os inimigos presos. Se você acertar um ataque com a rede, não causa dano. Em vez disso, a vítima fica enredada (deslocamento reduzido à metade, não pode correr nem fazer investidas e sofre –2 em Defesa e testes de ataque). Enquanto você estiver segurando a corda, sempre que a vítima se mover você pode fazer um teste de Força oposto contra ela como uma reação. Se você passar, a vítima só pode se mover até o limite da corda (alcance curto). A vítima pode se soltar com uma ação completa e um teste de Acrobacia (CD 20). A rede tem 5 pontos de vida e, se rasgar, qualquer criatura enredada se solta automaticamente. A rede só pode ser usada contra criaturas no máximo uma categoria de tamanho maiores que você.",
+    "categoria": "Arma",
+    "empunhadura": "Uma Mão",
+    "uso": "Ataque à Distância",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 141,
+      "paginaPdf": 143
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 146,
+      "paginaPdf": 148
+    },
+    "observacoes": "A linha da rede aparece após armas de fogo na tabela desta prévia; é uma arma de arremesso, não dispara munição. O peso impresso é 13 kg e foi preservado sem presumir errata. A classificação como exótica é uma inferência e precisa de confirmação em uma edição revisada. A classificação como exótica é uma inferência e precisa de confirmação em uma edição revisada.",
+    "propriedades": [],
+    "arremessavel": true,
+    "classificacao_inferida": true
+  }
 ]

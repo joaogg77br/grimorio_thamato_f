@@ -5,25 +5,39 @@
     "tipo_energia": "Negativa",
     "crencas_e_objetivos": "Reverenciar a Tormenta, apregoar a inevitabilidade de sua chegada ao mundo. Praticar a devassidão e perversão. Deturpar tudo que é correto, desfigurar tudo que é normal. Abraçar a agonia, crueldade e loucura.",
     "simbolo_sagrado": "Um olho macabro de íris vertical e cercado de espinhos.",
-    "obrigacoes_e_restricoes": "No início de qualquer cena de ação, role 1d6. Com um resultado ímpar, você fica fascinado na primeira rodada, perdido em devaneios sobre a futilidade da vida.",
+    "obrigacoes_e_restricoes": "Quase todos os cultistas de Aharadak são maníacos insanos, compelidos a praticar os atos mais abomináveis. No entanto, talvez devido à própria natureza alienígena e incompreensível deste deus, uns poucos devotos conseguem se resguardar. Conseguem preservar sua preciosa humanidade, abstendo-se de cometer crimes ou profanações. Ainda assim, o devoto de Aharadak deve pagar um preço. No início de qualquer cena de ação, role 1d6. Com um resultado ímpar, você fica fascinado na primeira rodada, perdido em devaneios sobre a futilidade da vida.",
     "poderes_concedidos": [
       "Afinidade com a Tormenta",
       "Percepção Temporal",
       "Rejeição Divina"
-    ]
+    ],
+    "devotos_permitidos": "Quaisquer. A Tormenta aceita tudo e todos.",
+    "arma_preferida": "Corrente de espinhos",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 96,
+      "paginaPdf": 98
+    }
   },
   {
     "nome": "Allihanna",
-    "descricao": "A Deusa da Natureza representa a bondade inerente ao mundo natural, a pureza das plantas e animais. Mesmo os animais predadores são considerados puros, inocentes — pois matam apenas para sobreviver, ao contrário dos monstros e seres civilizados. A divindade principal dos druidas, Allihanna também é cultuada por povos bárbaros. Estes veneram faces variadas desta deusa, que pode se manifestar como um majestoso animal ou uma criatura quimérica de muitas cabeças.",
+    "descricao": "A Deusa da Natureza representa a bondade inerente ao mundo natural, a pureza das plantas e animais. Mesmo os animais predadores são considerados puros, inocentes — pois matam apenas para sobreviver, ao contrário dos monstros e seres civilizados. A divindade principal dos druidas, Allihanna também é cultuada por povos bárbaros. Estes veneram faces variadas desta deusa, que pode se manifestar como um majestoso animal (diferente para cada culto) ou uma criatura quimérica de muitas cabeças.",
     "tipo_energia": "Positiva",
     "crencas_e_objetivos": "Reverenciar os seres da natureza. Proteger a vida selvagem. Promover harmonia entre a natureza e a civilização. Combater monstros, mortos-vivos e outras criaturas que perturbam o equilíbrio natural.",
     "simbolo_sagrado": "Para bárbaros e outros adoradores de animais, o símbolo corresponde ao respectivo animal. Para outros, uma pequena árvore.",
-    "obrigacoes_e_restricoes": "Devotos de Allihanna não podem usar armaduras e escudos feitos de metal. Assim, você só pode usar armadura acolchoada, armadura de couro, gibão de peles e escudo leve. Devotos de Allihanna não podem descansar em nenhuma comunidade maior que uma aldeia (não perdem seus poderes, mas também não recuperam pontos de vida ou mana).",
+    "obrigacoes_e_restricoes": "Devotos de Allihanna não podem usar armaduras e escudos feitos de metal. Assim, você só pode usar armadura acolchoada, armadura de couro, gibão de peles e escudo leve. Devotos de Allihanna não podem descansar em nenhuma comunidade maior que uma aldeia (não perdem seus poderes, mas também não recuperam pontos de vida ou mana). Por isso, sempre preferem o relento a um quarto de estalagem.",
     "poderes_concedidos": [
       "Dedo Verde",
       "Descanso Natural",
       "Voz da Natureza"
-    ]
+    ],
+    "devotos_permitidos": "Dahllan, elfos, bárbaros, caçadores, druidas.",
+    "arma_preferida": "Bordão",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 97,
+      "paginaPdf": 99
+    }
   },
   {
     "nome": "Arsenal",
@@ -36,7 +50,14 @@
       "Conjurar Arma",
       "Coragem Total",
       "Sangue de Ferro"
-    ]
+    ],
+    "devotos_permitidos": "Bárbaros, cavaleiros, guerreiros, lutadores.",
+    "arma_preferida": "Martelo de guerra",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 98,
+      "paginaPdf": 100
+    }
   },
   {
     "nome": "Azgher",
@@ -49,7 +70,14 @@
       "Espada Solar",
       "Habitante do Deserto",
       "Inimigo de Tenebra"
-    ]
+    ],
+    "devotos_permitidos": "Qareen, arcanistas, bárbaros, caçadores, cavaleiros, guerreiros, nobres, paladinos.",
+    "arma_preferida": "Cimitarra",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 98,
+      "paginaPdf": 100
+    }
   },
   {
     "nome": "Hyninn",
@@ -57,16 +85,23 @@
     "tipo_energia": "Qualquer",
     "crencas_e_objetivos": "Praticar a astúcia e esperteza. Demonstrar que honestidade e sinceridade levam ao fracasso. Desafiar a lei e ordem. Ser vitorioso sem seguir regras. Fazer aos outros antes que façam com você. Levar vantagem em tudo.",
     "simbolo_sagrado": "Uma adaga atravessando uma máscara, ou uma raposa.",
-    "obrigacoes_e_restricoes": "Um devoto de Hyninn não recusa participação em um golpe, trapaça ou artimanha (o que muitas vezes inclui missões para roubar/resgatar tesouros), exceto quando prejudica seus próprios companheiros. O devoto também deve fazer um ato furtivo e ousado por dia (ou por sessão de jogo), como oferenda a Hyninn. Roubar uma bolsa, enganar um miliciano, invadir o quarto de um regente... qualquer coisa proibida e audaciosa (em termos de jogo, uma ação exigindo um teste de Enganação ou Ladinagem com CD mínima 15).",
+    "obrigacoes_e_restricoes": "Um devoto de Hyninn não recusa participação em um golpe, trapaça ou artimanha (o que muitas vezes inclui missões para roubar... hã, resgatar tesouros), exceto quando prejudica seus próprios companheiros. O devoto também deve fazer um ato furtivo e ousado por dia (ou por sessão de jogo), como oferenda a Hyninn. Roubar uma bolsa, enganar um miliciano, invadir o quarto de um regente... qualquer coisa proibida e audaciosa (em termos de jogo, uma ação exigindo um teste de Enganação ou Ladinagem com CD mínima 15).",
     "poderes_concedidos": [
       "Farsa do Fingidor",
       "Forma de Macaco",
       "Golpista Divino"
-    ]
+    ],
+    "devotos_permitidos": "Hynne, goblins, bardos, bucaneiros, ladinos, inventores, nobres.",
+    "arma_preferida": "Adaga",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 98,
+      "paginaPdf": 100
+    }
   },
   {
     "nome": "Kallyadranoch",
-    "descricao": "Como punição imposta por Khalmyr pelo crime de criar a Tormenta, o Deus dos Dragões estava esquecido até poucos anos atrás, conhecido apenas como 'o Terceiro'. Restaurado em tempos recentes durante um combate épico contra os invasores aberrantes, Kallyadranoch agora governa não apenas os dragões, mas todos que cultuam o poder elemental das grandes feras. Além disso, enquanto Wynna representa o lado bondoso e generoso da magia arcana, Kally é cultuado por arcanistas malignos.",
+    "descricao": "Como punição imposta por Khalmyr pelo crime de criar a Tormenta, o Deus dos Dragões estava esquecido até poucos anos atrás, conhecido apenas como “o Terceiro”. Restaurado em tempos recentes durante um combate épico contra os invasores aberrantes, Kallyadranoch agora governa não apenas os dragões, mas todos que cultuam o poder elemental das grandes feras. Além disso, enquanto Wynna representa o lado bondoso e generoso da magia arcana, Kally é cultuado por arcanistas malignos.",
     "tipo_energia": "Negativa",
     "crencas_e_objetivos": "Praticar a soberania. Demonstrar orgulho, superioridade, majestade. Praticar o acúmulo de riquezas. Proteger suas posses e sua dignidade. Ser implacável com seus inimigos. Reverenciar os dragões e suas crias.",
     "simbolo_sagrado": "Escamas de cinco cores diferentes.",
@@ -75,7 +110,14 @@
       "Aura de Medo",
       "Escamas Dracônicas",
       "Servos do Dragão"
-    ]
+    ],
+    "devotos_permitidos": "Arcanistas, cavaleiros, guerreiros, lutadores, nobres.",
+    "arma_preferida": "Lança",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 99,
+      "paginaPdf": 101
+    }
   },
   {
     "nome": "Khalmyr",
@@ -88,33 +130,54 @@
       "Coragem Total",
       "Dom da Verdade",
       "Espada Justiceira"
-    ]
+    ],
+    "devotos_permitidos": "Anões, cavaleiros, guerreiros, nobres, paladinos.",
+    "arma_preferida": "Espada longa",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 99,
+      "paginaPdf": 101
+    }
   },
   {
     "nome": "Lena",
     "descricao": "Mesmo os deuses mais violentos e cruéis são respeitosos com a Deusa Criança, provedora da fertilidade, do sustento, da própria vida. Lena não é venerada apenas por aventureiros necessitados de curas mágicas, mas também por fazendeiros que imploram por colheitas fartas, criadores desejosos de saúde para seus animais e cada grávida prestes a dar à luz. Servida quase exclusivamente por mulheres, a Deusa da Vida oferece os mais poderosos milagres de cura presenciados em Arton.",
     "tipo_energia": "Positiva",
     "crencas_e_objetivos": "Reverenciar e proteger a vida em todas as suas formas. Reverenciar a fecundidade, a maternidade e a infância. Praticar a caridade e o altruísmo. Oferecer clemência, perdão e redenção. Aliviar a dor e o sofrimento físico, mental ou espiritual.",
-    "simbolo_sagrado": "Lua crescent prateada.",
-    "obrigacoes_e_restricoes": "Apenas mulheres podem ser devotas de Lena (exceto raros paladinos homens). Uma devota precisa dar à luz pelo menos uma vez antes de receber seus poderes divinos. Devotas de Lena são proibidas de causar dano com armas ou magias. Em combate, podem apenas proteger ou curar (magias que aumentem o dano causado por seus aliados também são proibidas). Diante de um inimigo superior, podem apenas fugir, render-se ou aceitar a morte. Paladinos de Lena só podem causar dano não letal.",
+    "simbolo_sagrado": "Lua crescente prateada.",
+    "obrigacoes_e_restricoes": "Apenas mulheres podem ser devotas de Lena. Uma devota precisa dar à luz pelo menos uma vez antes de receber seus poderes divinos. A fecundação é um mistério bem guardado pelas sacerdotisas; conta-se que a própria deusa vem semear suas discípulas. Devotas de Lena são proibidas de causar dano com armas ou magias. Em combate, podem apenas proteger ou curar (magias que aumentem o dano causado por seus aliados também são proibidas). Diante de um inimigo superior, podem apenas fugir, render-se ou aceitar a morte; para uma devota de Lena, é preferível perder a própria vida a tirá-la de outros. Os raros paladinos de Lena (únicos devotos masculinos permitidos) têm a permissão de lutar, mas só podem causar dano não letal.",
     "poderes_concedidos": [
       "Ataque Piedoso",
       "Cura Gentil",
       "Curandeira Perfeita"
-    ]
+    ],
+    "devotos_permitidos": "Dahllan, qareen, nobres, paladinos.",
+    "arma_preferida": "Não há. Servos desta deusa não podem lançar a magia Arma Espiritual e similares",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 99,
+      "paginaPdf": 101
+    }
   },
   {
     "nome": "Lin-Wu",
-    "descricao": "Mesmo com a quase extinção de seu povo pela Tormenta, o honrado Deus Samurai nunca fraquejou, nunca perdeu sua dignidade. Hoje, o Império de Jade está livre da tempestade, seus habitantes retornam para a grande reconstrução. Lin-Wu e seu povo sempre serão gratos aos campeões gaijin, por sua amizade e suporte durante os anos de pesadelo. Talvez por esse motivo, conforme especulam seus servos shugenja, devotos de Lin-Wu atuando longe de Tamura recebem poderes diferentes, mais convenientes para suas missões.",
+    "descricao": "Mesmo com a quase extinção de seu povo pela Tormenta, o honrado Deus Samurai nunca fraquejou, nunca perdeu sua dignidade. Hoje, o Império de Jade está livre da tempestade, seus habitantes retornam para a grande reconstrução. Lin-Wu e seu povo sempre serão gratos aos campeões gaijin, por sua amizade e suporte durante os anos de pesadelo. Talvez por esse motivo, conforme especulam seus servos shugenja, devotos de Lin-Wu atuando longe de Tamu-ra recebem poderes diferentes, mais convenientes para suas missões.",
     "tipo_energia": "Qualquer",
     "crencas_e_objetivos": "Promover a honra acima de tudo. Proteger Tamu-ra e o Reinado de Arton. Praticar honestidade, coragem, cortesia e compaixão. Demonstrar integridade e dignidade. Ser leal a seus companheiros. Buscar redenção após cometer desonra.",
     "simbolo_sagrado": "Placa de metal com a silhueta de um dragão-serpente celestial.",
-    "obrigacoes_e_restricoes": "Devotos de Lin-Wu ainda devem demonstrar comportamento honrado, jamais recorrendo a mentiras e subterfúgios. Em termos de jogo, são proibidos de tentar qualquer ação que exigiria um teste de Enganação, Furtividade ou Ladinagem.",
+    "obrigacoes_e_restricoes": "Antigas proibições quanto a devotos estrangeiros ou do gênero feminino não mais se aplicam. No entanto, devotos de Lin-Wu ainda devem demonstrar comportamento honrado, jamais recorrendo a mentiras e subterfúgios. Em termos de jogo, são proibidos de tentar qualquer ação que exigiria um teste de Enganação, Furtividade ou Ladinagem.",
     "poderes_concedidos": [
       "Coragem Total",
       "Kiai Divino",
       "Mente Vazia"
-    ]
+    ],
+    "devotos_permitidos": "Anões, cavaleiros, guerreiros, nobres, paladinos.",
+    "arma_preferida": "Katana",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 100,
+      "paginaPdf": 102
+    }
   },
   {
     "nome": "Marah",
@@ -127,7 +190,14 @@
       "Aura de Paz",
       "Palavras de Bondade",
       "Talento Artístico"
-    ]
+    ],
+    "devotos_permitidos": "Elfos, hynne, qareen, bardos, nobres, paladinos.",
+    "arma_preferida": "Não há. Servos desta deusa não podem lançar a magia Arma Espiritual e similares",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 101,
+      "paginaPdf": 103
+    }
   },
   {
     "nome": "Megalokk",
@@ -140,7 +210,14 @@
       "Olhar Amedrontador",
       "Urro Divino",
       "Voz dos Monstros"
-    ]
+    ],
+    "devotos_permitidos": "Goblins, minotauros, bárbaros, caçadores, druidas, lutadores.",
+    "arma_preferida": "Maça",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 101,
+      "paginaPdf": 103
+    }
   },
   {
     "nome": "Nimb",
@@ -153,7 +230,14 @@
       "Poder Oculto",
       "Sorte dos Loucos",
       "Transmissão da Loucura"
-    ]
+    ],
+    "devotos_permitidos": "Goblins, qareen, bárbaros, bardos, bucaneiros, inventores, ladinos.",
+    "arma_preferida": "Nenhuma e todas! Ao usar um efeito que dependa de arma preferida, qualquer arma (ou outro objeto!) pode aparecer, de acordo com o mestre",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 102,
+      "paginaPdf": 104
+    }
   },
   {
     "nome": "Oceano",
@@ -166,33 +250,54 @@
       "Anfíbio",
       "Arsenal das Profundezas",
       "Mestre dos Mares"
-    ]
+    ],
+    "devotos_permitidos": "Dahllan, minotauros, bárbaros, bucaneiros, caçadores, druidas.",
+    "arma_preferida": "Tridente",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 102,
+      "paginaPdf": 104
+    }
   },
   {
     "nome": "Sszzaas",
-    "descricao": "O sibilante Deus da Traição não é apenas o mais inteligente entre os deuses, mas também o mais perigoso. Tão perigoso que, certa vez, tentou reunir os Rubis da Virtude — vinte gemas de poder contendo a essência de todos os deuses. Chegou a ser expulso do Panteão por esse crime, mas sua astúcia não conhecia limites; Sszzaas conseguiu tramar um novo plano para ser aceito de volta. Hoje, mesmo após a quase extinção de seu culto, os sszzaazitas voltam a se espalhar sobre Arton, agindo em nome do Grande Corruptor. Mas será pragmático ou prudente devotar-se a um Deus da Traição? Apenas os mais ousados e astutos acreditam que sim.",
+    "descricao": "O sibilante Deus da Traição não é apenas o mais inteligente entre os deuses, mas também o mais perigoso. Tão perigoso que, certa vez, tentou reunir os Rubis da Virtude — vinte gemas de poder contendo a essência de todos os deuses. Chegou a ser expulso do Panteão por esse crime, mas sua astúcia não conhecia limites; Sszzaas conseguiu tramar um novo plano para ser aceito de volta. Hoje, mesmo após a quase extinção de seu culto, os sszzaazitas voltam a se espalhar sobre Arton, agindo em nome do Grande Corruptor. Mas será prudente devotar-se a um Deus da Traição? Apenas os mais ousados e astutos acreditam que sim.",
     "tipo_energia": "Negativa",
-    "crencas_e_objetivos": "Praticar a mentira e trapaça. Buscar sempre a solução mais inteligente. Demonstrar que lealdade e confiança são fraquezas, devem ser eliminadas. Promover competição, rivalidade, desconfiança. Usar os recursos do inimigo para alcançar seus objetivos. Levar outros a se sacrificarem em seu lugar.",
+    "crencas_e_objetivos": "Praticar a mentira e trapaça. Buscar sempre a solução mais inteligente. Demonstrar que lealdade e confiança são fraquezas, devem ser eli minadas. Promover competição, rivalidade, desconfiança. Usar os recursos do inimigo para alcançar seus objetivos. Levar outros a se sacrificarem em seu lugar.",
     "simbolo_sagrado": "Uma naja vertendo veneno pelas presas.",
-    "obrigacoes_e_restricoes": "O devoto de Sszzaas deve manter sua devoção em segredo (exceto de outros sszzaazitas). Além disso, deve realizar um ato de intriga, sabotagem ou traição por aventura (ou sessão de jogo), como manipular ou convencer alguém a cometer um crime ou ato ultrajante (por exemplo, convencer um guerreiro a matar um oponente rendido e inofensivo), o que exige um teste de Enganação com CD mínima 15.",
+    "obrigacoes_e_restricoes": "O devoto deve fazer um ato de traição, intriga ou corrupção por dia (ou por sessão de jogo) como oferenda a Sszzaas. Pouco importa se o alvo é aliado ou inimigo — uns poucos sszzaazitas usam seus métodos torpes para ajudar colegas aventureiros em suas missões, às vezes sem que eles próprios saibam. Sugerir a alguém que foi traído pelo cônjuge, influenciar um miliciano a aceitar suborno, instruir um mercador a roubar nos preços, levar alguém a ser culpado de um crime que não cometeu, forjar uma falsificação que incrimina um inocente, enganar um guerreiro para que mate um oponente rendido e inofensivo... em termos de jogo, uma ação exigindo um teste de Enganação com CD mínima 15.",
     "poderes_concedidos": [
       "Astúcia da Serpente",
       "Presas Venenosas",
       "Sangue Ofídico"
-    ]
+    ],
+    "devotos_permitidos": "Arcanistas, bardos, bucaneiros, inventores, ladinos, nobres.",
+    "arma_preferida": "Adaga",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 103,
+      "paginaPdf": 105
+    }
   },
   {
     "nome": "Tanna-Toh",
     "descricao": "Em uma sociedade medieval típica, apenas membros do clero ou da nobreza teriam acesso a boa educação — camponeses jamais saberiam ler e escrever. Não é assim no Reinado de Arton, graças ao empenho da igreja de Tanna-Toh. Devotos da Deusa do Conhecimento atuam como professores, catequistas e pesquisadores, tomando a missão sagrada de levar educação e cultura para todos. Tanna-Toh é amplamente venerada pelos povos civilizados, amada por aqueles que se devotam aos estudos ou artes. Ainda assim, esta deusa é inimiga de povos bárbaros que escolhem permanecer ignorantes e selvagens.",
     "tipo_energia": "Qualquer",
-    "crencas_e_objetivos": "Reverenciar a mente racional, o conhecimento, a civilização, a verdade. Proteger o progresso, o avanço dos povos civilizados. Promover o ensino e a prática das artes e ciências. Solucionar todos os mistérios, revelar todas as mentiras. Buscar novo conhecimento. Não tolerar a ignorância.",
+    "crencas_e_objetivos": "Reverenciar a mente racional, o conhecimento, a civilização, a verdade. Proteger o progresso, o avanço dos povos civilizados. Promover -o ensino e a prática das artes e ciências. Solucionar todos os mistérios, revelar todas as mentiras. Buscar novo conhecimento. Não tolerar a ignorância.",
     "simbolo_sagrado": "Rolo de pergaminho e pena.",
-    "obrigacoes_e_restricoes": "Devotos de Tanna-Toh jamais podem recusar uma missão que envolva a busca por um novo conhecimento ou informação. Além disso, o devoto sempre deve dizer a verdade e nunca pode se recusar a responder uma pergunta, pouco importando as consequências. É totalmente proibido para ele esconder qualquer conhecimento.",
+    "obrigacoes_e_restricoes": "Devotos de Tanna-Toh jamais podem recusar uma missão que envolva a busca por um novo conhecimento ou informação; investigar rumores sobre um livro perdido, procurar uma aldeia lendária, pesquisar os hábitos de uma criatura desconhecida... Além disso, o devoto sempre deve dizer a verdade e nunca pode se recusar a responder uma pergunta, pouco importando as consequências. É totalmente proibido para ele esconder qualquer conhecimento.",
     "poderes_concedidos": [
       "Conhecimento Enciclopédico",
       "Mente Analítica",
       "Voz da Civilização"
-    ]
+    ],
+    "devotos_permitidos": "Golens, kliren, arcanistas, bardos, inventores, nobres, paladinos.",
+    "arma_preferida": "Bordão",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 103,
+      "paginaPdf": 105
+    }
   },
   {
     "nome": "Tenebra",
@@ -205,7 +310,14 @@
       "Carícia Sombria",
       "Manto da Penumbra",
       "Visão nas Trevas"
-    ]
+    ],
+    "devotos_permitidos": "Anões, qareen, osteon, arcanistas, bardos, ladinos.",
+    "arma_preferida": "Adaga",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 104,
+      "paginaPdf": 106
+    }
   },
   {
     "nome": "Thwor",
@@ -218,7 +330,14 @@
       "Fúria Divina",
       "Olhar Amedrontador",
       "Tropas Duyshidakk"
-    ]
+    ],
+    "devotos_permitidos": "Qualquer humanoide (mas veja adiante).",
+    "arma_preferida": "Machado de guerra",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 104,
+      "paginaPdf": 106
+    }
   },
   {
     "nome": "Thyatis",
@@ -231,11 +350,29 @@
       "Dom da Imortalidade",
       "Dom da Profecia",
       "Dom da Verdade"
-    ]
+    ],
+    "devotos_permitidos": "Cavaleiros, guerreiros, inventores, lutadores, paladinos.",
+    "arma_preferida": "Espada longa",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 104,
+      "paginaPdf": 106
+    },
+    "observacoes": "A lista de poderes foi preservada como impressa. Dom da Verdade é atribuído a Khalmyr na descrição do poder, enquanto Dom da Ressurreição é atribuído a Thyatis. A prévia é inconsistente neste ponto.",
+    "poderes_atribuidos_por_descricao": [
+      "Dom da Imortalidade",
+      "Dom da Profecia",
+      "Dom da Ressurreição"
+    ],
+    "fonte_tipo_energia": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 97,
+      "paginaPdf": 99
+    }
   },
   {
     "nome": "Valkaria",
-    "descricao": "A Deusa da Ambição sempre foi a mais ousada entre os seus. Ajudaria a criar os lefeu, a própria Tormenta. Criaria os seres humanos, povo mais impetuoso e beligerante de todos. Acabaria condenada ao cativeiro, até ser resgatada por seus próprios protegidos, elevando ainda mais sua glória. Mas, quando Mestre Arsenal derrotou Keenn para tomar seu lugar como Deus da Guerra, o maior objetivo de Valkaria foi enfim alcançado: um humano superou um deus. Esse evento, e também a morte do antigo líder Tauron, levou os deuses a reconhecerem Valkaria como a nova liderança do Panteão.",
+    "descricao": "A Deusa da Ambição sempre foi a mais ousada entre os seus. Ajudaria a criar os lefeu, a própria Tormenta. Criaria os seres humanos, povo mais impetuoso e beligerante de todos. Acabaria condenada ao cativeiro, até ser resgatada por seus próprios protegidos, elevando ainda mais sua glória (ou teria assim planejado desde o início?). Mas, quando Mestre Arsenal derrotou Keenn para tomar seu lugar como Deus da Guerra, o maior objetivo de Valkaria foi enfim al cançado: um humano superou um deus. Esse evento, e também a morte do antigo líder Tauron, levou os deuses a reconhecerem Valkaria como a nova liderança do Panteão.",
     "tipo_energia": "Positiva",
     "crencas_e_objetivos": "Praticar o otimismo, a evolução, a rebeldia. Desafiar limites, almejar o impossível. Combater o mal, a opressão e a tirania. Proteger a liberdade. Aceitar e adaptar-se ao novo e diferente. Demonstrar ambição, paixão e coragem. Desfrutar e amar a vida.",
     "simbolo_sagrado": "A Estátua de Valkaria ou seis faixas entrelaçadas.",
@@ -244,7 +381,14 @@
       "Armas da Ambição",
       "Coragem Total",
       "Liberdade Divina"
-    ]
+    ],
+    "devotos_permitidos": "Aventureiros; membros de todas as classes podem ser devotos de Valkaria.",
+    "arma_preferida": "Mangual",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 105,
+      "paginaPdf": 107
+    }
   },
   {
     "nome": "Wynna",
@@ -258,6 +402,13 @@
       "Centelha Mágica",
       "Escudo Mágico",
       "Teurgista Místico"
-    ]
+    ],
+    "devotos_permitidos": "Elfos, qareen, sílfides, arcanistas, bardos.",
+    "arma_preferida": "Adaga",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 105,
+      "paginaPdf": 107
+    }
   }
 ]

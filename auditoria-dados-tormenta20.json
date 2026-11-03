@@ -1,0 +1,372 @@
+{
+  "fonte": {
+    "arquivo": "Tormenta 20 — Livro Básico (Trevisan J. M., Rogério saladino etc.) (z-library.sk, 1lib.sk, z-lib.sk).pdf",
+    "paginas_pdf": 295,
+    "versao": "Prévia para apoiadores, 28 de maio de 2020; inclui anexos do playtest.",
+    "escopo": "Catálogos de criação de personagens, poderes, equipamento, magias, perícias e condições. Não inclui catálogo de ameaças, NPCs, cenário ou tesouros mágicos."
+  },
+  "metodo": "Extração do texto digital com Poppler, separação das colunas e dos quadros laterais, comparação de entradas e tabelas com os JSONs anteriores, conferência dirigida das regras e validação de integridade com testes. Metadados novos complementam os campos já consumidos pela aplicação.",
+  "arquivos": [
+    {
+      "arquivo": "armas-tormenta20.json",
+      "antes": 37,
+      "depois": 47,
+      "registros_com_fonte": 47
+    },
+    {
+      "arquivo": "protecoes-tormenta20.json",
+      "antes": 12,
+      "depois": 12,
+      "registros_com_fonte": 12
+    },
+    {
+      "arquivo": "equipamentos-tormenta20.json",
+      "antes": 50,
+      "depois": 52,
+      "registros_com_fonte": 52
+    },
+    {
+      "arquivo": "habilidades-classes-tormenta20.json",
+      "antes": 136,
+      "depois": 384,
+      "registros_com_fonte": 383
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "antes": 151,
+      "depois": 151,
+      "registros_com_fonte": 135
+    },
+    {
+      "arquivo": "habilidades-origens-tormenta20.json",
+      "antes": 35,
+      "depois": 35,
+      "registros_com_fonte": 35
+    },
+    {
+      "arquivo": "habilidades-racas-tormenta20.json",
+      "antes": 54,
+      "depois": 56,
+      "registros_com_fonte": 56
+    },
+    {
+      "arquivo": "racas-tormenta20.json",
+      "antes": 18,
+      "depois": 18,
+      "registros_com_fonte": 18
+    },
+    {
+      "arquivo": "deuses-tormenta20.json",
+      "antes": 20,
+      "depois": 20,
+      "registros_com_fonte": 20
+    },
+    {
+      "arquivo": "magias-tormenta20.json",
+      "antes": 110,
+      "depois": 198,
+      "registros_com_fonte": 198
+    },
+    {
+      "arquivo": "classes-tormentaUPLEVEL20.json",
+      "antes": 14,
+      "depois": 14,
+      "registros_com_fonte": 14
+    },
+    {
+      "arquivo": "tabela-evolucao-classes-tormenta20.json",
+      "antes": 14,
+      "depois": 14,
+      "registros_com_fonte": 14
+    },
+    {
+      "arquivo": "valores-iniciais-classes.json",
+      "antes": 14,
+      "depois": 14,
+      "registros_com_fonte": 14
+    },
+    {
+      "arquivo": "condicoes-tormenta20.json",
+      "antes": 32,
+      "depois": 32,
+      "registros_com_fonte": 32
+    },
+    {
+      "arquivo": "origens-tormenta20.json",
+      "antes": 0,
+      "depois": 35,
+      "registros_com_fonte": 35
+    },
+    {
+      "arquivo": "pericias-tormenta20.json",
+      "antes": 0,
+      "depois": 29,
+      "registros_com_fonte": 29
+    },
+    {
+      "arquivo": "servicos-tormenta20.json",
+      "antes": 0,
+      "depois": 11,
+      "registros_com_fonte": 11
+    },
+    {
+      "arquivo": "modificacoes-itens-tormenta20.json",
+      "antes": 0,
+      "depois": 23,
+      "registros_com_fonte": 23
+    },
+    {
+      "arquivo": "materiais-especiais-tormenta20.json",
+      "antes": 0,
+      "depois": 6,
+      "registros_com_fonte": 6
+    },
+    {
+      "arquivo": "custos-modificacoes-tormenta20.json",
+      "antes": 0,
+      "depois": 6,
+      "registros_com_fonte": 6
+    },
+    {
+      "arquivo": "regras-condicoes-tormenta20.json",
+      "antes": 0,
+      "depois": 1,
+      "registros_com_fonte": 1
+    }
+  ],
+  "nao_localizados": [
+    {
+      "arquivo": "habilidades-classes-tormenta20.json",
+      "nome": "Golpe Elemental",
+      "classe": "Bardo",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Arremesso Múltiplo",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Ataque com Escudo",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Combate Montado",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Estilo de Arma Longa",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Piqueiro",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Resistência Montada",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Costas Largas",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Inventário Organizado",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Medicina",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Cuspir Enxame",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Larva Explosiva",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Legião Aberrante",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Desprezar a Realidade",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Fome de Mana",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Membros Estendidos",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    },
+    {
+      "arquivo": "habilidades-gerais-tormenta20.json",
+      "nome": "Mente Aberrante",
+      "classe": "Geral",
+      "motivo": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
+    }
+  ],
+  "inconsistencias_da_fonte": [
+    {
+      "assunto": "Poderes de Thyatis",
+      "paginas_pdf": [
+        99,
+        107,
+        136
+      ],
+      "descricao": "Tabela e perfil de Thyatis listam Dom da Verdade. A descrição desse poder o atribui a Khalmyr; a descrição de Dom da Ressurreição o atribui a Thyatis. As duas versões e a divergência foram registradas."
+    },
+    {
+      "assunto": "Deflagração de Mana",
+      "paginas_pdf": [
+        183
+      ],
+      "descricao": "O bloco não informa duração. duracao permanece null com observação."
+    },
+    {
+      "assunto": "Água Benta",
+      "paginas_pdf": [
+        152,
+        153
+      ],
+      "descricao": "A descrição está presente, mas o item não está na tabela de preços e pesos. preco e peso permanecem null."
+    },
+    {
+      "assunto": "Rede",
+      "paginas_pdf": [
+        143,
+        148,
+        149
+      ],
+      "descricao": "A linha aparece sob armas de fogo e registra peso de 13 kg. O peso foi preservado; a classificação como arma exótica de arremesso está identificada como inferência."
+    },
+    {
+      "assunto": "Nomes de poderes",
+      "paginas_pdf": [
+        99,
+        126,
+        129,
+        130,
+        132,
+        135,
+        137
+      ],
+      "descricao": "Há variantes entre tabelas e descrições: Armas da Ambição/Armas de Valkaria, Encouraçado/Estilo Encouraçado, Parceiro/Parceiro Animal e nomes de poderes concedidos. Variantes correspondentes receberam aliases; nenhum poder foi duplicado para representar apenas uma variação de nome."
+    },
+    {
+      "assunto": "Navegação",
+      "paginas_pdf": [
+        49,
+        75,
+        124
+      ],
+      "descricao": "As listas de classe de Bucaneiro e Ladino incluem Navegação (Sab), mas o capítulo de perícias descreve Pilotagem (Des). Mantida a lista impressa em vez de presumir equivalência."
+    },
+    {
+      "assunto": "Custos de modificações",
+      "paginas_pdf": [
+        157
+      ],
+      "descricao": "A tabela usa 300/3000/9000/18000/30000/90000 tibares. O exemplo sobre adicionar a terceira modificação cita 2000, incompatível com a diferença da tabela; os dados numéricos seguem a tabela."
+    },
+    {
+      "assunto": "Confusão",
+      "paginas_pdf": [
+        137
+      ],
+      "descricao": "Transmissão da Loucura menciona a magia Confusão, mas não há descrição dessa magia na seção de magias da prévia. Não foi criada uma magia com regras inventadas."
+    }
+  ],
+  "limites": [
+    "Esta revisão não certifica compatibilidade com Jogo do Ano ou erratas posteriores.",
+    "A prévia contém remissões XX e omite os capítulos finais de ameaças, recompensas e cenário; anexos do playtest não equivalem à edição final.",
+    "Não foram inventados valores ausentes. Entradas antigas ausentes da fonte têm fonte null e verificacao explícita.",
+    "Os novos catálogos de serviços, perícias, modificações e materiais são dados estruturados; não foram criadas telas específicas para eles.",
+    "As regras registradas nos dados não implicam automação de todas as habilidades na ficha."
+  ],
+  "validacao": {
+    "json": "Arquivos JSON analisados sem erro de sintaxe.",
+    "testes_focados": {
+      "aprovados": 45,
+      "reprovados": 0
+    },
+    "suite_completa": {
+      "aprovados": 111,
+      "reprovados": 4,
+      "falhas_preexistentes_confirmadas": [
+        "character-random.test.js: salva no nivel 1 com bonus raciais, PV, PM e jogador e abre a ficha criada",
+        "character-random.test.js: informa falha e permite tentar criar novamente",
+        "general-sheet-api.test.js: atualiza contador para zero somente após confirmação do servidor",
+        "general-sheet-api.test.js: salva campos simples como nome/value em vez de strings soltas"
+      ],
+      "comparacao_anterior": "Mesmas falhas reproduzidas em cópia com os dados e os trechos de implementação anteriores à revisão."
+    },
+    "build": "Aprovado; Vite emite aviso de bundle acima de 500 kB.",
+    "navegador_magias": {
+      "desktop": "Aprovado",
+      "mobile": "Aprovado",
+      "cenarios": [
+        "Magia da ficha retornada pela API sem arrays adicionais",
+        "Luz: sete aprimoramentos, incluindo custo zero e restrições",
+        "Curar Ferimentos: dois truques e quatro aprimoramentos",
+        "Controlar o Clima: opção exclusiva de druidas",
+        "Janela acessível acima da navegação e das barras da ficha"
+      ]
+    }
+  },
+  "magias_aprimoramentos": {
+    "magias": 198,
+    "aprimoramentos": 507,
+    "truques": 16,
+    "conferencia": "Comparação por magia entre todos os marcadores de custo/truque do texto digital do PDF e as opções estruturadas.",
+    "opcoes_antes_nao_separadas": [
+      "Controlar o Clima: +1 PM (Apenas Druidas)",
+      "Luz: +0 PM (Apenas Arcanos)",
+      "Luz: +2 PM (Apenas Arcanos)",
+      "Luz: +2 PM (Apenas Divinos)",
+      "Luz: +5 PM (Apenas Divinos)"
+    ],
+    "truques_multiplos": "Curar Ferimentos tem dois truques distintos.",
+    "campos_opcao": [
+      "ordem",
+      "custoAdicional",
+      "restricao",
+      "requisitos",
+      "circuloMinimo",
+      "descricao",
+      "fonte"
+    ]
+  }
+}

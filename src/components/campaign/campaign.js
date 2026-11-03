@@ -98,7 +98,7 @@ export default {
             }
             try {
               const { data } = await getFichasByCampanha(c.id)
-              c.fichas = data?.fichas?.fichas || []
+              c.fichas = data?.fichas?.fichasTormenta || []
             } catch {
               c.fichas = []
             }
@@ -120,7 +120,7 @@ export default {
             nomeCampanha: this.newName.trim(),
             playerMasterId: user.id,
           })
-          const campanha = data?.protecao
+          const campanha = data?.campanha
           this.$store.toasts.push(
             `Campanha "${campanha?.nomeCampanha || this.newName}" criada! Código: ${campanha?.chaveLink}`,
             "success"

@@ -82,13 +82,13 @@ describe("Rolagem de dados", () => {
     expect(state.miniToasts).toEqual([])
   })
 
-  it("serializa corretamente formulas com varios grupos de dados no historico", () => {
+  it("serializa formulas e faces de cada grupo de dados no historico", () => {
     const state = createDice()
     state.suppressToasts = true
     mockRolls([0, 0.5])
     state.executeRoll("1d8+1d4+3", "Dano")
     expect(state.lastResult).toBe(7)
-    expect(state.montarRollString(state.lastRollData)).toBe("1d8+1d4+3 = 7")
+    expect(state.montarRollString(state.lastRollData)).toBe("1d8+1d4+3 · D8 [1] · D4 [3] = 7")
   })
 
   it("espera o popup de 20 natural terminar antes de mostrar o toast", async () => {

@@ -1,4 +1,5 @@
 import { localDB, generateId } from "../../lib/localDB.js"
+import { generalApi } from "../../useApi/generalApi.js"
 import { getFichasByUser, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, getHistoricoByFicha, deleteHistorico } from "../../useApi/index.js"
 import html from "./character.html?raw"
 import { FICHA_PATHS, fichaPath, fichaSection } from "../../lib/routes.js"
@@ -8,39 +9,22 @@ import EQUIPAMENTOS_DATA from "../../data/equipamentos.js"
 import MAGIAS_DATA from "../../data/magias.js"
 import HABILIDADES_DATA from "../../data/habilidades.js"
 import EVOLUCAO_CLASSES from "../../data/evolucao.js"
+import ORIGENS_DATA from "../../../origens-tormenta20.json"
+import DEUSES_DATA from "../../../deuses-tormenta20.json"
 import RACAS_DATA, { limparEmojiRaca, adicionarEmojiRaca } from "../../data/racas.js"
+import { limparEmojiClasse } from "../../data/classes.js"
 import { valoresIniciais } from "../../data/valores-iniciais.js"
+import { detalhesMagia, serializarDescricaoMagia } from "../../lib/spellDetails.js"
 
-const CLASSES = [
-  "Arcanista", "Bárbaro", "Bardo", "Bucaneiro", "Caçador",
-  "Cavaleiro", "Clérigo", "Druida", "Feiticeiro", "Guerreiro",
-  "Inventor", "Ladino", "Lutador", "Nobre", "Paladino",
-]
+const CLASSES = EVOLUCAO_CLASSES.map(classe => classe.classe)
 
-const ORIGENS = [
-  "Acólito", "Amigo dos Animais", "Artesão", "Artista",
-  "Assistente de Laboratório", "Aventureiro", "Caçador de Recompensas",
-  "Capanga", "Cartógrafo", "Charlatão", "Cozinheiro", "Criado",
-  "Curandeiro", "Elegante", "Empregado", "Engenheiro", "Escravo",
-  "Escudeiro", "Estudioso", "Fazendeiro", "Ferreiro", "Forasteiro",
-  "Gladiador", "Guarda", "Herdeiro", "Herói Camponês", "Jogador",
-  "Justiceiro", "Lavrador", "Marinheiro", "Mercador", "Mercenário",
-  "Mendigo", "Mensageiro", "Mestre Artesão", "Mestre Ferreiro",
-  "Militar", "Mineiro", "Nômade", "Órfão", "Pastor", "Pivete",
-  "Político", "Refugiado", "Salteador", "Seguidor", "Selecionado",
-  "Soldado", "Taverneiro", "Trambiqueiro",
-]
+const ORIGENS = ORIGENS_DATA.map(origem => origem.nome)
 
-const RACAS = RACAS_DATA.map(r => r.nome)
+const RACAS = RACAS_DATA.map(r => limparEmojiRaca(r.nome))
 
 const racaDataPorNome = (nome) => RACAS_DATA.find(r => limparEmojiRaca(r.nome).toLowerCase() === limparEmojiRaca(nome).toLowerCase())
 
-const DIVINDADES = [
-  "Aharadak", "Allihanna", "Arsenal", "Azgher", "Glórienn",
-  "Hyninn", "Kallyadranoch", "Khalmyr", "Lena", "Lin-Wu",
-  "Marah", "Megalokk", "Nimb", "Oceano", "Sszzaas",
-  "Tanna-Toh", "Tenebra", "Thyatis", "Valkaria", "Wynna",
-]
+const DIVINDADES = DEUSES_DATA.map(divindade => divindade.nome)
 
 const ATRIBUTOS = ["FOR", "DES", "CON", "INT", "SAB", "CAR"]
 
@@ -142,7 +126,6 @@ function buildEmptyForm() {
     xp_atual: 0,
     xp_max: 1000,
     pericias: periciasObj,
-    proficiencias_poderes: "",
     inventario1: [],
     inventario2: [],
     tibares: 0,
@@ -156,6 +139,28 @@ export default {
     return {
       viewMode: 'list',
       wizardOpen: false,
+      systemPickerOpen: false,
+      systemPickerMode: "manual",
+      systemPickerTrigger: null,
+      generalCreateOpen: false,
+      currentFichaSystem: "tormenta",
+      generalCharacter: { nome: "", jogador: "", armas: [], habilidade: [], pericias: [], defesa: [], historico: [], accounts: [], camposSimples: [] },
+      generalNameEditing: false,
+      generalNameDraft: "",
+      generalNameSaving: false,
+      generalSection: "armas",
+      generalEditorOpen: false,
+      deletingFicha: false,
+      generalEditorType: "",
+      generalEditorIndex: null,
+      generalDraft: {},
+      generalSaving: false,
+      generalLoading: false,
+      generalLoadError: "",
+      generalLoadRequest: 0,
+      generalDiceFormula: "1d20",
+      generalDiceResult: null,
+      generalDiceError: "",
       wizardStep: 1,
       wizardRaca: null,
       wizardNome: "",
@@ -172,6 +177,7 @@ export default {
       wizardRacialChoices: [],
       fichasApi: [],
       searchTerm: '',
+      systemFilter: "todos",
       loading: false,
       creatingFicha: false,
       historicoCarregado: [],
@@ -192,6 +198,12 @@ export default {
       openingFicha: false,
       fichaLoadVersion: 0,
       fichasLoaded: false,
+      fichasRequest: null,
+      fichasRequestUser: null,
+      fichasRequestVersion: 0,
+      fichasLastLoaded: 0,
+      fichasOwnerId: null,
+      fichasError: "",
       editingAttr: null,
       nivelAnterior: 1,
 
@@ -290,20 +302,112 @@ export default {
         return this.hasOpenFicha && this.isFichaRoute
       },
 
+      get isGeneralFicha() {
+        return this.currentFichaSystem === "geral"
+      },
+
+      get generalEditorTitle() {
+        const titles = { armas: "Arma", habilidade: "Habilidade", pericias: "Perícia", defesa: "Defesa", historico: "Registro de histórico", accounts: "Contador", camposSimples: "Campo" }
+        return `${this.generalEditorIndex == null ? "Adicionar" : "Editar"} ${titles[this.generalEditorType] || "elemento"}`
+      },
+
+      get generalEditorFields() {
+        const fields = {
+          armas: [
+            ["nome", "Nome", "text"], ["dadoDeDano", "Dado de dano", "text"], ["alcance", "Alcance", "text"],
+            ["tipoDano", "Tipo de dano", "text"], ["tipoArma", "Tipo de arma", "text"], ["atributo", "Atributo", "text"],
+            ["pericia", "Perícia", "text"], ["preco", "Preço", "number"], ["peso", "Peso", "number"],
+            ["critico", "Crítico", "number"], ["multiplicador", "Multiplicador", "number"], ["descricao", "Descrição", "textarea"],
+            ["equiped", "Arma equipada", "checkbox"],
+          ],
+          habilidade: [["nome", "Nome", "text"], ["custo", "Custo", "number"], ["descricao", "Descrição", "textarea"]],
+          pericias: [["nome", "Nome da perícia", "text"], ["atributo", "Atributo", "text"], ["treino", "Treino", "number"], ["outros", "Outros", "number"]],
+          defesa: [["atributos", "Atributos", "text"], ["outros", "Outros", "number"]],
+          historico: [["value", "Registro", "textarea"]],
+          accounts: [["name", "Nome", "text"], ["currentValue", "Valor atual", "number"], ["maximumValue", "Valor máximo", "number"], ["color", "Cor", "color"], ["accontantType", "Tipo de exibição", "text"]],
+          camposSimples: [["nome", "Nome do campo", "text"], ["value", "Valor", "text"]],
+        }
+        return (fields[this.generalEditorType] || []).map(([key, label, type]) => ({ key, label, type }))
+      },
+
+      get generalSections() {
+        return [
+          { key: "camposSimples", label: "Campos", icon: "text_fields", count: this.generalCharacter.camposSimples.length },
+          { key: "accounts", label: "Contadores", icon: "tune", count: this.generalCharacter.accounts.length },
+          { key: "armas", label: "Armas", icon: "swords", count: this.generalCharacter.armas.length },
+          { key: "habilidade", label: "Habilidades", icon: "auto_awesome", count: this.generalCharacter.habilidade.length },
+          { key: "pericias", label: "Perícias", icon: "psychology", count: this.generalCharacter.pericias.length },
+          { key: "defesa", label: "Defesa", icon: "shield", count: this.generalCharacter.defesa.length },
+          { key: "historico", label: "Histórico", icon: "history", count: this.generalCharacter.historico.length },
+        ]
+      },
+
+      get activeGeneralSection() {
+        const details = {
+          camposSimples: { description: "Adicione campos de texto para personalizar sua ficha. Alterações salvas neste dispositivo.", empty: "Personalize sua ficha", action: "Adicionar campo" },
+          accounts: { description: "Acompanhe vida, energia e outros recursos do personagem.", empty: "Nenhum contador por enquanto", action: "Adicionar contador" },
+          armas: { description: "Organize as armas, o dano e os equipamentos de combate do personagem.", empty: "Seu arsenal começa aqui", action: "Adicionar primeira arma" },
+          habilidade: { description: "Reúna poderes, talentos e habilidades especiais com seus custos e efeitos.", empty: "Nenhuma habilidade por enquanto", action: "Adicionar habilidade" },
+          pericias: { description: "Defina as perícias, os atributos associados e os bônus do personagem.", empty: "Quais são seus talentos?", action: "Adicionar perícia" },
+          defesa: { description: "Configure os atributos e modificadores usados na defesa do personagem.", empty: "Defina sua defesa", action: "Configurar defesa" },
+          historico: { description: "Registre acontecimentos, descobertas e momentos da sua aventura.", empty: "Uma história para escrever", action: "Criar primeiro registro" },
+        }
+        return { ...this.generalSections.find(section => section.key === this.generalSection), ...details[this.generalSection] }
+      },
+
+      loadGeneralElements(ficha) {
+        const defaults = {
+          armas: Array.isArray(ficha.armas) ? ficha.armas.map(item => ({ ...item })) : [],
+          habilidade: Array.isArray(ficha.habilidade) ? ficha.habilidade.map(item => ({ ...item })) : [],
+          pericias: Array.isArray(ficha.pericias) ? ficha.pericias.map(item => ({ ...item })) : [],
+          defesa: Array.isArray(ficha.defesa) ? ficha.defesa.map(item => ({ ...item })) : [],
+          accounts: Array.isArray(ficha.accounts) ? ficha.accounts.map(item => ({ ...item, currentValue: item.currentValue ?? item.value ?? 0, maximumValue: item.maximumValue ?? 0, color: item.color || "#b4233c" })) : [],
+          camposSimples: Array.isArray(ficha.camposSimples) ? ficha.camposSimples.filter(item => item && typeof item === "object").map(item => ({ ...item, value: String(item.value ?? "") })) : [],
+          historico: Array.isArray(ficha.historico) ? ficha.historico.map(item => ({ ...item })) : [],
+        }
+        try {
+          const saved = JSON.parse(localStorage.getItem(`grimorio_general_ficha_${ficha.id}`) || "null")
+          if (saved && typeof saved === "object") {
+            for (const key of Object.keys(defaults)) {
+              if (Array.isArray(saved[key])) {
+                if (["pericias", "habilidade", "accounts", "camposSimples"].includes(key)) {
+                  defaults[key].push(...saved[key].filter(item => item && (!item.id || item._generalLocal)).map(item => key === "accounts" ? ({ ...item, currentValue: item.currentValue ?? item.value ?? 0, maximumValue: item.maximumValue ?? 0, color: item.color || "#b4233c", _generalLocal: true }) : ({ ...item, _generalLocal: true })))
+                } else defaults[key] = saved[key]
+              }
+            }
+          }
+        } catch (err) {
+          console.warn("Não foi possível carregar elementos locais da ficha geral.", err)
+        }
+        return defaults
+      },
+
+      saveGeneralElements() {
+        if (!this.selectedCharId) return
+        const { armas, habilidade, pericias, defesa, historico, accounts, camposSimples } = this.generalCharacter
+        try {
+          localStorage.setItem(`grimorio_general_ficha_${this.selectedCharId}`, JSON.stringify({ armas, defesa, historico, camposSimples: camposSimples.filter(item => !this.isGeneralRemoteElement(item)), habilidade: habilidade.filter(item => !this.isGeneralRemoteElement(item)), pericias: pericias.filter(item => !this.isGeneralRemoteElement(item)), accounts: accounts.filter(item => !this.isGeneralRemoteElement(item)) }))
+        } catch (err) {
+          console.warn("Não foi possível guardar elementos locais da ficha geral.", err)
+          this.$store.toasts.push("Não foi possível guardar as alterações neste dispositivo.", "error")
+        }
+      },
+
       get isFichaRoute() {
         return this.$router.is(...FICHA_PATHS)
       },
 
       get fichasFiltradas() {
         const term = this.searchTerm.toLowerCase().trim()
-        console.log("fichaApi em fichasfiltradas", this.fichasApi)
-        if (!term) return this.fichasApi
-        return this.fichasApi.filter(f =>
-          (f.nomePersonagem || '').toLowerCase().includes(term) ||
-          (f.classe || '').toLowerCase().includes(term) ||
-          (f.nomeJogador || '').toLowerCase().includes(term) ||
-          limparEmojiRaca(f.raca).toLowerCase().includes(term)
-        )
+        return this.fichasApi.filter(f => {
+          const sistema = f.sistema || "tormenta"
+          if (this.systemFilter !== "todos" && sistema !== this.systemFilter) return false
+          if (!term) return true
+          return (f.nomePersonagem || '').toLowerCase().includes(term) ||
+            (f.classe || '').toLowerCase().includes(term) ||
+            (f.nomeJogador || '').toLowerCase().includes(term) ||
+            limparEmojiRaca(f.raca || '').toLowerCase().includes(term)
+        })
       },
 
       get armasFiltradas() {
@@ -491,13 +595,21 @@ export default {
 
       async init() {
         this.syncSheetBackgroundState()
-        this.$watch("$router.path + '?' + ($router.query.id || '')", () => this.syncCharacterRoute())
+        this.$watch("$router.path + '?' + ($router.query.id || '') + ':' + ($router.query.sistema || '')", () => this.syncCharacterRoute())
         this.$watch("form", () => {
           this.scheduleAutoSave()
         })
         this.$watch("viewMode", () => this.syncSheetBackgroundState())
         this.$watch("selectedCharId", () => this.syncSheetBackgroundState())
         this.$watch('$store.auth.user', async (user) => {
+          if (this.fichasOwnerId === user?.id) return
+          this.fichasRequestVersion++
+          this.fichasRequest = null
+          this.fichasRequestUser = null
+          this.fichasOwnerId = user?.id || null
+          this.fichasApi = []
+          this.loading = false
+          this.fichasError = ""
           this.fichasLoaded = false
           if (user) {
             await this.carregarFichas()
@@ -511,6 +623,16 @@ export default {
           }
         })
         if (typeof window !== "undefined") {
+          window.addEventListener("general-dice-result", e => {
+            const { fichaId, result, value, error } = e.detail || {}
+            if (!this.isGeneralFicha || !this.selectedCharId || String(fichaId) !== String(this.selectedCharId)) return
+            this.generalDiceError = error || ""
+            this.generalDiceResult = result || null
+            if (value) {
+              this.generalCharacter.historico.unshift({ value })
+              this.saveGeneralElements()
+            }
+          })
           window.addEventListener("historico-atualizado", (e) => {
             const { fichaId } = e.detail || {}
             if (fichaId && Number(fichaId) === Number(this.selectedCharId)) {
@@ -536,13 +658,15 @@ export default {
         if (!this.isFichaRoute) {
           if (this.selectedCharId) await this.sairDaFicha({ navigate: false })
           else this.viewMode = "list"
+          if (this.$router.is('/personagens') && !this.loading && (!this.fichasLoaded || Date.now() - this.fichasLastLoaded > 30000)) await this.carregarFichas()
           return
         }
         const section = fichaSection(this.$router)
         const id = this.$router.query.id
-        if (this.selectedCharId && (!id || String(this.selectedCharId) === String(id))) {
+        const sistema = this.$router.query.sistema === "geral" ? "geral" : "tormenta"
+        if (this.selectedCharId && (!id || (String(this.selectedCharId) === String(id) && this.currentFichaSystem === sistema))) {
           this.openFichaSection(section, { updateRoute: false })
-          if (!id) this.$router.replace(fichaPath(section, this.selectedCharId))
+          if (!id) this.$router.replace(fichaPath(section, this.selectedCharId, this.currentFichaSystem))
           return
         }
         if (!this.fichasLoaded || !this.$store.auth.user) return
@@ -551,50 +675,82 @@ export default {
           if (!await this.sairDaFicha({ navigate: false })) return
           if (this.$router.resolve() !== destination) return
         }
-        const ficha = this.fichasApi.find(item => String(item.id) === String(id))
+        const ficha = this.fichasApi.find(item => String(item.id) === String(id) && (item.sistema || "tormenta") === sistema)
         if (ficha) await this.abrirFicha(ficha, { updateRoute: false })
         else this.$router.replace("/personagens")
       },
 
       navigateCharacterRoute(section = this.activeTab) {
-        this.$router.push(fichaPath(section, this.selectedCharId))
+        this.$router.push(fichaPath(section, this.selectedCharId, this.currentFichaSystem))
       },
 
       async carregarFichas() {
         const user = this.$store.auth.user
         if (!user) return
-        this.loading = true
-        try {
-          const { data } = await getFichasByUser(user.id)
-          if (this.$store.auth.user?.id !== user.id) return
-          console.log('API response:', JSON.stringify(data))
-          console.log("fichas Filtradas em carregar Fichas", this.fichasApi, data?.data)
-          this.fichasApi = data?.data || []
-        } catch (err) {
-          if (this.$store.auth.user?.id !== user.id) return
-          console.error('Erro ao carregar fichas:', err)
+        if (this.fichasRequest && this.fichasRequestUser === user.id) return this.fichasRequest
+        if (this.fichasOwnerId !== user.id) {
           this.fichasApi = []
-          this.$store.toasts.push("Erro ao carregar fichas.", "error")
-        } finally {
-          this.loading = false
-          this.fichasLoaded = true
+          this.fichasLoaded = false
+          this.fichasOwnerId = user.id
         }
+        const version = ++this.fichasRequestVersion
+        this.loading = true
+        this.fichasError = ""
+        this.fichasRequestUser = user.id
+        this.fichasRequest = (async () => {
+          try {
+            const { data } = await getFichasByUser(user.id)
+            if (this.$store.auth.user?.id !== user.id || version !== this.fichasRequestVersion) return
+            this.fichasApi = Array.isArray(data?.data) ? data.data : []
+            this.fichasLastLoaded = Date.now()
+            this.fichasLoaded = true
+          } catch (err) {
+            if (this.$store.auth.user?.id !== user.id || version !== this.fichasRequestVersion) return
+            console.error('Erro ao carregar fichas:', err)
+            this.fichasError = this.fichasApi.length ? "Não foi possível atualizar as fichas. Seus personagens continuam abaixo." : "Não foi possível carregar seus personagens."
+          } finally {
+            if (version === this.fichasRequestVersion) {
+              this.loading = false
+              this.fichasRequest = null
+              this.fichasRequestUser = null
+            }
+          }
+        })()
+        return this.fichasRequest
       },
 
       async abrirFicha(ficha, { updateRoute = true } = {}) {
-        if (this.leavingFicha) return
+        if (this.leavingFicha || this.generalSaving) return
+        this.generalEditorOpen = false
         const loadVersion = ++this.fichaLoadVersion
         this.openingFicha = true
         this.autoSaveSuspended = true
         this.clearAutoSaveTimer()
         this.selectedCharId = ficha.id
+        this.currentFichaSystem = ficha.sistema || "tormenta"
+        const generalElements = this.currentFichaSystem === "geral" ? this.loadGeneralElements(ficha) : null
+        this.generalCharacter = {
+          nome: ficha.nomePersonagem || "",
+          jogador: ficha.nomeJogador || "",
+          armas: generalElements?.armas || [],
+          habilidade: generalElements?.habilidade || [],
+          pericias: generalElements?.pericias || [],
+          defesa: generalElements?.defesa || [],
+          historico: generalElements?.historico || [],
+          accounts: generalElements?.accounts || [],
+          camposSimples: generalElements?.camposSimples || [],
+        }
+        this.generalSection = "armas"
+        this.generalDiceResult = null
+        this.generalDiceError = ""
+        this.generalDiceFormula = "1d20"
         this.form = {
           id: ficha.id,
           nome: ficha.nomePersonagem || '',
           jogador: ficha.nomeJogador || '',
           raca: adicionarEmojiRaca(ficha.raca) || '',
           origem: ficha.origem || '',
-          classe: ficha.classe || '',
+          classe: limparEmojiClasse(ficha.classe),
           nivel: ficha.nivel || 1,
           divindade: ficha.divindade || '',
           atributos: {
@@ -626,7 +782,6 @@ export default {
           xp_atual: 0,
           xp_max: 1000,
           pericias: this.buildPericiasFromFicha(ficha),
-          proficiencias_poderes: '',
           inventario1: [],
           inventario2: [],
           tibares: this.toNum(ficha.tibao, this.toNum(ficha.tibares, 0)),
@@ -642,7 +797,15 @@ export default {
         this.expandedHabilidadeCarregadaId = null
         this.expandedAtaqueArmaId = null
         if (updateRoute) this.navigateCharacterRoute(this.activeTab)
-        await Promise.all([
+        if (this.currentFichaSystem === "geral") {
+          this.armasCarregadas = []
+          this.protecoesCarregadas = []
+          this.equipamentosCarregados = []
+          this.magiasCarregadas = []
+          this.habilidadesCarregadas = []
+          this.historicoCarregado = []
+          await this.loadGeneralRemoteElements()
+        } else await Promise.all([
           this.loadArmasFicha(),
           this.loadProtecoesFicha(),
           this.loadEquipamentosFicha(),
@@ -674,8 +837,9 @@ export default {
       },
 
       async sairDaFicha({ navigate = true } = {}) {
+        if (this.isGeneralFicha && this.generalSaving) return false
         if (this.leavingFicha) return false
-        const returnPath = fichaPath(this.activeTab, this.selectedCharId)
+        const returnPath = fichaPath(this.activeTab, this.selectedCharId, this.currentFichaSystem)
         let hasPendingChanges = Boolean(this.autoSaveTimer) || ["editando", "erro"].includes(this.autoSaveState) || this.autoSaveQueued
         this.leavingFicha = true
         this.clearAutoSaveTimer()
@@ -720,7 +884,6 @@ export default {
         this.magiasCarregadas = []
         this.habilidadesCarregadas = []
         this.historicoCarregado = []
-        this.carregarFichas()
         if (navigate) this.$router.push("/personagens")
       },
 
@@ -733,7 +896,44 @@ export default {
         this.sectionMenuOpen = false
       },
 
-      abrirWizard() {
+      abrirWizard(mode = "manual") {
+        this.systemPickerTrigger = typeof document !== "undefined" ? document.activeElement : null
+        this.systemPickerMode = mode
+        this.systemPickerOpen = true
+        this.$nextTick(() => this.$refs?.systemPicker?.focus())
+      },
+
+      closeSystemPicker() {
+        this.systemPickerOpen = false
+        this.$nextTick(() => this.systemPickerTrigger?.focus())
+      },
+
+      trapSystemPickerFocus(event) {
+        const modal = this.$refs.systemPicker
+        const buttons = [...modal.querySelectorAll('button:not(:disabled)')]
+        const first = buttons[0], last = buttons[buttons.length - 1]
+        if (event.shiftKey && (document.activeElement === first || document.activeElement === modal)) {
+          event.preventDefault()
+          last?.focus()
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault()
+          first?.focus()
+        }
+      },
+
+      escolherSistemaPersonagem(sistema) {
+        if (this.systemPickerMode === "aleatorio") {
+          this.systemPickerMode = "manual"
+          this.systemPickerOpen = false
+          if (sistema === "geral") return this.criarFichaGeralAleatoria()
+          return this.criarPersonagemAleatorio()
+        }
+        this.systemPickerOpen = false
+        if (sistema === "geral") {
+          this.generalCharacter = { nome: "", jogador: this.$store.auth.user?.name || "", armas: [], habilidade: [], pericias: [], defesa: [], historico: [], accounts: [], camposSimples: [] }
+          this.generalCreateOpen = true
+          return
+        }
         this.wizardOpen = true
         this.wizardStep = 1
         this.wizardRaca = null
@@ -751,10 +951,256 @@ export default {
         this.wizardOpen = false
       },
 
+      openGeneralEditor(type, item = null, index = null) {
+        if (this.generalSaving) return
+        const defaults = {
+          armas: { nome: "", preco: 0, dadoDeDano: "", alcance: "", peso: 0, tipoDano: "", tipoArma: "", critico: 20, multiplicador: 2, atributo: "", descricao: "", pericia: "", equiped: false },
+          habilidade: { nome: "", descricao: "", custo: null },
+          pericias: { nome: "", atributo: "", treino: 0, outros: 0 },
+          defesa: { atributos: "", outros: 0 },
+          historico: { value: "" },
+          accounts: { name: "", currentValue: 0, maximumValue: 0, color: "#b4233c", accontantType: "bar" },
+          camposSimples: { nome: "", value: "" },
+        }
+        this.generalEditorType = type
+        this.generalEditorIndex = index
+        this.generalDraft = { ...defaults[type], ...(item || {}) }
+        this.generalEditorOpen = true
+        this.$nextTick(() => this.$refs.generalEditor?.focus())
+      },
+
+      isGeneralRemoteElement(item) {
+        return Number.isInteger(item?.id) && item.id > 0 && !item._generalLocal
+      },
+
+      limparNomeClasse(nome) {
+        return limparEmojiClasse(nome)
+      },
+
+      async loadGeneralRemoteElements() {
+        const fichaId = this.selectedCharId
+        const character = this.generalCharacter
+        const request = ++this.generalLoadRequest
+        this.generalLoading = true
+        this.generalLoadError = ""
+          const types = ["pericias", "habilidade", "accounts", "camposSimples"]
+        const results = await Promise.allSettled(types.map(type => generalApi.list(type, fichaId)))
+        if (request !== this.generalLoadRequest) return
+        this.generalLoading = false
+        if (this.generalCharacter !== character || !this.isGeneralFicha) return
+        const failed = []
+        results.forEach((result, index) => {
+          const type = types[index]
+          if (result.status === "fulfilled") {
+          const drafts = character[type].filter(item => !this.isGeneralRemoteElement(item))
+            character[type] = [...result.value, ...drafts]
+          } else failed.push({ pericias: "perícias", habilidade: "habilidades", accounts: "contadores", camposSimples: "campos" }[type])
+        })
+        if (failed.length) this.generalLoadError = `Não foi possível carregar: ${failed.join(", ")}. Tente novamente.`
+      },
+
+      async saveGeneralElement() {
+        if (this.generalSaving) return
+        const type = this.generalEditorType
+        const index = this.generalEditorIndex
+        let item = { ...this.generalDraft }
+        const name = type === "accounts" ? item.name : item.nome
+        if (type === "historico" ? !item.value?.trim() : type !== "defesa" && !name?.trim()) {
+          this.$store.toasts.push("Preencha o nome ou conteúdo antes de adicionar.", "error")
+          return
+        }
+        for (const field of this.generalEditorFields) {
+          if (field.type === "number") {
+            item[field.key] = item[field.key] === "" || item[field.key] == null ? (field.key === "custo" ? null : 0) : Number(item[field.key])
+            if (item[field.key] != null && (!Number.isFinite(item[field.key]) || (field.key !== "peso" && !Number.isInteger(item[field.key])))) {
+              this.$store.toasts.push("Informe valores numéricos válidos.", "error")
+              return
+            }
+          }
+        }
+        if (type === "pericias" && !item.atributo?.trim()) {
+          this.$store.toasts.push("Informe o atributo da perícia.", "error")
+          return
+        }
+        const character = this.generalCharacter
+        this.generalSaving = true
+        try {
+          if (["pericias", "habilidade", "accounts", "camposSimples"].includes(type)) {
+            const payload = Object.fromEntries(this.generalEditorFields.map(field => [field.key, item[field.key]]))
+            item = await generalApi.save(type, this.selectedCharId, payload, this.isGeneralRemoteElement(item) ? item.id : null)
+          } else item.id ??= generateId()
+          if (this.generalCharacter !== character) return
+          if (type === "defesa") character.defesa = [item]
+          else if (index == null) character[type].push(item)
+          else character[type].splice(index, 1, item)
+          this.saveGeneralElements()
+          this.generalEditorOpen = false
+          this.$store.toasts.push("Elemento salvo na ficha.", "success")
+        } catch (err) {
+          this.$store.toasts.push(err.response?.data?.ErrorMessage || "Não foi possível salvar. Suas alterações continuam no formulário.", "error")
+        } finally {
+          this.generalSaving = false
+        }
+      },
+
+      async removeGeneralElement(type, index) {
+        if (this.generalSaving) return
+        const character = this.generalCharacter
+        const item = character[type][index]
+        if (!item) return
+        if (type === "pericias" && this.isGeneralRemoteElement(item)) {
+          this.$store.toasts.push("A exclusão de perícias ainda não está disponível.", "info")
+          return
+        }
+        this.generalSaving = true
+        try {
+          if (["habilidade", "accounts", "camposSimples"].includes(type) && this.isGeneralRemoteElement(item)) await generalApi.remove(type, item.id)
+          if (this.generalCharacter !== character) return
+          character[type].splice(index, 1)
+          this.saveGeneralElements()
+        } catch (err) {
+          this.$store.toasts.push(err.response?.data?.ErrorMessage || "Não foi possível remover o elemento.", "error")
+        } finally {
+          this.generalSaving = false
+        }
+      },
+
+      async changeGeneralAccount(item, currentValue, field = "currentValue") {
+        if (this.generalSaving) return
+        const number = Number(currentValue)
+        if (!Number.isInteger(number) || currentValue === "") {
+          this.$store.toasts.push("Informe um valor inteiro.", "error")
+          return
+        }
+        const character = this.generalCharacter
+        this.generalSaving = true
+        try {
+          if (this.isGeneralRemoteElement(item)) {
+            const saved = await generalApi.save("accounts", this.selectedCharId, { [field]: number }, item.id)
+            if (this.generalCharacter === character) Object.assign(item, saved)
+          } else {
+            item[field] = number
+            this.saveGeneralElements()
+          }
+        } catch (err) {
+          this.$store.toasts.push("Não foi possível atualizar o contador.", "error")
+        } finally {
+          this.generalSaving = false
+        }
+      },
+
+      editarNomeFichaGeral() {
+        this.generalNameDraft = this.generalCharacter.nome || ""
+        this.generalNameEditing = true
+        this.$nextTick(() => this.$refs.generalNameInput?.focus())
+      },
+
+      async salvarNomeFichaGeral() {
+        const nome = this.generalNameDraft.trim()
+        if (!nome) {
+          this.$store.toasts.push("Informe o nome do personagem.", "error")
+          return
+        }
+        if (nome.length > 100) {
+          this.$store.toasts.push("O nome deve ter até 100 caracteres.", "error")
+          return
+        }
+        this.generalNameSaving = true
+        try {
+          const { data } = await updateFicha(this.selectedCharId, { nomePersonagem: nome }, "geral")
+          this.generalCharacter.nome = data?.fichaGeral?.nomePersonagem || nome
+          const ficha = this.fichasApi.find(item => String(item.id) === String(this.selectedCharId))
+          if (ficha) ficha.nomePersonagem = this.generalCharacter.nome
+          this.generalNameEditing = false
+          this.$store.toasts.push("Nome do personagem atualizado.", "success")
+        } catch (err) {
+          this.$store.toasts.push(err.response?.data?.ErrorMessage || "Não foi possível atualizar o nome.", "error")
+        } finally {
+          this.generalNameSaving = false
+        }
+      },
+
+      rollGeneralDice() {
+        if (!this.selectedCharId || !this.isGeneralFicha) return
+        if (!this.generalDiceFormula.trim()) {
+          this.generalDiceError = "Informe uma fórmula, como 1d20+3."
+          return
+        }
+        window.dispatchEvent(new CustomEvent("roll-dice", {
+          detail: { formula: this.generalDiceFormula.trim(), label: "Rolagem de dados", fichaId: this.selectedCharId, sistema: "geral" },
+        }))
+      },
+
+      async criarFichaGeral() {
+        const user = this.$store.auth.user
+        if (!user) return
+        const nomePersonagem = this.generalCharacter.nome.trim() || "Personagem sem Nome"
+        this.creatingFicha = true
+        try {
+          const { data } = await createFicha({
+            jogadorId: user.id,
+            nomePersonagem,
+            nomeJogador: this.generalCharacter.jogador.trim() || user.name || "Jogador",
+          }, "geral")
+          this.generalCreateOpen = false
+          await this.carregarFichas()
+          const idCriada = data?.fichaGeral?.id
+          const criada = idCriada
+            ? this.fichasApi.find(ficha => String(ficha.id) === String(idCriada))
+            : this.fichasApi.find(ficha => ficha.sistema === "geral" && ficha.nomePersonagem === nomePersonagem)
+          if (criada) this.abrirFicha(criada)
+          else this.$store.toasts.push(data?.message || "Ficha geral criada com sucesso!", "success")
+        } catch (err) {
+          console.error("Erro ao criar ficha geral:", err)
+          this.$store.toasts.push("Não foi possível criar a ficha geral.", "error")
+        } finally {
+          this.creatingFicha = false
+        }
+      },
+
+      async criarFichaGeralAleatoria() {
+        const user = this.$store.auth.user
+        if (!user || this.creatingFicha || this.openingFicha || this.selectedCharId) return
+        const sortear = lista => lista[Math.floor(Math.random() * lista.length)]
+        const nomePersonagem = `${sortear(NOMES_ALEATORIOS)} ${sortear(SOBRENOMES_ALEATORIOS)}`
+        const campos = [
+          { nome: "Conceito", value: sortear(["Aventureiro", "Pesquisador", "Sobrevivente", "Viajante"]) },
+          { nome: "Origem", value: sortear(["Terras distantes", "Uma cidade antiga", "Uma comunidade isolada", "Sem memória da origem"]) },
+          { nome: "Objetivo", value: sortear(["Encontrar respostas", "Proteger alguém", "Descobrir novos lugares", "Recomeçar"]) },
+          { nome: "Afiliação", value: sortear(["Sem afiliação", "Uma guilda local", "Um grupo independente", "Uma ordem antiga"]) },
+          { nome: "Anotação", value: sortear(["Carrega um segredo", "Tem um contato importante", "Procura um artefato", "Evita falar do passado"]) },
+        ]
+        const paleta = ["#b4233c", "#2563eb", "#15803d", "#9333ea", "#d97706"]
+        const contas = ["Vida", "Energia", "Mana", "Fôlego", "Sanidade"].map((name, index) => {
+          const maximumValue = sortear([10, 12, 20, 30, 50])
+          return { name, currentValue: Math.floor(Math.random() * (maximumValue + 1)), maximumValue, color: paleta[index], accontantType: "bar" }
+        })
+        this.creatingFicha = true
+        try {
+          const { data } = await createFicha({ jogadorId: user.id, nomePersonagem, nomeJogador: user.name || "Jogador" }, "geral")
+          const fichaId = data?.fichaGeral?.id
+          if (!fichaId) throw new Error("A ficha geral não foi retornada pela API")
+          const resultados = await Promise.allSettled([
+            ...campos.map(item => generalApi.save("camposSimples", fichaId, item)),
+            ...contas.map(item => generalApi.save("accounts", fichaId, item)),
+          ])
+          const falhas = resultados.filter(resultado => resultado.status === "rejected").length
+          await this.carregarFichas()
+          const criada = this.fichasApi.find(ficha => String(ficha.id) === String(fichaId))
+          if (criada) await this.abrirFicha(criada)
+          this.$store.toasts.push(falhas ? `Ficha criada; ${falhas} campo(s) ou contador(es) não puderam ser salvos.` : "Ficha geral aleatória criada com cinco campos e cinco contadores.", falhas ? "info" : "success")
+        } catch (err) {
+          console.error("Erro ao criar ficha geral aleatória:", err)
+          this.$store.toasts.push("Não foi possível criar a ficha geral aleatória.", "error")
+        } finally {
+          this.creatingFicha = false
+        }
+      },
+
       async criarPersonagemAleatorio() {
         if (this.creatingFicha || this.openingFicha || this.selectedCharId || !this.$store.auth.user) return
         const sortear = lista => lista[Math.floor(Math.random() * lista.length)]
-        this.abrirWizard()
+        this.escolherSistemaPersonagem("tormenta")
         this.escolherRaca(sortear(this.wizardRacas))
         this.wizardNome = `${sortear(NOMES_ALEATORIOS)} ${sortear(SOBRENOMES_ALEATORIOS)}`
         this.wizardClasse = sortear(CLASSES)
@@ -765,7 +1211,7 @@ export default {
           const disponiveis = ATRIBUTOS.filter(key => this.wizardPodeAumentar(key))
           this.wizardInc(sortear(disponiveis))
         }
-        const escolhasRaciais = [...ATRIBUTOS]
+        const escolhasRaciais = ATRIBUTOS.filter(key => this.wizardRacialAtributoPermitido(key))
         while (!this.wizardRacialEscolhaCompleta) {
           const indice = Math.floor(Math.random() * escolhasRaciais.length)
           this.alternarRacialEscolha(escolhasRaciais.splice(indice, 1)[0])
@@ -780,7 +1226,7 @@ export default {
       },
 
       get wizardRacas() {
-        return RACAS_DATA
+        return RACAS_DATA.map(raca => ({ ...raca, nome: limparEmojiRaca(raca.nome) }))
       },
 
       get wizardRacasFiltradas() {
@@ -817,26 +1263,30 @@ export default {
 
       get wizardPrecisaEscolherAtributos() {
         const raca = this.wizardRaca
-        return !!raca && /Três Atributos Diferentes|3 Atributos/i.test(raca.atributos?.descricao_atributos || "")
+        return !!raca && (Number(raca.atributos_escolha?.quantidade) > 0 || /Três Atributos Diferentes|3 Atributos/i.test(raca.atributos?.descricao_atributos || ""))
       },
 
       get wizardRacialChoicesCount() {
-        return this.wizardPrecisaEscolherAtributos ? 3 : 0
+        return this.wizardPrecisaEscolherAtributos ? Number(this.wizardRaca?.atributos_escolha?.quantidade) || 3 : 0
+      },
+
+      wizardRacialAtributoPermitido(key) {
+        const attr = ATRIBUTOS_WIZARD.find(a => a.key === key)
+        return !!attr && !(this.wizardRaca?.atributos_escolha?.excluidos || []).includes(attr.racaKey)
       },
 
       wizardModRacial(key) {
         if (!this.wizardRaca) return 0
-        if (this.wizardPrecisaEscolherAtributos) {
-          return this.wizardRacialChoices.includes(key) ? 2 : 0
-        }
         const attr = ATRIBUTOS_WIZARD.find(a => a.key === key)
         if (!attr) return 0
-        return this.wizardRaca.atributos?.[attr.racaKey] || 0
+        const fixo = this.wizardRaca.atributos?.[attr.racaKey] || 0
+        const escolhido = this.wizardPrecisaEscolherAtributos && this.wizardRacialAtributoPermitido(key) && this.wizardRacialChoices.includes(key)
+        return fixo + (escolhido ? Number(this.wizardRaca.atributos_escolha?.bonus) || 2 : 0)
       },
 
       alternarRacialEscolha(key) {
         const max = this.wizardRacialChoicesCount
-        if (max === 0) return
+        if (max === 0 || !this.wizardRacialAtributoPermitido(key)) return
         if (this.wizardRacialChoices.includes(key)) {
           this.wizardRacialChoices = this.wizardRacialChoices.filter(k => k !== key)
         } else if (this.wizardRacialChoices.length < max) {
@@ -998,7 +1448,7 @@ export default {
         this.creatingFicha = true
         try {
           const { data } = await createFicha(payload)
-          const idCriada = data?.ficha?.id
+          const idCriada = data?.tormentaFicha?.id
           if (idCriada) {
             await this.adicionarHabilidadesDeRaca(idCriada, this.form.raca)
           }
@@ -1073,9 +1523,6 @@ export default {
         this.form.inventario1 = []
         this.form.inventario2 = []
 
-        if (Array.isArray(c.poderes) && c.poderes.length && !this.form.proficiencias_poderes) {
-          this.form.proficiencias_poderes = c.poderes.map(p => `${p.nome}: ${p.descricao}`).join('\n')
-        }
       },
 
       newCharacter() {
@@ -1337,7 +1784,29 @@ export default {
       async salvarDescricao() {
         if (!this.selectedCharId) return
         try {
-          await updateFicha(this.selectedCharId, { descricao: this.form.anotacoes || '' })
+          const user = this.$store.auth.user
+          await updateFicha(this.selectedCharId, {
+            nomePersonagem: this.form.nome || "Personagem sem Nome",
+            nomeJogador: this.form.jogador || user?.name || "Jogador",
+            raca: limparEmojiRaca(this.form.raca) || "Humano",
+            divindade: this.form.divindade || "Nenhuma",
+            origem: this.form.origem || "Aventureiro",
+            classe: this.form.classe || "Guerreiro",
+            nivel: this.toNum(this.form.nivel, 1),
+            for_: this.toNum(this.form.atributos?.FOR, 10),
+            con: this.toNum(this.form.atributos?.CON, 10),
+            des: this.toNum(this.form.atributos?.DES, 10),
+            int_: this.toNum(this.form.atributos?.INT, 10),
+            sab: this.toNum(this.form.atributos?.SAB, 10),
+            car: this.toNum(this.form.atributos?.CAR, 10),
+            pvMax: this.toNum(this.form.pv_max, 20),
+            pvCurrent: this.toNum(this.form.pv_atual, 20),
+            pmMax: this.toNum(this.form.pm_max, 5),
+            pmCurrent: this.toNum(this.form.pm_atual, 5),
+            deslocamento: this.toNum(this.form.deslocamento, 9),
+            jogadorId: user?.id,
+            descricao: this.form.anotacoes || '',
+          })
           this.$store.toasts.push("Descrição salva com sucesso!", "success")
         } catch (err) {
           console.error('Erro ao salvar descrição:', err)
@@ -1597,6 +2066,7 @@ export default {
           for_: this.toNum(this.form.atributos?.FOR, 10),
           int_: this.toNum(this.form.atributos?.INT, 10),
           tibao: this.toNum(this.form.tibares, 0),
+          jogadorId: user.id,
           defesaId: this.form.defesaId ?? null,
           defesa: {
             outros: Number(this.form.defesa_outros) || 0,
@@ -1635,32 +2105,28 @@ export default {
 
       async deleteCharacter() {
         if (!this.selectedCharId) return
-        if (!confirm("Tem certeza que deseja excluir esta ficha?")) return
-        try {
-          await deleteFicha(this.selectedCharId)
-          this.$store.toasts.push("Ficha excluída.", "success")
-          this.voltarParaLista()
-        } catch (err) {
-          console.error("Erro ao excluir ficha:", err)
-          this.$store.toasts.push("Erro ao excluir a ficha. Tente novamente.", "error")
-        }
+        await this.deleteFichaCard({ id: this.selectedCharId, nomePersonagem: this.form.nome, sistema: this.currentFichaSystem })
       },
 
       async deleteFichaCard(ficha) {
-        if (!ficha?.id) return
+        if (!ficha?.id || this.deletingFicha) return
         const nome = ficha.nomePersonagem || "esta ficha"
+        const sistema = ficha.sistema || "tormenta"
         if (!confirm(`Tem certeza que deseja excluir ${nome}?`)) return
+        this.deletingFicha = true
         try {
-          await deleteFicha(ficha.id)
-          this.$store.toasts.push("Ficha excluída.", "success")
-          if (Number(this.selectedCharId) === Number(ficha.id)) {
-            this.selectedCharId = null
-            this.viewMode = "list"
+          await deleteFicha(ficha.id, sistema)
+          if (sistema === "geral") {
+            try { localStorage.removeItem(`grimorio_general_ficha_${ficha.id}`) } catch {}
           }
+          this.$store.toasts.push("Ficha excluída.", "success")
+          if (String(this.selectedCharId) === String(ficha.id) && this.currentFichaSystem === sistema) this.voltarParaLista()
           await this.carregarFichas()
         } catch (err) {
           console.error("Erro ao excluir ficha:", err)
           this.$store.toasts.push("Erro ao excluir a ficha. Tente novamente.", "error")
+        } finally {
+          this.deletingFicha = false
         }
       },
 
@@ -2316,6 +2782,10 @@ export default {
         this.expandedMagiaIndex = this.expandedMagiaIndex === index ? null : index
       },
 
+      magiaDetalhes(magia) {
+        return detalhesMagia(magia)
+      },
+
       async addMagiaToFicha(magia) {
         if (!this.selectedCharId) {
           this.$store.toasts.push("Salve a ficha primeiro para adicionar magias.", "error")
@@ -2333,7 +2803,7 @@ export default {
             duracao: magia.duracao,
             gastoPe: magia.gastoPe,
             truque: magia.truque,
-            descricao: magia.descricao,
+            descricao: serializarDescricaoMagia(magia),
           })
           this.$store.toasts.push(`${magia.nome} adicionada à ficha!`, "success")
           await this.loadMagiasFicha()

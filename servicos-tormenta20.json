@@ -1,0 +1,200 @@
+[
+  {
+    "nome": "Estábulo (por dia)",
+    "preco": 0.1,
+    "peso": 0,
+    "descricao": "Inclui alimentação para o animal.",
+    "categoria": "Animais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "unidade": "Por dia"
+  },
+  {
+    "nome": "Estadia comum",
+    "preco": 0.5,
+    "peso": 0,
+    "descricao": "Um espaço no salão comunal. Se tiver sorte, o taverneiro deixará a lareira acesa para que você não passe frio. Pelo menos não ficará sozinho — pulgas e ratos lhe farão companhia. A refeição consiste de pão, sopa e água. Recupera 1 PV e 1 PM por nível.",
+    "categoria": "Hospedagem",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    },
+    "unidade": "Por noite, com uma refeição básica"
+  },
+  {
+    "nome": "Estadia confortável",
+    "preco": 2.0,
+    "peso": 0,
+    "descricao": "Um quarto pequeno, mas privativo, com uma cama com colchão de palha e um baú para guardar seus pertences. A refeição inclui pão, queijo, cozido de galinha com legumes e cerveja ou vinho (aguado). Recupera 2 PV e 2 PM por nível.",
+    "categoria": "Hospedagem",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    },
+    "unidade": "Por noite, com uma refeição básica"
+  },
+  {
+    "nome": "Estadia luxuosa",
+    "preco": 10.0,
+    "peso": 0,
+    "descricao": "Um quarto grande, com colchão de algodão ou penas, cortinas nas janelas, uma bacia de água quente para banho e outros luxos. A refeição inclui carne, frutas, doces e uma taça de vinho de boa safra. Acomodações desta categoria estão disponíveis apenas nas melhores estalagens, normalmente apenas em cidades e metrópoles. Recupera 3 PV e 3 PM por nível.",
+    "categoria": "Hospedagem",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    },
+    "unidade": "Por noite, com uma refeição básica"
+  },
+  {
+    "nome": "Condução terrestre",
+    "preco": 3.0,
+    "peso": 0,
+    "descricao": "Inclui viagens terrestres (em carroças), marítimas (em navios) ou aéreas (balões goblins). Viajar em balões goblins é arriscado: a cada 100km há 1 chance em 20 de queda.",
+    "categoria": "Serviços",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "unidade": "Por km"
+  },
+  {
+    "nome": "Condução marítima",
+    "preco": 0.1,
+    "peso": 0,
+    "descricao": "Inclui viagens terrestres (em carroças), marítimas (em navios) ou aéreas (balões goblins). Viajar em balões goblins é arriscado: a cada 100km há 1 chance em 20 de queda.",
+    "categoria": "Serviços",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "unidade": "Por km"
+  },
+  {
+    "nome": "Condução aérea",
+    "preco": 1.0,
+    "peso": 0,
+    "descricao": "Inclui viagens terrestres (em carroças), marítimas (em navios) ou aéreas (balões goblins). Viajar em balões goblins é arriscado: a cada 100km há 1 chance em 20 de queda.",
+    "categoria": "Serviços",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "unidade": "Por km"
+  },
+  {
+    "nome": "Mensageiro",
+    "preco": 2.0,
+    "peso": 0,
+    "descricao": "Inclui mensagens entregues a pé, por cavaleiros ou navios.",
+    "categoria": "Serviços",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "unidade": "Por km"
+  },
+  {
+    "nome": "Magia de 1º círculo",
+    "preco": 10.0,
+    "peso": 0,
+    "descricao": "Este é o preço para lançar uma magia em uma situação comum. Ou seja, você vai até o conjurador e lançar a magia não oferece risco para ele. Se você pedir ao conjurador para acompanhá-lo numa aventura, por exemplo, a resposta padrão será “não, obrigado”.",
+    "categoria": "Serviços",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "unidade": "Por conjuração"
+  },
+  {
+    "nome": "Magia de 2º círculo",
+    "preco": 150.0,
+    "peso": 0,
+    "descricao": "Este é o preço para lançar uma magia em uma situação comum. Ou seja, você vai até o conjurador e lançar a magia não oferece risco para ele. Se você pedir ao conjurador para acompanhá-lo numa aventura, por exemplo, a resposta padrão será “não, obrigado”.",
+    "categoria": "Serviços",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "unidade": "Por conjuração"
+  },
+  {
+    "nome": "Magia de 3º círculo",
+    "preco": 450.0,
+    "peso": 0,
+    "descricao": "Este é o preço para lançar uma magia em uma situação comum. Ou seja, você vai até o conjurador e lançar a magia não oferece risco para ele. Se você pedir ao conjurador para acompanhá-lo numa aventura, por exemplo, a resposta padrão será “não, obrigado”.",
+    "categoria": "Serviços",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "unidade": "Por conjuração"
+  }
+]

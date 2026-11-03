@@ -1,4 +1,6 @@
 import client from "./client.js"
+import { limparEmojiClasse } from "../data/classes.js"
+import { limparEmojiRaca } from "../data/racas.js"
 
 function createUser({ nome, emailUser, password }) {
   return client.post("/create/user", { nome, emailUser, password })
@@ -17,19 +19,71 @@ function updateUser(userId, data) {
 }
 
 function getFichasByUser(userId) {
-  return client.get(`/todasAsFichas/${userId}`)
+  return client.get(`/todasAsFichas/${userId}`).then(response => {
+    const userData = response.data?.data
+    const fichas = Array.isArray(userData)
+      ? userData
+      : [
+          ...(Array.isArray(userData?.fichaTormenta) ? userData.fichaTormenta.map(ficha => ({ ...ficha, sistema: "tormenta" })) : []),
+          ...(Array.isArray(userData?.fichaGeral) ? userData.fichaGeral.map(ficha => ({ ...ficha, sistema: "geral" })) : []),
+        ]
+
+    return {
+      ...response,
+      data: {
+        ...response.data,
+        data: fichas.map(ficha => ({ ...ficha, classe: limparEmojiClasse(ficha.classe), raca: limparEmojiRaca(ficha.raca) })),
+      },
+    }
+  })
 }
 
-function createFicha(data) {
-  return client.post("/create/personagem", data)
+function createFicha(data, sistema = "tormenta") {
+  const { jogadorId, pericias = [], ...fichaFields } = data
+  if (Object.hasOwn(fichaFields, "for_")) {
+    fichaFields.for = fichaFields.for_
+    delete fichaFields.for_
+  }
+  if (Object.hasOwn(fichaFields, "int_")) {
+    fichaFields.int = fichaFields.int_
+    delete fichaFields.int_
+  }
+  if (fichaFields.defesa) {
+    const { atributo, ...defesa } = fichaFields.defesa
+    fichaFields.defesa = { create: { ...defesa, atributos: defesa.atributos || atributo || "DES" } }
+  }
+  return client.post(`/create/personagem/${encodeURIComponent(sistema)}`, {
+    jogadorId,
+    fichaFields,
+    pericias,
+  })
 }
 
-function updateFicha(fichaId, data) {
-  return client.put(`/atualize/ficha/personagem/${fichaId}`, data)
+function updateFicha(fichaId, data, sistema = "tormenta") {
+  const content = { ...data }
+  if (Object.hasOwn(content, "for_")) {
+    content.for = content.for_
+    delete content.for_
+  }
+  if (Object.hasOwn(content, "int_")) {
+    content.int = content.int_
+    delete content.int_
+  }
+  delete content.defesaId
+  if (content.defesa) {
+    const { atributo, ...defesa } = content.defesa
+    content.defesa = {
+      upsert: {
+        create: { ...defesa, atributos: defesa.atributos || atributo || "DES" },
+        update: { ...defesa, atributos: defesa.atributos || atributo || "DES" },
+      },
+    }
+  }
+  return client.put(`/atualize/ficha/personagem/${fichaId}/${encodeURIComponent(sistema)}`, { ...data, content })
 }
 
-function deleteFicha(fichaId) {
-  return client.delete(`/deleteFicha/${fichaId}`)
+function deleteFicha(fichaId, sistema = "tormenta") {
+  return client.delete(`/deleteFicha/${fichaId}/${encodeURIComponent(sistema)}`)
 }
 
 function findCampanhas(fichaId) {
@@ -85,6 +139,30 @@ function deleteEquipamento(itemId) {
 
 function updateEquipamento(itemId, data) {
   return client.put(`/equipamentos/update/Item/${itemId}`, data)
+}
+
+function createItemGeral(data) {
+  return client.post("/equipamentos/create/Geral", data)
+}
+
+function getItensGeraisByFicha(fichaId) {
+  return client.get(`/equipamentos/listAll/Geral/${fichaId}`)
+}
+
+function getItemGeral(itemId) {
+  return client.get(`/equipamentos/get/Geral/${itemId}`)
+}
+
+function updateItemGeral(itemId, data) {
+  return client.put(`/equipamentos/update/Geral/${itemId}`, data)
+}
+
+function deleteItemGeral(itemId) {
+  return client.delete(`/equipamentos/delete/Geral/${itemId}`)
+}
+
+function getAllEquipamentosByFicha(fichaId) {
+  return client.get(`/equipamentos/listAll/${fichaId}`)
 }
 
 function createMagia(data) {
@@ -187,4 +265,4 @@ function updateHistorico(historicoId, value) {
   return client.put(`/historico/update/${historicoId}`, { value })
 }
 
-export { createUser, loginUser, checkLogged, updateUser, getFichasByUser, findCampanhas, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, createCampanha, getCampanhasByMaster, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, removePlayerFromCampanha, leaveCampanha, deleteCampanha, addFichaToCampanha, getFichasByCampanha, removeFichaFromCampanha, createHistorico, getHistoricoByFicha, deleteHistorico, updateHistorico }
+export { createUser, loginUser, checkLogged, updateUser, getFichasByUser, findCampanhas, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, getAllEquipamentosByFicha, deleteEquipamento, updateEquipamento, createItemGeral, getItensGeraisByFicha, getItemGeral, updateItemGeral, deleteItemGeral, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, createCampanha, getCampanhasByMaster, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, removePlayerFromCampanha, leaveCampanha, deleteCampanha, addFichaToCampanha, getFichasByCampanha, removeFichaFromCampanha, createHistorico, getHistoricoByFicha, deleteHistorico, updateHistorico }

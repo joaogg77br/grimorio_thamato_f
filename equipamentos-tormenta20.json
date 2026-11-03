@@ -1,252 +1,916 @@
 [
   {
     "nome": "Algemas",
+    "preco": 15.0,
     "peso": 1.0,
-    "descricao": "Um par de algemas de ferro para criaturas Médias. Uma criatura presa pode escapar com um teste de Acrobacia (CD 30) ou ser libertada com um teste de Força (CD 26)."
-  },
-  {
-    "nome": "Algibeira",
-    "peso": 0.25,
-    "descricao": "Pequena bolsa de couro que se prende ao cinto. Útil para guardar moedas e pequenos itens de valor."
-  },
-  {
-    "nome": "Barraca",
-    "peso": 10.0,
-    "descricao": "Uma cabana desmontável de lona que abriga até duas pessoas. Fornece abrigo nos ermos e +2 em testes de Sobrevivência para acampar."
-  },
-  {
-    "nome": "Corda (10m)",
-    "peso": 5.0,
-    "descricao": "Um rolo com 10 metros de corda de cânhamo resistente. Dar um nó firme exige um teste de Destreza CD 10 (CD 12 para nós especiais)."
-  },
-  {
-    "nome": "Espelho de metal",
-    "peso": 0.25,
-    "descricao": "Espelho de metal polido. Útil para verificar a aparência, observar cantos cegos, fazer sinais de reflexo de luz e ajudar na aplicação de disfarces."
-  },
-  {
-    "nome": "Instrumento musical",
-    "peso": 1.5,
-    "descricao": "Um instrumento musical mundano (alaúde, flauta, lira, etc.). Equipamento essencial para bardos canalizarem sua arte e canções."
-  },
-  {
-    "nome": "Kit de Ofício",
-    "peso": 4.0,
-    "descricao": "Ferramentas necessárias para exercer um Ofício escolhido (ferreiro, carpintaria, alquimia, etc.). Usar Ofício sem o kit impõe uma penalidade de –5 no teste."
-  },
-  {
-    "nome": "Kit de disfarces",
-    "peso": 4.0,
-    "descricao": "Contém maquiagem, próteses simples e tinturas. Usar Enganação para criar um disfarce sem este kit aplica uma penalidade de –5 no teste."
-  },
-  {
-    "nome": "Kit de ladrão",
-    "peso": 0.5,
-    "descricao": "Ferramentas finas como gazuas e arames para abrir fechaduras e sabotar mecanismos. Usar Ladinagem para esses fins sem o kit impõe –5 de penalidade."
-  },
-  {
-    "nome": "Kit de medicamentos",
-    "peso": 2.0,
-    "descricao": "Ervas, bandagens e unguentos para curar ferimentos e doenças. Usar a perícia Cura para primeiros socorros ou tratamento sem o kit impõe –5 de penalidade."
-  },
-  {
-    "nome": "Lampião",
-    "peso": 1.0,
-    "descricao": "Cilindro de metal com portinholas que queima óleo para iluminar até 9 metros ao redor. Uma carga de óleo dura 6 horas."
-  },
-  {
-    "nome": "Mochila",
-    "peso": 1.0,
-    "descricao": "Bolsa de couro reforçada com alças para as costas. Equipamento básico para carregar pertences de viagem e aventura."
-  },
-  {
-    "nome": "Odre",
-    "peso": 2.0,
-    "descricao": "Bolsa de couro que comporta até 1 litro de água, vinho ou outras bebidas de viagem."
-  },
-  {
-    "nome": "Pé de cabra",
-    "peso": 2.5,
-    "descricao": "Barra de ferro usada para forçar portas e baús trancados. Concede +5 em testes de Força aplicáveis a esses propósitos."
-  },
-  {
-    "nome": "Pederneira",
-    "peso": 0.0,
-    "descricao": "Uma pedra de faísca e placa rugosa de metal. Usada para acender tochas ou lampiões com uma ação completa."
-  },
-  {
-    "nome": "Pena",
-    "peso": 0.0,
-    "descricao": "Uma pena de ave preparada para escrita com tinta líquida."
-  },
-  {
-    "nome": "Pergaminho (folha)",
-    "peso": 0.0,
-    "descricao": "Folha de couro tratado para escrita de relatórios, diários ou rituais de pergaminhos mágicos."
-  },
-  {
-    "nome": "Ração de viagem (por dia)",
-    "peso": 0.5,
-    "descricao": "Alimentos desidratados e conservados (queijo, pão, biscoitos, carne seca) suficientes para alimentar uma pessoa por um dia."
-  },
-  {
-    "nome": "Saco de dormir",
-    "peso": 2.5,
-    "descricao": "Colchão fino e coberta que garantem descanso adequado nos ermos. Dormir ao relento sem ele prejudica a recuperação de PV e PM."
-  },
-  {
-    "nome": "Saco de lona",
-    "peso": 0.25,
-    "descricao": "Saco simples de tecido grosso fechado por corda. Comporta até 20 kg de itens gerais."
-  },
-  {
-    "nome": "Tinta (frasco)",
-    "peso": 0.0,
-    "descricao": "Frasco pequeno com 30 ml de tinta preta comum para escrita."
-  },
-  {
-    "nome": "Tocha",
-    "peso": 0.5,
-    "descricao": "Bastão de madeira embebido em parafina que ilumina 6 metros ao redor por uma hora. Pode ser usado como arma leve que causa 1d4 de dano + 1 fogo."
-  },
-  {
-    "nome": "Vara de madeira (3m)",
-    "peso": 4.0,
-    "descricao": "Haste de madeira de 3 metros de comprimento para sondar pisos, armadilhas ou tatear profundidades nos ermos."
+    "descricao": "Um par de algemas para criaturas Médias. Uma criatura presa pode escapar com um teste de Acrobacia (CD 30) ou Força (CD 26).",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 150,
+      "paginaPdf": 152
+    }
   },
   {
     "nome": "Cão de guarda",
-    "peso": 0.0,
-    "descricao": "Cão de guarda grande e leal. Pode servir de montaria para personagens Pequenos ou aliado vigilante em acampamentos."
+    "preco": 50.0,
+    "peso": 0,
+    "descricao": "Este cachorro grande e leal pode ser usado como montaria por uma criatura Pequena (ou como um aliado de outro tipo por personagens com o poder Parceiro Animal).",
+    "categoria": "Animais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Algibeira",
+    "preco": 1.0,
+    "peso": 0.25,
+    "descricao": "Bolsa de couro presa ao cinto. Útil para guardar itens pequenos, especialmente moedas.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 150,
+      "paginaPdf": 152
+    }
   },
   {
     "nome": "Cavalo",
-    "peso": 0.0,
-    "descricao": "A montaria terrestre mais comum em Arton. Cavalos não treinados se assustam em combate, exigindo testes de Cavalgar CD 20 por rodada."
+    "preco": 75.0,
+    "peso": 0,
+    "descricao": "A montaria mais comum no Reinado. Cavalos sem treinamento se assustam facilmente, sendo necessário um teste de Cavalgar (CD 20) por rodada para permanecer montado durante um combate. Cavalos de guerra dispensam esse teste.",
+    "categoria": "Animais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Barraca",
+    "preco": 10.0,
+    "peso": 10.0,
+    "descricao": "Uma barraca de lona, útil para aventureiros desbravando os ermos. Uma barraca conta como um saco de dormir para duas pessoas e fornece +2 em testes de Sobrevivência para acampar.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 150,
+      "paginaPdf": 152
+    }
   },
   {
     "nome": "Cavalo de guerra",
-    "peso": 0.0,
-    "descricao": "Cavalo treinado especificamente para a batalha. Dispensa testes de Cavalgar para permanecer montado durante combates."
+    "preco": 400.0,
+    "peso": 0,
+    "descricao": "A montaria mais comum no Reinado. Cavalos sem treinamento se assustam facilmente, sendo necessário um teste de Cavalgar (CD 20) por rodada para permanecer montado durante um combate. Cavalos de guerra dispensam esse teste.",
+    "categoria": "Animais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Corda (10m)",
+    "preco": 1.0,
+    "peso": 5.0,
+    "descricao": "Um rolo com 10 metros de corda de cânhamo, o mesmo tipo usado em navios. Dar um nó firme exige um teste de Destreza (CD 10). Dar um nó especial (capaz de deslizar, soltar-se lentamente, se desfazer com um puxão etc.) exige um teste de Destreza (CD 12). Arrebentar a corda exige um teste de Força (CD 23).",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    }
+  },
+  {
+    "nome": "Espelho de metal",
+    "preco": 10.0,
+    "peso": 0.25,
+    "descricao": "Este espelho de metal polido possui diversas utilidades. Além de garantir que você esteja apresentável, pode ser usado para observar cantos, fazer sinais de luz, colocar disfarces...",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    }
   },
   {
     "nome": "Pônei",
-    "peso": 0.0,
-    "descricao": "Montaria favorita de heróis Pequenos (como hynne e goblins). Requer teste de Cavalgar CD 20 em combate se não tiver treino de guerra."
+    "preco": 5.0,
+    "peso": 0,
+    "descricao": "A montaria mais comum entre raças Pequenas. Pôneis sem treinamento se assustam facilmente, sendo necessário um teste de Cavalgar (CD 20) por rodada para permanecer montado durante um combate. Pôneis de guerra dispensam esse teste.",
+    "categoria": "Animais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Instrumento musical",
+    "preco": 50.0,
+    "peso": 1.5,
+    "descricao": "Um instrumento típico, como um alaúde, flauta ou lira. Muito usado por bardos.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    }
+  },
+  {
+    "nome": "Pônei de guerra",
+    "preco": 30.0,
+    "peso": 0,
+    "descricao": "A montaria mais comum entre raças Pequenas. Pôneis sem treinamento se assustam facilmente, sendo necessário um teste de Cavalgar (CD 20) por rodada para permanecer montado durante um combate. Pôneis de guerra dispensam esse teste.",
+    "categoria": "Animais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Kit de Ofício",
+    "preco": 30.0,
+    "peso": 4.0,
+    "descricao": "Existe um kit para cada tipo de Ofício. Por exemplo, martelo, pregos e serrote para Ofício (carpintaria) ou lente de aumento e balança para testes de Ofício (joalheria). Um personagem sem as ferramentas necessárias para seu Ofício sofre penalidade de –5 nos testes.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    },
+    "aliases": [
+      "Kit de <ofício>"
+    ]
   },
   {
     "nome": "Sela",
-    "peso": 0.0,
-    "descricao": "Peça de couro e arreios para montaria. Inclui estribos, freios e alforjes de viagem."
+    "preco": 20.0,
+    "peso": 0,
+    "descricao": "Uma peça de couro e pelego, posicionada sobre o lombo da montaria para o cavaleiro sentar. Inclui arreios, freios e alforjes (sacos de couro para levar mantimentos de viagem).",
+    "categoria": "Animais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Kit de disfarces",
+    "preco": 50.0,
+    "peso": 4.0,
+    "descricao": "Estojo contendo cosméticos, tinta para cabelo e alguns apêndices físicos simples (como narizes falsos). Um personagem sem este kit sofre penalidade de –5 em testes de Enganação para fazer um disfarce.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    }
   },
   {
     "nome": "Trobo",
-    "peso": 0.0,
-    "descricao": "Ave enorme, dócil e sem asas de Arton. Parecido com avestruz com chifres e casco de búfalo, muito usada no campo para carga e tração."
+    "preco": 10.0,
+    "peso": 0,
+    "descricao": "Estas enormes aves, também chamadas de pássaros-touros, são parecidas com avestruzes com chifres, couro e cascos de búfalo. Não têm asas. Possuem poucas penas, que servem apenas como ornamentação. Muito dóceis, trobos são usados em áreas rurais como animais de carga e tração.",
+    "categoria": "Animais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Kit de ladrão",
+    "preco": 30.0,
+    "peso": 0.5,
+    "descricao": "Usado para abrir portas e desarmar armadilhas, este kit é composto de gazuas, arames e outras pequenas ferramentas guardadas em um estojo de couro. Um personagem sem este kit sofre penalidade de –5 em testes de Ladinagem para abrir fechaduras e operar mecanismos.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    }
+  },
+  {
+    "nome": "Kit de medicamentos",
+    "preco": 50.0,
+    "peso": 2.0,
+    "descricao": "Pequena caixa com ervas, unguentos, bandagens e outros materiais úteis. Um personagem sem este kit sofre penalidade de –5 em testes de Cura.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    }
+  },
+  {
+    "nome": "Lampião",
+    "preco": 7.0,
+    "peso": 1.0,
+    "descricao": "Um cilindro com uma alça e duas portinholas. Uma chama alimentada por óleo é acesa dentro do cilindro e uma das portinholas aberta deixa a luz sair. A luz do lampião atinge 9m. Uma carga de óleo dura 6 horas e custa T$ 0,1.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    }
   },
   {
     "nome": "Balão goblin",
-    "peso": 0.0,
-    "descricao": "Estrutura aérea improvisada pelos goblins. Permite viagens de condução aérea, mas é arriscado devido à constante chance de pane e queda."
+    "preco": 200.0,
+    "peso": 0,
+    "descricao": "Feito de imensas bolsas de couro e outros tecidos remendados, com uma gôndola parecida com um grande cesto, o balão goblin é um engenho tecnológico sem igual em Arton. Um balão goblin tem tamanho Enorme, deslocamento 12m, Defesa 8 (+ mod. Des do baloeiro) e 80 PV. Conduzi-lo exige um teste de Pilotagem por dia, com CD 15 (céu tranquilo), 20 (ventania ou chuva) ou 25 (tempestade). Uma falha significa que o balão não avança ou avança na direção errada; uma falha por 5 ou mais significa que o balão cai. Ao contrário do que possa parecer, quedas de balões raramente são fatais. Quando o balão perde mais da metade de seus PV, começa a perder ar e flutua lentamente na direção do solo. Cada ocupante sofre 2d6 pontos de dano (Ref CD 15 reduz à metade). Um balão só cai de forma perigosa caso perca todos os seus PV. Neste caso, os ocupantes sofrem dano normal pela queda, de acordo com a altura. Remendar um balão em pleno voo exige uma ação completa e um teste de Ofício (artesanato) contra CD 15. Se você passar no teste, recupera 1d8 PV do balão.",
+    "categoria": "Veículos",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "cd_fabricacao": 15,
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Mochila",
+    "preco": 2.0,
+    "peso": 1.0,
+    "descricao": "Esta bolsa reforçada de couro tem bolsos e tiras para ser carregada nas costas e prender equipamentos diversos.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    }
   },
   {
     "nome": "Carroça",
-    "peso": 0.0,
-    "descricao": "Veículo terrestre de quatro rodas puxado por tração animal, ideal para transportar mercadorias pesadas do grupo."
+    "preco": 30.0,
+    "peso": 0,
+    "descricao": "Veículo de duas ou quatro rodas, aberto, normalmente usado para transportar cargas pesadas. É puxada por dois cavalos ou um trobo. Inclui os arreios necessários para controlar os animais.",
+    "categoria": "Veículos",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Odre",
+    "preco": 1.0,
+    "peso": 2.0,
+    "descricao": "Bolsa de couro para guardar bebida (geralmente água ou vinho). Existe em vários tamanhos, mas o odre mais comum comporta 1 litro.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    }
   },
   {
     "nome": "Carruagem",
-    "peso": 0.0,
-    "descricao": "Veículo terrestre refinado e fechado para transporte de passageiros em estradas pavimentadas do Reinado."
+    "preco": 100.0,
+    "peso": 0,
+    "descricao": "Veículo de quatro rodas, capaz de transportar até quatro pessoas em uma cabine fechada, mais dois condutores do lado de fora. É puxada por dois cavalos ou um trobo. Inclui os arreios necessários para controlar os animais.",
+    "categoria": "Veículos",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Pé de cabra",
+    "preco": 2.0,
+    "peso": 2.5,
+    "descricao": "Barra de ferro para forçar portas e baús fechados. Abrir uma porta ou baú usando um pé de cabra oferece +5 no teste de Força. Um pé de cabra pode ser usado em combate, com as mesmas estatísticas de uma clava.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    }
   },
   {
     "nome": "Canoa",
-    "peso": 0.0,
-    "descricao": "Embarcação simples escavada a partir de um único tronco de árvore, própria para navegação em rios calmos."
+    "preco": 50.0,
+    "peso": 0,
+    "descricao": "Construída a partir de um único tronco de árvore, é a mais simples das embarcações.",
+    "categoria": "Veículos",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Pederneira",
+    "preco": 1.0,
+    "peso": 0,
+    "descricao": "Uma pedra de faísca e uma placa rugosa de metal, para acender fogo. Produz faíscas quando a pedra bate no metal. Acender uma tocha ou lanterna com uma pederneira é uma ação completa.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    },
+    "peso_tabela": "—"
   },
   {
     "nome": "Veleiro",
-    "peso": 0.0,
-    "descricao": "Navio marítimo de grande porte com três mastros, ideal para mercadores e aventureiros cruzando os oceanos de Arton."
+    "preco": 10000.0,
+    "peso": 0,
+    "descricao": "Com três mastros, é o típico navio de viagem, muito popular entre mercadores.",
+    "categoria": "Veículos",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Pena",
+    "preco": 0.1,
+    "peso": 0,
+    "descricao": "Feita a partir da pena de aves, para escrever.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Pergaminho (folha)",
+    "preco": 0.1,
+    "peso": 0,
+    "descricao": "Um pedaço de pele de cabra ou ovelha, preparado para escrita.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    },
+    "peso_tabela": "—"
+  },
+  {
+    "nome": "Ração de viagem (por dia)",
+    "preco": 0.5,
+    "peso": 0.5,
+    "descricao": "Própria para viagens, uma porção desta ração alimenta uma pessoa por um dia. É feita de alimentos conservados, como carne defumada, frutas secas, pão, queijo e biscoitos. Se mantida seca dura bastante, mas quando molhada se estraga em 24 horas.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    }
   },
   {
     "nome": "Traje camuflado",
+    "preco": 20.0,
     "peso": 2.0,
-    "descricao": "Roupas estampadas para um tipo específico de terreno. Fornece +2 em testes de Furtividade no ambiente correto."
+    "descricao": "Um traje camuflado é feito para um tipo de terreno específico (veja a habilidade Explorador, do caçador, para os tipos de terrenos existentes). Por exemplo, um traje camuflado para floresta pode ser verde e marrom e coberto de folhas, enquanto um traje urbano pode ser cinza ou negro. Usar um traje camuflado no terreno correto fornece +2 em testes de Furtividade. CD 20.",
+    "categoria": "Vestuário",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    },
+    "cd_fabricacao": 20
+  },
+  {
+    "nome": "Saco de dormir",
+    "preco": 1.0,
+    "peso": 2.5,
+    "descricao": "Composto por um colchão e uma coberta fina o bastante para ser enrolada e amarrada, é especialmente útil para aventureiros, que nunca sabem onde vão passar a noite. Dormir ao relento sem um saco de dormir diminui sua recuperação de PV e PM.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    }
   },
   {
     "nome": "Traje da corte",
+    "preco": 50.0,
     "peso": 2.0,
-    "descricao": "Vestimentas luxuosas feitas sob medida. Evita penalidades sociais de –5 em testes de Carisma em festas aristocráticas e na nobreza."
+    "descricao": "Roupas de luxo, feitas sob medida e adequadas à nobreza e realeza. Em certos ambientes (um baile, um salão do palácio), um personagem que não esteja vestindo um traje da corte sofre –5 em testes de perícias baseadas em Carisma. CD 20.",
+    "categoria": "Vestuário",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    },
+    "cd_fabricacao": 20
+  },
+  {
+    "nome": "Saco de lona",
+    "preco": 0.1,
+    "peso": 0.25,
+    "descricao": "Feito de tecido resistente, pode ser fechado por uma corda trespassada na abertura. Comporta até 20 kg.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    }
   },
   {
     "nome": "Traje de plebeu",
+    "preco": 0.5,
     "peso": 1.0,
-    "descricao": "Roupas simples de aldeão feitas de linho ou tecidos rústicos. Geralmente não inclui calçados."
+    "descricao": "Roupas típicas de aldeão, incluem uma camisa larga e calças soltas, ou saia e vestido. Não inclui calçados — os mais pobres andam descalços. CD 10.",
+    "categoria": "Vestuário",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    },
+    "cd_fabricacao": 10
+  },
+  {
+    "nome": "Tinta (frasco)",
+    "preco": 8.0,
+    "peso": 0,
+    "descricao": "Um frasco de 30 ml de tinta preta. Outras cores custam o dobro do preço.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    },
+    "peso_tabela": "—"
   },
   {
     "nome": "Traje de viajante",
+    "preco": 5.0,
     "peso": 2.0,
-    "descricao": "Roupas padrão de aventureiros, compostas de botas resistentes, calças de couro, camisa de linho e uma capa grossa com capuz."
+    "descricao": "Inclui botas resistentes, calças ou saias de couro, cinto, camisa de linho e capa com capuz. São as roupas padrão de aventureiros. CD 15.",
+    "categoria": "Vestuário",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    },
+    "cd_fabricacao": 15
+  },
+  {
+    "nome": "Tocha",
+    "preco": 0.1,
+    "peso": 0.5,
+    "descricao": "Um bastão de madeira com algum combustível na ponta (geralmente trapos embebidos em parafina). Depois de acesa, queima por uma hora, iluminando até 6m. Pode ser usada como uma arma simples leve (dano 1d4 mais 1 por fogo, crítico x2).",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    }
+  },
+  {
+    "nome": "Vara de madeira (3m)",
+    "preco": 0.2,
+    "peso": 4.0,
+    "descricao": "Uma haste com 3m de comprimento, geralmente usada para alcançar pontos distantes. Tem muitas utilidades, mas é frágil demais para servir como arma.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    }
   },
   {
     "nome": "Ácido",
+    "preco": 10.0,
     "peso": 0.5,
-    "descricao": "Item alquímico. Um frasco com líquido corrosivo que pode ser arremessado em alcance curto como ação padrão para causar 2d4 de dano de ácido (Ref CD Des metade)."
+    "descricao": "Frasco de vidro contendo um ácido alquímico altamente corrosivo. Para usar o ácido, você gasta uma ação padrão e escolhe uma criatura em alcance curto. Essa criatura sofre 2d4 pontos de dano de ácido (Ref CD Des reduz à metade). CD 15.",
+    "categoria": "Alquimia",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    },
+    "cd_fabricacao": 15
   },
   {
     "nome": "Bálsamo restaurador",
+    "preco": 25.0,
     "peso": 0.5,
-    "descricao": "Item alquímico. Pasta fedorenta feita de ervas curativas. Aplicar no ferimento exige ação completa e recupera 2d4 pontos de vida."
+    "descricao": "Uma pasta verde e fedorenta, feita de ervas medicinais. Esfregar essa pasta em um ferimento é uma ação completa e recupera 2d4 pontos de vida. CD 15.",
+    "categoria": "Alquimia",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    },
+    "cd_fabricacao": 15
   },
   {
     "nome": "Essência de mana",
+    "preco": 50.0,
     "peso": 0.1,
-    "descricao": "Item alquímico. Bebida concentrada que reabastece energias físicas e mentais, recuperando 1d4 pontos de mana (PM) com uma ação padrão."
+    "descricao": "Esta poção feita de ervas raras e compostos alquímicos recupera energia pessoal. Beber a essência de mana é uma ação padrão e recupera 1d4 pontos de mana. CD 20.",
+    "categoria": "Alquimia",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    },
+    "cd_fabricacao": 20
   },
   {
     "nome": "Fogo alquímico",
+    "preco": 10.0,
     "peso": 0.5,
-    "descricao": "Item alquímico. Frasco com substância viscosa que pega fogo em contato com o ar. Causa 1d6 de dano de fogo e deixa o alvo em chamas (Ref CD Des anula chamas)."
+    "descricao": "Frasco de cerâmica contendo uma substância grossa e pegajosa, que entra em combustão em contato com o ar. Para usar o fogo alquímico, você gasta uma ação padrão e escolhe uma criatura em alcance curto. Essa criatura sofre 1d6 pontos de dano de fogo e fica em chamas. Um teste de Reflexos (CD Des) reduz o dano à metade e evita as chamas. CD 15.",
+    "categoria": "Alquimia",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    },
+    "cd_fabricacao": 15
   },
   {
     "nome": "Granada",
+    "preco": 50.0,
     "peso": 0.5,
-    "descricao": "Item alquímico. Pequena bomba pavio popular entre goblins. Causa 6d6 de dano de impacto em todas as criaturas a até 3m do ponto de explosão (Ref CD Des metade)."
+    "descricao": "Uma bomba rudimentar, popular entre goblins e outros usuários de pólvora. Para usar a granada você gasta uma ação de movimento para acender seu pavio e uma ação padrão para arremessá-la em qualquer ponto em alcance curto. Criaturas a até 3m do ponto de impacto sofrem 6d6 pontos de dano. Um teste de Reflexos (CD Des) reduz o dano à metade. CD 20.",
+    "categoria": "Alquimia",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 152,
+      "paginaPdf": 154
+    },
+    "cd_fabricacao": 20
   },
   {
     "nome": "Batata valkariana",
+    "preco": 2.0,
     "peso": 0.5,
-    "descricao": "Prato especial. Batatas em tiras fritas, gordurentas e deliciosas de Valkaria. Concede +1d6 adicionados a um único teste à escolha dentro de um dia."
+    "descricao": "Batatas cortadas em tiras e mergulhadas em óleo fervente. Gordurentas e pouco nutritivas, são o tipo de prato que só é servido numa metrópole como Valkaria. Apesar disso, o prato é quase unânime. Gostoso, deixa qualquer um empolgado para realizar façanhas. Você recebe +1d6 num único teste a sua escolha (ou até um dia se passar). Para não esquecer, deixe um d6 em cima da sua ficha. De preferência, amarelo. CD 15. O benefício de alimentação dura um dia e cada personagem pode receber apenas um benefício de alimentação por dia.",
+    "categoria": "Alimentação",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    },
+    "cd_fabricacao": 15
   },
   {
     "nome": "Bebida comum",
+    "preco": 0.1,
     "peso": 0.5,
-    "descricao": "Caneca de bebida rústica (geralmente cerveja ou hidromel) servida em tavernas e estalagens do Reinado."
+    "descricao": "Uma caneca cheia da bebida mais comum no local, geralmente cerveja.",
+    "categoria": "Alimentação",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    }
   },
   {
     "nome": "Gorad quente",
+    "preco": 19.0,
     "peso": 0.5,
-    "descricao": "Prato especial. Bebida doce de gorad (cacau artoniano) e leite quente que estimula o cérebro, concedendo +2 pontos de mana (PM) temporários por um dia."
+    "descricao": "Gorad e leite, servidos quentes. Não tem erro. O gorad ativa o cérebro, fornecendo +2 PM temporários. CD 20. O benefício de alimentação dura um dia e cada personagem pode receber apenas um benefício de alimentação por dia.",
+    "categoria": "Alimentação",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    },
+    "cd_fabricacao": 20
   },
   {
     "nome": "Macarrão de Yuvalin",
+    "preco": 5.0,
     "peso": 0.5,
-    "descricao": "Prato especial. Macarrão espesso com bacon e creme de leite, originário das minas de Zakharov. Concede +5 pontos de vida (PV) temporários por um dia."
+    "descricao": "Yuvalin é uma cidade mineradora em Zakharov, na fronteira com as Montanhas Uivantes. Seus habitantes criaram este prato reforçado (macarrão, bacon e creme de leite!) para encarar suas árduas jornadas de trabalho nas minas. Delicioso, o prato se espalhou por outras cidades e reinos. Você recebe +5 PV temporários. CD 15. O benefício de alimentação dura um dia e cada personagem pode receber apenas um benefício de alimentação por dia.",
+    "categoria": "Alimentação",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    },
+    "cd_fabricacao": 15
   },
   {
     "nome": "Prato do aventureiro",
+    "preco": 1.0,
     "peso": 0.5,
-    "descricao": "Prato especial. Cozido nutritivo de galinha e legumes. Melhora a recuperação de pontos de vida do próximo descanso em +1 por nível."
+    "descricao": "Um cozido de galinha com legumes, esta é uma refeição simples, mas nutritiva. Em sua próxima noite de sono, você aumenta a sua recuperação de pontos de vida em +1 por nível. CD 10. Aumenta a recuperação de pontos de vida em +1 por nível na próxima noite de sono. CD 10. O benefício de alimentação dura um dia e cada personagem pode receber apenas um benefício de alimentação por dia.",
+    "categoria": "Alimentação",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    },
+    "cd_fabricacao": 10
   },
   {
     "nome": "Refeição comum",
+    "preco": 0.3,
     "peso": 0.5,
-    "descricao": "Alimentação corriqueira de taverna contendo pão, queijo cozido de legumes, carne de caça comum e um caneco de bebida."
+    "descricao": "Uma refeição típica inclui pão, queijo, cozido de carne ou galinha com legumes e um caneco de bebida.",
+    "categoria": "Alimentação",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 153,
+      "paginaPdf": 155
+    }
   },
   {
     "nome": "Sopa de peixe",
+    "preco": 1.0,
     "peso": 0.5,
-    "descricao": "Prato especial. Caldo leve de peixe fresco com verduras. Melhora a recuperação de pontos de mana do próximo descanso em +1 por nível."
+    "descricao": "Um cozido de peixe com verduras. É um prato humilde, mas garante um descanso relaxante. Em sua próxima noite de sono, você aumenta a sua recuperação de pontos de mana em +1 por nível. CD 10. O benefício de alimentação dura um dia e cada personagem pode receber apenas um benefício de alimentação por dia.",
+    "categoria": "Alimentação",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 151,
+      "paginaPdf": 153
+    },
+    "fonte_descricao": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 154,
+      "paginaPdf": 156
+    },
+    "cd_fabricacao": 10
+  },
+  {
+    "nome": "Água benta",
+    "preco": null,
+    "peso": null,
+    "descricao": "Criada por clérigos e vendida em pequenos frascos, é um poderoso recurso na luta contra o mal. A água benta conta como uma arma simples de arremesso com alcance curto e a habilidade respingo. Ela causa 2d10 pontos de dano em mortos-vivos e espíritos, mas é inofensiva contra outras criaturas.",
+    "categoria": "Itens gerais",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 150,
+      "paginaPdf": 152
+    },
+    "observacoes": "A descrição existe no PDF, mas a tabela de itens e serviços desta prévia não informa seu preço e peso."
   }
 ]

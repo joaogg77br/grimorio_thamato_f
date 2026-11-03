@@ -1,908 +1,2103 @@
 [
   {
     "nome": "Acuidade com Arma",
-    "descricao": "Quando usa uma arma leve de corpo a corpo ou uma arma de arremesso, você pode usar seu modificador de Destreza em vez de Força nos testes de ataque e rolagens de dano.",
+    "descricao": "Quando usa uma arma leve de corpo a corpo ou uma arma de arremesso, você pode usar seu modificador de Destreza em vez de Força nos testes de ataque e rolagens de dano. Pré-requisito: Des 13.",
     "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Ataque Poderoso",
-    "descricao": "Declare que está usando este poder antes de fazer um ataque corpo a corpo. Você sofre –2 no teste de ataque, mas recebe +5 na rolagem de dano.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Ataque Preciso",
-    "descricao": "Se estiver usando uma arma corpo a corpo em uma das mãos e nada na outra, você recebe +2 na margem de ameaça e +1 no multiplicador de crítico.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Bloqueio com Escudo",
-    "descricao": "Quando é atingido por um ataque, habilidade ou magia, você pode gastar 1 PM para receber resistência a dano contra este ataque igual ao bônus na Defesa que seu escudo fornece. Você só pode usar este poder se estiver usando um escudo.",
-    "gastoPe": 1,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Combate Defensivo",
-    "descricao": "Quando usa a ação atacar, você pode sofrer –2 no teste de ataque para receber +2 na Defesa até o início do seu próximo turno.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Derrubar Aprimorado",
-    "descricao": "Você recebe +2 em testes de ataque para derrubar. Quando derruba uma criatura com sucesso, pode fazer um ataque corpo a corpo extra contra ela como ação livre.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Desarmar Aprimorado",
-    "descricao": "Você recebe +2 em testes de ataque para desarmar. Quando desarma uma criatura com sucesso, pode fazer com que a arma dela caia em seu espaço ou na mão livre dela, ou derrubá-la.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Empunhadura Poderosa",
-    "descricao": "Você pode usar armas feitas para uma categoria de tamanho maior que a sua sofrendo apenas -2 de penalidade em testes de ataque.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Esquiva",
-    "descricao": "Você recebe +2 na Defesa e Reflexos.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Estilo Desarmado",
-    "descricao": "Seus ataques desarmados causam 1d6 pontos de dano e podem causar dano letal ou não letal (a sua escolha).",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Estilo de Arma e Escudo",
-    "descricao": "Se estiver usando um escudo, o bônus na Defesa dele aumenta em +2.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Estilo de Uma Arma",
-    "descricao": "Se estiver usando uma arma corpo a corpo em uma das mãos e nada na outra, você recebe +2 na Defesa.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Estilo de Duas Armas",
-    "descricao": "Se estiver empunhando duas armas, quando usa a ação atacar pode fazer um ataque extra com a arma secundária, sofrendo -2 no teste de ataque de ambos.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Estilo de Duas Mãos",
-    "descricao": "Se estiver usando uma arma de duas mãos, recebe +2 nas rolagens de dano.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Estilo de Arremesso",
-    "descricao": "Você recebe +2 em testes de ataque e rolagens de dano com armas de arremesso, e pode sacá-las como ação livre.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Vitalidade",
-    "descricao": "Você recebe +1 PV por nível de personagem e +2 em Fortitude.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Trespassar",
-    "descricao": "Quando reduz um inimigo a 0 PV com um ataque corpo a corpo, pode fazer um ataque extra contra outro inimigo adjacente.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Quebrar Aprimorado",
-    "descricao": "Você recebe +2 em testes de ataque para quebrar.",
-    "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Des 13.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 124,
+      "paginaPdf": 126
+    }
   },
   {
     "nome": "Arma Secundária Grande",
-    "descricao": "Você pode usar como arma secundária uma arma de uma mão (em vez de uma arma leve).",
+    "descricao": "Você pode usar duas armas de uma mão com o poder Estilo de Duas Armas. Pré-requisito: Estilo de Duas Armas.",
     "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Ataque Pesado",
-    "descricao": "Quando faz um ataque com uma arma de duas mãos, pode gastar 1 PM para empurrar o alvo ou derrubá-lo como parte do ataque.",
-    "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Estilo de Duas Armas.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 124,
+      "paginaPdf": 126
+    }
   },
   {
     "nome": "Arremesso Potente",
-    "descricao": "Você soma seu modificador de Força em vez de Destreza nas rolagens de dano com armas de arremesso.",
+    "descricao": "Quando usa uma arma de arremesso, você pode usar seu modificador de Força em vez de Destreza nos testes de ataque. Se você possuir o poder Ataque Poderoso, poderá usá-lo com armas de arremesso. Pré-requisito: For 13, Estilo de Arremesso.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "For 13, Estilo de Arremesso.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 124,
+      "paginaPdf": 126
+    }
+  },
+  {
+    "nome": "Ataque Pesado",
+    "descricao": "Quando faz um ataque corpo a corpo com uma arma de duas mãos, você pode pagar 1 PM. Se fizer isso e acertar o ataque, você faz uma manobra derrubar ou empurrar contra o alvo como uma ação livre (use o resultado do ataque como o teste de manobra). Pré-requisito: Estilo de Duas Mãos.",
+    "gastoPe": 1,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Estilo de Duas Mãos.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 124,
+      "paginaPdf": 126
+    }
+  },
+  {
+    "nome": "Ataque Poderoso",
+    "descricao": "Declare que está usando este poder antes de fazer um ataque corpo a corpo. Você sofre –2 no teste de ataque, mas recebe +5 na rolagem de dano. Pré-requisito: For 13.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "For 13.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 124,
+      "paginaPdf": 126
+    }
+  },
+  {
+    "nome": "Ataque Preciso",
+    "descricao": "Se estiver usando uma arma corpo a corpo em uma das mãos e nada na outra, você recebe +2 na margem de ameaça e +1 no multiplicador de crítico. Pré-requisito: Estilo de Uma Arma.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Estilo de Uma Arma.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 124,
+      "paginaPdf": 126
+    }
+  },
+  {
+    "nome": "Bloqueio com Escudo",
+    "descricao": "Quando é atingido por um ataque, habilidade ou magia, você pode gastar 1 PM para receber resistência a dano contra este ataque igual ao bônus na Defesa que seu escudo fornece. Você só pode usar este poder se estiver usando um escudo. Pré-requisito: Estilo de Arma e Escudo.",
+    "gastoPe": 1,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Estilo de Arma e Escudo.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 124,
+      "paginaPdf": 126
+    }
+  },
+  {
+    "nome": "Carga de Cavalaria",
+    "descricao": "Quando faz uma investida montada, você causa +2d8 pontos de dano. Além disso, pode continuar se movendo depois do ataque. Você deve se mover em linha reta e seu movimento máximo ainda é o dobro do seu deslocamento. Pré-requisito: Ginete.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Ginete.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 124,
+      "paginaPdf": 126
+    }
+  },
+  {
+    "nome": "Combate Defensivo",
+    "descricao": "Quando faz uma ação ataque, você pode usar este poder. Se fizer isso, até seu próximo turno, sofre –2 em testes de ataque, mas recebe +5 na Defesa. Pré-requisito: Int 13.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Int 13.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 124,
+      "paginaPdf": 126
+    }
+  },
+  {
+    "nome": "Derrubar Aprimorado",
+    "descricao": "Você recebe +2 em testes de ataque para derrubar. Quando derruba uma criatura, pode gastar 1 PM para fazer um ataque extra contra ela. Pré-requisito: Combate Defensivo.",
+    "gastoPe": 1,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Combate Defensivo.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 124,
+      "paginaPdf": 126
+    }
+  },
+  {
+    "nome": "Desarmar Aprimorado",
+    "descricao": "Você recebe +2 em testes de ataque para desarmar. Quando desarma uma criatura, pode gastar 1 PM para arremessar a arma dela para longe. Para definir onde a arma cai, role 1d8 para a direção (sendo “1” diretamente a sua frente, “2” à frente e à direita e assim por diante) e 1d6 para a distância (medida em quadrados de 1,5m a partir da criatura desarmada). Pré-requisito: Combate Defensivo.",
+    "gastoPe": 1,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Combate Defensivo.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 125,
+      "paginaPdf": 127
+    }
+  },
+  {
+    "nome": "Disparo Preciso",
+    "descricao": "Você pode fazer ataques à distância contra oponentes envolvidos em combate corpo a corpo sem sofrer a penalidade padrão de –5 no teste de ataque. Pré-requisito: Estilo de Disparo ou Estilo de Arremesso.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Estilo de Disparo ou Estilo de Arremesso.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 125,
+      "paginaPdf": 127
+    }
+  },
+  {
+    "nome": "Disparo Rápido",
+    "descricao": "Se estiver usando uma arma de ataque à distância e gastar uma ação completa para atacar, você recebe um ataque adicional. Se fizer isso, sofre –2 em ambos os testes de ataque. Pré-requisito: Estilo de Disparo ou Estilo de Arremesso.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Estilo de Disparo ou Estilo de Arremesso.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 125,
+      "paginaPdf": 127
+    }
+  },
+  {
+    "nome": "Empunhadura Poderosa",
+    "descricao": "Você pode usar armas maiores, que causam um passo a mais de dano, sem sofrer penalidade de –5 nos testes de ataque (um personagem Minúsculo pode usar armas normais, um personagem Pequeno ou Médio pode usar armas aumentadas e assim por diante). Pré-requisito: For 17.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "For 17.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 125,
+      "paginaPdf": 127
+    }
+  },
+  {
+    "nome": "Esquiva",
+    "descricao": "Você recebe +2 em Defesa e Reflexos. Pré-requisito: Des 13.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Des 13.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 125,
+      "paginaPdf": 127
+    }
+  },
+  {
+    "nome": "Estilo de Arma e Escudo",
+    "descricao": "Se você estiver usando um escudo, o bônus na Defesa que ele fornece aumenta em +2. Pré-requisitos: Treinado em Luta, proficiência com escudos.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Treinado em Luta, proficiência com escudos.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 125,
+      "paginaPdf": 127
+    }
+  },
+  {
+    "nome": "Estilo de Arremesso",
+    "descricao": "Você pode sacar armas de arremesso como uma ação livre e recebe +2 nas rolagens de dano com elas. Pré-requisito: treinado em Pontaria.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "treinado em Pontaria.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 125,
+      "paginaPdf": 127
+    }
+  },
+  {
+    "nome": "Estilo de Disparo",
+    "descricao": "Se estiver usando uma arma de disparo, você soma o bônus de Destreza nas rolagens de dano. Pré-requisito: treinado em Pontaria.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "treinado em Pontaria.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 125,
+      "paginaPdf": 127
+    }
+  },
+  {
+    "nome": "Estilo de Duas Armas",
+    "descricao": "Se estiver usando duas armas (e pelo menos uma delas for leve) e fizer a ação ataque, você pode fazer dois ataques, um com cada arma. Se fizer isso, sofre –2 em ambos os testes de ataque. Se você possuir a habilidade Ambidestria, não sofre essa penalidade. Pré-requisito: Des 15, Treinado em Luta.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Des 15, Treinado em Luta.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 125,
+      "paginaPdf": 127
+    }
+  },
+  {
+    "nome": "Estilo de Duas Mãos",
+    "descricao": "Se estiver usando uma arma corpo a corpo com as duas mãos, você recebe +5 nas rolagens de dano. Este poder não pode ser usado com armas leves. Pré-requisito: For 15, Treinado em Luta.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "For 15, Treinado em Luta.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 125,
+      "paginaPdf": 127
+    }
+  },
+  {
+    "nome": "Estilo de Uma Arma",
+    "descricao": "Se estiver usando uma arma corpo a corpo em uma das mãos e nada na outra, você recebe +2 na Defesa e nos testes de ataque com essa arma. Pré-requisito: treinado em Luta.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "treinado em Luta.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 128,
+      "paginaPdf": 130
+    }
+  },
+  {
+    "nome": "Estilo Desarmado",
+    "descricao": "Seus ataques desarmados causam 1d6 pontos de dano e podem causar dano letal ou não letal (a sua escolha). Pré-requisito: treinado em Luta.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "treinado em Luta.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 128,
+      "paginaPdf": 130
+    }
+  },
+  {
+    "nome": "Encouraçado",
+    "descricao": "Se estiver usando uma armadura pesada, você recebe +2 na Defesa. Esse bônus aumenta em +2 para cada outro poder que você possua que tenha Estilo Encouraçado como pré-requisito. Pré-requisito: proficiência com armaduras pesadas.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "proficiência com armaduras pesadas.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 128,
+      "paginaPdf": 130
+    },
+    "aliases": [
+      "Estilo Encouraçado"
+    ]
+  },
+  {
+    "nome": "Fanático",
+    "descricao": "Você não recebe penalidade em deslocamento por usar armaduras pesadas. Pré-requisitos: 12º nível de personagem, Estilo Encouraçado.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "12º nível de personagem, Estilo Encouraçado.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 128,
+      "paginaPdf": 130
+    }
+  },
+  {
+    "nome": "Finta Aprimorada",
+    "descricao": "Você recebe +2 em testes de Enganação para fintar e pode fintar como uma ação de movimento. Pré-requisitos: treinado em Enganação e Luta.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "treinado em Enganação e Luta.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 128,
+      "paginaPdf": 130
+    }
+  },
+  {
+    "nome": "Foco em Arma",
+    "descricao": "Escolha uma arma com a qual você seja proficiente. Você recebe +2 em testes de ataque com essa arma. Você pode escolher este poder outras vezes para armas diferentes.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 128,
+      "paginaPdf": 130
+    }
+  },
+  {
+    "nome": "Ginete",
+    "descricao": "Você passa automaticamente em testes de Cavalgar para não cair da montaria quando sofre dano. Além disso, não sofre penalidades para atacar à distância ou lançar magias quando montado. Pré-requisito: treinado em Cavalgar.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "treinado em Cavalgar.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 128,
+      "paginaPdf": 130
+    }
+  },
+  {
+    "nome": "Inexpugnável",
+    "descricao": "Se estiver usando uma armadura pesada, você recebe +2 em todos os testes de resistência. Pré-requisitos: 6º nível de personagem, Estilo Encouraçado.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "6º nível de personagem, Estilo Encouraçado.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 128,
+      "paginaPdf": 130
+    }
+  },
+  {
+    "nome": "Mira Apurada",
+    "descricao": "Você pode gastar uma ação de movimento para mirar. Se fizer isso, recebe +2 em testes de ataque e na margem de ameaça com ataques à distância até o fim do turno. Pré-requisitos: Sab 13, Disparo Preciso.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Sab 13, Disparo Preciso.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 128,
+      "paginaPdf": 130
+    }
+  },
+  {
+    "nome": "Presença Aterradora",
+    "descricao": "Você pode gastar uma ação padrão e 1 PM para assustar todas as criaturas a sua escolha em alcance curto. Veja a perícia Intimidação para as regras de assustar. Pré-requisito: treinado em Intimidação.",
+    "gastoPe": 1,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "treinado em Intimidação.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 128,
+      "paginaPdf": 130
+    }
+  },
+  {
+    "nome": "Proficiência",
+    "descricao": "Escolha uma proficiência: armas marciais, armas de fogo, armaduras pesadas ou escudos (se for proficiente em armas marciais, você também pode escolher armas exóticas). Você recebe essa proficiên cia. Você pode escolher este poder outras vezes para proficiências diferentes.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 129,
+      "paginaPdf": 131
+    }
+  },
+  {
+    "nome": "Quebrar Aprimorado",
+    "descricao": "Você recebe +2 em testes de ataque para quebrar. Quando reduz os PV de uma arma para 0 ou menos, você pode gastar 1 PM para realizar um ataque extra contra o usuário dela. O ataque adicional usa os mesmos bônus de ataque e dano, mas os dados devem ser rolados novamente. Pré-requisito: Ataque Poderoso.",
+    "gastoPe": 1,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Ataque Poderoso.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 129,
+      "paginaPdf": 131
+    }
+  },
+  {
+    "nome": "Reflexos de Combate",
+    "descricao": "Você ganha uma ação de movimento extra no seu primeiro turno de cada combate. Pré-requisito: Des 13.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Des 13.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 129,
+      "paginaPdf": 131
+    }
+  },
+  {
+    "nome": "Saque Rápido",
+    "descricao": "Você recebe +2 em Iniciativa e pode sacar ou guardar itens como uma ação livre (em vez de ação de movimento). Além disso, a ação que você gasta para recarregar uma arma de disparo diminui em uma categoria (ação completa para padrão, padrão para movimento, movimento para livre). Pré-requisito: treinado em Iniciativa.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "treinado em Iniciativa.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 129,
+      "paginaPdf": 131
+    }
+  },
+  {
+    "nome": "Trespassar",
+    "descricao": "Quando você derruba um inimigo com um ataque corpo a corpo (reduzindo seus PV para 0 ou menos), pode gastar 1 PM para fazer um ataque adicional contra outra criatura dentro do seu alcance. O ataque adicional usa os mesmos bônus de ataque e dano, mas os dados devem ser rolados novamente. Pré-requisito: Ataque Poderoso.",
+    "gastoPe": 1,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Ataque Poderoso.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 129,
+      "paginaPdf": 131
+    }
+  },
+  {
+    "nome": "Vitalidade",
+    "descricao": "Você recebe +1 PV por nível de personagem e +2 em Fortitude. Pré-requisito: Con 13.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Combate",
+    "pre_requisitos": "Con 13.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 129,
+      "paginaPdf": 131
+    }
   },
   {
     "nome": "Acrobático",
-    "descricao": "Você pode usar seu modificador de Destreza em vez de Força em testes de Atletismo. Além disso, terreno difícil não reduz seu deslocamento nem o impede de realizar investidas.",
+    "descricao": "Você pode usar seu modificador de Destreza em vez de Força em testes de Atletismo. Além disso, terreno difícil não reduz seu deslocamento nem o impede de realizar investidas. Pré-requisito: Des 15.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "Des 15.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 129,
+      "paginaPdf": 131
+    }
   },
   {
     "nome": "Ao Sabor do Destino",
-    "descricao": "Você recebe diversos benefícios, de acordo com seu nível de personagem. Perde o bônus temporariamente se utilizar voluntariamente qualquer item mágico (exceto poções) até o fim da aventura.",
+    "descricao": "Você recebe diversos benefícios, de acordo com seu nível de personagem e a tabela abaixo. Os bônus não são cumulativos (os bônus em atributos e perícias devem ser aplicados num atributo ou perícia diferente a cada vez). Quando você utiliza voluntariamente qualquer item mágico (exceto poções), perde o benefício deste poder até o fim da aventura. Você ainda pode lançar magias, receber magias benéficas ou beneficiar-se de itens usados por outros — por exemplo, pode “ir de carona” em um tapete voador, mas não pode você mesmo conduzi-lo. Pré-requisito: 5º nível de personagem.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "5º nível de personagem.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 129,
+      "paginaPdf": 131
+    }
   },
   {
     "nome": "Aparência Inofensiva",
-    "descricao": "A primeira criatura inteligente (Int 3 ou mais) que atacar você em uma cena deve fazer um teste de Vontade (CD Car). Se falhar, perderá sua ação. Funciona apenas uma vez por cena.",
+    "descricao": "A primeira criatura inteligente (Int 3 ou mais) que atacar você em uma cena deve fazer um teste de Vontade (CD Car). Se falhar, perderá sua ação. Este poder só funciona uma vez por cena; independentemente de a criatura falhar ou não no teste, poderá atacá-lo nas rodadas seguintes. Pré-requisito: Car 13.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "Car 13.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 129,
+      "paginaPdf": 131
+    }
   },
   {
     "nome": "Atlético",
-    "descricao": "Você recebe +2 em Atletismo e seu deslocamento aumenta em +3m.",
+    "descricao": "Você recebe +2 em Atletismo e seu deslocamento aumenta em +3m. Pré-requisito: For 15.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "For 15.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 129,
+      "paginaPdf": 131
+    }
   },
   {
     "nome": "Atraente",
-    "descricao": "Você recebe +2 em testes de perícias baseadas em Carisma contra criaturas que possam se sentir fisicamente atraídas por você.",
+    "descricao": "Você recebe +2 em testes de perícias baseadas em Carisma contra criaturas que possam se sentir fisicamente atraídas por você. Pré-requisito: Car 13.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "Car 13.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 129,
+      "paginaPdf": 131
+    }
   },
   {
     "nome": "Comandar",
-    "descricao": "Você pode gastar uma ação de movimento e 1 PM para gritar ordens para seus aliados em alcance médio. Eles recebem +1 em testes de perícia até o fim da cena.",
+    "descricao": "Você pode gastar uma ação de movimento e 1 PM para gritar ordens para seus aliados em alcance médio. Eles recebem +1 em testes de perícia até o fim da cena. Pré-requisito: Car 13.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "Car 13.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 129,
+      "paginaPdf": 131
+    }
   },
   {
     "nome": "Curandeiro",
-    "descricao": "Você pode gastar uma ação completa para fazer um teste de Cura (CD 15) em uma criatura. Se passar, ela recupera 1d6 PV, mais 1d6 para cada 5 pontos pelos quais o resultado do teste exceder a CD. Uma vez por dia por criatura.",
+    "descricao": "Você pode gastar uma ação completa para fazer um teste de Cura (CD 15) em uma criatura. Se você passar, ela recupera 1d6 PV, mais 1d6 para cada 5 pontos pelos quais o resultado do teste exceder a CD (2d6 com um resultado 20, 3d6 com um resultado 25 e assim por diante). Você só pode usar este poder uma vez por dia numa mesma criatura. Pré-requisitos: Sab 13, treinado em Cura.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "Sab 13, treinado em Cura.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Foco em Perícia",
-    "descricao": "Escolha uma perícia. Você recebe +2 em testes dessa perícia. Pode escolher este poder mais de uma vez para perícias diferentes.",
-    "gastoPe": null,
-    "classe": "Geral"
+    "descricao": "Escolha uma perícia. Quando faz um teste dessa perícia, você pode gastar 1 PM para rolar dois dados e usar o melhor resultado. Você pode escolher este poder outras vezes para perícias diferentes. Este poder não pode ser aplicado em Luta e Pontaria (mas veja Foco em Arma). Pré-requisito: treinado na perícia escolhida.",
+    "gastoPe": 1,
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "treinado na perícia escolhida.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Investigador",
-    "descricao": "Você recebe +2 em Investigação e pode realizar testes de obter informação na metade do tempo.",
+    "descricao": "Você recebe +2 em Investigação e soma seu bônus de Inteligência em Intuição. Pré-requisito: Int 13.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "Int 13.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Lobo Solitário",
-    "descricao": "Você recebe +1 em testes de perícia e Defesa se não houver aliados em alcance curto.",
+    "descricao": "Você recebe +1 em testes de perícia e Defesa se estiver sem nenhum aliado em alcance curto. Você não sofre penalidade por usar a perícia Cura em si mesmo.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Parceiro",
-    "descricao": "Você recebe os benefícios de um parceiro animal ou humanoide iniciante de um tipo à sua escolha.",
+    "descricao": "Você possui um parceiro animal ou humanoide que o acompanha em aventuras. Escolha os detalhes dele, como nome, aparência e personalidade. Em termos de jogo, é um aliado iniciante de um tipo a sua escolha (veja a página XX). O parceiro obedece às suas ordens e se arrisca para ajudá-lo. Entretanto, se for maltratado, pode parar de segui-lo (de acordo com o mestre). Se perder seu parceiro, você recebe outro no início da próxima aventura. Pré-requisitos: treinado em Adestramento (parceiro animal) ou Diplomacia (parceiro humanoide), 6º nível de personagem.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "treinado em Adestramento (parceiro animal) ou Diplomacia (parceiro humanoide), 6º nível de personagem.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    },
+    "aliases": [
+      "Parceiro Animal"
+    ]
   },
   {
     "nome": "Sentidos Aguçados",
-    "descricao": "Você recebe +2 em Percepção, ignora camuflagem por escuridão ou penumbra e recebe faro (bônus de +2 em testes de Percepção para rastrear e notar criaturas).",
+    "descricao": "Você recebe +2 em Percepção, não fica desprevenido contra inimigos que não possa ver e, sempre que erra um ataque devido a camuflagem, pode rolar mais uma vez o dado da chance de falha. Pré-requisitos: Sab 13, treinado em Percepção.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "Sab 13, treinado em Percepção.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Sortudo",
-    "descricao": "Você pode gastar 1 PM para rolar novamente um teste recém-realizado.",
-    "gastoPe": 1,
-    "classe": "Geral"
+    "descricao": "Você pode gastar 3 PM para rolar novamente um teste recém realizado (apenas uma vez por teste).",
+    "gastoPe": 3,
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Surto Heroico",
-    "descricao": "Uma vez por rodada, você pode gastar 5 PM para realizar uma ação padrão ou de movimento adicional no seu turno.",
+    "descricao": "Uma vez por rodada, você pode gastar 5 PM para realizar uma ação padrão ou de movimento adicional.",
     "gastoPe": 5,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Torcida",
-    "descricao": "Você recebe +2 em testes de ataque e Defesa quando tem a torcida a seu favor (criaturas em alcance médio que estejam apenas torcendo por você).",
+    "descricao": "Você recebe +2 em testes de perícia e Defesa quando tem a torcida a seu favor. Entenda-se por “torcida” qualquer número de criaturas inteligentes em alcance médio que não esteja realizando nenhuma ação além de torcer por você. Pré-requisito: Car 13.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "Car 13.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Treinamento em Perícia",
     "descricao": "Você se torna treinado em duas perícias a sua escolha. Você pode escolher este poder outras vezes para perícias diferentes.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Venefício",
-    "descricao": "Quando usa um veneno, você não corre risco de se envenenar acidentalmente. Além disso, a CD para resistir aos seus venenos aumenta em +2.",
+    "descricao": "Quando usa um veneno, você não corre risco de se envenenar acidentalmente. Além disso, a CD para resistir aos seus venenos aumenta em +2. Pré-requisito: treinado em Ofício (alquimia).",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "treinado em Ofício (alquimia).",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Vontade de Ferro",
-    "descricao": "Você recebe +1 PM para cada dois níveis de personagem e +2 em Vontade.",
+    "descricao": "Você recebe +1 PM para cada dois níveis de personagem e +2 em Vontade. Pré-requisito: Sab 13.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Destino",
+    "pre_requisitos": "Sab 13.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Celebrar Ritual",
-    "descricao": "Você pode lançar magias na forma de rituais. Fazer isso dobra seu limite de PM, mas aumenta o tempo de execução para uma hora e adiciona custo de T$ 10 por PM. Você paga apenas metade do custo da magia em PM.",
+    "descricao": "Você pode lançar magias na forma de rituais. Fazer isso dobra seu limite de PM (permitindo usar mais aprimoramentos), mas aumenta sua execução para uma hora (ou para o dobro da sua execução, o que for maior) e adiciona um componente material de T$ 10 por PM na forma de incensos, óleos, oferendas etc. Quando faz um ritual, você paga apenas metade do custo da magia em PM (após aplicar quaisquer habilidades que modifiquem esse custo).",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Magia",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Escrever Pergaminho",
-    "descricao": "Você pode fabricar pergaminhos de magias que conheça.",
+    "descricao": "Você pode usar a perícia Ofício (escriba) para fabricar pergaminhos com magias que conheça. Veja a perícia Ofício para as regras de fabricar itens e o Capítulo 8: Recompensas para as regras de pergaminhos. O preço de um pergaminho é T$ 25 por PM (por exemplo, T$ 150 para uma magia de 6 PM). Se a magia tiver um componente material, você deve pagá-lo. A CD para fabricá-lo é 20 + custo em PM da magia. De acordo com o mestre, você pode usar outros objetos portáteis que não pergaminhos, como runas, tabuletas de argila etc. Pré-requisitos: Habilidade de classe Magias, treinado em Ofício (escriba).",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Magia",
+    "pre_requisitos": "Habilidade de classe Magias, treinado em Ofício (escriba).",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 130,
+      "paginaPdf": 132
+    }
   },
   {
     "nome": "Foco em Magia",
-    "descricao": "Escolha uma magia. Seu custo diminui em –2 PM (mínimo 1 PM). Pode escolher este poder mais de uma vez para magias diferentes.",
+    "descricao": "Escolha uma magia. Seu custo diminui em –2 PM. Você pode escolher este poder outras vezes para magias diferentes.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Magia",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 131,
+      "paginaPdf": 133
+    }
   },
   {
     "nome": "Magia Acelerada",
-    "descricao": "Muda a execução de uma magia com execução de movimento, padrão ou completa para ação livre. Limite de uma magia acelerada por rodada.",
+    "descricao": "Muda a execução da magia para ação livre. Você só pode aplicar este aprimoramento em magias com execução de movimento, padrão ou completa e só pode lançar uma magia acelerada por rodada. Custo: +4 PM. Pré-requisito: lançar magias de 2º círculo.",
     "gastoPe": 4,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Magia",
+    "pre_requisitos": "lançar magias de 2º círculo.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 131,
+      "paginaPdf": 133
+    },
+    "custo_adicional": 4
   },
   {
     "nome": "Magia Ampliada",
-    "descricao": "Aprimoramento que aumenta o alcance de uma magia em um passo ou dobra a área de efeito da magia.",
+    "descricao": "Aumenta o alcance da magia em um passo (de curto para médio, de médio para longo) ou dobra a área de efeito da magia. Por exemplo, uma Bola de Fogo ampliada tem seu alcance aumentado para longo ou sua área aumentada para 12m de raio. Custo: +2 PM.",
     "gastoPe": 2,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Magia",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 131,
+      "paginaPdf": 133
+    },
+    "custo_adicional": 2
   },
   {
     "nome": "Magia Discreta",
-    "descricao": "Você lança a magia sem gesticular e falar, usando apenas concentração. Outros personagens só percebem a conjuração se passarem em Misticismo (CD 20).",
+    "descricao": "Você lança a magia sem gesticular e falar, usando apenas concentração. Isso permite lançar magias com as mãos presas, amordaçado etc. Além disso, outros personagens só percebem que você lançou uma magia se passarem num teste de Misticismo (CD 20). Custo: +2 PM.",
     "gastoPe": 2,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Magia",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 131,
+      "paginaPdf": 133
+    },
+    "custo_adicional": 2
   },
   {
     "nome": "Magia Ilimitada",
-    "descricao": "Você soma seu modificador de atributo-chave no limite de PM que pode gastar numa magia.",
+    "descricao": "Você soma seu modificador do atributo-chave no limite de PM que pode gastar numa magia. Por exemplo, um mago de 5º nível com Int 18 (+4) e este poder pode gastar até 9 PM em cada magia.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Magia",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 131,
+      "paginaPdf": 133
+    }
   },
   {
     "nome": "Preparar Poção",
-    "descricao": "Você pode fabricar poções de magias de 1º e 2º círculos que conheça.",
+    "descricao": "Você pode usar a perícia Ofício (alquimia) para fabricar poções com magias que conheça. Veja a perícia Ofício para as regras de fabricar itens e a classe Inventor, no Capítulo 1: Construção de Personagens, para as regras de poções. Pré-requisitos: Habilidade de classe Magias, treinado em Ofício (alquimia). Regras de poções: Uma poção é um líquido mágico que contém uma magia que tenha como alvo uma criatura ou objeto ou que tenha efeito em área. Poções que afetam objetos também são chamadas de óleos e poções que geram um efeito em área também são chamadas de granadas. Poções são armazenadas em frascos de vidro ou cerâmica com 30ml. Fabricação. Para fabricar uma poção, escolha uma fórmula que você conheça (veja o quadro ao lado). Essa será a magia que a poção irá conter. O custo da poção é T$ 25 x o custo em PM da magia. A CD para fabricá-la é 20 + o custo em PM da magia. Assim, para fabricar uma poção contendo uma magia de 3º círculo (6 PM), você precisa gastar T$ 150 e passar em um teste de Ofício (alquimia) contra CD 26. Se a magia tiver um componente material, você deve pagá-lo. Ativação. Ativar uma poção exige uma ação padrão para bebê-la (a poção afeta a criatura que a ingeriu). Um personagem pode dar uma poção a uma criatura inconsciente como uma ação completa. Ativar um óleo exige uma ação padrão para aplicá-lo no objeto que será afetado. Ativar uma granada exige uma ação padrão para arremessá-la em qualquer ponto em alcance curto (o centro de efeito da magia é o ponto onde a granada foi arremessada).",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Magia",
+    "pre_requisitos": "Habilidade de classe Magias, treinado em Ofício (alquimia).",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 131,
+      "paginaPdf": 133
+    },
+    "fontes_complementares": [
+      {
+        "edicao": "Prévia de maio de 2020",
+        "pagina": 71,
+        "paginaPdf": 73
+      }
+    ]
   },
   {
     "nome": "Anatomia Insana",
-    "descricao": "Você tem 25% de chance de ignorar o dano adicional de um acerto crítico ou ataque furtivo. A chance aumenta em +25% para cada dois outros poderes da Tormenta que possui.",
+    "descricao": "Você tem 25% de chance (resultado “1” em 1d4) de ignorar o dano adicional de um acerto crítico ou ataque furtivo. A chance aumenta em +25% para cada dois outros poderes da Tormenta que você possui. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Antenas",
-    "descricao": "Você recebe +1 em Iniciativa, Percepção e Vontade. O bônus aumenta em +1 para cada dois outros poderes da Tormenta que possui.",
+    "descricao": "Você recebe +1 em Iniciativa, Percepção e Vontade. Este bônus aumenta em +1 para cada dois outros poderes da Tormenta que você possui. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Armamento Aberrante",
-    "descricao": "Você pode gastar uma ação de movimento e 1 PM para produzir uma arma orgânica macabra de corpo a corpo ou arremesso. O dano aumenta em um passo para cada dois outros poderes da Tormenta.",
+    "descricao": "Você pode gastar uma ação de movimento e 1 PM para produzir uma arma orgânica macabra — ela brota do seu braço, ombro ou costas como uma planta grotesca e então se desprende. Você pode produzir qualquer arma corpo a corpo ou de arremesso com a qual seja proficiente. O dano da arma aumenta em um passo para cada dois outros poderes da Tormenta que você possui. A arma dura pela cena, então se desfaz numa poça de gosma. Pré-requisito: outro poder da Tormenta. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": "outro poder da Tormenta.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Articulações Flexíveis",
-    "descricao": "Você recebe +2 em testes de Acrobacia, Reflexos e testes para escapar de agarrar. Aumenta em +1 para cada dois outros poderes da Tormenta.",
+    "descricao": "Você recebe +1 em Acrobacia, Furtividade e Reflexos. Este bônus aumenta em +1 para cada dois outros poderes da Tormenta que você possui. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Asas Insetoides",
-    "descricao": "Você recebe deslocamento de voo igual ao seu deslocamento terrestre.",
-    "gastoPe": null,
-    "classe": "Geral"
+    "descricao": "Você pode gastar 1 PM para receber deslocamento de voo 9m até o fim da rodada. O deslocamento aumenta em 1,5m para cada outro poder da Tormenta que você possui. Pré-requisito: quatro outros poderes da Tormenta. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
+    "gastoPe": 1,
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": "quatro outros poderes da Tormenta.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Carapaça",
-    "descricao": "Você recebe +1 na Defesa. O bônus aumenta em +1 para cada dois outros poderes da Tormenta que possui.",
+    "descricao": "Sua pele é recoberta por placas quitinosas. Você recebe +1 na Defesa. Este bônus aumenta em +1 para cada dois outros poderes da Tormenta que você possui. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Corpo Aberrante",
-    "descricao": "Seu dano desarmado aumenta em um passo, mais um passo para cada quatro outros poderes da Tormenta que possui.",
+    "descricao": "Crostas vermelhas em várias partes de seu corpo tornam seus ataques mais perigosos. Seu dano desarmado aumenta em um passo, mais um passo para cada quatro outros poderes da Tormenta que você possui. Pré-requisito: outro poder da Tormenta. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": "outro poder da Tormenta.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Dentes Afiados",
-    "descricao": "Você recebe um ataque natural de mordida (dano 1d4, crítico x2, corte). Na ação atacar, pode gastar 1 PM para fazer um ataque extra com a mordida.",
+    "descricao": "Você recebe um ataque natural de mordida (dano 1d4, crítico x2, corte). Quando usa a ação ataque, pode gastar 1 PM para fazer um ataque corpo a corpo extra com a mordida. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Empunhadura Rubra",
-    "descricao": "Pague 1 PM para cobrir as mãos com carapaça rubra até o fim da cena, recebendo +1 em Luta. O bônus aumenta em +1 para cada dois outros poderes da Tormenta.",
+    "descricao": "Você pode gastar 1 PM para cobrir suas mãos com uma carapaça rubra. Até o final da cena, você recebe +1 em Luta. Este bônus aumenta em +1 para cada dois outros poderes da Tormenta que você possui. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Mãos Membranosas",
-    "descricao": "Você recebe +1 em Atletismo, Fortitude e testes de agarrar. O bônus aumenta em +1 para cada dois outros poderes da Tormenta.",
+    "descricao": "Você recebe +1 em Atletismo, Fortitude e testes de agarrar. Este bônus aumenta em +1 para cada dois outros poderes da Tormenta que você possui. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
     "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Membros Extras",
-    "descricao": "Você possui um par de patas insetoides adicionais, recebendo bônus de +2 em testes de agarrar e escalar.",
-    "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Olhos Vermelhos",
-    "descricao": "Você recebe visão no escuro e +1 em Intimidação. O bônus aumenta em +1 para cada dois outros poderes da Tormenta.",
+    "descricao": "Você recebe visão no escuro e +1 em Intimidação. Este bônus aumenta em +1 para cada dois outros poderes da Tormenta que você possui. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
+  },
+  {
+    "nome": "Membros Extras",
+    "descricao": "Você possui um par de patas insetoides que saem de suas costas, ombros ou flancos. Quando usa a ação ataque, pode gastar 2 PM para fazer um ataque corpo a corpo extra com cada um (dano 1d4, crítico x2, corte). Se possuir Chuva de Golpes ou Estilo de Duas Armas, pode empunhar armas leves em suas patas insetoides (mas ainda precisa pagar 2 PM para atacar com elas e sofre a penalidade de –2 em todos os ataques). Pré-requisito: quatro outros poderes da Tormenta. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
+    "gastoPe": 2,
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": "quatro outros poderes da Tormenta.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Pele Corrompida",
-    "descricao": "Você recebe resistência a fogo, frio e eletricidade 2. Aumenta em +1 para cada outro poder da Tormenta.",
+    "descricao": "Sua carne foi mesclada à matéria vermelha. Você recebe resistência a ácido, eletricidade, fogo, frio e trevas 2. Esta resistência a dano aumenta em +2 para cada dois outros poderes da Tormenta que você possui. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Sangue Ácido",
-    "descricao": "Sempre que sofrer dano por um ataque corpo a corpo de corte ou perfuração, o atacante sofre 1d4 de dano de ácido para cada poder da Tormenta.",
+    "descricao": "Quando você sofre dano por um ataque corpo a corpo, o atacante sofre 1 ponto de dano de ácido. Este dano aumenta em +1 para cada outro poder da Tormenta que você possui. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Visco Rubro",
-    "descricao": "Você recebe +1 em testes de ataque corpo a corpo e testes de manobras de combate. O bônus aumenta em +1 para cada dois outros poderes da Tormenta.",
-    "gastoPe": null,
-    "classe": "Geral"
+    "descricao": "Você pode gastar 1 PM para cobrir sua mão com um líquido escuro, grosso e corrosivo. Até o final da cena, você recebe +1 nas rolagens de dano corpo a corpo. Este bônus aumenta em +1 para cada dois outros poderes da Tormenta que você possui. Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades.",
+    "gastoPe": 1,
+    "classe": "Geral",
+    "categoria": "Tormenta",
+    "pre_requisitos": null,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 132,
+      "paginaPdf": 134
+    },
+    "regra_tormenta": "Para cada poder da Tormenta que possui, você perde 1 ponto de Carisma, salvo exceções expressas de outras habilidades."
   },
   {
     "nome": "Afinidade com a Tormenta",
-    "descricao": "Você recebe +2 em testes de resistência contra efeitos da Tormenta e lefeu, e não perde Carisma por adquirir poderes da Tormenta.",
+    "descricao": "Você recebe +10 em testes de resistência contra efeitos da Tormenta e de suas criaturas. Pré-requisito: Devoto de Aharadak.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Aharadak.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Aharadak"
+    ]
   },
   {
     "nome": "Anfíbio",
-    "descricao": "Você pode respirar embaixo d’água e adquire deslocamento de natação igual a seu deslocamento terrestre.",
+    "descricao": "Você pode respirar embaixo d’água e adquire deslocamento de natação igual a seu deslocamento terrestre. Pré-requisito: Devoto de Oceano.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Oceano.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Oceano"
+    ]
   },
   {
     "nome": "Armas da Ambição",
-    "descricao": "Você recebe +1 em testes de ataque com armas nas quais é proficiente.",
+    "descricao": "Você recebe +1 em testes de ataque com armas nas quais é proficiente. Pré-requisito: Devoto de Valkaria.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Valkaria.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "aliases": [
+      "Armas de Valkaria"
+    ],
+    "divindades": [
+      "Valkaria"
+    ],
+    "observacoes": "A tabela de deuses e o perfil de Valkaria usam Armas da Ambição; o título da descrição deste mesmo benefício na p. 133 usa Armas de Valkaria."
   },
   {
     "nome": "Arsenal das Profundezas",
-    "descricao": "Você recebe +2 nas rolagens de dano com arpões e tridentes.",
+    "descricao": "Você recebe +2 nas rolagens de dano com arpões e tridentes. Pré-requisito: Devoto de Oceano.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Oceano.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Oceano"
+    ]
   },
   {
     "nome": "Astúcia da Serpente",
-    "descricao": "Você recebe +2 em Enganação e Intuição.",
+    "descricao": "Você recebe +2 em Enganação e Intuição. Pré-requisito: Devoto de Sszzaas.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Sszzaas.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Sszzaas"
+    ]
   },
   {
     "nome": "Ataque Piedoso",
-    "descricao": "Você pode usar armas de corpo a corpo para causar dano não letal sem sofrer a penalidade de –5 no teste de ataque.",
+    "descricao": "Você pode usar armas de corpo a corpo para causar dano não letal sem sofrer a penalidade de –5 no teste de ataque. Pré-requisito: Devoto de Lena.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Lena.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Lena"
+    ]
   },
   {
     "nome": "Aura de Medo",
-    "descricao": "Você emana uma aura invisível de terror. Inimigos em alcance curto sofrem -2 em testes de Vontade contra medo.",
-    "gastoPe": null,
-    "classe": "Geral"
+    "descricao": "Você pode gastar 2 PM para gerar uma aura de medo com alcance curto e duração até o fim da cena. Todos os inimigos que entrem na aura devem fazer um teste de Vontade (CD Car) ou ficam abalados até o fim da cena. Uma criatura que passe no teste de Vontade fica imune a esta habilidade por um dia. Pré-requisito: Devoto de Kallyadranoch.",
+    "gastoPe": 2,
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Kallyadranoch.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Kallyadranoch"
+    ]
   },
   {
     "nome": "Aura de Paz",
-    "descricao": "Você pode gastar 1 PM para que qualquer criatura que tente machucar você deva passar num teste de Vontade para conseguir agir.",
-    "gastoPe": 1,
-    "classe": "Geral"
+    "descricao": "Você pode gastar 2 PM para gerar uma aura de paz com alcance curto e duração até o fim da cena. Qualquer inimigo dentro da aura que tente atacá-lo deve fazer um teste de Vontade (CD Car). Se falhar, perderá sua ação. Uma criatura que passe no teste de Vontade fica imune a esta habilidade por um dia. Pré-requisito: Devoto de Marah.",
+    "gastoPe": 2,
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Marah.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Marah"
+    ]
   },
   {
     "nome": "Aura Restauradora",
-    "descricao": "Aliados repousando em alcance curto recuperam duas vezes mais pontos de vida com descanso. Você também recebe este benefício.",
+    "descricao": "Aliados repousando em alcance curto recuperam duas vezes mais pontos de vida com descanso. Você também recebe este benefício. Pré-requisito: Devoto de Lena.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Lena.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Lena"
+    ]
   },
   {
     "nome": "Bênção do Mana",
-    "descricao": "Você recebe +3 pontos de mana.",
+    "descricao": "Você recebe +3 pontos de mana. Pré-requisito: Devoto de Wynna.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Wynna.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Wynna"
+    ]
   },
   {
     "nome": "Carícia Sombria",
-    "descricao": "Você pode gastar 1 PM e uma ação padrão para cobrir sua mão com energia negativa e tocar uma criatura. Sofre 2d6 de dano de trevas e você recupera metade.",
+    "descricao": "Você pode gastar 1 PM e uma ação padrão para cobrir sua mão com energia negativa e tocar uma criatura em alcance corpo a corpo. A criatura sofre 2d6 pontos de dano de trevas (Fortitude CD Sab reduz à metade). Você recupera pontos de vida iguais à metade do dano causado. Se você aprender Toque Vampírico, o custo da magia diminui em –1 PM. Pré-requisito: Devoto de Tenebra.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Tenebra.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Tenebra"
+    ]
   },
   {
     "nome": "Centelha Mágica",
-    "descricao": "Escolha uma magia arcana ou divina de 1º círculo. Você aprende e pode lançar essa magia.",
+    "descricao": "Escolha uma magia arcana ou divina de 1º círculo. Você aprende e pode lançar essa magia. Pré-requisito: Devoto de Wynna.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Wynna.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Wynna"
+    ]
   },
   {
     "nome": "Conhecimento Enciclopédico",
-    "descricao": "Você se torna treinado em duas perícias baseadas em Inteligência a sua escolha.",
+    "descricao": "Você se torna treinado em duas perícias baseadas em Inteligência a sua escolha. Pré-requisito: Devoto de Tanna-Toh.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Tanna-Toh.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Tanna-Toh"
+    ]
   },
   {
     "nome": "Conjurar Arma",
-    "descricao": "Você pode gastar 1 PM para invocar uma arma corpo a corpo ou de arremesso proficiente. Recebe +1 no ataque/dano e dura pela cena.",
+    "descricao": "Você pode gastar 1 PM para invocar uma arma corpo a corpo ou de arremesso com a qual seja proficiente. A arma surge em sua mão, recebe um bônus de +1 em testes de ataque e rolagens de dano e dura pela cena. Você não pode criar armas de disparo, mas pode criar 10 projéteis (flechas, virotes etc.). Pré-requisito: Devoto de Arsenal.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Arsenal.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Arsenal"
+    ]
   },
   {
     "nome": "Coragem Total",
-    "descricao": "Você é imune a efeitos de medo, mágicos ou não.",
+    "descricao": "Você é imune a efeitos de medo, mágicos ou não. Este poder não elimina fobias raciais (como o medo de altura dos minotauros). Pré-requisito: Devoto de Arsenal, Khalmyr, Lin-Wu, Valkaria.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Arsenal, Khalmyr, Lin-Wu, Valkaria.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Arsenal",
+      "Khalmyr",
+      "Lin-Wu",
+      "Valkaria"
+    ]
   },
   {
     "nome": "Cura Gentil",
-    "descricao": "Você adiciona seu bônus de Carisma aos PV restaurados por suas magias de cura.",
+    "descricao": "Você adiciona seu bônus de Carisma (mínimo +1) aos PV restaurados por suas magias de cura. Pré-requisito: Devoto de Lena.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Lena.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Lena"
+    ]
   },
   {
     "nome": "Curandeira Perfeita",
-    "descricao": "Você sempre pode escolher 10 em testes de Cura, e pode usar a perícia mesmo sem kit de medicamentos.",
+    "descricao": "Você sempre pode escolher 10 em testes de Cura. Além disso, pode usar esta perícia mesmo sem um kit de medicamentos. Se usar o kit, recebe +2 no teste de Cura. Pré-requisito: Devoto de Lena.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Lena.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Lena"
+    ]
   },
   {
     "nome": "Dedo Verde",
-    "descricao": "Você aprende e pode lançar a magia Controlar Plantas.",
+    "descricao": "Você aprende e pode lançar Controlar Plantas. Pré-requisito: Devoto de Allihanna.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Allihanna.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Allihanna"
+    ]
   },
   {
     "nome": "Descanso Natural",
-    "descricao": "Para você, dormir ao relento conta como uma estalagem confortável.",
+    "descricao": "Para você, dormir ao relento conta como uma estalagem confortável. Pré-requisito: Devoto de Allihanna.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Allihanna.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Allihanna"
+    ]
   },
   {
     "nome": "Dom da Imortalidade",
-    "descricao": "Você é imortal. Sempre que morre, volta à vida após 3d6 dias sem perder níveis. Restrito a Paladinos.",
+    "descricao": "Você é imortal. Sempre que morre, não importando o motivo, volta à vida após 3d6 dias. Você não perde níveis de experiência. Apenas paladinos podem escolher este poder. Um personagem pode ter Dom da Imortalidade ou Dom da Ressurreição, mas não ambos. Pré-requisito: Devoto de Thyatis.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Thyatis.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 133,
+      "paginaPdf": 135
+    },
+    "divindades": [
+      "Thyatis"
+    ]
   },
   {
     "nome": "Dom da Profecia",
-    "descricao": "Você pode lançar a magia Augúrio. Também pode gastar 2 PM para receber +2 em um teste recém-realizado.",
+    "descricao": "Você pode lançar Augúrio. Você também pode gastar 2 PM para receber +2 em um teste recém realizado. Pré-requisito: Devoto de Thyatis.",
     "gastoPe": 2,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Thyatis.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Thyatis"
+    ]
   },
   {
     "nome": "Dom da Ressurreição",
-    "descricao": "Você pode gastar uma ação completa e todos os PM (mínimo 1 PM) para ressuscitar uma criatura morta há menos de um ano. Restrito a Clérigos.",
-    "gastoPe": 1,
-    "classe": "Geral"
+    "descricao": "Você pode gastar uma ação completa e todos os PM que possui (mínimo 1 PM) para tocar o corpo de uma criatura morta há menos de um ano e ressuscitá -la. A criatura volta à vida com 1 PV e 0 PM, e perde 2 pontos de Constituição permanentemente. Este poder só pode ser usado uma vez em cada criatura. Apenas clérigos podem escolher este poder. Um personagem pode ter Dom da Imortalidade ou Dom da Ressurreição, mas não ambos. Pré-requisito: Devoto de Thyatis.",
+    "gastoPe": null,
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Thyatis.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Thyatis"
+    ],
+    "observacoes": "O cabeçalho atribui este poder a Thyatis, mas a tabela de deuses e o perfil de Thyatis não o incluem; listam Dom da Verdade em seu lugar."
   },
   {
     "nome": "Dom da Verdade",
-    "descricao": "Você pode pagar 1 PM para receber +5 em testes de Intuição até o fim da cena.",
+    "descricao": "Você pode pagar 1 PM para receber +5 em testes de Intuição até o fim da cena. Pré-requisito: Devoto de Khalmyr.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Khalmyr.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Khalmyr"
+    ],
+    "divindades_mencionadas_em_listas": [
+      "Thyatis"
+    ],
+    "observacoes": "Inconsistência da prévia: a descrição deste poder o atribui a Khalmyr (p. 134), mas a tabela de deuses e o perfil de Thyatis também o listam para Thyatis (pp. 97 e 105). A descrição de Dom da Ressurreição o atribui a Thyatis. A elegibilidade conflitante não foi resolvida por suposição."
   },
   {
     "nome": "Escamas Dracônicas",
-    "descricao": "Você recebe +2 na Defesa.",
+    "descricao": "Você recebe +1 na Defesa. Pré-requisito: Devoto de Kallyadranoch.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Kallyadranoch.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Kallyadranoch"
+    ]
   },
   {
     "nome": "Escudo Mágico",
-    "descricao": "Quando lança uma magia, recebe +2 na Defesa e testes de resistência até o início do próximo turno.",
+    "descricao": "Quando lança uma magia, você recebe +2 na Defesa até o início do seu próximo turno. Pré-requisito: Devoto de Wynna.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Wynna.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Wynna"
+    ]
   },
   {
     "nome": "Espada Justiceira",
-    "descricao": "Você pode gastar 1 PM para que o dano de sua espada longa aumente em um passo até o fim da cena.",
+    "descricao": "Você pode gastar 1 PM para encantar sua espada (ou outra arma corpo a corpo de corte que esteja empunhando). Ela recebe +1 em testes de ataque e rolagens de dano até o fim da cena. Pré-requisito: Devoto de Khalmyr.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Khalmyr.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Khalmyr"
+    ]
   },
   {
     "nome": "Espada Solar",
-    "descricao": "Você pode gastar 1 PM para imbuir sua cimitarra com luz solar, causando +1d6 de dano de fogo (ou +1d8 contra mortos-vivos) e iluminando como tocha.",
+    "descricao": "Você pode gastar 1 PM para encantar sua espada (ou outra arma corpo a corpo de corte que esteja empunhando). Ela causa +1d6 de dano por fogo até o fim da cena. Pré-requisito: Devoto de Azgher.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Azgher.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Azgher"
+    ]
   },
   {
     "nome": "Farsa do Fingidor",
-    "descricao": "Você aprende e pode lançar a magia Criar Ilusão.",
+    "descricao": "Você aprende e pode lançar Criar Ilusão. Pré-requisito: Devoto de Hyninn.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Hyninn.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Hyninn"
+    ]
   },
   {
     "nome": "Forma de Macaco",
-    "descricao": "Você pode gastar 2 PM para se transformar em um macaco pequeno até o fim da cena, recebendo bônus em Acrobacia e Furtividade.",
+    "descricao": "Você pode gastar uma ação completa e 2 PM para se transformar em um macaco. Você adquire tamanho Minúsculo (o que fornece +5 em Furtividade e –5 em testes de manobra) e recebe deslocamento de escalar 9m. Seu equipamento é absorvido (retornando quando você volta ao normal) e suas outras estatísticas não são alteradas. A transformação dura quanto tempo você desejar, mas termina caso você faça um ataque, lance uma magia ou sofra dano. Pré-requisito: Devoto de Hyninn.",
     "gastoPe": 2,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Hyninn.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Hyninn"
+    ]
   },
   {
     "nome": "Fúria Divina",
-    "descricao": "Você pode gastar 2 PM para invocar uma fúria selvagem, recebendo bônus em testes de ataque e dano corpo a corpo.",
+    "descricao": "Você pode gastar 2 PM para invocar uma fúria selvagem, tornando-se temível em combate. Você recebe +2 em testes de ataque e rolagens de dano corpo a corpo, mas não pode executar nenhuma ação que exija paciência ou concentração (como usar a perícia Furtividade ou lançar magias). A Fúria Divina termina se, ao fim da rodada, você não tiver atacado nem sido alvo de um ataque, habilidade ou magia. Pré-requisito: Devoto de Thwor.",
     "gastoPe": 2,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Thwor.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Thwor"
+    ]
   },
   {
     "nome": "Golpista Divino",
-    "descricao": "Você recebe +2 em testes de Enganação, Ladinagem e testes de finta.",
+    "descricao": "Você recebe +2 em Enganação e Ladinagem. Pré-requisito: Devoto de Hyninn.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Hyninn.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Hyninn"
+    ]
   },
   {
     "nome": "Habitante do Deserto",
-    "descricao": "Você recebe resistência a fogo 5 e pode pagar 1 PM para encher um odre com água pura.",
+    "descricao": "Você recebe resistência a fogo 5 e pode pagar 1 PM para encher um odre (ou outro recipiente pequeno) com água pura e potável. Pré-requisito: Devoto de Azgher.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Azgher.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Azgher"
+    ]
   },
   {
     "nome": "Inimigo de Tenebra",
-    "descricao": "Seus ataques e habilidades causam +1d6 pontos de dano contra mortos-vivos.",
+    "descricao": "Seus ataques e habilidades causam +1d6 pontos de dano contra mortos-vivos. Pré-requisito: Devoto de Azgher.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Azgher.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Azgher"
+    ]
   },
   {
     "nome": "Kiai Divino",
-    "descricao": "Quando faz um ataque corpo a corpo, você pode pagar 2 PM. Se acertar o ataque, causa dano máximo.",
+    "descricao": "Quando faz um ataque corpo a corpo, você pode pagar 2 PM. Se acertar o ataque, causa dano máximo. Pré-requisito: Devoto de Lin-Wu.",
     "gastoPe": 2,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Lin-Wu.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Lin-Wu"
+    ]
   },
   {
     "nome": "Liberdade Divina",
-    "descricao": "Você pode gastar 2 PM e uma reação para lançar Libertação, mas apenas em si mesmo e com duração de uma rodada.",
+    "descricao": "Você pode gastar 2 PM e uma reação para lançar Libertação, mas apenas em si mesmo e com duração de uma rodada. Pré-requisito: Devoto de Valkaria.",
     "gastoPe": 2,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Valkaria.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Valkaria"
+    ]
   },
   {
     "nome": "Manto da Penumbra",
-    "descricao": "Você aprende e pode lançar a magia Escuridão.",
+    "descricao": "Você aprende e pode lançar Escuridão. Pré-requisito: Devoto de Tenebra.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Tenebra.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Tenebra"
+    ]
   },
   {
     "nome": "Mente Analítica",
-    "descricao": "Você recebe +2 em Intuição e Vontade.",
+    "descricao": "Você recebe +2 em Intuição e Vontade. Pré-requisito: Devoto de Tanna-Toh.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Tanna-Toh.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Tanna-Toh"
+    ]
   },
   {
     "nome": "Mente Vazia",
-    "descricao": "Você recebe +2 em Iniciativa e Vontade.",
+    "descricao": "Você recebe +2 em Iniciativa e Vontade. Pré-requisito: Devoto de Lin-Wu.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Lin-Wu.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Lin-Wu"
+    ]
   },
   {
     "nome": "Mestre dos Mares",
-    "descricao": "Você aprende e pode lançar Acalmar Animal, mas só contra criaturas aquáticas.",
+    "descricao": "Você aprende e pode lançar Acalmar Animal, mas só pode usar essa magia contra criaturas aquáticas. Pré-requisito: Devoto de Oceano.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Oceano.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Oceano"
+    ]
   },
   {
     "nome": "Olhar Amedrontador",
-    "descricao": "Você aprende e pode lançar a magia Amedrontar.",
+    "descricao": "Você aprende e pode lançar Amedrontar. Pré-requisito: Devoto de Megalokk, Thwor.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Megalokk, Thwor.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Megalokk",
+      "Thwor"
+    ]
   },
   {
     "nome": "Palavras de Bondade",
-    "descricao": "Você aprende e pode lançar a magia Enfeitiçar.",
+    "descricao": "Você aprende e pode lançar Enfeitiçar. Pré-requisito: Devoto de Marah.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Marah.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 134,
+      "paginaPdf": 136
+    },
+    "divindades": [
+      "Marah"
+    ]
   },
   {
     "nome": "Percepção Temporal",
-    "descricao": "Você pode gastar 3 PM para adicionar seu bônus de Sabedoria a seus ataques, Defesa e testes de Reflexos até o fim da cena.",
+    "descricao": "Você pode gastar 3 PM para adicionar seu bônus de Sabedoria (mínimo +1, limitado por seu nível) a seus ataques, Defesa e testes de Reflexos até o fim da cena. Pré-requisito: Devoto de Aharadak.",
     "gastoPe": 3,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Aharadak.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Aharadak"
+    ]
   },
   {
     "nome": "Poder Oculto",
-    "descricao": "Você pode gastar uma ação de movimento e 2 PM para invocar força, rapidez ou vigor, rolando 1d6 para receber +4 em Força (1-2), Destreza (3-4) ou Constituição (5-6) até o fim da cena.",
+    "descricao": "Você pode gastar uma ação de movimento e 2 PM para invocar a força, a rapidez ou o vigor dos loucos. Role 1d6 para receber +4 em Força (1 ou 2), Destreza (3 ou 4) ou Constituição (5 ou 6) até o fim da cena. Você pode usar este poder várias vezes, cada vez gastando uma ação de movimento e 2 PM. Pré-requisito: Devoto de Nimb.",
     "gastoPe": 2,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Nimb.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Nimb"
+    ]
   },
   {
     "nome": "Presas Venenosas",
-    "descricao": "Você pode gastar uma ação de movimento e 1 PM para envenenar uma arma corpo a corpo, causando +1d12 de dano de veneno.",
+    "descricao": "Você pode gastar uma ação de movimento e 1 PM para envenenar uma arma corpo a corpo que esteja empunhando. Em caso de acerto, a arma causa 1d12 pontos de dano de veneno. A arma permanece envenenada até atingir uma criatura ou até o fim da cena, o que acontecer primeiro. Pré-requisito: Devoto de Sszzaas.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Sszzaas.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Sszzaas"
+    ]
   },
   {
     "nome": "Rejeição Divina",
-    "descricao": "Você recebe resistência a magia +5 contra magias divinas.",
+    "descricao": "Você recebe +5 em testes de resistência contra magias divinas. Pré-requisito: Devoto de Aharadak.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Aharadak.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Aharadak"
+    ]
   },
   {
     "nome": "Sangue de Ferro",
-    "descricao": "Você pode gastar 1 PM para receber +2 em testes de ataque e dano corpo a corpo e resistência a dano 5 até o fim da cena.",
-    "gastoPe": 1,
-    "classe": "Geral"
+    "descricao": "Você pode pagar 2 PM para receber +2 em rolagens de dano e resistência a dano 5 até o fim da cena. Pré-requisito: Devoto de Arsenal.",
+    "gastoPe": 2,
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Arsenal.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Arsenal"
+    ]
   },
   {
     "nome": "Sangue Ofídico",
-    "descricao": "Você é imune a venenos e recebe +2 em testes de Fortitude.",
+    "descricao": "Você recebe resistência a veneno 5 e a CD para resistir aos seus venenos aumenta em +2. Pré-requisito: Devoto de Sszzaas.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Sszzaas.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Sszzaas"
+    ]
   },
   {
     "nome": "Servos do Dragão",
-    "descricao": "Você pode gastar 2 PM para conjurar 1d4 kobolds esqueléticos que agem sob seu comando como aliados ajudantes.",
+    "descricao": "Você pode gastar uma ação completa e 2 PM para invocar 2d6 kobolds em espaços desocupados em alcance curto. Você pode usar uma ação de movimento para fazer os kobolds andarem (eles têm deslocamento 9m) ou uma ação padrão para fazer com que ataquem criaturas adjacentes, causando 1d6–1 pontos de dano de perfuração cada. Os kobolds têm For 8, Des 14, 1 PV e não têm valor de Defesa ou testes de resistência (qualquer efeito os acerta automaticamente). Eles desaparecem quando morrem ou no fim da cena. Os kobolds não agem sem receber uma ordem. Usos criativos para criaturas invocadas fora de combate ficam a critério do mestre. Pré-requisito: Devoto de Kallyadranoch.",
     "gastoPe": 2,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Kallyadranoch.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Kallyadranoch"
+    ]
   },
   {
     "nome": "Sorte dos Loucos",
-    "descricao": "Você pode pagar 1 PM para rolar novamente um teste recém-realizado. Se falhar, perde 1d6 PM.",
+    "descricao": "Você pode pagar 1 PM para rolar novamente um teste recém realizado. Se ainda assim falhar no teste, você perde 1d6 PM. Pré-requisito: Devoto de Nimb.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Nimb.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Nimb"
+    ]
   },
   {
     "nome": "Talento Artístico",
-    "descricao": "Você recebe +2 em Atuação e Diplomacia.",
+    "descricao": "Você recebe +2 em Atuação e Diplomacia. Pré-requisito: Devoto de Marah.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Marah.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Marah"
+    ]
   },
   {
     "nome": "Teurgista Místico",
-    "descricao": "Até uma magia de cada círculo que você aprender poderá ser escolhida da lista da outra categoria (arcanas se for divino, ou divinas se for arcano).",
+    "descricao": "Até uma magia de cada círculo que você aprender poderá ser escolhida entre magias divinas (se você for um conjurador arcano) ou entre magias arcanas (se for um conjurador divino). Apenas conjuradores recebem este poder. Pré-requisito: Devoto de Wynna.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Wynna.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Wynna"
+    ]
   },
   {
     "nome": "Transmissão da Loucura",
-    "descricao": "Você aprende e pode lançar a magia Confusão.",
+    "descricao": "Você pode lançar Confusão (CD Car). Pré-requisito: Devoto de Nimb.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Nimb.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Nimb"
+    ]
   },
   {
     "nome": "Tropas Duyshidakk",
-    "descricao": "Você pode gastar 2 PM para conclamar goblins ou orcs aliados iniciantes de combate.",
+    "descricao": "Você pode gastar uma ação completa e 2 PM para invocar 1d4+1 goblinoides em espaços desocupados em alcance curto. Você pode usar uma ação de movimento para fazer os goblinoides andarem (eles têm deslocamento 9m) ou uma ação padrão para fazer com que ataquem criaturas adjacentes, causando 1d6+1 pontos de dano de corte cada. Os goblinoides têm For 14, Des 14, 6 PV e não têm valor de Defesa ou testes de resistência (qualquer efeito os acerta automaticamente). Eles desaparecem quando morrem ou no fim da cena. Os goblinoides não agem sem receber uma ordem. Usos criativos para criaturas invocadas fora de combate ficam a critério do mestre. Pré-requisito: Devoto de Thwor.",
     "gastoPe": 2,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Thwor.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Thwor"
+    ]
   },
   {
     "nome": "Urro Divino",
-    "descricao": "Quando faz um ataque ou lança uma magia, pode pagar 1 PM para somar seu modificador de Constituição à rolagem de dano.",
+    "descricao": "Quando faz um ataque ou lança uma magia, você pode pagar 1 PM para somar seu modificador de Constituição (mínimo +1) à rolagem de dano desse ataque ou magia. Pré-requisito: Devoto de Megalokk.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Megalokk.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Megalokk"
+    ]
   },
   {
     "nome": "Visão nas Trevas",
-    "descricao": "Você enxerga perfeitamente no escuro, incluindo em magias de escuridão.",
+    "descricao": "Você enxerga perfeitamente no escuro, incluindo em magias de escuridão. Pré-requisito: Devoto de Tenebra.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Tenebra.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Tenebra"
+    ]
   },
   {
     "nome": "Voz da Civilização",
-    "descricao": "Você está sempre sob efeito da magia Compreensão.",
+    "descricao": "Você está sempre sob efeito da magia Compreensão. Pré-requisito: Devoto de Tanna-Toh.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Tanna-Toh.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Tanna-Toh"
+    ]
   },
   {
     "nome": "Voz da Natureza",
-    "descricao": "Você pode falar com animais e aprende e pode lançar Acalmar Animal (apenas contra animais).",
+    "descricao": "Você pode falar com animais (como o efeito da magia Voz Divina) e aprende e pode lançar Acalmar Animal, mas só pode usar essa magia contra animais. Pré-requisito: Devoto de Allihanna.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Allihanna.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Allihanna"
+    ]
   },
   {
     "nome": "Voz dos Monstros",
-    "descricao": "Você conhece os idiomas de todos os monstros inteligentes e se comunica com monstros não inteligentes como se estivesse sob Voz Divina.",
+    "descricao": "Você conhece os idiomas de todos os monstros inteligentes (criaturas do tipo monstro com Int 3 ou mais) e pode se comunicar livremente com monstros não inteligentes (Int 1 ou 2), como se estivesse sob efeito da magia Voz Divina. Pré-requisito: Devoto de Megalokk.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "categoria": "Concedido",
+    "pre_requisitos": "Devoto de Megalokk.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 135,
+      "paginaPdf": 137
+    },
+    "divindades": [
+      "Megalokk"
+    ]
   },
   {
     "nome": "Arremesso Múltiplo",
     "descricao": "Uma vez por rodada, quando faz um ataque com uma arma de arremesso, você pode gastar 1 PM para fazer um ataque adicional contra o mesmo alvo, arremessando outra arma de arremesso.",
     "gastoPe": 1,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Ataque com Escudo",
     "descricao": "Uma vez por rodada, se estiver empunhando um escudo e fizer a ação agredir, você pode gastar 1 PM para fazer um ataque corpo a corpo extra com o escudo. Este ataque não faz você perder o bônus do escudo na Defesa.",
     "gastoPe": 1,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Carga de Cavalaria",
-    "descricao": "Quando faz uma investida montada, você causa +2d8 pontos de dano. Além disso, pode continuar se movendo depois do ataque. Você deve se mover em linha reta e seu movimento máximo ainda é o dobro do seu deslocamento.",
-    "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Combate Montado",
     "descricao": "Enquanto estiver montado, você recebe +2 em testes de ataque e rolagens de dano com armas.",
     "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Disparo Preciso",
-    "descricao": "Você pode fazer ataques à distância contra oponentes envolvidos em combate corpo a corpo sem sofrer a penalidade padrão de –5 no teste de ataque.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Disparo Rápido",
-    "descricao": "Se estiver usando uma arma de ataque à distância e gastar uma ação completa para atacar, você pode fazer um ataque adicional com ela (se puder recarregá-la como ação livre). Se fizer isso, sofre –2 em todos os testes de ataque até o seu próximo turno.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Encouraçado",
-    "descricao": "Se estiver usando uma armadura pesada, você recebe +2 na Defesa. Esse bônus aumenta em +2 para cada outro poder que você possua que tenha Encouraçado como pré-requisito.",
-    "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Estilo de Arma Longa",
     "descricao": "Você recebe +2 em testes de ataque com armas alongadas e pode atacar alvos adjacentes com essas armas.",
     "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Estilo de Disparo",
-    "descricao": "Se estiver usando uma arma de disparo, você soma o bônus de Destreza nas rolagens de dano.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Fanático",
-    "descricao": "Seu deslocamento não é reduzido por usar armaduras pesadas.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Finta Aprimorada",
-    "descricao": "Você recebe +2 em testes de Enganação para fintar e pode fintar como uma ação de movimento.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Foco em Arma",
-    "descricao": "Escolha uma arma. Você recebe +2 em testes de ataque com essa arma. Você pode escolher este poder outras vezes para armas diferentes.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Ginete",
-    "descricao": "Você passa automaticamente em testes de Cavalgar para não cair da montaria quando sofre dano. Além disso, não sofre penalidades para atacar à distância ou lançar magias quando montado.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Inexpugnável",
-    "descricao": "Se estiver usando uma armadura pesada, você recebe +2 em todos os testes de resistência.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Mira Apurada",
-    "descricao": "Você pode gastar uma ação de movimento para mirar. Se fizer isso, recebe +2 em testes de ataque e na margem de ameaça com ataques à distância até o fim do turno.",
-    "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Piqueiro",
     "descricao": "Uma vez por rodada, se estiver empunhando uma arma alongada e um inimigo entrar voluntariamente em seu alcance corpo a corpo, você pode gastar 1 PM para fazer um ataque corpo a corpo contra este oponente com esta arma. Se o oponente tiver se aproximado fazendo uma investida, seu ataque causa dois dados de dano extra do mesmo tipo.",
     "gastoPe": 1,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Presença Aterradora",
-    "descricao": "Você pode gastar uma ação padrão e 1 PM para assustar todas as criaturas a sua escolha em alcance curto. Veja a perícia Intimidação para as regras de assustar.",
-    "gastoPe": 1,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Proficiência",
-    "descricao": "Escolha uma proficiência: armas marciais, armas de fogo, armaduras pesadas ou escudos (se for proficiente em armas marciais, você também pode escolher armas exóticas). Você recebe essa proficiência. Você pode escolher este poder outras vezes para proficiências diferentes.",
-    "gastoPe": null,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Reflexos de Combate",
-    "descricao": "Você ganha uma ação de movimento extra no seu primeiro turno de cada combate.",
-    "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Resistência Montada",
     "descricao": "Enquanto estiver montado, sempre que precisar fazer um teste de resistência, você pode gastar 2 PM para usar Cavalgar no lugar da perícia exigida. Se o teste for contra um efeito que permite um teste para reduzir o dano à metade, você não sofre dano algum se passar. Você ainda sofre dano normal se falhar no teste.",
     "gastoPe": 2,
-    "classe": "Geral"
-  },
-  {
-    "nome": "Saque Rápido",
-    "descricao": "Você recebe +2 em Iniciativa e pode sacar ou guardar itens como uma ação livre (em vez de ação de movimento). Além disso, a ação que você gasta para recarregar uma arma de disparo diminui em uma categoria (ação completa para padrão, padrão para movimento, movimento para livre).",
-    "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Costas Largas",
     "descricao": "Seu limite de carga aumenta em 5 espaços e você pode se beneficiar de um item vestido adicional.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Inventário Organizado",
     "descricao": "Você soma sua Inteligência no limite de espaços que pode carregar. Para você, itens muito leves ou pequenos, que normalmente ocupam meio espaço, em vez disso ocupam 1/4 de espaço.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Medicina",
     "descricao": "Você pode gastar uma ação completa para fazer um teste de Cura (CD 15) em uma criatura. Se passar, ela recupera 1d6 PV, mais 1d6 para cada 5 pontos pelos quais o resultado do teste exceder a CD. Você só pode usar este poder uma vez por dia numa mesma criatura.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Cuspir Enxame",
     "descricao": "Você pode gastar uma ação completa e 2 PM para criar um enxame de insetos rubros em um ponto a sua escolha em alcance curto e com duração sustentada. O enxame tem tamanho Médio e pode passar pelo espaço de outras criaturas. Uma vez por rodada, você pode gastar uma ação de movimento para mover o enxame 9m. No final do seu turno, o enxame causa 2d6 pontos de dano de ácido a qualquer criatura no espaço que ele estiver ocupando. Para cada dois outros poderes da Tormenta que possui, você pode gastar +1 PM quando usa este poder para aumentar o dano do enxame em +1d6.",
     "gastoPe": 2,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Larva Explosiva",
     "descricao": "Se uma criatura que tenha sofrido dano de sua mordida nesta cena for reduzida a 0 ou menos PV, ela explode em chuva cáustica, morrendo e causando 4d4 pontos de dano de ácido em criaturas adjacentes. Para cada dois outros poderes da Tormenta que você possui, o dano aumenta em +2d4. Você é imune a esse dano.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Legião Aberrante",
     "descricao": "Seu corpo se transforma em uma massa de insetos rubros. Você pode atravessar qualquer espaço por onde seja possível passar uma moeda (mas considera esses espaços como terreno difícil) e recebe +1 em testes contra manobras de combate e de resistência contra efeitos que tenham você como alvo (mas não efeitos de área). Este bônus aumenta em +1 para cada dois outros poderes da Tormenta que você possui.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Desprezar a Realidade",
     "descricao": "Você pode gastar 2 PM para ficar no limiar da realidade até o início de seu próximo turno. Nesse estado, você ignora terreno difícil e causa 20% de chance de falha em efeitos usados contra você (não apenas ataques). Para cada dois outros poderes de Tormenta que você possuir, essa chance aumenta em 5% (máximo de 50%).",
     "gastoPe": 2,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Fome de Mana",
     "descricao": "Quando passa em um teste de resistência para resistir a uma habilidade mágica, você recebe 1 PM temporário cumulativo. Você pode ganhar um máximo de PM temporários por cena desta forma igual ao número de poderes da Tormenta que possui.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Membros Estendidos",
     "descricao": "Seus braços e armas naturais são grotescamente mais longos que o normal, o que aumenta seu alcance natural para ataques corpo a corpo em +1,5m. Para cada quatro outros poderes da Tormenta que você possui, esse alcance aumenta em +1,5m.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   },
   {
     "nome": "Mente Aberrante",
     "descricao": "Você recebe resistência a efeitos mentais +1. Além disso, sempre que precisa fazer um teste de Vontade para resistir a uma habilidade, a criatura que usou essa habilidade sofre 1d6 pontos de dano psíquico. Para cada dois outros poderes da Tormenta que você possui o bônus em testes de resistência aumenta em +1 e o dano aumenta em +1d6.",
     "gastoPe": null,
-    "classe": "Geral"
+    "classe": "Geral",
+    "fonte": null,
+    "verificacao": "Não localizado na prévia de maio de 2020; preservado do catálogo anterior sem validação por esta fonte."
   }
 ]

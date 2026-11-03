@@ -1,11 +1,12 @@
 import racas from "../../racas-tormenta20.json"
+import { limparEmojiClasse } from "./classes.js"
 
-const limparEmojiRaca = (nome) => String(nome || '').replace(/^\p{Extended_Pictographic}\s*/u, '').trim()
+const limparEmojiRaca = limparEmojiClasse
 
 const adicionarEmojiRaca = (nome) => {
   const alvo = limparEmojiRaca(nome).toLowerCase()
   const r = racas.find(x => limparEmojiRaca(x.nome).toLowerCase() === alvo)
-  return r ? r.nome : nome
+  return limparEmojiRaca(r ? r.nome : nome)
 }
 
 export default racas

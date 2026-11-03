@@ -1,0 +1,62 @@
+[
+  {
+    "quantidade": 1,
+    "aumento_preco": 300,
+    "aumento_cd": 5,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 155,
+      "paginaPdf": 157
+    }
+  },
+  {
+    "quantidade": 2,
+    "aumento_preco": 3000,
+    "aumento_cd": 5,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 155,
+      "paginaPdf": 157
+    }
+  },
+  {
+    "quantidade": 3,
+    "aumento_preco": 9000,
+    "aumento_cd": 10,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 155,
+      "paginaPdf": 157
+    }
+  },
+  {
+    "quantidade": 4,
+    "aumento_preco": 18000,
+    "aumento_cd": 10,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 155,
+      "paginaPdf": 157
+    }
+  },
+  {
+    "quantidade": 5,
+    "aumento_preco": 30000,
+    "aumento_cd": 15,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 155,
+      "paginaPdf": 157
+    }
+  },
+  {
+    "quantidade": 6,
+    "aumento_preco": 90000,
+    "aumento_cd": 20,
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 155,
+      "paginaPdf": 157
+    }
+  }
+]

@@ -1,0 +1,99 @@
+[
+  {
+    "nome": "Aço-Rubi",
+    "descricao": "Este metal tem a aparência de vidro avermelhado, mas é duro como aço. Armas de aço-rubi ignoram resistência a dano. Armaduras e escudos de aço-rubi fornecem uma chance cumulativa de ignorar o dano extra de acertos críticos e ataques furtivos, de acordo com seu tipo: armaduras leves e escudos, 25%; armaduras pesadas, 50%.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 157,
+      "paginaPdf": 159
+    },
+    "pre_requisitos": null,
+    "preco_adicional": {
+      "arma": 2000,
+      "armadura_leve": 1000,
+      "armadura_pesada": 2000,
+      "escudo": 1000
+    }
+  },
+  {
+    "nome": "Adamante",
+    "descricao": "Encontrado apenas em meteoritos (e por isso também chamado de “ferro-meteórico”), o adamante é um metal escuro, fosco, e mais denso que o aço. Armas de adamante aumentam seu dano em um passo. Armaduras e escudos de adamante fornecem resistência a dano, de acordo com seu tipo: armaduras leves e escudos, RD 2; armaduras pesadas, RD 5.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 157,
+      "paginaPdf": 159
+    },
+    "pre_requisitos": null,
+    "preco_adicional": {
+      "arma": 1500,
+      "armadura_leve": 1500,
+      "armadura_pesada": 7000,
+      "escudo": 1500
+    }
+  },
+  {
+    "nome": "Gelo eterno",
+    "descricao": "As gélidas Montanhas Uivantes produzem gelo que nunca derrete. Expedições de aventureiros exploram essa região glacial perigosa, à caça do material fantástico. Armas feitas de gelo eterno causam +2 pontos de dano por frio, enquanto armaduras e escudos fornecem resistência a frio: armaduras leves e escudos, 5; armaduras pesadas, 10.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 157,
+      "paginaPdf": 159
+    },
+    "pre_requisitos": null,
+    "preco_adicional": {
+      "arma": 1000,
+      "armadura_leve": 500,
+      "armadura_pesada": 1000,
+      "escudo": 500
+    }
+  },
+  {
+    "nome": "Madeira Tollon",
+    "descricao": "As terras de Tollon produzem um tipo de madeira negra, dura como o ferro das melhores forjas e dotada de propriedades mágicas. Armas de madeira — arcos, bordões, clavas, lanças e tacapes — e escudos leves podem ser feitos com madeira Tollon. Armas de madeira Tollon contam como armas mágicas para vencer resistência a dano. Além disso, habilidades especiais de ataque utilizadas com a arma, como Marca da Presa, têm seu custo em PM reduzido em –1. Escudos de madeira Tollon fornecem +2 em testes de resistência contra magia.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 157,
+      "paginaPdf": 159
+    },
+    "pre_requisitos": null,
+    "preco_adicional": {
+      "arma": 500,
+      "armadura_leve": null,
+      "armadura_pesada": null,
+      "escudo": 1000
+    },
+    "restricoes": "Apenas armas de madeira e escudos leves. Não se aplica a armaduras."
+  },
+  {
+    "nome": "Matéria Vermelha",
+    "descricao": "Qualquer material de origem lefeu — desde suas garras e carapaças, até minérios e partes de estruturas encontradas em áreas de Tormenta — apresenta propriedades parecidas, sendo conhecido como “matéria vermelha”. Uma arma de matéria vermelha é hostil ao toque de seres naturais. Por isso, causa +1d6 pontos de dano contra quaisquer criaturas, exceto lefeu. Infelizmente, sempre que o usuário acerta um ataque corpo a corpo, ele próprio sofre 1 ponto de dano pela arma (lefou não sofrem este dano colateral). Por sua aparência “borrada”, armaduras de matéria vermelha distorcem a percepção do atacante, impondo chance de falha cumulativa para cada ataque: 10% para escudos e armaduras leves, 25% para armaduras pesadas. Lefeu ignoram este efeito. Estes itens assustadores impõem ao usuário penalidade de –2 em perícias baseadas em Carisma (exceto Intimidação).",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 157,
+      "paginaPdf": 159
+    },
+    "pre_requisitos": null,
+    "preco_adicional": {
+      "arma": 1000,
+      "armadura_leve": 1500,
+      "armadura_pesada": 7000,
+      "escudo": 1500
+    }
+  },
+  {
+    "nome": "Mitral",
+    "descricao": "Metal muito raro, o mitral é prateado e brilhante, tendo metade do peso do aço. Armas de mitral aumentam sua margem de ameaça em 1. Por exemplo, uma espada longa de mitral tem margem de ameaça 18-20. Armaduras e escudos de mitral têm sua penalidade de armadura diminuída em –2. Armaduras pesadas de mitral permitem que seu usuário aplique até dois pontos de seu bônus de Destreza na Defesa.",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 157,
+      "paginaPdf": 159
+    },
+    "pre_requisitos": null,
+    "preco_adicional": {
+      "arma": 1000,
+      "armadura_leve": 1000,
+      "armadura_pesada": 4000,
+      "escudo": 1000
+    }
+  }
+]

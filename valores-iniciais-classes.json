@@ -4,97 +4,178 @@
     "pv_inicial": 8,
     "pv_inicial_formula": "8 + modificador de Constituição",
     "pm_inicial_base": 6,
-    "pm_inicial_formula": "6 + modificador de atributo-chave (Inteligência ou Carisma)"
+    "pm_inicial_formula": "6 + modificador de atributo-chave (Inteligência ou Carisma)",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 37,
+      "paginaPdf": 39
+    },
+    "atributo_chave": "Inteligência ou Carisma",
+    "atributo_chave_por_caminho": {
+      "Bruxo": "Inteligência",
+      "Mago": "Inteligência",
+      "Feiticeiro": "Carisma"
+    },
+    "regra_pm": "O modificador do atributo-chave é somado apenas no 1º nível. O caminho escolhido define o atributo; não se escolhe automaticamente o maior modificador."
   },
   {
     "classe": "Bárbaro",
     "pv_inicial": 24,
     "pv_inicial_formula": "24 + modificador de Constituição",
     "pm_inicial_base": 3,
-    "pm_inicial_formula": "3 PM (fixo)"
+    "pm_inicial_formula": "3 PM (fixo)",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 41,
+      "paginaPdf": 43
+    }
   },
   {
     "classe": "Bardo",
     "pv_inicial": 12,
     "pv_inicial_formula": "12 + modificador de Constituição",
     "pm_inicial_base": 4,
-    "pm_inicial_formula": "4 + modificador de Carisma"
+    "pm_inicial_formula": "4 + modificador de Carisma",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 45,
+      "paginaPdf": 47
+    },
+    "atributo_chave": "Carisma"
   },
   {
     "classe": "Bucaneiro",
     "pv_inicial": 16,
     "pv_inicial_formula": "16 + modificador de Constituição",
     "pm_inicial_base": 3,
-    "pm_inicial_formula": "3 PM (fixo)"
+    "pm_inicial_formula": "3 PM (fixo)",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 47,
+      "paginaPdf": 49
+    }
   },
   {
     "classe": "Caçador",
     "pv_inicial": 16,
     "pv_inicial_formula": "16 + modificador de Constituição",
     "pm_inicial_base": 4,
-    "pm_inicial_formula": "4 PM (fixo)"
+    "pm_inicial_formula": "4 PM (fixo)",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 50,
+      "paginaPdf": 52
+    }
   },
   {
     "classe": "Cavaleiro",
     "pv_inicial": 20,
     "pv_inicial_formula": "20 + modificador de Constituição",
     "pm_inicial_base": 3,
-    "pm_inicial_formula": "3 PM (fixo)"
+    "pm_inicial_formula": "3 PM (fixo)",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 53,
+      "paginaPdf": 55
+    }
   },
   {
     "classe": "Clérigo",
     "pv_inicial": 16,
     "pv_inicial_formula": "16 + modificador de Constituição",
     "pm_inicial_base": 5,
-    "pm_inicial_formula": "5 + modificador de Sabedoria"
+    "pm_inicial_formula": "5 + modificador de Sabedoria",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 57,
+      "paginaPdf": 59
+    },
+    "atributo_chave": "Sabedoria"
   },
   {
     "classe": "Druida",
     "pv_inicial": 16,
     "pv_inicial_formula": "16 + modificador de Constituição",
     "pm_inicial_base": 4,
-    "pm_inicial_formula": "4 + modificador de Sabedoria"
+    "pm_inicial_formula": "4 + modificador de Sabedoria",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 61,
+      "paginaPdf": 63
+    },
+    "atributo_chave": "Sabedoria"
   },
   {
     "classe": "Guerreiro",
     "pv_inicial": 20,
     "pv_inicial_formula": "20 + modificador de Constituição",
     "pm_inicial_base": 3,
-    "pm_inicial_formula": "3 PM (fixo)"
+    "pm_inicial_formula": "3 PM (fixo)",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 65,
+      "paginaPdf": 67
+    }
   },
   {
     "classe": "Inventor",
     "pv_inicial": 12,
     "pv_inicial_formula": "12 + modificador de Constituição",
     "pm_inicial_base": 4,
-    "pm_inicial_formula": "4 PM (fixo)"
+    "pm_inicial_formula": "4 PM (fixo)",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 68,
+      "paginaPdf": 70
+    }
   },
   {
     "classe": "Ladino",
     "pv_inicial": 12,
     "pv_inicial_formula": "12 + modificador de Constituição",
     "pm_inicial_base": 4,
-    "pm_inicial_formula": "4 PM (fixo)"
+    "pm_inicial_formula": "4 PM (fixo)",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 73,
+      "paginaPdf": 75
+    }
   },
   {
     "classe": "Lutador",
     "pv_inicial": 20,
     "pv_inicial_formula": "20 + modificador de Constituição",
     "pm_inicial_base": 3,
-    "pm_inicial_formula": "3 PM (fixo)"
+    "pm_inicial_formula": "3 PM (fixo)",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 76,
+      "paginaPdf": 78
+    }
   },
   {
     "classe": "Nobre",
     "pv_inicial": 16,
     "pv_inicial_formula": "16 + modificador de Constituição",
     "pm_inicial_base": 4,
-    "pm_inicial_formula": "4 PM (fixo)"
+    "pm_inicial_formula": "4 PM (fixo)",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 79,
+      "paginaPdf": 81
+    }
   },
   {
     "classe": "Paladino",
     "pv_inicial": 20,
     "pv_inicial_formula": "20 + modificador de Constituição",
     "pm_inicial_base": 3,
-    "pm_inicial_formula": "3 + modificador de Carisma"
+    "pm_inicial_formula": "3 + modificador de Carisma",
+    "fonte": {
+      "edicao": "Prévia de maio de 2020",
+      "pagina": 82,
+      "paginaPdf": 84
+    },
+    "atributo_chave": "Carisma"
   }
 ]

@@ -3,9 +3,12 @@ export const FICHA_PATHS = ["/personagens/ficha", ...FICHA_SECTIONS.map(section 
 export const PUBLIC_PATHS = ["/", "/cadastro"]
 export const APP_PATHS = [...PUBLIC_PATHS, "/inicio", "/personagens", ...FICHA_PATHS, "/campanhas", "/campanhas/minhas", "/campanhas/entrar", "/mestre", "/referencia", "/perfil"]
 
-export function fichaPath(section = "pericias", id = null) {
+export function fichaPath(section = "pericias", id = null, sistema = "tormenta") {
   const path = `/personagens/ficha/${FICHA_SECTIONS.includes(section) ? section : "pericias"}`
-  return id == null ? path : `${path}?${new URLSearchParams({ id: String(id) })}`
+  if (id == null) return path
+  const query = { id: String(id) }
+  if (sistema === "geral") query.sistema = sistema
+  return `${path}?${new URLSearchParams(query)}`
 }
 
 export function fichaSection(router) {

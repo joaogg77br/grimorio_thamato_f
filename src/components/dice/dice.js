@@ -82,9 +82,19 @@ export default {
 
       init() {
         window.addEventListener("roll-dice", (e) => {
-          const { formula, label, fichaId } = e.detail
+          const { formula, label, fichaId, sistema } = e.detail
           this.customFormula = formula
           this.rollCustom(label)
+          if (sistema === "geral") {
+            const value = this.lastRollData ? `${label || "Rolagem"}: ${this.montarRollString(this.lastRollData)}` : null
+            window.dispatchEvent(new CustomEvent("general-dice-result", { detail: {
+              fichaId,
+              result: this.lastRollData ? { total: this.lastResult, detail: this.lastDetail, formula } : null,
+              value,
+              error: this.lastRollData ? "" : "Fórmula inválida. Use, por exemplo, 1d20+3 ou 2d6.",
+            } }))
+            return
+          }
           if (this.lastRollData) {
             const titulo = label || "Rolagem"
             this.persistirHistorico(fichaId, `${titulo}: ${this.montarRollString(this.lastRollData)}`)
@@ -240,6 +250,10 @@ export default {
         return multiplyDiceFormula(formula, multiplier)
       },
 
+      rollDie(sides) {
+        return Math.floor(Math.random() * sides) + 1
+      },
+
       executeRoll(formula, label) {
         try {
           const parsed = this.parseDice(formula)
@@ -261,7 +275,7 @@ export default {
                   let chosen = this.advantageMode ? 0 : Infinity
                   const advCount = clampAdvantageCount(this.advantageCount)
                   for (let t = 0; t < advCount; t++) {
-                    const r = Math.floor(Math.random() * part.sides) + 1
+                    const r = this.rollDie(part.sides)
                     diceDetails.push({ value: r, sides: part.sides })
                     outcomes.push(r)
                     chosen = this.advantageMode ? Math.max(chosen, r) : Math.min(chosen, r)
@@ -273,7 +287,7 @@ export default {
                   total += part.sign * chosen
                   chosenD20 = chosen
                 } else {
-                  const r = Math.floor(Math.random() * part.sides) + 1
+                  const r = this.rollDie(part.sides)
                   rolls.push(part.sign * r)
                   diceDetails.push({ value: r, sides: part.sides })
                   groupRolls.push(part.sign * r)
@@ -390,6 +404,18 @@ export default {
         } catch { }
       },
 
+      playAnimationResultSound() {
+        if (!this.$store.sound.enabled) return
+        const style = this.$store.critAnim.style
+        if (!["impact", "pulse"].includes(style)) return
+        const outcome = this.d20Popup.value === 20 ? "critical" : "failure"
+        try {
+          const audio = new Audio(`/sounds/${style}-${outcome}.ogg`)
+          audio.volume = .45
+          audio.play()?.catch(() => {})
+        } catch { }
+      },
+
       setPhase(phase) {
         this.d20Popup = { ...this.d20Popup, phase }
       },
@@ -431,12 +457,16 @@ export default {
       onSpinEnd() {
         if (this.d20Popup.phase === "animating") {
           this.setPhase("result")
-          if (this.d20Popup.value === 20) {
+          if (["impact", "pulse"].includes(this.$store.critAnim.style)) {
+            this.playAnimationResultSound()
+          } else if (this.d20Popup.value === 20) {
             this.playSuccessSound()
-            this.playAcertoCriticoSound()
-          }
-          if (this.d20Popup.value === 1) {
+          } else if (this.d20Popup.value === 1) {
             this.playFailSound()
+          }
+          if (this.d20Popup.value === 20) {
+            this.playAcertoCriticoSound()
+          } else if (this.d20Popup.value === 1) {
             this.playFalhaCriticaSound()
           }
         }

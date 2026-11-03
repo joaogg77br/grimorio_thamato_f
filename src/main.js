@@ -4,6 +4,8 @@ import { APP_PATHS, PUBLIC_PATHS, FICHA_PATHS } from "./lib/routes.js"
 import "./style.css"
 import "./ui.css"
 import "./home.css"
+import "./general-sheet.css"
+import "./system-picker.css"
 import { io } from "socket.io-client"
 
 const socket = io("https://grimorioback.vercel.app/", {
@@ -11,7 +13,7 @@ const socket = io("https://grimorioback.vercel.app/", {
 })
 
 import character from "./components/character/character.js"
-  import dice from "./components/dice/dice.js"
+import dice from "./components/dice/dice.js"
 import campaign from "./components/campaign/campaign.js"
 import master from "./components/master/master.js"
 import reference from "./components/reference/reference.js"
@@ -38,7 +40,8 @@ function normalizeTheme(theme) {
 }
 
 function applyTheme(theme) {
-  document.documentElement.dataset.theme = normalizeTheme(theme)
+  const selected = normalizeTheme(theme)
+  document.documentElement.dataset.theme = selected
 }
 
 applyTheme(localStorage.getItem(THEME_KEY))
@@ -80,6 +83,7 @@ document.addEventListener("alpine:init", () => {
 
   Alpine.store("critAnim", {
     _enabled: localStorage.getItem("grimorio_crit_anim") !== "off",
+    _style: ["spin", "impact", "pulse"].includes(localStorage.getItem("grimorio_crit_style")) ? localStorage.getItem("grimorio_crit_style") : "spin",
     get enabled() {
       return this._enabled
     },
@@ -89,6 +93,11 @@ document.addEventListener("alpine:init", () => {
     },
     toggle() {
       this.enabled = !this.enabled
+    },
+    get style() { return this._style },
+    set style(value) {
+      this._style = ["spin", "impact", "pulse"].includes(value) ? value : "spin"
+      localStorage.setItem("grimorio_crit_style", this._style)
     },
   })
 

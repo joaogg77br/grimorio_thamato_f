@@ -1,6 +1,7 @@
 import html from "./master.html?raw"
 import { getCampanhasByMaster, getPlayersByCampanha, removePlayerFromCampanha, getFichasByCampanha, deleteCampanha } from "../../useApi/index.js"
 import { adicionarEmojiRaca } from "../../data/racas.js"
+import { limparEmojiClasse } from "../../data/classes.js"
 
 export default {
   html,
@@ -43,6 +44,10 @@ export default {
 
       racaEmoji(nome) {
         return adicionarEmojiRaca(nome)
+      },
+
+      nomeClasse(nome) {
+        return limparEmojiClasse(nome)
       },
 
       async copyCode() {
@@ -107,7 +112,7 @@ export default {
         }
         try {
           const { data } = await getFichasByCampanha(this.selectedCampaignId)
-          this.campaignFichas = data?.fichas?.fichas || []
+          this.campaignFichas = data?.fichas?.fichasTormenta || []
         } catch (err) {
           const msg = err?.response?.data?.ErroMessage || "Erro ao listar fichas da campanha."
           this.$store.toasts.push(msg, "error")

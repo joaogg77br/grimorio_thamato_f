@@ -7,6 +7,17 @@ export default {
     return {
       conditions: [],
       search: "",
+      selectedSystem: "",
+      systemSearch: "",
+      systems: [
+        { id: "tormenta20", name: "Tormenta20", description: "Condições e regras de referência", icon: "swords" },
+      ],
+
+      get filteredSystems() {
+        const query = this.systemSearch.trim().toLocaleLowerCase("pt-BR")
+        if (!query) return this.systems
+        return this.systems.filter(system => `${system.name} ${system.description}`.toLocaleLowerCase("pt-BR").includes(query))
+      },
 
       get filteredConditions() {
         if (!this.search.trim()) return this.conditions

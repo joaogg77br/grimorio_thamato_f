@@ -12,7 +12,7 @@
           <template x-for="c in fichasApi" :key="c.id">
             <option
               :value="c.id"
-              x-text="(c.nomePersonagem || 'Sem Nome') + ' (Nv ' + (c.nivel || 1) + ' ' + (c.classe || '') + ')'"
+              x-text="(c.nomePersonagem || 'Sem Nome') + ' (Nv ' + (c.nivel || 1) + ' ' + limparNomeClasse(c.classe) + ')'"
             ></option>
           </template>
           <option value="" x-show="!selectedCharId">
@@ -48,7 +48,7 @@
       <header class="t20-header">
         <div class="t20-header-top">
           <div class="t20-char-identity-left">
-              <div class="t20-main-title">PERSONAGEM 98989898989898</div>
+              <div class="t20-main-title">PERSONAGEM</div>
             <div class="t20-name-box">
               <input
                 type="text"
@@ -433,17 +433,6 @@
               </div>
             </div>
 
-            <!-- PROFICIÊNCIAS & OUTRAS CARACTERÍSTICAS -->
-            <div class="t20-profs-box">
-              <div class="t20-profs-title">
-                PROFICIÊNCIAS & OUTRAS CARACTERÍSTICAS
-              </div>
-              <textarea
-                x-model="form.proficiencias_poderes"
-                placeholder="Poderes de classe, raça, divindade, magias conhecidas, proficiências com armas e armaduras..."
-                class="t20-profs-textarea"
-              ></textarea>
-            </div>
           </div>
 
           <!-- TAMANHO, DESLOCAMENTO & XP -->

@@ -7,4 +7,7 @@ export default defineConfig({
     clearMocks: true,
     restoreMocks: true,
   },
+  server: {
+    allowedHosts: true
+  }
 })

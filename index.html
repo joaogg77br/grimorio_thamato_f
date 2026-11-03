@@ -134,6 +134,14 @@
                                     x-text="$store.critAnim.enabled ? 'Desativar animação de crítico' : 'Ativar animação de crítico'"
                                 ></span>
                             </button>
+                            <label class="settings-animation-option">
+                                <span>Animação de resultado crítico</span>
+                                <select x-model="$store.critAnim.style" aria-label="Animação de resultado crítico">
+                                    <option value="spin">Giro</option>
+                                    <option value="impact">Impacto</option>
+                                    <option value="pulse">Pulsação</option>
+                                </select>
+                            </label>
                             <div class="settings-background-group">
                                 <span class="settings-theme-title"
                                     >Fundo da ficha</span
@@ -674,6 +682,51 @@
                     x-show="$router.is('/personagens', '/personagens/ficha', '/personagens/ficha/:section')"
                 >
                     <div x-data="character">
+                        <template x-teleport="body">
+                        <div x-show="systemPickerOpen" :data-open="systemPickerOpen" class="system-picker-overlay" x-transition.opacity.duration.150ms x-on:click.self="closeSystemPicker()" x-on:keydown.escape.window="if (systemPickerOpen) closeSystemPicker()">
+                            <section class="system-picker" role="dialog" aria-modal="true" aria-labelledby="system-picker-title" aria-describedby="system-picker-description" tabindex="-1" x-ref="systemPicker" x-on:keydown.tab="trapSystemPickerFocus($event)">
+                                <header class="system-picker-header">
+                                    <div>
+                                        <p class="system-picker-kicker" x-text="systemPickerMode === 'aleatorio' ? 'CRIAÇÃO ALEATÓRIA' : 'NOVO PERSONAGEM'"></p>
+                                        <h2 id="system-picker-title">Escolha seu sistema</h2>
+                                    </div>
+                                    <button type="button" class="system-picker-close" x-on:click="closeSystemPicker()" aria-label="Fechar seleção"><span class="material-symbols-outlined" aria-hidden="true">close</span></button>
+                                </header>
+                                <div class="system-picker-body">
+                                <p class="system-picker-copy" id="system-picker-description" x-text="systemPickerMode === 'aleatorio' ? 'Selecione o universo para gerar seu próximo aventureiro.' : 'Cada aventura tem suas regras. Escolha a ficha para o seu personagem.'"></p>
+                                <div class="system-picker-grid">
+                                    <button type="button" class="system-picker-card" x-on:click="escolherSistemaPersonagem('tormenta')">
+                                        <span class="system-picker-card-top"><span class="system-picker-icon material-symbols-outlined" aria-hidden="true">local_fire_department</span><span class="system-picker-status">Ficha completa</span></span>
+                                        <strong>Tormenta20</strong>
+                                        <small>Aventure-se em Arton com uma ficha preparada para as regras de Tormenta20.</small>
+                                        <span class="system-picker-features">Perícias · Magias · Inventário</span>
+                                        <span class="system-picker-action"><span x-text="systemPickerMode === 'aleatorio' ? 'Gerar personagem' : 'Criar personagem'"></span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                                    </button>
+                                    <button type="button" class="system-picker-card system-picker-card--general" x-on:click="escolherSistemaPersonagem('geral')">
+                                        <span class="system-picker-card-top"><span class="system-picker-icon material-symbols-outlined" aria-hidden="true">auto_awesome</span><span class="system-picker-status">Ficha flexível</span></span>
+                                        <strong>Sistema Geral</strong>
+                                        <small>Uma base flexível para suas histórias, com campos e contadores iniciais.</small>
+                                        <span class="system-picker-features">Armas · Habilidades · Perícias</span>
+                                        <span class="system-picker-action"><span x-text="systemPickerMode === 'aleatorio' ? 'Gerar ficha' : 'Criar personagem'"></span><span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                                    </button>
+                                </div>
+                                </div>
+                                <footer class="system-picker-footer"><span><span class="material-symbols-outlined" aria-hidden="true" x-text="systemPickerMode === 'aleatorio' ? 'casino' : 'person_add'"></span><span x-text="systemPickerMode === 'aleatorio' ? 'Personagem gerado automaticamente' : 'Sua próxima aventura começa aqui'"></span></span><button type="button" x-on:click="closeSystemPicker()">Cancelar</button></footer>
+                            </section>
+                        </div>
+                        </template>
+                        <div x-show="generalCreateOpen" class="wizard-overlay" x-transition.opacity.duration.200ms>
+                            <form class="wizard general-create" x-on:submit.prevent="criarFichaGeral()">
+                                <div class="wizard-header">
+                                    <div><p class="system-picker-kicker">SISTEMA GERAL</p><h2 class="wizard-title">Novo personagem</h2></div>
+                                    <button type="button" class="wizard-close" x-on:click="generalCreateOpen = false" aria-label="Fechar formulário"><span class="material-symbols-outlined">close</span></button>
+                                </div>
+                                <label class="general-form-field"><span>Nome do personagem</span><input x-model="generalCharacter.nome" maxlength="100" placeholder="Ex.: Arven das Cinzas" autofocus /></label>
+                                <label class="general-form-field"><span>Jogador(a)</span><input x-model="generalCharacter.jogador" maxlength="100" placeholder="Seu nome" /></label>
+                                <p class="general-form-note">A ficha geral está em desenvolvimento. Você poderá acessar a ficha base; campos personalizados e edição serão adicionados depois.</p>
+                                <div class="general-form-actions"><button type="button" class="t20-btn" x-on:click="generalCreateOpen = false">Cancelar</button><button type="submit" class="t20-btn t20-btn-new" :disabled="creatingFicha"><span class="material-symbols-outlined">add</span><span x-text="creatingFicha ? 'Criando...' : 'Criar ficha'">Criar ficha</span></button></div>
+                            </form>
+                        </div>
                         <div
                             x-show="wizardOpen"
                             class="wizard-overlay"
@@ -949,6 +1002,7 @@
                                                         class="wizard-racial-choice-opt"
                                                         :class="{ selected: wizardRacialChoices.includes(a.key) }"
                                                         :aria-pressed="wizardRacialChoices.includes(a.key)"
+                                                        :disabled="!wizardRacialAtributoPermitido(a.key)"
                                                         x-on:click="alternarRacialEscolha(a.key)"
                                                     >
                                                         <span
@@ -1317,6 +1371,7 @@
                         <div
                             x-show="$router.is('/personagens') || (isFichaRoute && !selectedCharId)"
                             class="fichas-lista-section"
+                            :aria-busy="loading"
                         >
                             <div class="fichas-lista-header">
                                 <h2 class="page-heading">
@@ -1327,9 +1382,10 @@
                                     >Personagens
                                 </h2>
                                 <div class="fichas-lista-actions">
+                                    <button type="button" class="t20-btn" x-on:click="carregarFichas()" :disabled="loading || openingFicha || creatingFicha" aria-label="Atualizar personagens"><span class="material-symbols-outlined" aria-hidden="true">refresh</span>Atualizar</button>
                                     <button
                                         type="button"
-                                        x-on:click="criarPersonagemAleatorio()"
+                                        x-on:click="abrirWizard('aleatorio')"
                                         class="t20-btn"
                                         :disabled="creatingFicha || openingFicha"
                                     >
@@ -1356,29 +1412,28 @@
                                 </div>
                             </div>
 
-                            <div class="fichas-search">
-                                <span
-                                    class="material-symbols-outlined fichas-search-icon"
-                                    >search</span
-                                >
-                                <input
-                                    type="text"
-                                    x-model="searchTerm"
-                                    placeholder="Filtrar por nome, classe, raça ou jogador..."
-                                    class="fichas-search-input"
-                                />
+                            <div class="fichas-filters">
+                                <div class="fichas-search">
+                                    <span class="material-symbols-outlined fichas-search-icon" aria-hidden="true">search</span>
+                                    <input type="text" x-model="searchTerm" placeholder="Filtrar por nome, classe, raça ou jogador..." class="fichas-search-input" />
+                                </div>
+                                <div class="fichas-system-filter" role="group" aria-label="Filtrar fichas por sistema">
+                                    <span class="fichas-system-filter-label">Sistema</span>
+                                    <button type="button" :class="{ active: systemFilter === 'todos' }" x-on:click="systemFilter = 'todos'">Todos</button>
+                                    <button type="button" :class="{ active: systemFilter === 'tormenta' }" x-on:click="systemFilter = 'tormenta'">Tormenta20</button>
+                                    <button type="button" :class="{ active: systemFilter === 'geral' }" x-on:click="systemFilter = 'geral'">Geral</button>
+                                </div>
                             </div>
 
-                            <div x-show="loading" class="fichas-loading">
-                                <span
-                                    class="material-symbols-outlined fichas-loading-icon"
-                                    >hourglass_empty</span
-                                >
-                                <p>Carregando fichas...</p>
+                            <div x-show="loading" role="status" class="fichas-loading-status"><span class="material-symbols-outlined" aria-hidden="true">sync</span><span x-text="fichasApi.length ? 'Atualizando personagens...' : 'Carregando seus personagens...'"></span></div>
+                            <div x-show="loading && !fichasApi.length" class="fichas-grid fichas-skeleton-grid" aria-hidden="true">
+                                <template x-for="placeholder in 6" :key="placeholder"><div class="fichas-skeleton-card"><span></span><span></span><span></span><div><span></span><span></span></div></div></template>
+                            </div>
+                            <div x-show="fichasError" class="fichas-load-error" role="alert"><span class="material-symbols-outlined" aria-hidden="true">cloud_off</span><p x-text="fichasError"></p><button type="button" class="t20-btn" x-on:click="carregarFichas()" :disabled="loading">Tentar novamente</button>
                             </div>
 
                             <div
-                                x-show="!loading && fichasFiltradas.length === 0"
+                                x-show="fichasLoaded && !loading && !fichasError && fichasFiltradas.length === 0"
                                 class="fichas-empty"
                             >
                                 <span
@@ -1386,35 +1441,32 @@
                                     >person_add</span
                                 >
                                 <p
-                                    x-text="searchTerm ? 'Nenhuma ficha encontrada para esse filtro.' : 'Nenhuma ficha criada ainda.'"
+                                    x-text="(searchTerm || systemFilter !== 'todos') ? 'Nenhuma ficha encontrada para esse filtro.' : 'Nenhuma ficha criada ainda.'"
                                 ></p>
                             </div>
 
                             <div class="fichas-grid">
                                 <template
                                     x-for="ficha in fichasFiltradas"
-                                    :key="ficha.id"
+                                    :key="(ficha.sistema || 'tormenta') + ':' + ficha.id"
                                 >
                                     <div
                                         class="ficha-card"
-                                        x-on:click="abrirFicha(ficha)"
+                                        x-on:click="if (!openingFicha) abrirFicha(ficha)"
                                     >
                                         <div class="ficha-card-top">
-                                            <span
-                                                class="ficha-card-classe"
-                                                x-text="ficha.classe"
-                                            ></span>
-                                            <span
-                                                class="ficha-card-nivel"
-                                                x-text="'Nv ' + ficha.nivel"
-                                            ></span>
+                                            <div class="ficha-card-primary">
+                                                <span class="ficha-card-classe" x-text="limparNomeClasse(ficha.classe)"></span>
+                                                <span class="ficha-card-nivel" x-show="ficha.sistema !== 'geral'" x-text="'Nv ' + ficha.nivel"></span>
+                                            </div>
+                                            <span class="ficha-card-system" x-text="ficha.sistema === 'geral' ? 'Sistema Geral' : 'Tormenta20'"></span>
                                         </div>
                                         <h3
                                             class="ficha-card-nome"
                                             x-text="ficha.nomePersonagem"
                                         ></h3>
                                         <div class="ficha-card-info">
-                                            <span x-text="ficha.raca"></span>
+                                            <span x-text="ficha.sistema === 'geral' ? 'Ficha genérica' : ficha.raca"></span>
                                             <span class="ficha-card-sep"
                                                 >·</span
                                             >
@@ -1422,7 +1474,7 @@
                                                 x-text="ficha.nomeJogador"
                                             ></span>
                                         </div>
-                                        <div class="ficha-card-stats">
+                                        <div class="ficha-card-stats" x-show="ficha.sistema !== 'geral'">
                                             <span class="ficha-stat"
                                                 ><strong
                                                     x-text="ficha.pvCurrent"
@@ -1452,6 +1504,7 @@
                                             <button
                                                 type="button"
                                                 class="ficha-card-action ficha-card-action--open"
+                                                :disabled="openingFicha || deletingFicha"
                                                 x-on:click.stop="abrirFicha(ficha)"
                                             >
                                                 <span
@@ -1463,6 +1516,7 @@
                                             <button
                                                 type="button"
                                                 class="ficha-card-action ficha-card-action--delete"
+                                                :disabled="deletingFicha"
                                                 x-on:click.stop="deleteFichaCard(ficha)"
                                             >
                                                 <span
@@ -1477,6 +1531,7 @@
                             </div>
                         </div>
 
+                        <div x-show="openingFicha" class="ficha-opening-overlay" role="status" aria-live="polite"><div><span class="material-symbols-outlined" aria-hidden="true">sync</span><strong>Abrindo ficha</strong><p x-text="form.nome || 'Preparando os dados do personagem...'"></p></div></div>
                         <div
                             x-show="shouldShowFicha"
                             :inert="leavingFicha || openingFicha"
@@ -1484,7 +1539,7 @@
                         >
                             <div
                                 class="character-page-wrapper"
-                                :class="{ 'has-character-bg': $store.sheetBackground.hasImage && $store.sheetBackground.canEdit }"
+                                :class="{ 'has-character-bg': $store.sheetBackground.hasImage && $store.sheetBackground.canEdit, 'general-page-wrapper': isGeneralFicha }"
                             >
                                 <template
                                     x-if="$store.sheetBackground.hasImage && $store.sheetBackground.canEdit"
@@ -1518,7 +1573,112 @@
                                         x-text="leavingFicha ? 'Salvando...' : 'Sair da ficha'"
                                     ></span>
                                 </button>
-                                <div class="t20-sheet-container">
+                                <section x-show="isGeneralFicha" class="general-sheet-card">
+                                    <header class="general-sheet-header">
+                                        <div class="general-identity"><span class="general-avatar material-symbols-outlined" aria-hidden="true">person</span><div><span class="general-sheet-label">FICHA DO PERSONAGEM</span><div class="general-name-row"><h1 x-show="!generalNameEditing" x-text="generalCharacter.nome || 'Personagem sem Nome'"></h1><form x-show="generalNameEditing" class="general-name-edit" x-on:submit.prevent="salvarNomeFichaGeral()"><input x-ref="generalNameInput" x-model="generalNameDraft" maxlength="100" aria-label="Nome do personagem" /><button type="submit" class="general-name-action" :disabled="generalNameSaving" aria-label="Salvar nome"><span class="material-symbols-outlined">check</span></button><button type="button" class="general-name-action" x-on:click="generalNameEditing = false" :disabled="generalNameSaving" aria-label="Cancelar edição"><span class="material-symbols-outlined">close</span></button></form><button x-show="!generalNameEditing" type="button" class="general-name-action" x-on:click="editarNomeFichaGeral()" aria-label="Editar nome do personagem"><span class="material-symbols-outlined">edit</span></button></div><p><span class="material-symbols-outlined" aria-hidden="true">person_outline</span><span x-text="generalCharacter.jogador || 'Jogador não informado'"></span></p></div></div>
+                                        <div class="general-header-actions"><span class="general-system-badge"><span class="material-symbols-outlined">auto_awesome</span>Sistema Geral</span></div>
+                                        <div class="general-header-fields" x-show="generalCharacter.camposSimples.length">
+                                            <template x-for="(item, index) in generalCharacter.camposSimples" :key="'header-' + (item.id || index)">
+                                                <label class="general-header-field" :for="'general-header-field-' + (item.id || index)"><span x-text="item.nome"></span><input :id="'general-header-field-' + (item.id || index)" type="text" x-model="item.value" x-on:change="saveGeneralElements()" placeholder="Digite um valor" /></label>
+                                            </template>
+                                        </div>
+                                        <div class="general-header-counters" x-show="generalCharacter.accounts.length">
+                                            <template x-for="(item, index) in generalCharacter.accounts" :key="'header-counter-' + (item.id || index)">
+                                                <article class="general-counter-card" :style="{ '--counter-color': item.color || '#b4233c' }">
+                                                    <div class="general-counter-vital">
+                                                        <div class="general-counter-fill" :style="{ width: Number(item.maximumValue) > 0 ? Math.min(100, Math.max(0, Number(item.currentValue || 0) / Number(item.maximumValue) * 100)) + '%' : '0%' }"></div>
+                                                        <button type="button" class="general-counter-arrow general-counter-arrow-wide" x-on:click="changeGeneralAccount(item, Number(item.currentValue || 0) - 5)" :aria-label="'Diminuir 5 de ' + item.name">&lt;&lt;</button>
+                                                        <button type="button" class="general-counter-arrow" x-on:click="changeGeneralAccount(item, Number(item.currentValue || 0) - 1)" :aria-label="'Diminuir 1 de ' + item.name">&lt;</button>
+                                                        <div class="general-counter-main"><span class="general-counter-title" x-text="item.name"></span><div class="general-counter-values"><input type="number" step="1" :value="item.currentValue ?? 0" :aria-label="'Valor atual de ' + item.name" x-on:change="await changeGeneralAccount(item, $event.target.value); $el.value = item.currentValue" /><span>/</span><input type="number" step="1" :value="item.maximumValue ?? 0" :aria-label="'Valor máximo de ' + item.name" x-on:change="await changeGeneralAccount(item, $event.target.value, 'maximumValue'); $el.value = item.maximumValue" /></div></div>
+                                                        <button type="button" class="general-counter-arrow" x-on:click="changeGeneralAccount(item, Number(item.currentValue || 0) + 1)" :aria-label="'Aumentar 1 de ' + item.name">&gt;</button>
+                                                        <button type="button" class="general-counter-arrow general-counter-arrow-wide" x-on:click="changeGeneralAccount(item, Number(item.currentValue || 0) + 5)" :aria-label="'Aumentar 5 de ' + item.name">&gt;&gt;</button>
+                                                    </div>
+                                                </article>
+                                            </template>
+                                        </div>
+                                        <button type="button" class="general-header-add-field" x-show="!generalCharacter.camposSimples.length" x-on:click="generalSection = 'camposSimples'"><span class="material-symbols-outlined">add</span>Adicionar campo</button>
+                                    </header>
+                                    <div class="general-dice-toolbar">
+                                        <form class="general-dice-form" x-on:submit.prevent="rollGeneralDice()">
+                                            <label for="general-dice-formula"><span class="material-symbols-outlined" aria-hidden="true">casino</span>Rolagem de dados</label>
+                                            <div><input id="general-dice-formula" type="text" x-model="generalDiceFormula" placeholder="Ex.: 1d20+3 ou 2d6" maxlength="100" autocomplete="off" spellcheck="false" aria-describedby="general-dice-error" /><button type="submit" class="general-add-button"><span class="material-symbols-outlined" aria-hidden="true">casino</span>Rolar</button></div>
+                                        </form>
+                                        <div class="general-dice-result" x-show="generalDiceResult" role="status" aria-live="polite"><strong x-text="generalDiceResult?.total"></strong><div><span x-text="generalDiceResult?.formula"></span><small x-text="generalDiceResult?.detail"></small></div></div>
+                                        <p class="general-dice-error" id="general-dice-error" x-show="generalDiceError" x-text="generalDiceError" role="alert"></p>
+                                    </div>
+                                    <div class="general-sheet-content">
+                                        <nav class="general-sheet-nav" aria-label="Seções da ficha geral">
+                                            <template x-for="section in generalSections" :key="section.key">
+                                                <button type="button" class="t20-dock-btn" :class="{ active: generalSection === section.key }" :aria-pressed="generalSection === section.key" x-on:click="generalSection = section.key"><span class="material-symbols-outlined" x-text="section.icon"></span><span x-text="section.label"></span><span class="general-section-count" x-text="section.count"></span></button>
+                                            </template>
+                                        </nav>
+                                        <section class="general-sheet-panel" :inert="generalSaving || generalLoading">
+                                            <p class="general-remote-status" x-show="generalLoading" role="status">Carregando dados da ficha...</p>
+                                            <div class="general-remote-error" x-show="generalLoadError" role="alert"><p x-text="generalLoadError"></p><button type="button" class="general-cancel-button" x-on:click="loadGeneralRemoteElements()">Tentar novamente</button></div>
+                                            <div x-show="generalSection === 'camposSimples'" class="general-fields-grid">
+                                                <template x-for="(item, index) in generalCharacter.camposSimples" :key="item.id || index">
+                                                    <article class="general-simple-field"><div class="general-simple-heading"><label :for="'general-field-' + (item.id || index)" x-text="item.nome"></label><div class="general-element-actions"><button type="button" title="Editar campo" aria-label="Editar campo" x-on:click="openGeneralEditor('camposSimples', item, index)"><span class="material-symbols-outlined">edit</span></button><button type="button" title="Remover campo" aria-label="Remover campo" x-on:click="removeGeneralElement('camposSimples', index)"><span class="material-symbols-outlined">delete</span></button></div></div><input :id="'general-field-' + (item.id || index)" type="text" x-model="item.value" x-on:change="saveGeneralElements()" placeholder="Digite um valor" /></article>
+                                                </template>
+                                                <button type="button" class="general-cancel-button" x-on:click="openGeneralEditor('camposSimples')"><span class="material-symbols-outlined">add</span>Adicionar campo</button>
+                                            </div>
+                                            <header class="general-panel-header">
+                                                <div><h2 x-text="activeGeneralSection.label"></h2><p x-text="activeGeneralSection.description"></p></div>
+                                                <button type="button" class="general-add-button" x-show="generalSection !== 'defesa' && generalSection !== 'historico' && generalCharacter[generalSection]?.length > 0" x-on:click="openGeneralEditor(generalSection)"><span class="material-symbols-outlined">add</span><span>Adicionar</span></button>
+                                            </header>
+
+                                            <div x-show="generalSection === 'accounts'" class="general-fields-grid general-fields-grid--accounts">
+                                                <template x-for="(item, index) in generalCharacter.accounts" :key="item.id || index">
+                                                    <article class="general-counter-card" :style="{ '--counter-color': item.color || '#b4233c' }">
+                                                        <div class="general-counter-vital">
+                                                            <div class="general-counter-fill" :style="{ width: Number(item.maximumValue) > 0 ? Math.min(100, Math.max(0, Number(item.currentValue || 0) / Number(item.maximumValue) * 100)) + '%' : '0%' }"></div>
+                                                            <button type="button" class="general-counter-arrow general-counter-arrow-wide" x-on:click="changeGeneralAccount(item, Number(item.currentValue || 0) - 5)" :aria-label="'Diminuir 5 de ' + item.name">&lt;&lt;</button>
+                                                            <button type="button" class="general-counter-arrow" x-on:click="changeGeneralAccount(item, Number(item.currentValue || 0) - 1)" :aria-label="'Diminuir 1 de ' + item.name">&lt;</button>
+                                                            <div class="general-counter-main"><span class="general-counter-title" x-text="item.name"></span><div class="general-counter-values"><input type="number" step="1" :value="item.currentValue ?? 0" :aria-label="'Valor atual de ' + item.name" x-on:change="await changeGeneralAccount(item, $event.target.value); $el.value = item.currentValue" /><span>/</span><input type="number" step="1" :value="item.maximumValue ?? 0" :aria-label="'Valor máximo de ' + item.name" x-on:change="await changeGeneralAccount(item, $event.target.value, 'maximumValue'); $el.value = item.maximumValue" /></div></div>
+                                                            <button type="button" class="general-counter-arrow" x-on:click="changeGeneralAccount(item, Number(item.currentValue || 0) + 1)" :aria-label="'Aumentar 1 de ' + item.name">&gt;</button>
+                                                            <button type="button" class="general-counter-arrow general-counter-arrow-wide" x-on:click="changeGeneralAccount(item, Number(item.currentValue || 0) + 5)" :aria-label="'Aumentar 5 de ' + item.name">&gt;&gt;</button>
+                                                        </div>
+                                                        <div class="general-counter-footer"><span x-text="item.accontantType === 'bar' ? 'BARRA DE RECURSO' : 'CONTADOR'"></span><div class="general-element-actions"><button type="button" title="Editar contador" aria-label="Editar contador" x-on:click="openGeneralEditor('accounts', item, index)"><span class="material-symbols-outlined">edit</span></button><button type="button" title="Remover contador" aria-label="Remover contador" x-on:click="removeGeneralElement('accounts', index)"><span class="material-symbols-outlined">delete</span></button></div></div>
+                                                    </article>
+                                                </template>
+                                            </div>
+                                            <div x-show="generalSection === 'armas'" class="general-element-list">
+                                                <template x-for="(item, index) in generalCharacter.armas" :key="item.id || index"><article class="general-element-card"><div class="general-element-icon"><span class="material-symbols-outlined">swords</span></div><div class="general-element-main"><div class="general-element-title-row"><h3 x-text="item.nome"></h3><span class="general-equipped-badge" x-show="item.equiped">Equipada</span></div><p class="general-element-meta" x-text="[item.dadoDeDano, item.alcance, item.tipoDano].filter(Boolean).join(' · ') || 'Arma sem detalhes adicionais'"></p><p class="general-element-description" x-show="item.descricao" x-text="item.descricao"></p></div><div class="general-element-actions"><button type="button" title="Editar arma" x-on:click="openGeneralEditor('armas', item, index)"><span class="material-symbols-outlined">edit</span></button><button type="button" title="Remover arma" x-on:click="removeGeneralElement('armas', index)"><span class="material-symbols-outlined">delete</span></button></div></article></template>
+                                            </div>
+                                            <div x-show="generalSection === 'habilidade'" class="general-element-list">
+                                                <template x-for="(item, index) in generalCharacter.habilidade" :key="item.id || index"><article class="general-element-card"><div class="general-element-icon"><span class="material-symbols-outlined">auto_awesome</span></div><div class="general-element-main"><h3 x-text="item.nome"></h3><p class="general-element-meta" x-show="item.custo != null" x-text="'Custo: ' + item.custo"></p><p class="general-element-description" x-text="item.descricao"></p></div><div class="general-element-actions"><button type="button" title="Editar habilidade" x-on:click="openGeneralEditor('habilidade', item, index)"><span class="material-symbols-outlined">edit</span></button><button type="button" title="Remover habilidade" x-on:click="removeGeneralElement('habilidade', index)"><span class="material-symbols-outlined">delete</span></button></div></article></template>
+                                            </div>
+                                            <div x-show="generalSection === 'pericias'" class="general-element-list">
+                                                <template x-for="(item, index) in generalCharacter.pericias" :key="item.id || index"><article class="general-element-card"><div class="general-element-icon"><span class="material-symbols-outlined">psychology</span></div><div class="general-element-main"><h3 x-text="item.nome"></h3><p class="general-element-meta" x-text="[item.atributo, 'Treino ' + (item.treino || 0), 'Outros ' + (item.outros || 0)].filter(Boolean).join(' · ')"></p></div><div class="general-element-actions"><button type="button" title="Editar perícia" x-on:click="openGeneralEditor('pericias', item, index)"><span class="material-symbols-outlined">edit</span></button><button type="button" title="Remover perícia" x-show="!isGeneralRemoteElement(item)" x-on:click="removeGeneralElement('pericias', index)"><span class="material-symbols-outlined">delete</span></button></div></article></template>
+                                            </div>
+                                            <div x-show="generalSection === 'defesa'" class="general-element-list">
+                                                <template x-for="(item, index) in generalCharacter.defesa" :key="item.id || index"><article class="general-element-card"><div class="general-element-icon"><span class="material-symbols-outlined">shield</span></div><div class="general-element-main"><h3>Defesa</h3><p class="general-element-meta" x-text="[item.atributos, 'Outros ' + (item.outros || 0)].filter(Boolean).join(' · ')"></p></div><div class="general-element-actions"><button type="button" title="Editar defesa" x-on:click="openGeneralEditor('defesa', item, index)"><span class="material-symbols-outlined">edit</span></button><button type="button" title="Remover defesa" x-on:click="removeGeneralElement('defesa', index)"><span class="material-symbols-outlined">delete</span></button></div></article></template>
+                                            </div>
+                                            <div x-show="generalSection === 'historico'" class="general-element-list">
+                                                <template x-for="(item, index) in generalCharacter.historico" :key="item.id || index"><article class="general-element-card general-history-card"><div class="general-element-icon"><span class="material-symbols-outlined">history</span></div><div class="general-element-main"><p class="general-element-description" x-text="item.value"></p></div><div class="general-element-actions"><button type="button" title="Editar registro" x-on:click="openGeneralEditor('historico', item, index)"><span class="material-symbols-outlined">edit</span></button><button type="button" title="Remover registro" x-on:click="removeGeneralElement('historico', index)"><span class="material-symbols-outlined">delete</span></button></div></article></template>
+                                            </div>
+                                            <div class="general-empty-state" x-show="generalCharacter[generalSection]?.length === 0"><span class="general-empty-icon material-symbols-outlined" aria-hidden="true" x-text="activeGeneralSection.icon"></span><h3 x-text="activeGeneralSection.empty"></h3><p x-text="activeGeneralSection.description"></p><button type="button" class="general-cancel-button" x-show="generalSection !== 'historico'" x-on:click="openGeneralEditor(generalSection)"><span class="material-symbols-outlined" aria-hidden="true">add</span><span x-text="activeGeneralSection.action"></span></button></div>
+                                        </section>
+                                    </div>
+                                </section>
+                                <template x-teleport="body">
+                                <div x-show="generalEditorOpen && isGeneralFicha" :data-open="generalEditorOpen && isGeneralFicha" class="general-editor-backdrop" x-transition.opacity x-on:keydown.escape.window="if (!generalSaving) generalEditorOpen = false" x-on:click.self="if (!generalSaving) generalEditorOpen = false">
+                                    <form class="general-editor-modal" role="dialog" aria-modal="true" aria-labelledby="general-editor-title" tabindex="-1" x-ref="generalEditor" x-on:submit.prevent="saveGeneralElement()">
+                                        <header class="general-editor-header"><div><span class="general-sheet-label">SISTEMA GERAL</span><h2 id="general-editor-title" x-text="generalEditorTitle"></h2></div><button type="button" class="general-editor-close" x-on:click="if (!generalSaving) generalEditorOpen = false" aria-label="Fechar formulário"><span class="material-symbols-outlined">close</span></button></header>
+                                        <div class="general-editor-fields" :inert="generalSaving">
+                                            <template x-for="field in generalEditorFields" :key="field.key">
+                                                <label class="general-editor-field" :class="{ 'general-editor-field--wide': field.type === 'textarea' || field.type === 'checkbox' }">
+                                                    <span x-show="field.type !== 'checkbox'" x-text="field.label"></span>
+                                                    <template x-if="field.type !== 'textarea' && field.type !== 'checkbox'"><input :type="field.type" :step="field.key === 'peso' ? 'any' : '1'" x-model="generalDraft[field.key]" :placeholder="field.label" /></template>
+                                                    <template x-if="field.type === 'textarea'"><textarea x-model="generalDraft[field.key]" :placeholder="field.label" rows="4"></textarea></template>
+                                                    <template x-if="field.type === 'checkbox'"><span class="general-checkbox-control"><input type="checkbox" x-model="generalDraft[field.key]" /><span x-text="field.label"></span></span></template>
+                                                </label>
+                                            </template>
+                                        </div>
+                                        <footer class="general-editor-footer"><button type="button" class="general-cancel-button" x-on:click="if (!generalSaving) generalEditorOpen = false">Cancelar</button><button type="submit" class="general-add-button" :disabled="generalSaving"><span class="material-symbols-outlined">check</span><span x-text="generalSaving ? 'Salvando...' : 'Salvar na ficha'"></span></button></footer>
+                                    </form>
+                                </div>
+                                </template>
+                                <div class="t20-sheet-container" x-show="!isGeneralFicha">
                                     <div class="t20-sheet">
                                         <header class="t20-header">
                                             <div class="t20-header-top">
@@ -3798,10 +3958,11 @@
                                                                         <div
                                                                             class="t20-carried-detail"
                                                                             x-show="expandedMagiaCarregadaId === magia.id"
+                                                                            x-data="{ get detalhes() { return magiaDetalhes(magia) } }"
                                                                             x-transition
                                                                         >
                                                                             <p
-                                                                                x-text="magia.descricao"
+                                                                                x-text="detalhes.descricaoBase"
                                                                             ></p>
                                                                             <div>
                                                                                 <span
@@ -3847,13 +4008,39 @@
                                                                                     ></strong
                                                                                 ></span>
                                                                             </div>
-                                                                            <div
-                                                                                x-show="magia.truque"
-                                                                            >
-                                                                                Truque:
-                                                                                <strong
-                                                                                    x-text="magia.truque"
-                                                                                ></strong>
+
+                                                                            <div class="t20-spell-options" x-show="detalhes.truques.length > 0">
+                                                                                <h4>Truques</h4>
+                                                                                <ol class="t20-spell-option-list">
+                                                                                    <template x-for="(truque, indiceTruque) in detalhes.truques" :key="indiceTruque">
+                                                                                        <li class="t20-spell-option">
+                                                                                            <strong class="t20-spell-option-cost">Truque</strong>
+                                                                                            <p x-text="truque.efeito"></p>
+                                                                                            <template x-for="(requisito, indiceRequisito) in truque.requisitos" :key="indiceRequisito">
+                                                                                                <small class="t20-spell-option-requirement" x-text="requisito"></small>
+                                                                                            </template>
+                                                                                        </li>
+                                                                                    </template>
+                                                                                </ol>
+                                                                            </div>
+                                                                            <div class="t20-spell-options">
+                                                                                <h4>Aprimoramentos <span x-text="'(' + detalhes.aprimoramentos.length + ')'"></span></h4>
+                                                                                <p class="t20-spell-options-hint" x-show="detalhes.aprimoramentos.length > 0">Os valores abaixo são custos adicionais ao custo da magia.</p>
+                                                                                <p class="t20-spell-options-hint" x-show="detalhes.aprimoramentos.length === 0">Sem aprimoramentos cadastrados.</p>
+                                                                                <ol class="t20-spell-option-list">
+                                                                                    <template x-for="(aprimoramento, indiceAprimoramento) in detalhes.aprimoramentos" :key="indiceAprimoramento">
+                                                                                        <li class="t20-spell-option">
+                                                                                            <div class="t20-spell-option-heading">
+                                                                                                <strong class="t20-spell-option-cost" x-text="'+' + aprimoramento.custoAdicional + ' PM'"></strong>
+                                                                                                <span class="t20-spell-option-restriction" x-show="aprimoramento.restricao" x-text="aprimoramento.restricao"></span>
+                                                                                            </div>
+                                                                                            <p x-text="aprimoramento.efeito"></p>
+                                                                                            <template x-for="(requisito, indiceRequisito) in aprimoramento.requisitos" :key="indiceRequisito">
+                                                                                                <small class="t20-spell-option-requirement" x-text="requisito"></small>
+                                                                                            </template>
+                                                                                        </li>
+                                                                                    </template>
+                                                                                </ol>
                                                                             </div>
                                                                             <div
                                                                                 class="t20-carried-detail-actions"
@@ -3897,231 +4084,249 @@
                                                         </div>
                                                     </div>
 
-                                                    <div
-                                                        x-show="showMagiasPopup"
-                                                        class="t20-equip-popup-overlay"
-                                                        x-on:click.self="closeMagiasPopup()"
-                                                        x-transition.opacity.duration.200ms
-                                                    >
+                                                    <template x-teleport="body">
                                                         <div
-                                                            class="t20-equip-popup"
-                                                            x-transition.scale.duration.200ms
+                                                            x-show="showMagiasPopup"
+                                                            class="t20-equip-popup-overlay t20-spell-popup-overlay"
+                                                            x-on:click.self="closeMagiasPopup()"
+                                                            x-transition.opacity.duration.200ms
                                                         >
                                                             <div
-                                                                class="t20-equip-popup-header"
-                                                            >
-                                                                <h3>
-                                                                    Adicionar
-                                                                    Magia
-                                                                </h3>
-                                                                <button
-                                                                    x-on:click="closeMagiasPopup()"
-                                                                    class="t20-popup-close"
-                                                                >
-                                                                    ✕
-                                                                </button>
-                                                            </div>
-
-                                                            <div
-                                                                class="t20-equip-popup-body"
+                                                                class="t20-equip-popup"
+                                                                x-transition.scale.duration.200ms
                                                             >
                                                                 <div
-                                                                    class="t20-equip-search"
+                                                                    class="t20-equip-popup-header"
                                                                 >
-                                                                    <span
-                                                                        class="material-symbols-outlined"
-                                                                        >search</span
-                                                                    >
-                                                                    <input
-                                                                        type="text"
-                                                                        x-model="magiasSearchTerm"
-                                                                        placeholder="Filtrar por nome, tipo ou círculo..."
-                                                                        class="t20-equip-search-input"
-                                                                    />
-                                                                </div>
-
-                                                                <div
-                                                                    class="t20-equip-popup-tabs"
-                                                                >
+                                                                    <h3>
+                                                                        Adicionar
+                                                                        Magia
+                                                                    </h3>
                                                                     <button
-                                                                        class="t20-equip-popup-tab"
-                                                                        :class="{ active: activeMagiaTipoTab === 'todas' }"
-                                                                        x-on:click="activeMagiaTipoTab = 'todas'"
+                                                                        x-on:click="closeMagiasPopup()"
+                                                                        class="t20-popup-close"
                                                                     >
-                                                                        Todas
-                                                                    </button>
-                                                                    <button
-                                                                        class="t20-equip-popup-tab"
-                                                                        :class="{ active: activeMagiaTipoTab === 'arcana' }"
-                                                                        x-on:click="activeMagiaTipoTab = 'arcana'"
-                                                                    >
-                                                                        Arcanas
-                                                                    </button>
-                                                                    <button
-                                                                        class="t20-equip-popup-tab"
-                                                                        :class="{ active: activeMagiaTipoTab === 'divina' }"
-                                                                        x-on:click="activeMagiaTipoTab = 'divina'"
-                                                                    >
-                                                                        Divinas
-                                                                    </button>
-                                                                    <button
-                                                                        class="t20-equip-popup-tab"
-                                                                        :class="{ active: activeMagiaTipoTab === 'universal' }"
-                                                                        x-on:click="activeMagiaTipoTab = 'universal'"
-                                                                    >
-                                                                        Universais
+                                                                        ✕
                                                                     </button>
                                                                 </div>
 
                                                                 <div
-                                                                    class="t20-equip-popup-tabs"
+                                                                    class="t20-equip-popup-body"
                                                                 >
-                                                                    <button
-                                                                        class="t20-equip-popup-tab"
-                                                                        :class="{ active: activeMagiaCirculoTab === 'todos' }"
-                                                                        x-on:click="activeMagiaCirculoTab = 'todos'"
+                                                                    <div
+                                                                        class="t20-equip-search"
                                                                     >
-                                                                        Todos
-                                                                    </button>
-                                                                    <template
-                                                                        x-for="circulo in magiasCirculos"
-                                                                        :key="circulo"
+                                                                        <span
+                                                                            class="material-symbols-outlined"
+                                                                            >search</span
+                                                                        >
+                                                                        <input
+                                                                            type="text"
+                                                                            x-model="magiasSearchTerm"
+                                                                            placeholder="Filtrar por nome, tipo ou círculo..."
+                                                                            class="t20-equip-search-input"
+                                                                        />
+                                                                    </div>
+
+                                                                    <div
+                                                                        class="t20-equip-popup-tabs"
                                                                     >
                                                                         <button
                                                                             class="t20-equip-popup-tab"
-                                                                            :class="{ active: activeMagiaCirculoTab === circulo }"
-                                                                            x-on:click="activeMagiaCirculoTab = circulo"
-                                                                            x-text="circulo"
-                                                                        ></button>
-                                                                    </template>
-                                                                </div>
+                                                                            :class="{ active: activeMagiaTipoTab === 'todas' }"
+                                                                            x-on:click="activeMagiaTipoTab = 'todas'"
+                                                                        >
+                                                                            Todas
+                                                                        </button>
+                                                                        <button
+                                                                            class="t20-equip-popup-tab"
+                                                                            :class="{ active: activeMagiaTipoTab === 'arcana' }"
+                                                                            x-on:click="activeMagiaTipoTab = 'arcana'"
+                                                                        >
+                                                                            Arcanas
+                                                                        </button>
+                                                                        <button
+                                                                            class="t20-equip-popup-tab"
+                                                                            :class="{ active: activeMagiaTipoTab === 'divina' }"
+                                                                            x-on:click="activeMagiaTipoTab = 'divina'"
+                                                                        >
+                                                                            Divinas
+                                                                        </button>
+                                                                        <button
+                                                                            class="t20-equip-popup-tab"
+                                                                            :class="{ active: activeMagiaTipoTab === 'universal' }"
+                                                                            x-on:click="activeMagiaTipoTab = 'universal'"
+                                                                        >
+                                                                            Universais
+                                                                        </button>
+                                                                    </div>
 
-                                                                <div
-                                                                    class="t20-equip-list-popup"
-                                                                >
-                                                                    <template
-                                                                        x-for="(magia, i) in magiasFiltradas"
-                                                                        :key="i"
+                                                                    <div
+                                                                        class="t20-equip-popup-tabs"
                                                                     >
-                                                                        <div
-                                                                            class="t20-equip-item-row"
+                                                                        <button
+                                                                            class="t20-equip-popup-tab"
+                                                                            :class="{ active: activeMagiaCirculoTab === 'todos' }"
+                                                                            x-on:click="activeMagiaCirculoTab = 'todos'"
+                                                                        >
+                                                                            Todos
+                                                                        </button>
+                                                                        <template
+                                                                            x-for="circulo in magiasCirculos"
+                                                                            :key="circulo"
                                                                         >
                                                                             <button
-                                                                                class="t20-equip-expand-btn"
-                                                                                x-on:click="toggleMagiaDesc(i)"
-                                                                                :class="{ expanded: expandedMagiaIndex === i }"
-                                                                            >
-                                                                                <span
-                                                                                    class="material-symbols-outlined"
-                                                                                    >expand_more</span
-                                                                                >
-                                                                            </button>
+                                                                                class="t20-equip-popup-tab"
+                                                                                :class="{ active: activeMagiaCirculoTab === circulo }"
+                                                                                x-on:click="activeMagiaCirculoTab = circulo"
+                                                                                x-text="circulo"
+                                                                            ></button>
+                                                                        </template>
+                                                                    </div>
+
+                                                                    <div
+                                                                        class="t20-equip-list-popup"
+                                                                    >
+                                                                        <template
+                                                                            x-for="(magia, i) in magiasFiltradas"
+                                                                            :key="i"
+                                                                        >
                                                                             <div
-                                                                                class="t20-equip-item-info"
+                                                                                class="t20-equip-item-row"
                                                                             >
-                                                                                <div
-                                                                                    class="t20-equip-item-main"
+                                                                                <button
+                                                                                    class="t20-equip-expand-btn"
+                                                                                    x-on:click="toggleMagiaDesc(i)"
+                                                                                    :class="{ expanded: expandedMagiaIndex === i }"
                                                                                 >
                                                                                     <span
-                                                                                        class="t20-equip-item-name"
-                                                                                        x-text="magia.nome"
-                                                                                    ></span>
-                                                                                    <span
-                                                                                        class="t20-equip-item-tag"
-                                                                                        x-text="magia.Circulo"
-                                                                                    ></span>
-                                                                                </div>
+                                                                                        class="material-symbols-outlined"
+                                                                                        >expand_more</span
+                                                                                    >
+                                                                                </button>
                                                                                 <div
-                                                                                    class="t20-equip-item-stats"
+                                                                                    class="t20-equip-item-info"
                                                                                 >
-                                                                                    <span
-                                                                                        x-text="magia.tipoMagia"
-                                                                                    ></span>
-                                                                                    <span
-                                                                                        class="t20-equip-item-sep"
-                                                                                        >·</span
-                                                                                    >
-                                                                                    <span
-                                                                                        x-text="'Execução: ' + magia.execucao"
-                                                                                    ></span>
-                                                                                    <span
-                                                                                        class="t20-equip-item-sep"
-                                                                                        >·</span
-                                                                                    >
-                                                                                    <span
-                                                                                        x-text="'Alcance: ' + magia.alcance"
-                                                                                    ></span>
-                                                                                    <span
-                                                                                        class="t20-equip-item-sep"
-                                                                                        >·</span
-                                                                                    >
-                                                                                    <span
-                                                                                        x-text="'Duração: ' + magia.duracao"
-                                                                                    ></span>
-                                                                                    <span
-                                                                                        class="t20-equip-item-sep"
-                                                                                        >·</span
-                                                                                    >
-                                                                                    <span
-                                                                                        x-text="magia.gastoPe + ' PM'"
-                                                                                    ></span>
-                                                                                </div>
-                                                                                <div
-                                                                                    class="t20-equip-item-desc"
-                                                                                    x-show="expandedMagiaIndex === i"
-                                                                                    x-transition
-                                                                                >
-                                                                                    <p
-                                                                                        x-text="magia.descricao"
-                                                                                    ></p>
                                                                                     <div
-                                                                                        class="t20-equip-item-desc-details"
+                                                                                        class="t20-equip-item-main"
                                                                                     >
                                                                                         <span
-                                                                                            >Alvo:
-                                                                                            <strong
-                                                                                                x-text="magia.alvo"
-                                                                                            ></strong
+                                                                                            class="t20-equip-item-name"
+                                                                                            x-text="magia.nome"
                                                                                         ></span>
                                                                                         <span
-                                                                                            x-show="magia.truque"
-                                                                                            >Truque:
-                                                                                            <strong
-                                                                                                x-text="magia.truque"
-                                                                                            ></strong
+                                                                                            class="t20-equip-item-tag"
+                                                                                            x-text="magia.Circulo"
                                                                                         ></span>
                                                                                     </div>
+                                                                                    <div
+                                                                                        class="t20-equip-item-stats"
+                                                                                    >
+                                                                                        <span
+                                                                                            x-text="magia.tipoMagia"
+                                                                                        ></span>
+                                                                                        <span
+                                                                                            class="t20-equip-item-sep"
+                                                                                            >·</span
+                                                                                        >
+                                                                                        <span
+                                                                                            x-text="'Execução: ' + magia.execucao"
+                                                                                        ></span>
+                                                                                        <span
+                                                                                            class="t20-equip-item-sep"
+                                                                                            >·</span
+                                                                                        >
+                                                                                        <span
+                                                                                            x-text="'Alcance: ' + magia.alcance"
+                                                                                        ></span>
+                                                                                        <span
+                                                                                            class="t20-equip-item-sep"
+                                                                                            >·</span
+                                                                                        >
+                                                                                        <span
+                                                                                            x-text="'Duração: ' + magia.duracao"
+                                                                                        ></span>
+                                                                                        <span
+                                                                                            class="t20-equip-item-sep"
+                                                                                            >·</span
+                                                                                        >
+                                                                                        <span
+                                                                                            x-text="magia.gastoPe + ' PM'"
+                                                                                        ></span>
+                                                                                    </div>
+                                                                                    <div class="t20-equip-item-desc"
+                                                                                         x-show="expandedMagiaIndex === i"
+                                                                                         x-data="{ get detalhes() { return magiaDetalhes(magia) } }"
+                                                                                         x-transition>
+                                                                                        <p x-text="detalhes.descricaoBase"></p>
+                                                                                        <div class="t20-equip-item-desc-details">
+                                                                                            <span>Alvo: <strong x-text="magia.alvo"></strong></span>
+                                                                                        </div>
+                                                                                        <div class="t20-spell-options" x-show="detalhes.truques.length > 0">
+                                                                                            <h4>Truques</h4>
+                                                                                            <ol class="t20-spell-option-list">
+                                                                                                <template x-for="(truque, indiceTruque) in detalhes.truques" :key="indiceTruque">
+                                                                                                    <li class="t20-spell-option">
+                                                                                                        <strong class="t20-spell-option-cost">Truque</strong>
+                                                                                                        <p x-text="truque.efeito"></p>
+                                                                                                        <template x-for="(requisito, indiceRequisito) in truque.requisitos" :key="indiceRequisito">
+                                                                                                            <small class="t20-spell-option-requirement" x-text="requisito"></small>
+                                                                                                        </template>
+                                                                                                    </li>
+                                                                                                </template>
+                                                                                            </ol>
+                                                                                        </div>
+                                                                                        <div class="t20-spell-options">
+                                                                                            <h4>Aprimoramentos <span x-text="'(' + detalhes.aprimoramentos.length + ')'"></span></h4>
+                                                                                            <p class="t20-spell-options-hint" x-show="detalhes.aprimoramentos.length > 0">Os valores abaixo são custos adicionais ao custo da magia.</p>
+                                                                                            <p class="t20-spell-options-hint" x-show="detalhes.aprimoramentos.length === 0">Sem aprimoramentos cadastrados.</p>
+                                                                                            <ol class="t20-spell-option-list">
+                                                                                                <template x-for="(aprimoramento, indiceAprimoramento) in detalhes.aprimoramentos" :key="indiceAprimoramento">
+                                                                                                    <li class="t20-spell-option">
+                                                                                                        <div class="t20-spell-option-heading">
+                                                                                                            <strong class="t20-spell-option-cost" x-text="'+' + aprimoramento.custoAdicional + ' PM'"></strong>
+                                                                                                            <span class="t20-spell-option-restriction" x-show="aprimoramento.restricao" x-text="aprimoramento.restricao"></span>
+                                                                                                        </div>
+                                                                                                        <p x-text="aprimoramento.efeito"></p>
+                                                                                                        <template x-for="(requisito, indiceRequisito) in aprimoramento.requisitos" :key="indiceRequisito">
+                                                                                                            <small class="t20-spell-option-requirement" x-text="requisito"></small>
+                                                                                                        </template>
+                                                                                                    </li>
+                                                                                                </template>
+                                                                                            </ol>
+                                                                                        </div>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <button
-                                                                                class="t20-equip-add-btn"
-                                                                                x-on:click="addMagiaToFicha(magia)"
-                                                                                title="Adicionar à ficha"
-                                                                            >
-                                                                                <span
-                                                                                    class="material-symbols-outlined"
-                                                                                    >add</span
+                                                                                <button
+                                                                                    class="t20-equip-add-btn"
+                                                                                    x-on:click="addMagiaToFicha(magia)"
+                                                                                    title="Adicionar à ficha"
                                                                                 >
-                                                                            </button>
+                                                                                    <span
+                                                                                        class="material-symbols-outlined"
+                                                                                        >add</span
+                                                                                    >
+                                                                                </button>
+                                                                            </div>
+                                                                        </template>
+                                                                        <div
+                                                                            class="t20-equip-list-empty"
+                                                                            x-show="magiasFiltradas.length === 0"
+                                                                        >
+                                                                            <p>
+                                                                                Nenhuma
+                                                                                magia
+                                                                                encontrada
+                                                                                para
+                                                                                esse
+                                                                                filtro.
+                                                                            </p>
                                                                         </div>
-                                                                    </template>
-                                                                    <div
-                                                                        class="t20-equip-list-empty"
-                                                                        x-show="magiasFiltradas.length === 0"
-                                                                    >
-                                                                        <p>
-                                                                            Nenhuma
-                                                                            magia
-                                                                            encontrada
-                                                                            para
-                                                                            esse
-                                                                            filtro.
-                                                                        </p>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </template>
 
                                                     <div
                                                         x-show="activeTab === 'habilidades'"
@@ -5588,7 +5793,7 @@
                                     </div>
                                 </div>
 
-                                <div class="t20-bottom-dock">
+                                <div class="t20-bottom-dock" x-show="!isGeneralFicha">
                                     <button
                                         type="button"
                                         class="t20-dock-btn"
@@ -5662,7 +5867,8 @@
                     <div
                         x-show="d20Popup.show"
                         class="d20-overlay"
-                        :class="{ 'd20-overlay--fail': d20Popup.value === 1 && d20Popup.phase === 'result', 'd20-overlay--crit': d20Popup.value === 20 && d20Popup.phase === 'result' }"
+                        :style="{ '--d20-accent': d20Popup.phase === 'animating' ? '148, 163, 184' : (d20Popup.value === 20 ? '74, 222, 128' : '248, 113, 113') }"
+                        :class="['d20-overlay--style-' + $store.critAnim.style, { 'd20-overlay--fail': d20Popup.value === 1 && d20Popup.phase === 'result', 'd20-overlay--crit': d20Popup.value === 20 && d20Popup.phase === 'result' }]"
                     >
                         <div
                             class="d20-popup"
@@ -5671,7 +5877,7 @@
                             <div class="d20-viewport">
                                 <div
                                     class="d20-anim-wrap"
-                                    x-on:animationend="onSpinEnd()"
+                                    x-on:animationend.self="onSpinEnd()"
                                 >
                                     <div class="d20-img-container">
                                         <img
@@ -5751,22 +5957,22 @@
                                         >
                                         <span
                                             class="dma-box-value"
-                                            x-text="t.ataque.total"
+                                            x-text="t.ataque?.total"
                                         ></span>
                                         <span
                                             class="dma-box-detail"
-                                            x-text="t.ataque.detail"
+                                            x-text="t.ataque?.detail"
                                         ></span>
                                     </div>
                                     <div class="dma-box dma-box--dano">
                                         <span class="dma-box-label">DANO</span>
                                         <span
                                             class="dma-box-value"
-                                            x-text="t.dano.total"
+                                            x-text="t.dano?.total"
                                         ></span>
                                         <span
                                             class="dma-box-detail"
-                                            x-text="t.dano.detail"
+                                            x-text="t.dano?.detail"
                                         ></span>
                                     </div>
                                 </div>
@@ -5777,11 +5983,8 @@
                                     <div class="dmt-hover-title">
                                         Dados (menor → maior)
                                     </div>
-                                    <div
-                                        class="dmt-hover-row"
-                                        x-for="(r, i) in t.rolls"
-                                        :key="i"
-                                    >
+                                    <template x-for="(r, i) in t.rolls" :key="i">
+                                    <div class="dmt-hover-row">
                                         <span
                                             class="dmt-hover-die"
                                             x-text="'d' + r.sides"
@@ -5791,6 +5994,7 @@
                                             x-text="r.value"
                                         ></span>
                                     </div>
+                                    </template>
                                 </div>
                             </div>
                         </template>
@@ -5961,7 +6165,7 @@
                                                                 ></span>
                                                                 <span
                                                                     class="member-role"
-                                                                    x-text="f.classe + ' · Nível ' + f.nivel"
+                                                                    x-text="limparNomeClasse(f.classe) + ' · Nível ' + f.nivel"
                                                                 ></span>
                                                             </div>
                                                             <button
@@ -6154,7 +6358,7 @@
                                                         class="t20-equip-item-stats"
                                                     >
                                                         <span
-                                                            x-text="f.classe"
+                                                            x-text="limparNomeClasse(f.classe)"
                                                         ></span>
                                                         <span
                                                             class="t20-equip-item-sep"
@@ -6341,7 +6545,7 @@
                                         <div class="master-char-card">
                                             <h4 x-text="f.nomePersonagem"></h4>
                                             <p
-                                                x-text="f.classe + ' · Nível ' + f.nivel"
+                                                x-text="limparNomeClasse(f.classe) + ' · Nível ' + f.nivel"
                                             ></p>
                                             <div class="master-char-actions">
                                                 <span
@@ -6449,13 +6653,34 @@
 
                 <div x-data="reference" x-show="$router.is('/referencia')">
                     <div class="reference-section">
-                        <h2 class="page-heading">
+                        <h2 class="page-heading" x-show="!selectedSystem">
                             <span
                                 class="material-symbols-outlined"
                                 aria-hidden="true"
                                 >menu_book</span
-                            >Condições & Referência
+                            >Referências
                         </h2>
+                        <div class="reference-system-picker" x-show="!selectedSystem">
+                            <label class="reference-system-search">
+                                <span class="material-symbols-outlined" aria-hidden="true">search</span>
+                                <input type="search" x-model="systemSearch" aria-label="Buscar sistema" placeholder="Buscar sistema..." />
+                            </label>
+                            <div class="reference-systems-grid">
+                                <template x-for="system in filteredSystems" :key="system.id">
+                                    <button type="button" class="reference-system-card" x-on:click="selectedSystem = system.id">
+                                        <span class="reference-system-icon material-symbols-outlined" aria-hidden="true" x-text="system.icon"></span>
+                                        <span class="reference-system-copy"><strong x-text="system.name"></strong><small x-text="system.description"></small></span>
+                                        <span class="material-symbols-outlined reference-system-arrow" aria-hidden="true">arrow_forward</span>
+                                    </button>
+                                </template>
+                                <p class="reference-systems-empty" x-show="!filteredSystems.length">Nenhum sistema encontrado.</p>
+                            </div>
+                        </div>
+                        <div class="reference-system-content" x-show="selectedSystem === 'tormenta20'">
+                            <div class="reference-content-heading">
+                                <h2 class="page-heading"><span class="material-symbols-outlined" aria-hidden="true">menu_book</span>Condições & Referência <span class="reference-system-tag">Tormenta20</span></h2>
+                                <button type="button" class="reference-back-button" x-on:click="selectedSystem = ''; search = ''"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span><span>Sistemas</span></button>
+                            </div>
                         <div class="ref-search">
                             <span
                                 class="material-symbols-outlined"
@@ -6489,6 +6714,7 @@
                             class="empty-state"
                         >
                             Nenhuma condição encontrada.
+                        </div>
                         </div>
                     </div>
                 </div>

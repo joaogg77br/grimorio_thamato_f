@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs"
 import { loadEnv } from "vite"
 
 const magias = JSON.parse(readFileSync(new URL("../../magias-tormenta20.json", import.meta.url), "utf8"))
-const apiBaseUrl = loadEnv("development", process.cwd()).VITE_API_URL ?? "http://localhost:3000"
+const apiBaseUrl = loadEnv("development", process.cwd()).VITE_API_URL ?? "https://grimorioback.vercel.app/"
 
 test("lista aprimoramentos da ficha e do catálogo com custos, restrições e truques", async ({ page }, testInfo) => {
   const errors = []

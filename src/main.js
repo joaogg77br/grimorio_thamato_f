@@ -19,6 +19,7 @@ import { createConfirmationStore, createToastStore } from "./lib/notifications.j
 import socket from "./lib/socket.js"
 
 socket.on("connect", () => {
+  console.log("")
 })
 
 socket.on("grimorio", (msg) => {

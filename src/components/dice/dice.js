@@ -85,12 +85,14 @@ export default {
           this.rollCustom(label)
           if (sistema === "geral") {
             const value = this.lastRollData ? `${label || "Rolagem"}: ${this.montarRollString(this.lastRollData)}` : null
-            window.dispatchEvent(new CustomEvent("general-dice-result", { detail: {
-              fichaId,
-              result: this.lastRollData ? { total: this.lastResult, detail: this.lastDetail, formula } : null,
-              value,
-              error: this.lastRollData ? "" : "Fórmula inválida. Use, por exemplo, 1d20+3 ou 2d6.",
-            } }))
+            window.dispatchEvent(new CustomEvent("general-dice-result", {
+              detail: {
+                fichaId,
+                result: this.lastRollData ? { total: this.lastResult, detail: this.lastDetail, formula } : null,
+                value,
+                error: this.lastRollData ? "" : "Fórmula inválida. Use, por exemplo, 1d20+3 ou 2d6.",
+              }
+            }))
             return
           }
           if (this.lastRollData) {
@@ -106,7 +108,7 @@ export default {
           const dm = Number(danoMod) || 0
           const dsign = (dm >= 0 ? "+" : "") + dm
           this.suppressToasts = true
-          this.executeRoll(`1D20${sign}`, label)
+          this.executeRoll(`1D20${sign}`, label, { sendToParty: false })
           const ataqueTotal = this.lastResult
           const ataqueDetail = this.lastDetail
           const ataqueRollData = this.lastRollData
@@ -120,13 +122,13 @@ export default {
           let danoFormula
           if (ataqueIsCrit && multiplier > 1) {
             danoFormula = this.multiplyDiceFormula(arma.dadoDeDano || "1d4", multiplier) + dsign
-            this.executeRoll(danoFormula, `${label} — Dano`)
+            this.executeRoll(danoFormula, `${label} — Dano`, { sendToParty: false })
             danoTotal = this.lastResult
             danoDetail = this.lastDetail
             critTotal = danoTotal
           } else {
             danoFormula = `${arma.dadoDeDano || "1d4"}${dsign}`
-            this.executeRoll(danoFormula, `${label} — Dano`)
+            this.executeRoll(danoFormula, `${label} — Dano`, { sendToParty: false })
             danoTotal = this.lastResult
             danoDetail = this.lastDetail
             critTotal = danoTotal
@@ -134,6 +136,14 @@ export default {
           const danoRollData = this.lastRollData
           const valorHistorico = `${this.montarRollString(ataqueRollData)}, Dano:${this.montarRollString(danoRollData)}`
           this.suppressToasts = false
+          const sala = localStorage.getItem("sala-chave")
+          if (sala && ataqueRollData && danoRollData) {
+            socket.emit("salaparty", {
+              msg: `${label} — ${this.montarRollString(ataqueRollData)}; Dano: ${this.montarRollString(danoRollData)}`,
+              playerName: this.playerName || "Jogador",
+              salaId: sala
+            })
+          }
           this.persistirHistorico(fichaId, valorHistorico)
           this.pushAtaqueToast(
             arma.nome,
@@ -173,8 +183,8 @@ export default {
         }
       },
 
-
       pushMiniToast(label, result, detail, rolls, isCrit = false) {
+        console.log(detail);
 
         async function AchaPessoa() {
           const GrimorioSession = localStorage.getItem("grimorio_session")
@@ -251,7 +261,7 @@ export default {
         return Math.floor(Math.random() * sides) + 1
       },
 
-      executeRoll(formula, label) {
+      executeRoll(formula, label, { sendToParty = true } = {}) {
         try {
           const parsed = this.parseDice(formula)
           const rolls = []
@@ -301,13 +311,14 @@ export default {
           }
           const isCrit = chosenD20 !== null && chosenD20 === 20
           const isCritFail = chosenD20 !== null && chosenD20 === 1
+
           let detail = rolls.length ? `[${rolls.join(", ")}]` : ""
           if (mods.length) {
             detail = detail ? `${detail} ${mods.join(" ")}` : mods.join(" ")
           }
           const sala = localStorage.getItem("sala-chave")
-          if (sala) socket.emit("salaparty", {
-            msg: `${label} - ${detail} = ${total}`,
+          if (sendToParty && sala) socket.emit("salaparty", {
+            msg: `${label}- ${detail} = ${total}`,
             playerName: this.playerName || "Jogador",
             salaId: sala
           })
@@ -415,7 +426,7 @@ export default {
         try {
           const audio = new Audio(`/sounds/${style}-${outcome}.ogg`)
           audio.volume = .45
-          audio.play()?.catch(() => {})
+          audio.play()?.catch(() => { })
         } catch { }
       },
 

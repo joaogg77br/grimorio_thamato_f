@@ -6,22 +6,37 @@ import "./ui.css"
 import "./home.css"
 import "./general-sheet.css"
 import "./system-picker.css"
-import { io } from "socket.io-client"
-
-const socket = io("https://grimorioback.vercel.app/", {
-  transports: ["websocket"]
-})
-
 import character from "./components/character/character.js"
 import dice from "./components/dice/dice.js"
 import campaign from "./components/campaign/campaign.js"
 import master from "./components/master/master.js"
 import reference from "./components/reference/reference.js"
 import auth from "./components/auth/auth.js"
-
 import { localDB } from "./lib/localDB.js"
 import { sheetBackgroundFiles } from "./lib/sheetBackgroundFiles.js"
 import { checkLogged } from "./useApi/index.js"
+import { createConfirmationStore, createToastStore } from "./lib/notifications.js"
+import socket from "./lib/socket.js"
+
+socket.on("connect", () => {
+})
+
+socket.on("grimorio", (msg) => {
+  const history = document.getElementById("rolandoDadosHistory")
+  if (!history) return
+  const roll = msg && typeof msg === "object" ? msg : { msg }
+  const entry = document.createElement("article")
+  entry.className = "history-item"
+  const title = document.createElement("span")
+  title.className = "history-entry-title"
+  title.textContent = roll.playerName || "Rolagem de campanha"
+  const detail = document.createElement("span")
+  detail.className = "history-entry-detail"
+  detail.textContent = String(roll.msg ?? "")
+  entry.append(title, detail)
+  history.prepend(entry)
+  document.getElementById("rolandoDadosEmpty")?.remove()
+})
 
 const SESSION_CHECK_INTERVAL = 5 * 60 * 1000
 const storedSession = localDB.getSession()
@@ -49,23 +64,8 @@ applyTheme(localStorage.getItem(THEME_KEY))
 Alpine.plugin(alpineRouter)
 
 document.addEventListener("alpine:init", () => {
-  Alpine.store("toasts", {
-    items: [],
-    seq: 0,
-    push(message, type = "success") {
-      const id = ++this.seq
-      this.items.push({ id, message, type })
-      setTimeout(() => this.dismiss(id), 3400)
-    },
-    dismiss(id) {
-      const toast = this.items.find((t) => t.id === id)
-      if (!toast || toast.leaving) return
-      toast.leaving = true
-      setTimeout(() => {
-        this.items = this.items.filter((t) => t.id !== id)
-      }, 280)
-    },
-  })
+  Alpine.store("toasts", createToastStore())
+  Alpine.store("confirmation", createConfirmationStore())
 
   Alpine.store("sound", {
     _enabled: localStorage.getItem("grimorio_sound") !== "off",
@@ -220,6 +220,7 @@ document.addEventListener("alpine:init", () => {
 
     guardRoute() {
       this.settingsOpen = false
+      this.$store.confirmation.settle(false)
       if (!this.autoLoginAttempted) return
       if (!this.$store.auth.authenticated && !this.$router.is(...PUBLIC_PATHS)) {
         this.$router.replace("/")
@@ -319,6 +320,7 @@ document.addEventListener("alpine:init", () => {
     async init() {
       window.addEventListener("grimorio:unauthorized", () => this.clearSession())
       this.$watch("$router.path", () => this.guardRoute())
+      this.$watch("$store.auth.user", () => this.$store.confirmation.settle(false))
       await this.restoreSession()
       this.autoLoginAttempted = true
       this.guardRoute()
@@ -377,7 +379,9 @@ document.addEventListener("alpine:init", () => {
   }))
 })
 
+Window.Socket = socket
 window.Alpine = Alpine
-window.grimorioSocket = socket
 
 Alpine.start()
+
+export default socket;

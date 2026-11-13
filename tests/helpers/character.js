@@ -6,6 +6,7 @@ export function createCharacter() {
   state.$store = {
     auth: { user: { id: "test-user", name: "Jogador" } },
     toasts: { push: vi.fn() },
+    confirmation: { request: vi.fn().mockResolvedValue(true) },
     sheetBackground: { setSheetOpen: vi.fn() },
   }
   let url = new URL("http://localhost/personagens")

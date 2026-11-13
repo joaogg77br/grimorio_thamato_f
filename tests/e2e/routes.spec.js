@@ -6,7 +6,7 @@ const background = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAA
 async function prepare(page, { authenticated = true } = {}) {
   const errors = []
   page.on("pageerror", error => errors.push(error.message))
-  await page.routeWebSocket(/grimorioback/, socket => socket.close())
+  await page.routeWebSocket(/\/socket\.io\//, socket => socket.close())
   await page.route(/fonts\.(googleapis|gstatic)\.com/, route => route.abort())
   await page.addInitScript(({ authenticated, background }) => {
     if (authenticated) {

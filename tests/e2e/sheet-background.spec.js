@@ -10,7 +10,7 @@ const gif = Buffer.from(
 async function openSheet(page) {
   const errors = []
   page.on("pageerror", error => errors.push(error.message))
-  await page.routeWebSocket(/grimorioback/, socket => socket.close())
+  await page.routeWebSocket(/\/socket\.io\//, socket => socket.close())
   await page.route(/fonts\.(googleapis|gstatic)\.com/, route => route.abort())
   await page.addInitScript(() => {
     localStorage.setItem("grimorio_session", JSON.stringify({

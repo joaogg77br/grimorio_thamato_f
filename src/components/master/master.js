@@ -63,7 +63,13 @@ export default {
       async removeCampaign() {
         const campanha = this.selectedCampaign
         if (!campanha || this.deletingCampaign) return
-        if (!confirm(`Tem certeza que deseja deletar a campanha "${campanha.nomeCampanha}"?`)) return
+        const userId = this.$store.auth.user?.id
+        if (!await this.$store.confirmation.request({
+          title: "Excluir campanha?",
+          message: `A campanha “${campanha.nomeCampanha}” será excluída permanentemente e deixará de aparecer para seus participantes. Esta ação não pode ser desfeita.`,
+          confirmLabel: "Excluir campanha",
+        })) return
+        if (this.$store.auth.user?.id !== userId || this.deletingCampaign) return
         this.deletingCampaign = true
         try {
           await deleteCampanha(campanha.id)
@@ -121,7 +127,7 @@ export default {
       },
 
       editFicha(f) {
-        this.$store.masterView.ficha = f
+        this.$store.masterView.ficha = { ...f, campanhaId: this.selectedCampaignId || f.campanhaId || null }
         this.$store.toasts.push(`Editando ficha "${f.nomePersonagem}".`, "info")
       },
 

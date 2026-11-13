@@ -217,6 +217,9 @@ function getCampanhasByUser(userId) {
   return client.get(`/campanha/list/${userId}`)
 }
 
+function findCampanhaById(id) {
+  return client.get(`/campanha/${id}`)
+}
 function findCampanhaByChaveLink(chaveLink, userId) {
   return client.post(`/campanha/find/${chaveLink}`, { userId })
 }
@@ -265,4 +268,4 @@ function updateHistorico(historicoId, value) {
   return client.put(`/historico/update/${historicoId}`, { value })
 }
 
-export { createUser, loginUser, checkLogged, updateUser, getFichasByUser, findCampanhas, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, getAllEquipamentosByFicha, deleteEquipamento, updateEquipamento, createItemGeral, getItensGeraisByFicha, getItemGeral, updateItemGeral, deleteItemGeral, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, createCampanha, getCampanhasByMaster, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, removePlayerFromCampanha, leaveCampanha, deleteCampanha, addFichaToCampanha, getFichasByCampanha, removeFichaFromCampanha, createHistorico, getHistoricoByFicha, deleteHistorico, updateHistorico }
+export { createUser, loginUser, checkLogged, updateUser, getFichasByUser, findCampanhas, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, getAllEquipamentosByFicha, deleteEquipamento, updateEquipamento, createItemGeral, getItensGeraisByFicha, getItemGeral, updateItemGeral, deleteItemGeral, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, createCampanha, getCampanhasByMaster, getCampanhasByUser, findCampanhaByChaveLink, getPlayersByCampanha, removePlayerFromCampanha, leaveCampanha, deleteCampanha,findCampanhaById, addFichaToCampanha, getFichasByCampanha, removeFichaFromCampanha, createHistorico, getHistoricoByFicha, deleteHistorico, updateHistorico }

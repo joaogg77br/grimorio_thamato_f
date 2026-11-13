@@ -1,14 +1,8 @@
 import html from "./dice.html?raw"
+import socket from "../../lib/socket.js"
 import { createHistorico } from "../../useApi/index.js"
-import { io } from "socket.io-client"
+import { API_BASE_URL } from "../../useApi/config.js"
 
-const socket = io("https://grimorioback.vercel.app/", {
-  transports: ['websocket'],
-});
-
-socket.on("message", (msg) => {
-
-})
 
 export function clampAdvantageCount(value) {
   const n = Number(value)
@@ -63,6 +57,7 @@ export default {
     return {
       DICE_TYPES: [4, 6, 8, 10, 12, 20],
       customFormula: "",
+      playerName: "",
       lastResult: null,
       lastDetail: "",
       lastLabel: "",
@@ -81,6 +76,9 @@ export default {
       suppressToasts: false,
 
       init() {
+        window.addEventListener("dice-player-name", (e) => {
+          this.playerName = String(e.detail?.name || "").trim()
+        })
         window.addEventListener("roll-dice", (e) => {
           const { formula, label, fichaId, sistema } = e.detail
           this.customFormula = formula
@@ -177,10 +175,9 @@ export default {
 
 
       pushMiniToast(label, result, detail, rolls, isCrit = false) {
+
         async function AchaPessoa() {
-          socket.emit("message", `${label} - ${result} - ${detail}`);
           const GrimorioSession = localStorage.getItem("grimorio_session")
-          console.log("GrimorioSession", GrimorioSession)
         }
         AchaPessoa();
         const sorted = rolls ? [...rolls].sort((a, b) => a.value - b.value) : []
@@ -308,6 +305,12 @@ export default {
           if (mods.length) {
             detail = detail ? `${detail} ${mods.join(" ")}` : mods.join(" ")
           }
+          const sala = localStorage.getItem("sala-chave")
+          if (sala) socket.emit("salaparty", {
+            msg: `${label} - ${detail} = ${total}`,
+            playerName: this.playerName || "Jogador",
+            salaId: sala
+          })
           this.lastResult = total
           this.lastDetail = detail
           this.lastLabel = label

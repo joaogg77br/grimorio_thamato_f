@@ -3,12 +3,12 @@ import { readFileSync } from "node:fs"
 import { loadEnv } from "vite"
 
 const magias = JSON.parse(readFileSync(new URL("../../magias-tormenta20.json", import.meta.url), "utf8"))
-const apiBaseUrl = loadEnv("development", process.cwd()).VITE_API_URL ?? "https://grimorioback-rnkt.vercel.app/"
+const apiBaseUrl = loadEnv("development", process.cwd()).VITE_API_URL ?? "http://localhost:3000"
 
 test("lista aprimoramentos da ficha e do catálogo com custos, restrições e truques", async ({ page }, testInfo) => {
   const errors = []
   page.on("pageerror", error => errors.push(error.message))
-  await page.routeWebSocket(/grimorioback/, socket => socket.close())
+  await page.routeWebSocket(/\/socket\.io\//, socket => socket.close())
   await page.route(/fonts\.(googleapis|gstatic)\.com/, route => route.abort())
   await page.addInitScript(() => {
     localStorage.setItem("grimorio_session", JSON.stringify({ user: { id: "spell-user", name: "Jogador", email: "spells@example.test" }, token: "test-token" }))

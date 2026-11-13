@@ -135,6 +135,7 @@ describe("Salvamento da ficha", () => {
 
   it("preserva a ficha quando a API falha e permite tentar sair novamente", async () => {
     vi.spyOn(console, "error").mockImplementation(() => {})
+    state.currentFichaCampaignId = 30
     vi.mocked(updateFicha).mockRejectedValueOnce(new Error("Falha simulada"))
     state.scheduleAutoSave()
     await state.sairDaFicha()
@@ -143,6 +144,7 @@ describe("Salvamento da ficha", () => {
     expect(state.form.nome).toBe("Arin")
     expect(state.autoSaveState).toBe("erro")
     expect(state.leavingFicha).toBe(false)
+    expect(state.$router.resolve()).toBe("/personagens/ficha/pericias?id=ficha-teste&campanhaId=30")
     expect(state.$store.toasts.push).toHaveBeenCalledWith(expect.any(String), "error")
     await state.sairDaFicha()
     expect(state.viewMode).toBe("list")

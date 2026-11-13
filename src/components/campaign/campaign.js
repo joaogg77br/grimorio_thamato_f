@@ -63,7 +63,13 @@ export default {
 
       async leaveCampaign(c) {
         if (this.leavingId === c.id) return
-        if (!confirm(`Tem certeza que deseja sair da campanha "${c.nomeCampanha}"?`)) return
+        const userId = this.$store.auth.user?.id
+        if (!await this.$store.confirmation.request({
+          title: "Sair da campanha?",
+          message: `Você sairá da campanha “${c.nomeCampanha}”. Para participar novamente, será necessário entrar com o código de convite.`,
+          confirmLabel: "Sair da campanha",
+        })) return
+        if (this.$store.auth.user?.id !== userId || this.leavingId === c.id) return
         const playerId = this.playerIdIn(c)
         if (!playerId) return
         this.leavingId = c.id
@@ -204,12 +210,18 @@ export default {
           if (inCampIds.has(f.id)) return false
           if (!term) return true
           return (f.nomePersonagem || "").toLowerCase().includes(term) ||
-                 (f.classe || "").toLowerCase().includes(term)
+            (f.classe || "").toLowerCase().includes(term)
         })
+      },
+
+      fichaCampaign(ficha) {
+        const campaigns = [...this.myCampaigns, ...this.memberCampaigns]
+        return campaigns.find(c => (c.fichas || []).some(item => String(item.id) === String(ficha.id))) || null
       },
 
       async addFichaToTarget(f) {
         if (!this.fichaTargetId) return
+        if (this.fichaCampaign(f)) return
         this.addingFichaId = f.id
         try {
           await addFichaToCampanha(this.fichaTargetId, f.id)

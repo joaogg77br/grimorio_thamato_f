@@ -1,5 +1,4 @@
 <div class="character-page-wrapper">
-    oi
     <div class="toolbar-left">
       <div class="char-select-wrap">
         <label for="char-selector">Personagem:</label>
@@ -7,8 +6,7 @@
           id="char-selector"
           x-model="selectedCharId"
           x-on:change="selectCharacter(selectedCharId)"
-          class="char-select"
-        >
+          class="char-select" >
           <template x-for="c in fichasApi" :key="c.id">
             <option
               :value="c.id"
@@ -16,7 +14,7 @@
             ></option>
           </template>
           <option value="" x-show="!selectedCharId">
-            + Criar Novo Personagem 
+            + Criar Novo Personagem
           </option>
         </select>
       </div>
@@ -35,8 +33,7 @@
       <button
         x-show="selectedCharId"
         x-on:click="deleteCharacter()"
-        class="t20-btn t20-btn-delete"
-      >
+        class="t20-btn t20-btn-delete" >
         Excluir
       </button>
     </div>

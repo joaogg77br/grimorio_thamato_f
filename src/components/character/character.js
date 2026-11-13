@@ -1,7 +1,8 @@
 import { localDB, generateId } from "../../lib/localDB.js"
 import { generalApi } from "../../useApi/generalApi.js"
+import { getFichaCompleta } from "../../useApi/fichaApi.js"
+import { buildFichaCopyPayload } from "../../lib/fichaCopy.js"
 import { getFichasByUser, createFicha, updateFicha, deleteFicha, createArma, getArmasByFicha, deleteArma, updateArma, createProtecao, getProtecoesByFicha, deleteProtecao, updateProtecaoEquipada, updateProtecao, createEquipamento, getEquipamentosByFicha, deleteEquipamento, updateEquipamento, createMagia, getMagiasByFicha, deleteMagia, updateMagia, createHabilidade, getHabilidadesByFicha, deleteHabilidade, updateHabilidade, getPericiasByFicha, updatePericia, getHistoricoByFicha, deleteHistorico } from "../../useApi/index.js"
-import html from "./character.html?raw"
 import { FICHA_PATHS, fichaPath, fichaSection } from "../../lib/routes.js"
 import ARMAS_DATA from "../../data/armas.js"
 import PROTECOES_DATA from "../../data/protecoes.js"
@@ -15,6 +16,10 @@ import RACAS_DATA, { limparEmojiRaca, adicionarEmojiRaca } from "../../data/raca
 import { limparEmojiClasse } from "../../data/classes.js"
 import { valoresIniciais } from "../../data/valores-iniciais.js"
 import { detalhesMagia, serializarDescricaoMagia } from "../../lib/spellDetails.js"
+import socket from "../../lib/socket.js"
+
+let messageBox = document.getElementById("messageBox");
+let fechadorDados = document.getElementById("fechadorDados");
 
 const CLASSES = EVOLUCAO_CLASSES.map(classe => classe.classe)
 
@@ -134,7 +139,6 @@ function buildEmptyForm() {
 }
 
 export default {
-  html,
   data() {
     return {
       viewMode: 'list',
@@ -144,6 +148,7 @@ export default {
       systemPickerTrigger: null,
       generalCreateOpen: false,
       currentFichaSystem: "tormenta",
+     // currentFichaCampaignId: null,
       generalCharacter: { nome: "", jogador: "", armas: [], habilidade: [], pericias: [], defesa: [], historico: [], accounts: [], camposSimples: [] },
       generalNameEditing: false,
       generalNameDraft: "",
@@ -151,6 +156,9 @@ export default {
       generalSection: "armas",
       generalEditorOpen: false,
       deletingFicha: false,
+      duplicatingFicha: null,
+      duplicationStage: 0,
+      duplicationName: "",
       generalEditorType: "",
       generalEditorIndex: null,
       generalDraft: {},
@@ -286,7 +294,6 @@ export default {
           { key: "habilidades", label: "Habilidades", icon: "auto_awesome" },
           { key: "descricao", label: "Descrição", icon: "notes" },
           { key: "ataques", label: "Ataques", icon: "swords" },
-          { key: "historico", label: "Histórico", icon: "history" },
         ]
       },
 
@@ -295,6 +302,11 @@ export default {
       },
 
       get hasOpenFicha() {
+        const sala = localStorage.getItem("sala-chave")
+
+        if (this.currentFichaCampaignId) {
+          messageBox.style.display = "flex"
+        }
         return this.viewMode === "edit" && Boolean(this.selectedCharId)
       },
 
@@ -595,9 +607,12 @@ export default {
 
       async init() {
         this.syncSheetBackgroundState()
-        this.$watch("$router.path + '?' + ($router.query.id || '') + ':' + ($router.query.sistema || '')", () => this.syncCharacterRoute())
+        this.$watch("$router.path + '?' + ($router.query.id || '') + ':' + ($router.query.sistema || '') + ':' + ($router.query.campanhaId || '')", () => this.syncCharacterRoute())
         this.$watch("form", () => {
           this.scheduleAutoSave()
+        })
+        this.$watch("form.jogador", (name) => {
+          window.dispatchEvent(new CustomEvent("dice-player-name", { detail: { name } }))
         })
         this.$watch("viewMode", () => this.syncSheetBackgroundState())
         this.$watch("selectedCharId", () => this.syncSheetBackgroundState())
@@ -665,8 +680,9 @@ export default {
         const id = this.$router.query.id
         const sistema = this.$router.query.sistema === "geral" ? "geral" : "tormenta"
         if (this.selectedCharId && (!id || (String(this.selectedCharId) === String(id) && this.currentFichaSystem === sistema))) {
+          if (id) this.currentFichaCampaignId = this.$router.query.campanhaId || null
           this.openFichaSection(section, { updateRoute: false })
-          if (!id) this.$router.replace(fichaPath(section, this.selectedCharId, this.currentFichaSystem))
+          if (!id) this.$router.replace(fichaPath(section, this.selectedCharId, this.currentFichaSystem, this.currentFichaCampaignId))
           return
         }
         if (!this.fichasLoaded || !this.$store.auth.user) return
@@ -676,12 +692,12 @@ export default {
           if (this.$router.resolve() !== destination) return
         }
         const ficha = this.fichasApi.find(item => String(item.id) === String(id) && (item.sistema || "tormenta") === sistema)
-        if (ficha) await this.abrirFicha(ficha, { updateRoute: false })
+        if (ficha) await this.abrirFicha(ficha, { updateRoute: false, campanhaId: this.$router.query.campanhaId || ficha.campanhaId || null })
         else this.$router.replace("/personagens")
       },
 
       navigateCharacterRoute(section = this.activeTab) {
-        this.$router.push(fichaPath(section, this.selectedCharId, this.currentFichaSystem))
+        this.$router.push(fichaPath(section, this.selectedCharId, this.currentFichaSystem, this.currentFichaCampaignId))
       },
 
       async carregarFichas() {
@@ -719,7 +735,10 @@ export default {
         return this.fichasRequest
       },
 
-      async abrirFicha(ficha, { updateRoute = true } = {}) {
+      async abrirFicha(ficha, { updateRoute = true, campanhaId = ficha.campanhaId ?? null } = {}) {
+        //E aqui que abrimos a ficha.
+        console.log("ficha ABrida")
+       //part I
         if (this.leavingFicha || this.generalSaving) return
         this.generalEditorOpen = false
         const loadVersion = ++this.fichaLoadVersion
@@ -728,7 +747,10 @@ export default {
         this.clearAutoSaveTimer()
         this.selectedCharId = ficha.id
         this.currentFichaSystem = ficha.sistema || "tormenta"
+        this.currentFichaCampaignId = campanhaId
+        //Importante
         const generalElements = this.currentFichaSystem === "geral" ? this.loadGeneralElements(ficha) : null
+
         this.generalCharacter = {
           nome: ficha.nomePersonagem || "",
           jogador: ficha.nomeJogador || "",
@@ -740,6 +762,7 @@ export default {
           accounts: generalElements?.accounts || [],
           camposSimples: generalElements?.camposSimples || [],
         }
+
         this.generalSection = "armas"
         this.generalDiceResult = null
         this.generalDiceError = ""
@@ -787,6 +810,7 @@ export default {
           tibares: this.toNum(ficha.tibao, this.toNum(ficha.tibares, 0)),
           anotacoes: ficha.descricao || '',
         }
+        window.dispatchEvent(new CustomEvent("dice-player-name", { detail: { name: this.form.jogador } }))
         this.activeTab = fichaSection(this.$router)
         this.viewMode = 'edit'
         this.sectionOpen = false
@@ -796,7 +820,9 @@ export default {
         this.expandedMagiaCarregadaId = null
         this.expandedHabilidadeCarregadaId = null
         this.expandedAtaqueArmaId = null
+        //vc
         if (updateRoute) this.navigateCharacterRoute(this.activeTab)
+
         if (this.currentFichaSystem === "geral") {
           this.armasCarregadas = []
           this.protecoesCarregadas = []
@@ -814,6 +840,7 @@ export default {
           this.loadPericiasFicha(ficha.id),
           this.loadHistoricoFicha(ficha.id),
         ])
+
         if (loadVersion !== this.fichaLoadVersion) return
         this.$nextTick(() => {
           if (loadVersion !== this.fichaLoadVersion) return
@@ -839,7 +866,7 @@ export default {
       async sairDaFicha({ navigate = true } = {}) {
         if (this.isGeneralFicha && this.generalSaving) return false
         if (this.leavingFicha) return false
-        const returnPath = fichaPath(this.activeTab, this.selectedCharId, this.currentFichaSystem)
+        const returnPath = fichaPath(this.activeTab, this.selectedCharId, this.currentFichaSystem, this.currentFichaCampaignId)
         let hasPendingChanges = Boolean(this.autoSaveTimer) || ["editando", "erro"].includes(this.autoSaveState) || this.autoSaveQueued
         this.leavingFicha = true
         this.clearAutoSaveTimer()
@@ -874,6 +901,8 @@ export default {
         this.autoSaveSuspended = false
         this.viewMode = 'list'
         this.selectedCharId = null
+        this.currentFichaCampaignId = null
+        window.dispatchEvent(new CustomEvent("dice-player-name", { detail: { name: "" } }))
         this.sectionOpen = false
         this.sectionMenuOpen = false
         this.form = buildEmptyForm()
@@ -983,7 +1012,7 @@ export default {
         const request = ++this.generalLoadRequest
         this.generalLoading = true
         this.generalLoadError = ""
-          const types = ["pericias", "habilidade", "accounts", "camposSimples"]
+        const types = ["pericias", "habilidade", "accounts", "camposSimples"]
         const results = await Promise.allSettled(types.map(type => generalApi.list(type, fichaId)))
         if (request !== this.generalLoadRequest) return
         this.generalLoading = false
@@ -992,7 +1021,7 @@ export default {
         results.forEach((result, index) => {
           const type = types[index]
           if (result.status === "fulfilled") {
-          const drafts = character[type].filter(item => !this.isGeneralRemoteElement(item))
+            const drafts = character[type].filter(item => !this.isGeneralRemoteElement(item))
             character[type] = [...result.value, ...drafts]
           } else failed.push({ pericias: "perícias", habilidade: "habilidades", accounts: "contadores", camposSimples: "campos" }[type])
         })
@@ -1745,7 +1774,14 @@ export default {
 
       async limparHistoricoFicha() {
         if (!this.selectedCharId && !this.historicoCarregado.length) return
-        if (!confirm("Tem certeza que deseja limpar todo o histórico?")) return
+        const fichaId = this.selectedCharId
+        const userId = this.$store.auth.user?.id
+        if (!await this.$store.confirmation.request({
+          title: "Limpar histórico?",
+          message: "Todas as rolagens do histórico desta ficha serão excluídas. Esta ação não pode ser desfeita.",
+          confirmLabel: "Limpar histórico",
+        })) return
+        if (this.selectedCharId !== fichaId || this.$store.auth.user?.id !== userId) return
         try {
           await Promise.all(this.historicoCarregado.map(h => deleteHistorico(h.id)))
           this.historicoCarregado = []
@@ -2108,16 +2144,68 @@ export default {
         await this.deleteFichaCard({ id: this.selectedCharId, nomePersonagem: this.form.nome, sistema: this.currentFichaSystem })
       },
 
+      async duplicarFichaCard(ficha) {
+        const user = this.$store.auth.user
+        if (!user || !ficha?.id || this.duplicatingFicha || this.deletingFicha || this.creatingFicha || this.openingFicha) return
+        const sistema = ficha.sistema || "tormenta"
+        this.duplicationStage = 0
+        this.duplicationName = ficha.nomePersonagem || "Personagem sem Nome"
+        this.duplicatingFicha = `${sistema}:${ficha.id}`
+        try {
+          let completa = await getFichaCompleta(ficha.id, sistema)
+          if (this.$store.auth.user?.id !== user.id) return
+          if (sistema === "geral") completa = { ...completa, ...this.loadGeneralElements(completa) }
+          this.duplicationName = completa.nomePersonagem || this.duplicationName
+          this.duplicationStage = 1
+          const payload = buildFichaCopyPayload(completa, user.id)
+          const { data } = await createFicha(payload, sistema)
+          const criada = sistema === "geral" ? data?.fichaGeral : data?.tormentaFicha
+          if (!criada?.id) throw new Error("A cópia não foi retornada pela API")
+          let localSaved = true
+          if (sistema === "geral") {
+            const local = Object.fromEntries(["armas", "defesa", "historico"].map(key => [key, completa[key].map(item => {
+              const { id, fichaId, fichaGeralId, ...fields } = item
+              return { ...fields, id: generateId(), _generalLocal: true }
+            })]))
+            try {
+              localStorage.setItem(`grimorio_general_ficha_${criada.id}`, JSON.stringify(local))
+            } catch {
+              localSaved = false
+            }
+          }
+          if (this.$store.auth.user?.id !== user.id) return
+          const card = { ...Object.fromEntries(Object.entries(payload).filter(([, value]) => value === null || typeof value !== "object")), ...criada, sistema }
+          this.duplicationStage = 2
+          await this.carregarFichas()
+          if (this.$store.auth.user?.id !== user.id) return
+          if (!this.fichasApi.some(item => String(item.id) === String(criada.id) && (item.sistema || "tormenta") === sistema)) this.fichasApi = [...this.fichasApi, card]
+          this.$store.toasts.push(localSaved ? "Ficha duplicada com sucesso!" : "Ficha duplicada, mas não foi possível guardar as armas, defesas e histórico locais neste dispositivo.", localSaved ? "success" : "info")
+        } catch (err) {
+          console.error("Erro ao duplicar ficha:", err)
+          if (this.$store.auth.user?.id === user.id) this.$store.toasts.push("Não foi possível duplicar a ficha. Tente novamente.", "error")
+        } finally {
+          this.duplicatingFicha = null
+          this.duplicationStage = 0
+          this.duplicationName = ""
+        }
+      },
+
       async deleteFichaCard(ficha) {
-        if (!ficha?.id || this.deletingFicha) return
+        if (!ficha?.id || this.deletingFicha || this.duplicatingFicha) return
         const nome = ficha.nomePersonagem || "esta ficha"
         const sistema = ficha.sistema || "tormenta"
-        if (!confirm(`Tem certeza que deseja excluir ${nome}?`)) return
+        const userId = this.$store.auth.user?.id
+        if (!await this.$store.confirmation.request({
+          title: "Excluir ficha?",
+          message: `A ficha “${nome}” e seus elementos serão excluídos permanentemente. Esta ação não pode ser desfeita.`,
+          confirmLabel: "Excluir ficha",
+        })) return
+        if (this.$store.auth.user?.id !== userId || this.deletingFicha || this.duplicatingFicha) return
         this.deletingFicha = true
         try {
           await deleteFicha(ficha.id, sistema)
           if (sistema === "geral") {
-            try { localStorage.removeItem(`grimorio_general_ficha_${ficha.id}`) } catch {}
+            try { localStorage.removeItem(`grimorio_general_ficha_${ficha.id}`) } catch { }
           }
           this.$store.toasts.push("Ficha excluída.", "success")
           if (String(this.selectedCharId) === String(ficha.id) && this.currentFichaSystem === sistema) this.voltarParaLista()
@@ -2130,13 +2218,21 @@ export default {
         }
       },
 
-      resetForm() {
-        if (!confirm("Deseja resetar os campos da ficha atual?")) return
+      async resetForm() {
+        const form = this.form
+        const userId = this.$store.auth.user?.id
+        if (!await this.$store.confirmation.request({
+          title: "Restaurar campos da ficha?",
+          message: "Os campos serão substituídos pelos valores iniciais. As alterações serão salvas automaticamente na ficha atual.",
+          confirmLabel: "Restaurar campos",
+        })) return
+        if (this.form !== form || this.$store.auth.user?.id !== userId) return
         const curId = this.selectedCharId
         this.form = this.emptyForm()
         this.nivelAnterior = this.toNum(this.form.nivel, 1)
         this.selectedCharId = curId
         if (curId) this.form.id = curId
+        this.$store.toasts.push("Campos da ficha restaurados.", "info")
       },
 
       rollPericia(p) {
